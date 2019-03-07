@@ -1,0 +1,904 @@
+
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @media screen and (min-resolution: 3dppx) {
+      body {
+        font-size: 48px;
+      }
+    }
+
+    @media screen and (min-resolution: 2dppx) and (max-resolution: 2.9dppx) {
+      body {
+        font-size: 32px;
+      }
+    }
+
+    @media screen and (min-resolution: 1dppx) and (max-resolution: 1.9dppx) {
+      body {
+        font-size: 16px;
+      }
+    }
+
+    input {
+      font-size: 1em;
+      width: 100%;
+      max-width: 20em;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td {
+      word-break: keep-all;
+    }
+
+    .typeZ {
+      background-color: #004a80;
+      color: #ffffff;
+    }
+
+    .typeT {
+      background-color: #123da1;
+      color: #c32230;
+    }
+
+    .typeK,
+    .typeY {
+      background-color: #cc4c33;
+      color: #ffffff;
+    }
+
+    .type1,
+    .type2,
+    .type3,
+    .type4,
+    .type5,
+    .type6,
+    .type7,
+    .type8,
+    .type9 {
+      background-color: #305030;
+      color: #fdde00
+    }
+
+    .typeG {
+      background-color: #d4d4d4;
+      color: #a80022
+    }
+
+    .typeC {
+      background-color: #bf9540;
+      color: #ffffff;
+    }
+
+    .typeD,
+    .typeS {
+      background-color: #ffffff;
+      color: #3d668f;
+    }
+
+    .ticket_out {
+      background-color: #ffffff;
+      color: #999999;
+    }
+    .ticket_warn {
+      background-color: #ef8a3b;
+      color: #ffffff;
+    }
+    .ticket_full {
+      background-color: #569b4c;
+      color: #ffffff;
+    }
+  </style>
+  <style title='hide'>
+  </style>
+</head>
+
+<body>
+  <div id="time"></div>
+  <form>
+    <input type="date" id="date" onchange="console.log(this.value)" />
+    <span onclick="setValue('date',date_add(getValue('date'),-7))">-7</span>
+    <span onclick="setValue('date',date_add(getValue('date'),-1))">-1</span>
+    <span onclick="setValue('date',date_add(getValue('date'),1))">+1</span>
+    <span onclick="setValue('date',date_add(getValue('date'),7))">+7</span>
+    <span onclick="setValue('date',date_add(getValue('date'),29))">+29</span>
+    <br />
+    <input type="text" id="keyword" placeholder="车次或站名" onchange="console.log(this.value)" />
+    <!--input name="btn" type="submit" value="车次查询" onclick="search_train_list(getValue('keyword'));return false;"//-->
+    <input name="btn" type="submit" value="查询" onclick="search(getValue('keyword'));return false;">
+    <!--input name="btn" type="submit" value="车次查询" onclick="search_v1(getValue('keyword'));return false;">
+    <input name="btn" type="submit" value="车站车次" onclick="czxx(getValue('keyword'));return false;"//-->
+    <br />
+  </form>
+  <div id="sch"></div>
+  <div id="result"></div>
+  <form>
+    <input type="text" id="form_station" placeholder="出发站" onchange="console.log(this.value)" />
+    <span onclick="changeFromTo()">&lt;=&gt;</span>
+    <input type="text" id="to_station" placeholder="终到站" onchange="console.log(this.value)" />
+    <input name="btn" type="submit" value="余票查询" onclick="getTicket(getValue('form_station'),getValue('to_station'), getValue('date'));return false;">
+    <br />
+  </form>
+  <div>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-03');return false;">03</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-04');return false;">04</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-05');return false;">05</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-06');return false;">06</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-07');return false;">07</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-08');return false;">08</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-09');return false;">09</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-10');return false;">10</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-11');return false;">11</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-12');return false;">12</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-13');return false;">13</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-14');return false;">14</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-15');return false;">15</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-16');return false;">16</span>
+    <span onclick="getTicket(getValue('form_station'),getValue('to_station'), '2019-02-17');return false;">17</span>
+    <span onclick="setHTML('ticket', '');return false;">清除</span>
+  </div>
+  <div>
+    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
+      var ss = document.styleSheets[i]
+      if (ss.title == 'hide') {
+        var j = ss.cssRules.length
+        while (j) {
+          ss.removeRule(--j)
+        }
+        ss.insertRule('.hideD,.hideC,.hideK{display:none}')
+      }
+    };return false;">GZT</span>
+    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
+      var ss = document.styleSheets[i]
+      if (ss.title == 'hide') {
+        var j = ss.cssRules.length
+        while (j) {
+          ss.removeRule(--j)
+        }
+        ss.insertRule('.hideG,.hideD,.hideC{display:none}')
+      }
+    };return false;">ZTK</span>
+    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
+      var ss = document.styleSheets[i]
+      if (ss.title == 'hide') {
+        var j = ss.cssRules.length
+        while (j) {
+          ss.removeRule(--j)
+        }
+        ss.insertRule('.hideG,.hideD,.hideC,.hideK{display:none}')
+      }
+    };return false;">ZT</span>
+    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
+      var ss = document.styleSheets[i]
+      if (ss.title == 'hide') {
+        var j = ss.cssRules.length
+        while (j) {
+          ss.removeRule(--j)
+        }
+      }
+    };return false;">All</span>
+  </div>
+  <div id="ticket"></div>
+  <a href="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0">train_list.js</a>
+  <br />
+  <a href="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js">station_name.js</a>
+  <br />
+  <a href="http://www.gtbyxx.com/wxg/ky/zhengwan.jsp" target="_blank">广铁正晚点</a>
+  <br />
+  <a href="http://61.161.203.55/mobile.myweixin.com/FtStationSch.html" target="_blank">沈局时刻表</a>
+  <br />
+
+  <script src="js/UNICODE2GBK.js" type="text/javascript"></script>
+  <script src="js/station_name.js" type="text/javascript"></script>
+  <!--script src="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js" type="text/javascript"></script//-->
+  <!--script src="js/train_list.js" type="text/javascript"></script//-->
+  <!--script src="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0" type="text/javascript"></script//-->
+  <script>
+    function setHTML(id, str) {
+      e = document.getElementById(id);
+      e && (e.innerHTML = str);
+    }
+
+    function setValue(id, str) {
+      e = document.getElementById(id);
+      e && (e.value = str);
+    }
+
+    function getValue(id) {
+      e = document.getElementById(id);
+      return e ? e.value : "";
+    }
+
+    function changeFromTo() {
+      var from = getValue("form_station");
+      var to = getValue("to_station");
+      setValue("form_station", to);
+      setValue("to_station", from);
+    }
+
+    window.LeftTicketUrl = "leftTicket/queryX"; // 余票默认URL
+
+    function startTime() {
+      clearTimeout(this.timeoutId);              //清除上一个定时器
+      var that = this;                      //将this关键字移动至本次refresh()执行中
+
+      var d = new Date()
+      var yyyy = ('0000' + d.getFullYear()).slice(-4)
+      var month = ('00' + (d.getMonth() + 1)).slice(-2);//Date().getMonth() 0,1,2,...,11
+      var dd = ('00' + d.getDate()).slice(-2)
+      var hh = ('00' + d.getHours()).slice(-2);
+      var mm = ('00' + d.getMinutes()).slice(-2);
+      var ss = ('00' + d.getSeconds()).slice(-2);
+      var xxx = ('000' + d.getMilliseconds()).slice(-3);
+      var day = new Date().getDay();//0,1,2,...,6
+      var str_day = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+      var day_month = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+      if (yyyy % 4 == 0) day_month[2 - 1] = 29;
+      if (yyyy % 100 == 0) day_month[2 - 1] = 28;
+      if (yyyy % 400 == 0) day_month[2 - 1] = 29;
+
+      curr_dd = dd - day;
+      curr_month = month;
+      if (curr_dd < 1) {//fix last Sun
+        curr_month--;
+        while (curr_month < 1) curr_month += 12;
+        curr_dd += day_month[(curr_month - 1)];
+      }
+
+      str_week = ""
+      for (i = 0; i < 7; i++) {
+        str_week += " " + curr_dd;
+        curr_dd++;
+        while (curr_dd > day_month[(curr_month - 1) % 12]) {
+          curr_dd -= day_month[(curr_month - 1) % 12];
+          curr_month++;
+          curr_month %= 12;
+        }
+      }
+
+      document.getElementById('time').innerHTML = (yyyy + "-" + month + "-" + dd + " " + hh + ":" + mm + ":" + ss + " " + str_day[day]).fontcolor("#cc0044") + " " + str_week + "<br />";
+      this.timeoutId = window.setTimeout(startTime, 100);   //刷新时间
+    }
+    //window.onload = startTime
+
+    function date_add(date, diff) {
+      if (typeof (date) != 'string') return ''
+      var f = 'yyyy-mm-dd'
+      var day_month = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+      match = date.match(/(\d+)-(\d+)-(\d+)/)
+      if (!match) return ''
+      y = Number(match[1])
+      m = Number(match[2])
+      d = Number(match[3])
+      if (y % 4 == 0) day_month[2 - 1] = 29;
+      if (y % 100 == 0) day_month[2 - 1] = 28;
+      if (y % 400 == 0) day_month[2 - 1] = 29;
+
+      d += diff
+      console.log(y, m, d)
+
+      while (d > day_month[(m - 1) % 12]) {
+        console.log(m, day_month[(m - 1) % 12])
+        d -= day_month[(m - 1) % 12];
+        m++;
+        console.log(y, m, d)
+        while (m > 12) {
+          m -= 12;
+          y += 1;
+          if (y % 4 == 0) day_month[2 - 1] = 29;
+          if (y % 100 == 0) day_month[2 - 1] = 28;
+          if (y % 400 == 0) day_month[2 - 1] = 29;
+          console.log(y, m, d)
+        }
+      }
+
+      while (d < 1) {
+        m--;
+        while (m < 1) {
+          y -= 1;
+          if (y % 4 == 0) day_month[2 - 1] = 29;
+          if (y % 100 == 0) day_month[2 - 1] = 28;
+          if (y % 400 == 0) day_month[2 - 1] = 29;
+          m += 12;
+          console.log(y, m, d)
+        }
+        console.log(m, day_month[(m - 1) % 12])
+        d += day_month[(m - 1) % 12];
+        console.log(y, m, d)
+      }
+
+      return f
+        .replace("yyyy", ('0000' + y).slice(-4))
+        .replace("mm", ('00' + m).slice(-2))
+        .replace("dd", ('00' + d).slice(-2))
+    }
+
+    function timeStr(i, ff) {
+      var n = Number(i);
+      var f = ff ? ff : "yyyy-mm-dd HH:MM:SS.xxx"
+      n > 0x7FFFFFFF ? n *= 1 : n *= 1000;
+      var d = n > 0 ? new Date(n) : new Date();
+      return f
+        .replace("yyyy", ('0000' + d.getFullYear()).slice(-4))
+        .replace("mm", ('00' + (d.getMonth() + 1)).slice(-2))
+        .replace("dd", ('00' + d.getDate()).slice(-2))
+        .replace("HH", ('00' + d.getHours()).slice(-2))
+        .replace("MM", ('00' + d.getMinutes()).slice(-2))
+        .replace("SS", ('00' + d.getSeconds()).slice(-2))
+        .replace("xxx", ('000' + d.getMilliseconds()).slice(-3));
+    }
+
+    date = timeStr(0, "yyyy-mm-dd")
+    //document.writeln(date + "<br />")
+    setValue("date", date);
+
+
+    var s = [];
+    if (typeof (station_names) != "undefined") {
+      var s1 = station_names.split("@");
+      for (var i = 0; i < s1.length; i++) {
+        var ss = s1[i];
+        if (ss.length > 0) {
+          ss = ss.split("|");
+          s.push(ss);
+        }
+      }
+      s.push(["jlo", "九龙", "JQO", "jiulong", "jl", "-1"]); //ktt
+      s.push(["", "香港西九龙", "XJA", "xianggangxijiulong", "xgxjl", "-1"])
+      // s.push(["tsn", "唐山南", "TNP", "tangshannan", "tsn", "-1"]);
+      s.push(["gye", "古冶", "GYP", "guye", "gy", "-1"]);
+      s.push(['csh', '春申', 'CWH', 'chunshen', 'cs', '-1']);
+      s.push(['xqi', '新桥', 'XQH', 'xinqiao', 'xq', '-1']);
+      // s.push(['', '车墩', 'CDH', 'chedun', 'cd', '-1']);
+      s.push(['yxi', '叶榭', 'YOH', 'yexie', 'yx', '-1']);
+      // s.push(['', '亭林', 'TLH', 'tinglin', 'tl', '-1']);
+      // s.push(['', '金山园区', 'BGH', 'jinshanwei', 'jsw', '-1']);
+      s.push(['jsw', '金山卫', 'BGH', 'jinshanwei', 'jsw', '-1']);
+      s.push(['mji', '梅江', 'MKQ', 'meijiang', 'mj', '-1']);
+      s.push(['ylo', '元龙', 'YLY', 'yuanlong', 'yl', '-1']);
+      s.push(['bdl', '八达岭', 'ILP', 'badaling', 'bdl', '-1']);
+      // s.push(['nsb', '南山北', 'NBQ', 'nanshanbei', 'nsb', '-1']);
+      // s.push(['', '羊木', 'YMJ', 'yangmu', 'ym', '-1']);
+      /* for (var i = 0; i < s.length; i++) {
+        s[i].push(i)
+      } */
+    }
+
+    function telecode(name) {
+      for (ii in s) {
+        if (s[ii][1] === name) {
+          return s[ii][2];
+        }
+      }
+      return "";
+    }
+
+    function name(tele) {
+      for (ii in s) {
+        if (s[ii][2] === tele) {
+          return s[ii][1];
+        }
+      }
+      return tele || "";
+    }
+
+    function getSchURL(code) { //TODO uppercase
+      if (!typeof (code) === "string") {
+        return "";
+      }
+
+      type = ""
+      switch (code[0]) {
+        case 'G':
+          type = "G";
+          break;
+        case 'D':
+          type = "D";
+          break;
+        case 'C':
+          type = "C";
+          break;
+        case 'Z':
+          type = "Z";
+          break;
+        case 'T':
+          type = "T";
+          break;
+        case 'K':
+          type = "K";
+          break;
+        default:
+          type = "O";
+          break;
+      }
+      var date = getValue("date");
+      for (i in train_list[date][type]) {
+        t = train_list[date][type][i];
+        match = t.station_train_code.match(/(.*)\((.*)-(.*)\)/);
+        if (match && match[1] == code) {
+          url = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + telecode(match[2]) + "&to_station_telecode=" + telecode(match[3]) + "&depart_date=" + date;
+          return url;
+        }
+      }
+      return "";
+    }
+
+    function zwdcxURL(str, trainNo, cxlx) {
+      if (!str) return "";
+      if (!trainNo) return "";
+      return "http://www.12306.cn/mapping/kfxt/zwdcx/LCZWD/cx.jsp?cz=" + unicode2gbk(str) + "&cc=" + trainNo + "&cxlx=" + cxlx + "&rq=" + timeStr(0, "yyyy-mm-dd") + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&tp=" + new Date().getTime();
+    }
+
+    /*
+    a = getURL(getSchURL("1461")); //时刻
+    var j = JSON.parse(a);
+    var sch = j.data.data;
+    str = "";
+    for (i in sch) {
+      if(i > 0) {
+        str += (sch[0].station_train_code + " " + sch[i].station_name + " " + sch[i].arrive_time + " " + "0" + " <a href=\"" + zwdcx(sch[i].station_name, sch[0].station_train_code, 0) + "\" target=\"_blank\">正晚点</a><br />\n");
+      }
+      if(i < sch.length - 1) {
+        str += (sch[0].station_train_code + " " + sch[i].station_name + " " + sch[i].start_time + " " + "1" + "  <a href=\"" + zwdcx(sch[i].station_name, sch[0].station_train_code, 1) + "\" target=\"_blank\">正晚点</a><br />\n");
+      }
+    }
+    
+    console.log(str);
+    document.getElementById("sch").innerHTML = str + "<br />\n" + document.getElementById("sch").innerHTML;
+    
+    
+    str = "";
+    str += (sch[0].station_train_code + " " + sch[0].train_class_name + " " + sch[0].start_station_name + " " + sch[0].end_station_name + "<br />\n");
+    for (i in sch) {
+      if(i >= 0) {
+        str += (sch[i].station_name + " " + sch[i].arrive_time + " " + sch[i].start_time + " " + sch[i].stopover_time + "<br />\n");
+      }
+    }
+    */
+
+    // setTimeout(function(){getzwdcx(zwdcx("沧州","k522",0))}, 3600000);
+
+    function getzwdcx_id(id) {
+      var sp = id.split("_");
+      if (sp.length > 2) {
+        getzwdcx(sp[0], sp[1], sp[2]);
+      }
+    }
+
+    function getzwdcx(str, trainNo, cxlx) {
+      var url = zwdcxURL(str, trainNo, cxlx)
+      if (!url) return;
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+          var s = xhr.responseText;
+          console.log(zwdcxHTML(s));
+          setHTML(str + "_" + trainNo + "_" + cxlx, zwdcxHTML(s));
+        }
+      }
+      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function zwdcxHTML(s) {
+      var match = s.match(/\d+:\d+/);
+      var time = match ? match[0] : "";
+      var match = s.match(/预计|暂无|无时刻/);
+      var status = match ? match[0] : "";
+      return status + time;
+    }
+
+
+    function getURL(url) {
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), false);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+      return xhr.responseText;
+    }
+
+
+    function schURL(train_no, from_tele, to_tele, date) {
+      if (!train_no) return "";
+      if (!from_tele) return "";
+      if (!to_tele) return "";
+      d = date.replace(/(\d{4})[-\/]*(\d{2})[-\/]*(\d{2})/, "$1-$2-$3")
+      return url = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + train_no + "&from_station_telecode=" + from_tele + "&to_station_telecode=" + to_tele + "&depart_date=" + d;
+    }
+
+    function getSch(url) {
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+          var j = JSON.parse(xhr.responseText);
+          if (j.data.data.length >= 0) {
+            setHTML("sch", schHTML(j.data.data) + "<br />\n");
+          }
+        }
+      }
+      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function schHTML(sch) {
+      var str = "";
+      str += ("<div class=\"sch\" id=\"sch_" + sch[0].station_train_code + "\"><div><span class=\"type"
+        + sch[0].station_train_code[0] + "\">"
+        + sch[0].station_train_code + " " + sch[0].train_class_name
+        + "</span> " + sch[0].start_station_name + " " + sch[0].end_station_name
+        + " " + (sch[0].service_type == 0 ? "无空调" : "有空调") + "</div>\n");
+      for (i in sch) {
+        str += ("<div id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "\">"
+          + sch[i].station_name + " "
+          + sch[i].arrive_time + " "
+          + sch[i].start_time + " "
+          + sch[i].stopover_time + "&nbsp;&nbsp;"
+          + ((i == 0) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
+          + ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
+          + "</div>\n");
+      }
+      sch += "</div>"
+      return str;
+    }
+
+    function getTicket(from, to, date) {
+      var from_station_telecode = telecode(from) || from;
+      var to_station_telecode = telecode(to) || to;
+      if (!from_station_telecode) {
+        return;
+      }
+      if (!to_station_telecode) {
+        return;
+      }
+      //成人ADULT 学生0X00
+      var url = "https://kyfw.12306.cn/otn/" + window.LeftTicketUrl
+        + "?leftTicketDTO.train_date=" + date
+        + "&leftTicketDTO.from_station=" + from_station_telecode
+        + "&leftTicketDTO.to_station=" + to_station_telecode + "&purpose_codes=ADULT";
+      if (!document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode)) {
+        document.getElementById("ticket").innerHTML =
+          "<div id=\"" + date + "_" + from_station_telecode + "_" + to_station_telecode + "\">"
+          + date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+          + "</div>\n" + document.getElementById("ticket").innerHTML;
+      }
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            var j = JSON.parse(xhr.responseText);
+            if (!j.status) {
+              window.LeftTicketUrl = j.c_url || window.LeftTicketUrl;
+            }
+            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+              date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+              + " center: " + xhr.getResponseHeader("center")
+              + " X-Via: " + xhr.getResponseHeader("X-Via") + "<br />\n"
+              + ticketHTML(j);
+          } else {
+            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+              date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+              + xhr.status + " " + (xhr.statusText || "error");
+          }
+          if ([302].indexOf(xhr.status) > -1) {
+            var j = JSON.parse(xhr.responseText);
+            if (!j.status) {
+              window.LeftTicketUrl = j.c_url || window.LeftTicketUrl;
+              getTicket(from, to, date)
+            }
+          }
+        }
+      }
+      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function ticketcolor(s) {
+      if (s == '无') {
+        return "ticket_out"
+      }
+      if (s == '') {
+        return "ticket_out"
+      }
+      if (s == '有') {
+        return "ticket_full"
+      }
+      if (s <= 20) {
+        return "ticket_warn"
+      }
+      return ""
+    }
+
+    function ticketHTML(r) {
+      var str = "";
+      var map = r.data.map;
+      var header = [
+        "secretStr", //0
+        "按钮",
+        "车次号",
+        "车次",
+        "始发",
+        "终到",
+        "出发",
+        "到达",
+        "发时",
+        "到时",
+        "历时", //10
+        "可以购买", // Y/N/IS_TIME_NOT_BUY
+        "12",
+        "始发日",
+        "14", //train_seat_feature
+        "15", //location_code
+        "发#",
+        "到#",
+        "card",//18
+        "ctl",//19
+        "gg", //20 gg_num
+        "GR", //6 高级软卧
+        "其他", //5 K23 K3 包厢硬卧  //H T31 一人软包 //K9686 一人软包 //A D954 高级动卧
+        "RW",   //4 软卧
+        "RZ",   //2 软座
+        "ZT",   //25 P 特等 CRH3
+        "无",   //1|2|O 无座
+        "yb",   // ?S一等包座
+        "YW",   //3 硬卧
+        "YZ",   //1 硬座
+        "ZE",   //O 二等座
+        "ZY",   //M 一等座
+        "ZS",   //9 商务座
+        "WY",   //F 纵向动卧 D311
+        "yp_ex",// 34
+        "seat_types", // 35
+        "兑", // 36 exchange_train_flag
+        "候补" // 37 houbu_train_flag 候补
+      ]
+      // #004080
+      // #113997
+      // #cc4c33
+      // #305030
+
+      // #a80022 400AF
+      // #bf9540 400BF
+      // #3d668f CRH5A 蓝绿腰线
+
+      // #dedbd3 CR200J 白色
+      str += "<table>";
+      str += (
+        "<tr>\n"
+        + "<td title=\"" + header[2] + "\">" + header[3] + "</td>\n"
+        + "<td title=\"22 " + header[22] + "\">" + " " + "</td>\n"
+        + "<td title=\"21|32|20|25 " + header[21] + "/" + header[32] + "/" + header[20] + "/" + header[25] + "\">" + " " + "</td>\n"
+        + "<td title=\"23|27 " + header[23] + "/" + header[27] + "\">" + " " + "</td>\n"
+        + "<td title=\"28|33 " + header[28] + "/" + header[33] + "\">" + " " + "</td>\n"
+        + "<td title=\"24|31 " + header[24] + "/" + header[31] + "\">" + " " + "</td>\n"
+        + "<td title=\"29|30 " + header[29] + "/" + header[30] + "\">" + " " + "</td>\n"
+        + "<td title=\"26\">" + header[26] + "</td>\n"
+        + "<td>" + header[16] + "</td>\n"
+        + "<td title=\"" + header[6] + "\">" + header[6] + "</td>\n"
+        + "<td>" + header[8] + "</td>\n"
+        + "<td>" + header[17] + "</td>\n"
+        + "<td title=\"" + header[7] + "\">" + header[7] + "</td>\n"
+        + "<td>" + header[9] + "</td>\n"
+        + "<td>" + header[10] + "</td>\n"
+        + "<td title=\"" + header[4] + "\">" + header[4] + "</td>\n"
+        + "<td title=\"" + header[5] + "\">" + header[5] + "</td>\n"
+        + "<td>" + header[34] + "</td>\n"
+        + "<td>" + header[35] + "</td>\n"
+        + "<td>" + header[13] + "</td>\n"
+        + "<td title=\"train_seat_feature\">" + header[14] + "</td>\n"
+        + "<td title=\"location_code\">" + header[15] + "</td>\n"
+        + "<td>" + header[18] + "</td>\n"
+        + "<td title=\"" + header[0] + "\n" + header[12] + "\">" + header[1] + "|" + header[19] + "|" + header[11] + "|" + header[36] + "|" + header[37] + "</td>\n"
+        + "</tr>\n"
+      );
+      for (i = 0; i < r.data.result.length; i++) {
+        result = r.data.result[i].split("|");
+        str += (
+          "<tr class=\"hide" + result[3][0] + "\">\n"
+          + "<td class=\"type" + result[3][0] + "\" title=\"" + result[2] + "\" onclick=\"getSch(schURL('" + result[2] + "','" + result[4] + "','" + result[5] + "','" + result[13] + "'))\">" + result[3] + "</td>\n"
+          + "<td class=\"" + ticketcolor(result[22]) + "\">" + (result[22] || "-") + "</td>\n"
+          + "<td class=\"" + ticketcolor(result[21] || result[32] || result[20] || result[25]) + "\">" + (result[21] || result[32] || result[20] || result[25] || "-") + "</td>\n"
+          + "<td class=\"" + ticketcolor(result[23] || result[27]) + "\">" + (result[23] || result[27] || "-") + "</td>\n"
+          + "<td class=\"" + ticketcolor(result[28] || result[33]) + "\" style=\"font-weight: 600;\">" + (result[28] || result[33] || "-") + "</td>\n"
+          + "<td class=\"" + ticketcolor(result[24] || result[31]) + "\">" + (result[24] || result[31] || "-") + "</td>\n"
+          + "<td class=\"" + ticketcolor(result[29] || result[30]) + "\" style=\"font-weight: 600;\">" + (result[29] || result[30] || "-") + "</td>\n"
+          + "<td class=\"\" style=\"font-weight: lighter;\">" + (result[26] || "-") + "</td>\n"
+          + "<td>" + result[16] + "</td>\n"
+          + "<td title=\"" + result[6] + "\">" + map[result[6]] + "</td>\n"
+          + "<td>" + result[8] + "</td>\n"
+          + "<td>" + result[17] + "</td>\n"
+          + "<td title=\"" + result[7] + "\">" + map[result[7]] + "</td>\n"
+          + "<td>" + result[9] + "</td>\n"
+          + "<td>" + result[10] + "</td>\n"
+          + "<td title=\"" + result[4] + "\">" + name(result[4]) + "</td>\n"
+          + "<td title=\"" + result[5] + "\">" + name(result[5]) + "</td>\n"
+          + "<td>" + result[34] + "</td>\n"
+          + "<td>" + result[35] + "</td>\n"
+          + "<td>" + result[13] + "</td>\n"
+          + "<td>" + result[14] + "</td>\n"
+          + "<td>" + result[15] + "</td>\n"
+          + "<td>" + result[18] + "</td>\n"
+          + "<td title=\"secretStr " + result[0] + "\nyp_info " + result[12] + "\">" + result[1] + "|" + result[19] + "|" + result[11] + "|" + (result[36] > 0 ? "兑" : "") + "|" + (result[37] > 0 ? "候补" : "") + "</td>\n"
+          + "</tr>\n"
+        );
+
+        console.log(
+          //result[1] + "\t|" + 
+          result[2] + "|" +
+          (result[18] > 0 ? result[18] : " ") + "|" +
+          result[4] + "|" +
+          result[5] + "|" +
+          result[16] + "|" +
+          result[6] + "|" +
+          result[17] + "|" +
+          result[7] + "|" +
+          result[8] + "|" +
+          result[9] + "|" +
+          result[10] + "|" +
+
+          result[11] + "|" +
+          result[13] + "|" +
+          result[14] + "|" +
+          result[15] + "|" +
+          result[19] + "|" +
+          result[20] + "\t|" +
+          result[21] + "\t|" +
+          result[22] + "\t|" +
+          result[23] + "\t|" +
+          result[24] + "\t|" +
+          result[25] + "\t|" +
+          result[26] + "\t|" +
+          result[27] + "\t|" +
+          result[28] + "\t|" +
+          result[29] + "\t|" +
+          result[30] + "\t|" +
+          result[31] + "\t|" +
+          result[32] + "\t|" +
+          result[33] + "\t|" +
+          result[3] + "\t|" +
+          result[34] + "\t|" +
+          result[35]// + "\t|" + 
+          //result[0] + "\t|" + 
+          //result[12] + "\t|" + 
+          //result[36]
+        );
+      }
+      str += "</table>";
+      return str;
+    }
+
+
+    function search_train_list(str) {
+      //console.log("search_train_list()" + str);
+      var result = "";
+      var sch = "";
+      var date = document.getElementById("date").value;
+      var re = new RegExp(document.getElementById('keyword').value, "i");
+      document.getElementById("sch").innerHTML = "";
+      for (type in train_list[date]) {
+        for (i in train_list[date][type]) {
+          t = train_list[date][type][i];
+          if (re.test(t.station_train_code)) { // if(t.station_train_code.includes(str)) {
+            match = t.station_train_code.match(/(.*)\((.*)-(.*)\)/);
+            url = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + telecode(match[2]) + "&to_station_telecode=" + telecode(match[3]) + "&depart_date=" + date;
+            result += ("<div id=\"" + match[1] + "\">" + t.train_no + " " + t.station_train_code
+              + " " + (match ? (match[1] + " " + telecode(match[2]) + " " + telecode(match[3])) : '') + " " + "<a href=" + url + " target='_blank'>" + match[1] + "</a>" + "<span onclick=\"getSch('" + url + "')\">" + match[1] + "</span>" + "</div>");
+            if (match[1] == str.toUpperCase()) {
+              document.getElementById("sch").innerHTML = match[1] + "<br />\n";
+              getSch(url);
+            }
+          }
+        }
+      }
+      document.getElementById("result").innerHTML = result;
+    }
+
+    function search(str) {
+      var re = /^[GDCZTKYL]{1}[1-9][0-9]{0,3}$|^[1-9][0-9]{3}$/
+      if (re.test(str.toUpperCase())) {
+        search_v1(str.toUpperCase())
+        return
+      }
+      var re2 = /^[a-zA-Z]{3}$/
+      if (re2.test(str)) {
+        czxx(str.toUpperCase())
+        return
+      }
+      if (telecode(str)) {
+        czxx(telecode(str))
+        return
+      }
+      search_v1(str.toUpperCase())
+    }
+
+    function search_v1(str) {
+      var date = document.getElementById("date").value;
+      var yyyymmdd = date.replace(/-/g, "")
+      var url = "https://search.12306.cn/search/v1/train/search?keyword=" + str + "&date=" + yyyymmdd
+      document.getElementById("result").innerHTML = str
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            result = ""
+            var j = JSON.parse(xhr.responseText);
+            if (j.status) {
+              result += ("<div>" + j.data.length + "条</div>")
+              for (i in j.data) {
+                var t = j.data[i];
+                schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + telecode(t.from_station) + "&to_station_telecode=" + telecode(t.to_station) + "&depart_date=" + date;
+                result += ("<div id=\"" + t.station_train_code + "\">"
+                  + t.train_no + " " + telecode(t.from_station) + " " + telecode(t.to_station)
+                  + " " + "<span class=\"type" + t.station_train_code[0] + "\" onclick=\"getSch('" + schurl + "')\">"
+                  + t.station_train_code + "</span>" + " " + t.from_station + " " + t.to_station
+                  + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>"
+                );
+                if (t.station_train_code == str.toUpperCase()) {
+                  document.getElementById("sch").innerHTML = t.station_train_code + "<br />\n";
+                  getSch(schurl);
+                }
+              }
+            } else {
+              result += j.errorMsg
+            }
+            document.getElementById("result").innerHTML = result;
+          } else {
+            document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+        }
+      }
+      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      // xhr.open("GET", url, true);
+      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function czxx(t1) {
+      var date = document.getElementById("date").value;
+      var url = "https://kyfw.12306.cn/otn/czxx/query?train_start_date=" + date + "&train_station_code=" + t1
+      document.getElementById("result").innerHTML = str + " ";
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            result = ""
+            var j = JSON.parse(xhr.responseText);
+            if (j.status) {
+              for (i in j.data.data) {
+                var t = j.data.data[i];
+                schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + telecode(t.start_station_name) + "&to_station_telecode=" + telecode(t.end_station_name) + "&depart_date=" + date;
+                result += ("<div id=\"" + t.station_train_code + "\">"
+                  + t.train_no + " " + telecode(t.start_station_name) + " " + telecode(t.end_station_name)
+                  + " " + "<span class=\"type" + t.station_train_code[0] + "\" onclick=\"getSch('" + schurl + "')\">"
+                  + t.station_train_code + "</span>" + " " + t.start_station_name + " " + t.end_station_name
+                  + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>");
+              }
+            } else {
+              result += j.errorMsg
+            }
+            document.getElementById("result").innerHTML = result;
+          } else {
+            document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+        }
+      }
+      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      // xhr.open("GET", url, true);
+      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+  </script>
+</body>
+
+</html>
