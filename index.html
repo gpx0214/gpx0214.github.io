@@ -22,6 +22,10 @@
       }
     }
 
+    body {
+      font-family: Helvetica,monospace;
+    }
+
     input {
       font-size: 1em;
       width: 30%;
@@ -1049,7 +1053,8 @@
             + t.train_no + " " + t.from_station + " " + t.to_station
             + " " + "<span class=\"type" + (t.service_type ? "service_0" : t.station_train_code[0]) + "\" onclick=\"getSch('" + schurl + "')\">"
             + t.station_train_code + "</span>" + " " + (name(t.from_station) || "---") + " " + (name(t.to_station) || "---")
-            + " " + t.service_type + " " + t.date
+            // + " " + t.service_type
+            + " " + t.date
             + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>"
           );
           if (t.station_train_code == str.toUpperCase()) {
