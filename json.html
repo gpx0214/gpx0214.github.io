@@ -1,0 +1,41 @@
+<input id='file' type='file' onchange='show(this.files)'>
+<pre id='result'>
+</pre>
+<script>
+    function setHTML(id, str) {
+      e = document.getElementById(id);
+      e && (e.innerHTML = str);
+    }
+
+    function setValue(id, str) {
+      e = document.getElementById(id);
+      e && (e.value = str);
+    }
+
+    function getValue(id) {
+      e = document.getElementById(id);
+      return e ? e.value : "";
+    }
+
+ 
+
+function formatjson(s) {
+try {
+j = JSON.parse(s)
+return JSON.stringify(j, ' ', 2)
+} catch {
+return s
+}
+}
+
+document.getElementById('file').onchange = 
+
+function show(fs) {
+var f = this.files[0]
+var reader = new FileReader();
+reader.onload = function() {setHTML("result", formatjson(arguments[0].target.result));}
+reader.readAsText(f,'utf-8')
+}
+</script>
+
+
