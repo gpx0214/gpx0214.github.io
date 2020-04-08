@@ -1,41 +1,64 @@
-<input id='file' type='file' onchange='show(this.files)'>
-<pre id='result'>
+<html>
+<head>
+  
+</head>
+<body>
+  <input id='file' type='file' onchange='showfs(this.files)'>
+  <pre id='result'>
 </pre>
+</body>
 <script>
-    function setHTML(id, str) {
-      e = document.getElementById(id);
-      e && (e.innerHTML = str);
+  function setHTML(id, str) {
+    e = document.getElementById(id);
+    e && (e.innerHTML = str);
+  }
+
+  function setValue(id, str) {
+    e = document.getElementById(id);
+    e && (e.value = str);
+  }
+
+  function getValue(id) {
+    e = document.getElementById(id);
+    return e ? e.value : "";
+  }
+
+
+
+  function formatjson(s) {
+    try {
+      j = JSON.parse(s)
+      return JSON.stringify(j, ' ', 2)
+    } catch {
+      return s
     }
+  }
 
-    function setValue(id, str) {
-      e = document.getElementById(id);
-      e && (e.value = str);
-    }
+  // document.getElementById('file').onchange = 
 
-    function getValue(id) {
-      e = document.getElementById(id);
-      return e ? e.value : "";
-    }
+  function showfs(fs) {
+    var f = fs[0]
+    show(f)
+  }
 
- 
+  function show(f) {
+    var reader = new FileReader();
+    reader.onload = function () { setHTML("result", formatjson(arguments[0].target.result)); }
+    reader.readAsText(f, 'utf-8')
+  }
 
-function formatjson(s) {
-try {
-j = JSON.parse(s)
-return JSON.stringify(j, ' ', 2)
-} catch {
-return s
-}
-}
 
-document.getElementById('file').onchange = 
+  // document.ondrop = fileondrop
 
-function show(fs) {
-var f = this.files[0]
-var reader = new FileReader();
-reader.onload = function() {setHTML("result", formatjson(arguments[0].target.result));}
-reader.readAsText(f,'utf-8')
-}
+  function fileondrop(event) {
+    event.preventDefault();
+    var files = event.dataTransfer.files;
+    showfs(files);
+  }
+
+  document.ondragover = function (e) { e.preventDefault(); };
+  document.body.ondrop = fileondrop
+
 </script>
 
-
+</html>
