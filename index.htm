@@ -1483,15 +1483,16 @@
       }
 
       if (s[0] == 'w') {
-        var w = weekday(d)
+        var w = weekday(d.replace(/(\d\d\d\d)(\d\d)(\d\d)/, "$1-$2-$3"))
         if (w == 0) {
           w = 7
         }
-        var t = s.split('&')[0]
+        var t_sp = s.split('&')
+        var t = t_sp[0]
         if (t.indexOf(w) == -1) {
           return 0
         }
-        return is_a_day(s.replace(/^(.*)&/g, ""))
+        return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
       }
 
       //TODO
