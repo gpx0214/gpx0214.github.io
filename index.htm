@@ -461,7 +461,7 @@
       for (var i = 0; i < 30; i++) {
         cur_date = dateAdd(base_date, i)
         day = weekday(cur_date)
-        if (1 << day & 0b1000001 || holiday.indexOf(cur_date) >= 0) {
+        if (1 << day & 0x41 || holiday.indexOf(cur_date) >= 0) { // 0b1000001
           // console.log(cur_date, day)
           h |= 1 << i
         }
@@ -1375,7 +1375,7 @@
         search_cycle_txt(str)
         return
       }
-      var url = "js/train_list.js.txt"
+      var url = "js/train.csv"
       document.getElementById("result").innerHTML = str
       var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
       xhr.onreadystatechange = function () {
