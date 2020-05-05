@@ -653,6 +653,7 @@
     }
 
     function traintype(code, service) {
+      console.log(code, service)
       if (service == '0') {
         return "service_0"
       }
@@ -1389,7 +1390,7 @@
                 to_station: row[2] || "",
                 station_train_code: row[3] || "",
                 total_num: row[4] || "",
-                service_type: (row[5].length & row[5] == '0') ? "无空调" : "",
+                service_type: row[5] || "", // (row[5].length & row[5] == '0') ? "无空调" : "",
                 src: row[6] || "",
                 date: row[7] || "",
               })
@@ -1649,7 +1650,7 @@
                   + "&depart_date=" + date;
                 result += ("<div id=\"" + t.station_train_code + "\">"
                   + t.train_no + " " + telecode(t.start_station_name) + " " + telecode(t.end_station_name)
-                  + " " + "<span class=\"type" + t.station_train_code(t.station_train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
+                  + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
                   + t.station_train_code + "</span>" + " " + t.start_station_name + " " + t.end_station_name
                   + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>");
               }
