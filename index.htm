@@ -58,6 +58,11 @@
       color: #ffffff;
     }
 
+    .type200J {
+      background-color: #29a352;
+      color: #e6cc4c
+    }
+
     .typeservice_0 {
       background-color: #305030;
       color: #fdde00
@@ -647,6 +652,16 @@
       return url = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + train_no + "&from_station_telecode=" + from_tele + "&to_station_telecode=" + to_tele + "&depart_date=" + d;
     }
 
+    function traintype(code, service) {
+      if (service == '0') {
+        return "service_0"
+      }
+      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^C15\d\d$|^C56[78]\d$|^C5[78]\d\d$|^C8[34]\d\d$|^C87[2-9]\d$/.test(code)) {
+        return "200J"
+      }
+      return code[0]
+    }
+
     function getSch(url) {
       var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
       xhr.onreadystatechange = function () {
@@ -668,7 +683,7 @@
       }
       var str = "";
       str += ("<div class=\"sch\" id=\"sch_" + sch[0].station_train_code + "\"><div><span class=\"type"
-        + (sch[0].service_type == 0 ? "service_0" : sch[0].station_train_code[0]) + "\">"
+        + traintype(sch[0].station_train_code, sch[0].service_type) + "\">"
         + sch[0].station_train_code + " " + sch[0].train_class_name
         + "</span> " + sch[0].start_station_name + " " + sch[0].end_station_name
         + "</div>\n");
@@ -1053,7 +1068,7 @@
         sleeper = is_sleeper(col[8], col[9], col[10]);
         str += (
           "<tr class=\"" + "hide" + col[3][0] + (col[19] > 0 ? " ctl" : "") + "\">\n"
-          + "<td class=\"type" + (col[14] == '0' ? "service_0" : col[3][0]) + "\" title=\"" + col[2] + "\" onclick=\"getSch(schURL('" + col[2] + "','" + col[4] + "','" + col[5] + "','" + col[13] + "'))\">" + col[3] + "</td>\n"
+          + "<td class=\"type" + traintype(col[3], col[14]) + "\" title=\"" + col[2] + "\" onclick=\"getSch(schURL('" + col[2] + "','" + col[4] + "','" + col[5] + "','" + col[13] + "'))\">" + col[3] + "</td>\n"
           + "<td class=\"" + ticketcolor(col, 'QH5LCKB0') + "\">" + (hb(col, 'QH5LCKB0') || "-") + "</td>\n"
           + "<td class=\"" + ticketcolor(col, '6A9PQE') + "\">" + (hb(col, '6A9PQE') || "-") + "</td>\n"
           + "<td class=\"" + ticketcolor(col, '4IS') + "\">" + (hb(col, '4IS') || "-") + "</td>\n" // ?S
@@ -1255,7 +1270,7 @@
         sleeper = is_sleeper(col[headerkey[8]], col[headerkey[9]], col[headerkey[10]]);
         str += (
           "<tr class=\"hide" + col[headerkey[3]][0] + (col[headerkey[19]] > 0 ? " ctl" : "") + (((col[headerkey[3]][0] == 'G') && ((col[headerkey[17]] - col[headerkey[16]]) > min + 1)) ? " hideG-" : "") + "\">\n"
-          + "<td class=\"type" + (col[headerkey[14]] == '0' ? "service_0" : col[headerkey[3]][0]) + "\" title=\"" + col[headerkey[2]] + "\" onclick=\"getSch(schURL('" + col[headerkey[2]] + "','" + col[headerkey[4]] + "','" + col[headerkey[5]] + "','" + col[headerkey[13]] + "'))\">" + col[headerkey[3]] + "</td>\n"
+          + "<td class=\"type" + traintype(col[headerkey[3]], col[headerkey[14]]) + "\" title=\"" + col[headerkey[2]] + "\" onclick=\"getSch(schURL('" + col[headerkey[2]] + "','" + col[headerkey[4]] + "','" + col[headerkey[5]] + "','" + col[headerkey[13]] + "'))\">" + col[headerkey[3]] + "</td>\n"
           + "<td class=\"" + ticketcolor2(col, 'QH5LCKB0') + "\">" + (hb2(col, 'QH5LCKB0') || "-") + "</td>\n"
           + "<td class=\"" + ticketcolor2(col, '6A9PQE') + "\">" + (hb2(col, '6A9PQE') || "-") + "</td>\n"
           + "<td class=\"" + ticketcolor2(col, '4IS') + "\">" + (hb2(col, '4IS') || "-") + "</td>\n" // ?S
@@ -1537,7 +1552,7 @@
           schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + t.from_station + "&to_station_telecode=" + t.to_station + "&depart_date=" + has_a_day(t.date);
           result += ("<div id=\"" + t.station_train_code + "\">"
             + t.train_no + " " + t.from_station + " " + t.to_station
-            + " " + "<span class=\"type" + (t.service_type ? "service_0" : t.station_train_code[0]) + "\" onclick=\"getSch('" + schurl + "')\">"
+            + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
             + multi_train_no(t.train_no, t.station_train_code)
             + "</span>" + " " + (name(t.from_station) || "---") + " " + (name(t.to_station) || "---")
             // + " " + t.service_type
@@ -1634,7 +1649,7 @@
                   + "&depart_date=" + date;
                 result += ("<div id=\"" + t.station_train_code + "\">"
                   + t.train_no + " " + telecode(t.start_station_name) + " " + telecode(t.end_station_name)
-                  + " " + "<span class=\"type" + (t.service_type && t.service_type == "0" ? "service_0" : t.station_train_code[0]) + "\" onclick=\"getSch('" + schurl + "')\">"
+                  + " " + "<span class=\"type" + t.station_train_code(t.station_train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
                   + t.station_train_code + "</span>" + " " + t.start_station_name + " " + t.end_station_name
                   + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>");
               }
