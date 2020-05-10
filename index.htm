@@ -29,6 +29,14 @@
       word-break: keep-all;
     }
 
+    .abs {
+      position: absolute;
+    }
+
+    .rel {
+      position: relative;
+    }
+
     .hide {
       display: none;
     }
@@ -64,8 +72,8 @@
     }
 
     .typeservice_0 {
-      background-color: #305030;
-      color: #fdde00
+      background-color: #567e60;
+      color: #fff700
     }
 
     .typeG {
@@ -657,7 +665,7 @@
       if (service == '0') {
         return "service_0"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^C15\d\d$|^C56[78]\d$|^C5[78]\d\d$|^C8[34]\d\d$|^C87[2-9]\d$/.test(code)) {
+      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
         return "200J"
       }
       return code[0]
@@ -1159,7 +1167,7 @@
         + "&to_station=" + to_station_telecode;
       if (!document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode)) {
         document.getElementById("ticket").innerHTML =
-          "<div id=\"" + date + "_" + from_station_telecode + "_" + to_station_telecode + "\">"
+          "<div style=\"overflow-x:scroll;\" id=\"" + date + "_" + from_station_telecode + "_" + to_station_telecode + "\">"
           + date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
           + "</div>\n" + document.getElementById("ticket").innerHTML;
       }
@@ -1229,9 +1237,10 @@
 
     function lcxxcxHTML(datas) {
       var str = "";
-      str += "<table>";
+      str += "<div><table>";
       str += (
         "<tr>\n"
+        + "<td class=\"abs\" title=\"" + header[2] + "\" width='48px'>" + header[3] + "</td>\n"
         + "<td title=\"" + header[2] + "\" width='48px'>" + header[3] + "</td>\n"
         + "<td title=\"22 " + header[22] + "\">" + " " + "</td>\n"
         + "<td title=\"21|32|20|25 " + header[21] + "/" + header[32] + "/" + header[20] + "/" + header[25] + "\">" + "6" + "</td>\n"
@@ -1271,6 +1280,7 @@
         sleeper = is_sleeper(col[headerkey[8]], col[headerkey[9]], col[headerkey[10]]);
         str += (
           "<tr class=\"hide" + col[headerkey[3]][0] + (col[headerkey[19]] > 0 ? " ctl" : "") + (((col[headerkey[3]][0] == 'G') && ((col[headerkey[17]] - col[headerkey[16]]) > min + 1)) ? " hideG-" : "") + "\">\n"
+          + "<td class=\"abs type" + traintype(col[headerkey[3]], col[headerkey[14]]) + "\" title=\"" + col[headerkey[2]] + "\" onclick=\"getSch(schURL('" + col[headerkey[2]] + "','" + col[headerkey[4]] + "','" + col[headerkey[5]] + "','" + col[headerkey[13]] + "'))\">" + col[headerkey[3]] + "</td>\n"
           + "<td class=\"type" + traintype(col[headerkey[3]], col[headerkey[14]]) + "\" title=\"" + col[headerkey[2]] + "\" onclick=\"getSch(schURL('" + col[headerkey[2]] + "','" + col[headerkey[4]] + "','" + col[headerkey[5]] + "','" + col[headerkey[13]] + "'))\">" + col[headerkey[3]] + "</td>\n"
           + "<td class=\"" + ticketcolor2(col, 'QH5LCKB0') + "\">" + (hb2(col, 'QH5LCKB0') || "-") + "</td>\n"
           + "<td class=\"" + ticketcolor2(col, '6A9PQE') + "\">" + (hb2(col, '6A9PQE') || "-") + "</td>\n"
@@ -1339,7 +1349,7 @@
           //col[headerkey[36]]
         );
       }
-      str += "</table>";
+      str += "</table></div>";
       return str;
     }
 
@@ -1417,6 +1427,10 @@
         return date
       }
 
+      if (s[0] == '!') {
+        return date
+      }
+
       //TODO
       if (s[0] == '单') {
         return date
@@ -1468,6 +1482,10 @@
 
       if (s[0] == '停') {
         return 1 - is_a_day(s.replace("停", ""), d)
+      }
+
+      if (s[0] == '!') {
+        return 1 - is_a_day(s.replace("!", ""), d)
       }
 
       //TODO
