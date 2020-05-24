@@ -1,0 +1,401 @@
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, monospace;
+    }
+
+    input {
+      font-size: 1em;
+      width: 30%;
+      max-width: 20em;
+    }
+
+    .sch {
+      margin: 0.5em;
+      display: inline-table;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td {
+      white-space: nowrap;
+      word-wrap: keep-all;
+      word-break: keep-all;
+    }
+
+    .abs {
+      position: absolute;
+    }
+
+    .rel {
+      position: relative;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .typeZ {
+      background-color: #004a80;
+      color: #ffffff;
+    }
+
+    .typeT {
+      background-color: #1445b8;
+      color: #c32230;
+    }
+
+    .typeK,
+    .typeY,
+    .type1,
+    .type2,
+    .type3,
+    .type4,
+    .type5,
+    .type6,
+    .type7,
+    .type8,
+    .type9 {
+      background-color: #cc4c33;
+      color: #ffffff;
+    }
+
+    .type200J {
+      background-color: #29a352;
+      color: #e6cc4c
+    }
+
+    .typeservice_0 {
+      background-color: #567e60;
+      color: #fff700
+    }
+
+    .typeG {
+      background-color: #d4d4d4;
+      color: #a80022
+    }
+
+    .typeC {
+      background-color: #bf9540;
+      color: #ffffff;
+    }
+
+    .typeD,
+    .typeS {
+      background-color: #ffffff;
+      color: #3d668f;
+    }
+
+    .ctl {
+      color: #999999;
+      text-decoration-line: line-through;
+      text-decoration-color: #FF0000;
+    }
+
+    #ticket {
+      white-space: nowrap;
+      word-wrap: keep-all;
+      word-break: keep-all;
+    }
+
+    .ticket_full {
+      background-color: #569b4c;
+      color: #ffffff;
+    }
+
+    .ticket_warn,
+    .seat_warn.ticket_full {
+      background-color: #ef8a3b;
+      color: #ffffff;
+    }
+
+    .ticket_hb {
+      background-color: #ffffff;
+      color: #5697f5;
+    }
+
+    .ticket_out {
+      background-color: #ffffff;
+      color: #999999;
+    }
+
+    .ticket_discount {
+      background-color: #ffffff;
+      color: #cc4c33;
+    }
+
+    .seat_match {
+      font-weight: bolder;
+      text-decoration: underline #cccccc;
+    }
+
+    .weekend {
+      color: #ff0000;
+      text-decoration: underline #ff0000;
+    }
+  </style>
+  <style title='hide'>
+  </style>
+</head>
+
+<body>
+  <div id="view-abs" style="z-index:10;position:absolute;">
+    <div id="" class="typeZ" style="position:absolute;left:0px">
+      <input type="text" id="station" placeholder="电报码" style="min-width:50px;z-index:100"
+        onchange="getstat(this.value)" />
+    </div>
+    <div id="" class="typeZ" style="position:absolute;left:50px">
+      a上
+    </div>
+    <div id="" class="typeZ" style="position:absolute;left:100px">
+      a下
+    </div>
+    <div id="" class="typeD" style="position:absolute;left:150px">
+      b上
+    </div>
+    <div id="" class="typeD" style="position:absolute;left:200px">
+      b下
+    </div>
+    <div id="" class="typeK" style="position:absolute;left:250px">
+      c上
+    </div>
+    <div id="" class="typeK" style="position:absolute;left:300px">
+      c下
+    </div>
+  </div>
+  <div id="view-scroll" style="height:100%;overflow-y:scroll;">
+    <div id="view" style="height:5760px;background-color:#bf9540;position:relative">
+      <div id="timeabs" class="typeG" style="position:absolute;top:0px;left:0px">
+      </div>
+      <div id="trainabs_default" class="typeD" style="position:absolute;top:0px;left:0px">
+      </div>
+    </div>
+  </div>
+
+  <script src="js/station_name.js" type="text/javascript"></script>
+  <script>
+    function setHTML(id, str) {
+      e = document.getElementById(id);
+      e && (e.innerHTML = str);
+    }
+
+    function setValue(id, str) {
+      e = document.getElementById(id);
+      e && (e.value = str);
+    }
+
+    function getValue(id) {
+      e = document.getElementById(id);
+      return e ? e.value : "";
+    }
+
+    function view_scroll() {
+      var d = new Date()
+      var hh = d.getHours()
+      var mm = d.getMinutes()
+      var e = document.getElementById('view-scroll')
+      e.scrollTop = (hh * 60 + mm) * 4 - e.offsetHeight / 2
+    }
+
+    function weekday(date) {
+      if (typeof (date) != 'string') return -1
+      match = date.match(/(\d+)-(\d+)-(\d+)/)
+      if (!match) return -1
+      y = Number(match[1])
+      m = Number(match[2])
+      d = Number(match[3])
+
+      if (m <= 2) {
+        m += 12;
+        y -= 1;
+      }
+
+      c = y / 100 | 0;
+      y = y % 100;
+
+      var w = y + (y / 4 | 0) + (c / 4 | 0) - 2 * c + ((13 * (m + 1)) / 5 | 0) + d - 1;
+      while (w < 0) {
+        w += 7;
+      }
+      while (w >= 7) {
+        w -= 7;
+      }
+      return w | 0
+    }
+
+    function timeStr(i, ff) {
+      var n = Number(i);
+      var f = ff ? ff : "yyyy-mm-dd HH:MM:SS.xxx"
+      n > 0x7FFFFFFF ? n *= 1 : n *= 1000;
+      var d = n > 0 ? new Date(n) : new Date();
+      return f
+        .replace("yyyy", ('0000' + d.getFullYear()).slice(-4))
+        .replace("mm", ('00' + (d.getMonth() + 1)).slice(-2))
+        .replace("dd", ('00' + d.getDate()).slice(-2))
+        .replace("HH", ('00' + d.getHours()).slice(-2))
+        .replace("MM", ('00' + d.getMinutes()).slice(-2))
+        .replace("SS", ('00' + d.getSeconds()).slice(-2))
+        .replace("xxx", ('000' + d.getMilliseconds()).slice(-3));
+    }
+
+    var date = timeStr("", "yyyymmdd")
+
+    function is_a_day(s, d) {
+      //console.log("is_a_day(s, d)", s, d)
+      if (s == "") {
+        return 1
+      }
+
+      if (s[0] == '停') {
+        return 1 - is_a_day(s.replace("停", ""), d)
+      }
+
+      if (s[0] == '!') {
+        return 1 - is_a_day(s.replace("!", ""), d)
+      }
+
+      //TODO
+      if (s[0] == '单') {
+        return 1
+      }
+
+      //TODO
+      if (s[0] == '双') {
+        return 1
+      }
+
+      if (s[0] == 'w') {
+        var w = weekday(d.replace(/(\d\d\d\d)(\d\d)(\d\d)/, "$1-$2-$3"))
+        if (w == 0) {
+          w = 7
+        }
+        var t_sp = s.split('&')
+        var t = t_sp[0]
+        if (t.indexOf(w) == -1) {
+          return 0
+        }
+        return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
+      }
+
+      //TODO
+      if (s.length < 4) {
+        return 1
+      }
+
+      var yyyymmdd = date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3")
+      sp = s.split("|")
+      for (i in sp) {
+        ssp = sp[i].split("-")
+        if (ssp.length) {
+          //console.log(ssp[0], ssp[ssp.length-1])
+          var tail = ssp[0]
+          yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
+          var d0 = yyyymmdd
+          var tail = ssp[ssp.length - 1]
+          yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
+          var d1 = yyyymmdd
+          //console.log(d0, d1)
+          //console.log(d, d0 <= d, d <= d1)
+          if (d0 <= d && d <= d1) {
+            return 1
+          }
+        }
+      }
+
+      return 0
+    }
+
+    function timeHTML() {
+      str = ''
+      for (var i = 0; i <= 1440; i += 15) {
+        str += "<div class=\"typeG\" style=\"position:absolute;top:" + (i * 4) + "px;left:0px\">" + (i / 60 | 0) + ("00" + i % 60).slice(-2) + "</div>"
+      }
+      return str
+    }
+
+
+    function traintype(code, service) {
+      if (service == '0') {
+        return "service_0"
+      }
+      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D663[56]$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
+        return "200J"
+      }
+      return code[0]
+    }
+
+    function stationHTML(arr) {
+      str = ''
+      for (var i = 0; i < arr.length; i++) {
+        var sp = arr[i].time.split(":")
+        var min = (sp[0] | 0) * 60 + (sp[1] | 0)
+        var linenum = (arr[i].is_down == "1" ? 2 : 1) //TODO
+        if ('GD'.indexOf(arr[i].code[0]) > -1) {
+          linenum += 2
+        }
+        if ('CS'.indexOf(arr[i].code[0]) > -1) {
+          linenum += 4
+        }
+        str += (
+          "<div class=\"type" + traintype(arr[i].code, "") + (is_a_day(arr[i].date, date) ? "" : " ctl")
+          + "\" style=\"position:absolute;top:" + (min * 4) + "px;left:" + linenum * 50 + "px;z-index:" + (is_a_day(arr[i].date, date) ? 2 : 1) + ";\">"
+          + arr[i].code
+          + "</div>")
+      }
+      return str
+    }
+
+    function getstat(stat) {
+      // var url = "/stat/" + stat
+      var url = "/stat/" + stat
+      // document.getElementById("result").innerHTML = str
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+
+          data = xhr.responseText.split("\n");
+          console.log(data)
+
+          var arr = []
+          for (i in data) {
+            var row = data[i].split(",");
+            if (row.length <= 5) continue
+            arr.push({
+              day_diff: row[0] || "",
+              time: row[1] || "",
+              code: row[2] || "",
+              station: row[3] || "",
+              is_down: row[4] || "",
+              date: row[5] || "",
+            })
+          }
+          setHTML("trainabs_default", stationHTML(arr))
+
+        } else {
+          // document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
+        }
+
+      }
+      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      // xhr.open("GET", url, true);
+      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+
+
+
+    view_scroll()
+    setHTML("timeabs", timeHTML())
+    getstat("BJP")
+
+  </script>
+</body>
+
+</html>
