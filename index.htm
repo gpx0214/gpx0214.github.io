@@ -1453,24 +1453,24 @@
         return date
       }
 
+      var yyyymmdd = date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3")
       sp = s.split("|")
-      /*for (i in sp) {
-      ssp = sp[i].split("-")
-      if (ssp.length) {
-      console.log(ssp[0], ssp[ssp.length-1])
-      }
-      }*/
-
-      if (sp.length > 0) {
-        ssp = sp[sp.length - 1].split("-")
-        if (ssp.length > 0) {
-          var yyyymmdd = date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3")
+      for (i in sp) {
+        ssp = sp[i].split("-")
+        if (ssp.length) {
+          //console.log(ssp[0], ssp[ssp.length-1])
+          var tail = ssp[0]
+          yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
+          var d0 = yyyymmdd
           var tail = ssp[ssp.length - 1]
           yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
-          return yyyymmdd.replace(/(\d\d\d\d)(\d\d)(\d\d)/, "$1-$2-$3")
+          var d1 = yyyymmdd
+          //console.log(d0, d1)
+          //console.log(d, d0 <= d, d <= d1)
         }
       }
-      return date
+
+      return yyyymmdd.replace(/(\d\d\d\d)(\d\d)(\d\d)/, "$1-$2-$3")
     }
 
     function is_a_day(s, d) {
