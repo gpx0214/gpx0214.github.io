@@ -157,7 +157,7 @@
     <input type="text" id="keyword" placeholder="车次或站名" style="max-width:10em" onchange="console.log(this.value)" />
     <!--input name="btn" type="submit" value="车次查询" onclick="search_train_list(getValue('keyword'));return false;"//-->
     <input name="btn" type="submit" value="本地查询" style="max-width:6em"
-      onclick="get_search_cycle_txt(getValue('keyword'));return false;">
+      onclick="get_search_train_csv(getValue('keyword'));return false;">
     <input name="btn" type="submit" value="查询" style="max-width:5em"
       onclick="search(getValue('keyword'));return false;">
     <!--input name="btn" type="submit" value="车次查询" onclick="search_v1(getValue('keyword'));return false;">
@@ -661,11 +661,10 @@
     }
 
     function traintype(code, service) {
-      console.log(code, service)
       if (service == '0') {
         return "service_0"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
+      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D663[56]$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
         return "200J"
       }
       return code[0]
@@ -1378,9 +1377,9 @@
       document.getElementById("result").innerHTML = result;
     }
 
-    function get_search_cycle_txt(str) {
-      if (window.cycle) {
-        search_cycle_txt(str)
+    function get_search_train_csv(str) {
+      if (window.train) {
+        search_train_csv(str)
         return
       }
       var url = "js/train.csv"
@@ -1390,11 +1389,11 @@
         if (xhr.readyState == 4) {
           if ([200, 304].indexOf(xhr.status) > -1) {
             data = xhr.responseText.split("\n");
-            window.cycle = []
+            window.train = []
             for (i in data) {
               var row = data[i].split(",");
               if (row.length <= 5) continue
-              window.cycle.push({
+              window.train.push({
                 train_no: row[0] || "",
                 from_station: row[1] || "",
                 to_station: row[2] || "",
@@ -1406,7 +1405,7 @@
               })
             }
 
-            search_cycle_txt(str)
+            search_train_csv(str)
           } else {
             document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
           }
@@ -1488,14 +1487,14 @@
         return 1 - is_a_day(s.replace("!", ""), d)
       }
 
-      //TODO
-      if (s[0] == '单') {
-        return 1
-      }
-
-      //TODO
-      if (s[0] == '双') {
-        return 1
+      if (s[0] == '单' || s[0] == '双') {
+        var t_sp = s.split('&')
+        var t = t_sp[0]
+        // TODO 周期
+        /*if (t.indexOf(w) == -1) {
+          return 0
+        }*/
+        return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
       }
 
       if (s[0] == 'w') {
@@ -1561,12 +1560,12 @@
       return ret;
     }
 
-    function search_cycle_txt(str) {
+    function search_train_csv(str) {
       var result = "";
       var re = new RegExp(str, "i");
       //document.getElementById("sch").innerHTML = "";
-      for (i in window.cycle) {
-        t = window.cycle[i];
+      for (i in window.train) {
+        t = window.train[i];
         if (re.test(t.station_train_code)) { // if(t.station_train_code.includes(str)) { // 
           schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + t.from_station + "&to_station_telecode=" + t.to_station + "&depart_date=" + has_a_day(t.date);
           result += ("<div id=\"" + t.station_train_code + "\">"
