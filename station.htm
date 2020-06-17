@@ -150,27 +150,11 @@
       <input type="text" id="station" placeholder="电报码" style="min-width:50px;z-index:100"
         onchange="getstat(this.value)" />
     </div>
-    <div id="" class="typeZ" style="position:absolute;left:50px">
-      a上
-    </div>
-    <div id="" class="typeZ" style="position:absolute;left:100px">
-      a下
-    </div>
-    <div id="" class="typeD" style="position:absolute;left:150px">
-      b上
-    </div>
-    <div id="" class="typeD" style="position:absolute;left:200px">
-      b下
-    </div>
-    <div id="" class="typeK" style="position:absolute;left:250px">
-      c上
-    </div>
-    <div id="" class="typeK" style="position:absolute;left:300px">
-      c下
+    <div id="typeabs" class="typeG" style="white-space:nowrap;position:absolute;top:0px;left:0px">
     </div>
   </div>
   <div id="view-scroll" style="height:100%;overflow-y:scroll;">
-    <div id="view" style="height:5760px;background-color:#bf9540;position:relative">
+    <div id="view" style="height:5760px;background-color:#cc9933;position:relative">
       <div id="timeabs" class="typeG" style="position:absolute;top:0px;left:0px">
       </div>
       <div id="trainabs_default" class="typeD" style="position:absolute;top:0px;left:0px">
@@ -260,14 +244,14 @@
         return 1 - is_a_day(s.replace("!", ""), d)
       }
 
-      //TODO
-      if (s[0] == '单') {
-        return 1
-      }
-
-      //TODO
-      if (s[0] == '双') {
-        return 1
+      if (s[0] == '单' || s[0] == '双') {
+        var t_sp = s.split('&')
+        var t = t_sp[0]
+        // TODO 周期
+        /*if (t.indexOf(w) == -1) {
+          return 0
+        }*/
+        return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
       }
 
       if (s[0] == 'w') {
@@ -330,18 +314,57 @@
       return code[0]
     }
 
+    function lineHTML(stat) {
+      str = ''
+
+      var default_line = "ZTK_Z|GD_G|CS_C"
+      var linemap = {
+        "BJP": "ZTK_Z|GD_G|CS_C",
+        "BXP": "ZTK_Z|GD_G|CS_C"
+      }
+      arr = (linemap[stat] || default_line).split("|")
+
+      for (var i = 0; i < arr.length; i++) {
+        row = arr[i].split("_")
+
+        name = row[0] + "上"
+        color = row[1]
+        linenum = i * 2 + 1
+        str += (
+          "<div id=\"\" class=\"type" + color
+          + "\"style=\"position:absolute;left:" + linenum * 50 + "px\">"
+          + name
+          + "</div>")
+        
+        name = row[0] + "下"
+        color = row[1]
+        linenum = i * 2 + 2
+
+        str += (
+          "<div id=\"\" class=\"type" + color
+          + "\"style=\"position:absolute;left:" + linenum * 50 + "px\">"
+          + name
+          + "</div>")
+      }
+      return str
+    }
+
     function stationHTML(arr) {
       str = ''
       for (var i = 0; i < arr.length; i++) {
         var sp = arr[i].time.split(":")
         var min = (sp[0] | 0) * 60 + (sp[1] | 0)
-        var linenum = (arr[i].is_down == "1" ? 2 : 1) //TODO
+        var linenum = 0
         if ('GD'.indexOf(arr[i].code[0]) > -1) {
           linenum += 2
+          if (traintype(arr[i].code, "") == '200J') {
+            linenum = 0
+          }
         }
         if ('CS'.indexOf(arr[i].code[0]) > -1) {
           linenum += 4
         }
+        linenum += (arr[i].is_down == "1" ? 2 : 1) //TODO
         str += (
           "<div class=\"type" + traintype(arr[i].code, "") + (is_a_day(arr[i].date, date) ? "" : " ctl")
           + "\" style=\"position:absolute;top:" + (min * 4) + "px;left:" + linenum * 50 + "px;z-index:" + (is_a_day(arr[i].date, date) ? 2 : 1) + ";\">"
@@ -375,6 +398,7 @@
               date: row[5] || "",
             })
           }
+          setHTML("typeabs", lineHTML(stat))
           setHTML("trainabs_default", stationHTML(arr))
 
         } else {
