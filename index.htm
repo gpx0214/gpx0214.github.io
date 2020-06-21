@@ -873,10 +873,11 @@
       "swz_num",  //32 9 商务座
       "srrb_num", //33 F (纵向)动卧 D311
       "yp_ex",    //34 打折 10401031
-      "seat_types", //35
+      "seat_types", //35 席别
       "exchange_train_flag",//36 exchange_train_flag 兑换
       "houbu_train_flag",   //37 houbu_train_flag 候补
       "houbu_seat_limit"    //38 houbu_seat_limit 不能候补席别
+      //39 yp_info
     ]
 
     function ticketcolor(col, cc) {
@@ -1430,14 +1431,14 @@
         return date
       }
 
-      //TODO
       if (s[0] == '单') {
-        return date
+        var t_sp = s.split('&')
+        return has_a_day(t_sp.length > 1 ? t_sp[1] : '')
       }
 
-      //TODO
       if (s[0] == '双') {
-        return date
+        var t_sp = s.split('&')
+        return has_a_day(t_sp.length > 1 ? t_sp[1] : '')
       }
 
       if (s[0] == 'w') {
