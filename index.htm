@@ -292,7 +292,7 @@
       qss(to)
     }
 
-    window.LeftTicketUrl = "leftTicket/queryZ"; // 余票默认URL
+    window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
 
     function startTime() {
       clearTimeout(this.timeoutId);              //清除上一个定时器
@@ -1063,6 +1063,7 @@
         + "<td title=\"" + header[7] + "\">" + header[7] + "</td>\n"
         + "<td title=\"" + header[4] + "\">" + header[4] + "</td>\n"
         + "<td title=\"" + header[5] + "\">" + header[5] + "</td>\n"
+        + "<td>" + "票价" + "</td>\n"
         + "<td title=\"yp_ex\">" + header[34] + "</td>\n"
         + "<td title=\"seat_types\">" + header[35] + "</td>\n"
         + "<td>" + header[13] + "</td>\n"
@@ -1093,6 +1094,7 @@
           + "<td title=\"" + col[7] + "\">" + map[col[7]] + "</td>\n"
           + "<td title=\"" + col[4] + "\">" + name(col[4]) + "</td>\n"
           + "<td title=\"" + col[5] + "\">" + name(col[5]) + "</td>\n"
+          + "<td class=\"" + ticketdiscount(col[34], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "\" style=\"text-align: right;\">" + ticketprice(col[39], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "</td>\n"
           + "<td>" + col[34] + "</td>\n"
           + "<td>" + col[35] + "</td>\n"
           + "<td>" + col[13] + "</td>\n"
