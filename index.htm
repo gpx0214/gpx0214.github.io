@@ -132,7 +132,9 @@
 
     .seat_match {
       font-weight: bolder;
-      text-decoration: underline #cccccc;
+      text-decoration-line: underline;
+      text-decoration-color: #cccccc;
+      -webkit-text-decoration-color: #cccccc;
     }
 
     .weekend {
@@ -248,18 +250,15 @@
     <span onclick="setHTML('ticket', '');return false;">清除余票</span>
   </div>
   <div id="ticket"></div>
-  <a href="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0">train_list.js</a>
-  <br />
-  <a href="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js">station_name.js</a>
-  <br />
   <a href="http://www.gtbyxx.com/wxg/ky/zhengwan.jsp" target="_blank">广铁正晚点</a>
-  <br />
   <a href="http://61.161.203.55/mobile.myweixin.com/FtStationSch.html" target="_blank">沈局时刻表</a>
-  <br />
   <a href="https://www.12306.cn/kfzmpt/lcxxcx/init" target="_blank">旧版余票</a>
-  <br />
   <a href="https://www.12306.cn/kfzmpt/leftTicketPrice/init" target="_blank">旧版票价</a>
+  <a href="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0">train_list.js</a>
+  <a href="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js">station_name.js</a>
+  <a href="/www.12306.cn/index/" target="_blank">  /www.12306.cn/index/</a>
   <br />
+
   <script src="js/UNICODE2GBK.js" type="text/javascript"></script>
   <script src="js/station_name.js" type="text/javascript"></script>
   <script src="js/qss.js" type="text/javascript"></script>
@@ -725,7 +724,7 @@
         + "&leftTicketDTO.to_station=" + to_station_telecode + "&purpose_codes=ADULT";
       if (!document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode)) {
         document.getElementById("ticket").innerHTML =
-          "<div id=\"" + date + "_" + from_station_telecode + "_" + to_station_telecode + "\">"
+          "<div style=\"overflow-x:scroll;\" id=\"" + date + "_" + from_station_telecode + "_" + to_station_telecode + "\">"
           + date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
           + "</div>\n" + document.getElementById("ticket").innerHTML;
       }
@@ -1047,6 +1046,7 @@
       str += "<table>";
       str += (
         "<tr>\n"
+        + "<td class=\"abs\" title=\"" + header[2] + "\" width='48px'>" + header[3] + "</td>\n"
         + "<td title=\"" + header[2] + "\" width='48px'>" + header[3] + "</td>\n"
         + "<td title=\"22 " + header[22] + "\">" + " " + "</td>\n"
         + "<td title=\"21|32|20|25 " + header[21] + "/" + header[32] + "/" + header[20] + "/" + header[25] + "\">" + "6" + "</td>\n"
@@ -1078,6 +1078,7 @@
         sleeper = is_sleeper(col[8], col[9], col[10]);
         str += (
           "<tr class=\"" + "hide" + col[3][0] + (col[19] > 0 ? " ctl" : "") + "\">\n"
+          + "<td class=\"abs type" + traintype(col[3], col[14]) + (col[19] > 0 ? " ctl" : "") + "\" title=\"" + col[2] + "\" onclick=\"getSch(schURL('" + col[2] + "','" + col[4] + "','" + col[5] + "','" + col[13] + "'))\">" + col[3] + "</td>\n"
           + "<td class=\"type" + traintype(col[3], col[14]) + "\" title=\"" + col[2] + "\" onclick=\"getSch(schURL('" + col[2] + "','" + col[4] + "','" + col[5] + "','" + col[13] + "'))\">" + col[3] + "</td>\n"
           + "<td class=\"" + ticketcolor(col, 'QH5LCKB0') + "\">" + (hb(col, 'QH5LCKB0') || "-") + "</td>\n"
           + "<td class=\"" + ticketcolor(col, '6A9PQE') + "\">" + (hb(col, '6A9PQE') || "-") + "</td>\n"
@@ -1283,7 +1284,7 @@
         sleeper = is_sleeper(col[headerkey[8]], col[headerkey[9]], col[headerkey[10]]);
         str += (
           "<tr class=\"hide" + col[headerkey[3]][0] + (col[headerkey[19]] > 0 ? " ctl" : "") + (((col[headerkey[3]][0] == 'G') && ((col[headerkey[17]] - col[headerkey[16]]) > min + 1)) ? " hideG-" : "") + "\">\n"
-          + "<td class=\"abs type" + traintype(col[headerkey[3]], col[headerkey[14]]) + "\" title=\"" + col[headerkey[2]] + "\" onclick=\"getSch(schURL('" + col[headerkey[2]] + "','" + col[headerkey[4]] + "','" + col[headerkey[5]] + "','" + col[headerkey[13]] + "'))\">" + col[headerkey[3]] + "</td>\n"
+          + "<td class=\"abs type" + traintype(col[headerkey[3]], col[headerkey[14]]) + (col[headerkey[19]] > 0 ? " ctl" : "") + "\" title=\"" + col[headerkey[2]] + "\" onclick=\"getSch(schURL('" + col[headerkey[2]] + "','" + col[headerkey[4]] + "','" + col[headerkey[5]] + "','" + col[headerkey[13]] + "'))\">" + col[headerkey[3]] + "</td>\n"
           + "<td class=\"type" + traintype(col[headerkey[3]], col[headerkey[14]]) + "\" title=\"" + col[headerkey[2]] + "\" onclick=\"getSch(schURL('" + col[headerkey[2]] + "','" + col[headerkey[4]] + "','" + col[headerkey[5]] + "','" + col[headerkey[13]] + "'))\">" + col[headerkey[3]] + "</td>\n"
           + "<td class=\"" + ticketcolor2(col, 'QH5LCKB0') + "\">" + (hb2(col, 'QH5LCKB0') || "-") + "</td>\n"
           + "<td class=\"" + ticketcolor2(col, '6A9PQE') + "\">" + (hb2(col, '6A9PQE') || "-") + "</td>\n"
