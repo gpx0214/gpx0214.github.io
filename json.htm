@@ -1,11 +1,22 @@
 <html>
+
 <head>
-  
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    input {
+      font-size: 1em;
+      width: 30%;
+      max-width: 20em;
+    }
+  </style>
 </head>
+
 <body>
-  <input id='file' type='file' onchange='showfs(this.files)'>
-  <pre id='result'>
-</pre>
+  <input type='text' id='url' style="width:90%;max-width:30em" onchange='geturl(this.value)'>
+  <br />
+  <input type='file' id='file' onchange='showfs(this.files)'>
+  <pre id='result' style="overflow-x:scroll;"></pre>
 </body>
 <script>
   function setHTML(id, str) {
@@ -43,12 +54,11 @@
 
   function show(f) {
     var reader = new FileReader();
-    reader.onload = function () { setHTML("result", formatjson(arguments[0].target.result)); }
+    reader.onload = function () {
+      setHTML("result", formatjson(arguments[0].target.result));
+    }
     reader.readAsText(f, 'utf-8')
   }
-
-
-  // document.ondrop = fileondrop
 
   function fileondrop(event) {
     event.preventDefault();
@@ -56,8 +66,29 @@
     showfs(files);
   }
 
-  document.ondragover = function (e) { e.preventDefault(); };
-  document.body.ondrop = fileondrop
+  document.ondragover = function (e) {
+    e.preventDefault();
+  };
+  document.body.ondrop = fileondrop // document.ondrop = fileondrop
+
+
+  function geturl(url) {
+    var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if ([200, 304].indexOf(xhr.status) > -1) {
+          setHTML("result", formatjson(xhr.responseText))
+        } else {
+          setHTML("result", xhr.status + " " + xhr.statusText);
+        }
+      }
+    }
+
+    xhr.open("GET", url, true);
+    setHTML("result", "loading");
+    xhr.send()
+  }
 
 </script>
 
