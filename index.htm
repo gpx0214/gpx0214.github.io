@@ -188,65 +188,12 @@
   <div id="ticket_date">
   </div>
   <div>
-    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
-      var ss = document.styleSheets[i]
-      if (ss.title == 'hide') {
-        var j = ss.cssRules.length
-        while (j) {
-          ss.removeRule(--j)
-        }
-        ss.insertRule('.hideG-,.hideD,.hideC,.hideK{display:none}')
-      }
-    };return false;">GZT</span>
-    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
-      var ss = document.styleSheets[i]
-      if (ss.title == 'hide') {
-        var j = ss.cssRules.length
-        while (j) {
-          ss.removeRule(--j)
-        }
-        ss.insertRule('.hideG,.hideC,.hideK{display:none}')
-      }
-    };return false;">DZT</span>
-    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
-      var ss = document.styleSheets[i]
-      if (ss.title == 'hide') {
-        var j = ss.cssRules.length
-        while (j) {
-          ss.removeRule(--j)
-        }
-        ss.insertRule('.hideC,.hideK{display:none}')
-      }
-    };return false;">GDZT</span>
-    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
-      var ss = document.styleSheets[i]
-      if (ss.title == 'hide') {
-        var j = ss.cssRules.length
-        while (j) {
-          ss.removeRule(--j)
-        }
-        ss.insertRule('.hideG,.hideD,.hideC{display:none}')
-      }
-    };return false;">ZTK</span>
-    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
-      var ss = document.styleSheets[i]
-      if (ss.title == 'hide') {
-        var j = ss.cssRules.length
-        while (j) {
-          ss.removeRule(--j)
-        }
-        ss.insertRule('.hideG,.hideD,.hideC,.hideK{display:none}')
-      }
-    };return false;">ZT</span>
-    <span onclick="for (i=0;i<document.styleSheets.length;i++) {
-      var ss = document.styleSheets[i]
-      if (ss.title == 'hide') {
-        var j = ss.cssRules.length
-        while (j) {
-          ss.removeRule(--j)
-        }
-      }
-    };return false;">All</span>
+    <span onclick="setCssRule('hide','.hideG-,.hideD,.hideC,.hideK{display:none}')">G+ZT</span>
+    <span onclick="setCssRule('hide','.hideG,.hideC,.hideK{display:none}')">DZT</span>
+    <span onclick="setCssRule('hide','.hideC,.hideK{display:none}')">GDZT</span>
+    <span onclick="setCssRule('hide','.hideG,.hideD,.hideC{display:none}')">ZTK</span>
+    <span onclick="setCssRule('hide','.hideG,.hideD,.hideC,.hideK{display:none}')">ZT</span>
+    <span onclick="setCssRule('hide','')">All</span>
     <span onclick="setHTML('ticket', '');return false;">清除余票</span>
   </div>
   <div id="ticket"></div>
@@ -256,16 +203,26 @@
   <a href="https://www.12306.cn/kfzmpt/leftTicketPrice/init" target="_blank">旧版票价</a>
   <a href="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0">train_list.js</a>
   <a href="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js">station_name.js</a>
-  <a href="/www.12306.cn/index/" target="_blank">  /www.12306.cn/index/</a>
+  <a href="/www.12306.cn/index/" target="_blank"> /www.12306.cn/index/</a>
   <br />
 
   <script src="js/UNICODE2GBK.js" type="text/javascript"></script>
   <script src="js/station_name.js" type="text/javascript"></script>
   <script src="js/qss.js" type="text/javascript"></script>
   <!--script src="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js" type="text/javascript"></script//-->
-  <!--script src="js/train_list.js" type="text/javascript"></script//-->
   <!--script src="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0" type="text/javascript"></script//-->
   <script>
+    // #004080
+    // #113997
+    // #cc4c33
+    // #305030
+
+    // #a80022 400AF
+    // #bf9540 400BF
+    // #3d668f CRH5A 蓝绿腰线
+
+    // #dedbd3 CR200J 白色
+
     function setHTML(id, str) {
       e = document.getElementById(id);
       e && (e.innerHTML = str);
@@ -281,6 +238,19 @@
       return e ? e.value : "";
     }
 
+    function setCssRule(id, str) {
+      for (i = 0; i < document.styleSheets.length; i++) {
+        var ss = document.styleSheets[i]
+        if (ss.title == id) {
+          var j = ss.cssRules.length
+          while (j) {
+            ss.removeRule(--j)
+          }
+          ss.insertRule(str)
+        }
+      }; return false;
+    }
+
     function changeFromTo() {
       var from = getValue("form_station");
       var to = getValue("to_station");
@@ -290,52 +260,6 @@
       setHTML('to_tele', telecode(from))
       qss(to)
     }
-
-    window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
-
-    function startTime() {
-      clearTimeout(this.timeoutId);              //清除上一个定时器
-      var that = this;                      //将this关键字移动至本次refresh()执行中
-
-      var d = new Date()
-      var yyyy = ('0000' + d.getFullYear()).slice(-4)
-      var month = ('00' + (d.getMonth() + 1)).slice(-2);//Date().getMonth() 0,1,2,...,11
-      var dd = ('00' + d.getDate()).slice(-2)
-      var hh = ('00' + d.getHours()).slice(-2);
-      var mm = ('00' + d.getMinutes()).slice(-2);
-      var ss = ('00' + d.getSeconds()).slice(-2);
-      var xxx = ('000' + d.getMilliseconds()).slice(-3);
-      var day = new Date().getDay();//0,1,2,...,6
-      var str_day = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
-      var day_month = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-
-      day_month[2 - 1] = 28;
-      if (isLeap(y))
-        day_month[2 - 1] = 29;
-
-      curr_dd = dd - day;
-      curr_month = month;
-      if (curr_dd < 1) {//fix last Sun
-        curr_month--;
-        while (curr_month < 1) curr_month += 12;
-        curr_dd += day_month[(curr_month - 1)];
-      }
-
-      str_week = ""
-      for (i = 0; i < 7; i++) {
-        str_week += " " + curr_dd;
-        curr_dd++;
-        while (curr_dd > day_month[(curr_month - 1) % 12]) {
-          curr_dd -= day_month[(curr_month - 1) % 12];
-          curr_month++;
-          curr_month %= 12;
-        }
-      }
-
-      document.getElementById('time').innerHTML = (yyyy + "-" + month + "-" + dd + " " + hh + ":" + mm + ":" + ss + " " + str_day[day]).fontcolor("#cc0044") + " " + str_week + "<br />";
-      this.timeoutId = window.setTimeout(startTime, 100);   //刷新时间
-    }
-    //window.onload = startTime
 
     function isLeap(y) {
       if (y & 0x03)
@@ -442,6 +366,50 @@
         .replace("xxx", ('000' + d.getMilliseconds()).slice(-3));
     }
 
+    function startTime() {
+      clearTimeout(this.timeoutId);              //清除上一个定时器
+      var that = this;                      //将this关键字移动至本次refresh()执行中
+
+      var d = new Date()
+      var yyyy = ('0000' + d.getFullYear()).slice(-4)
+      var month = ('00' + (d.getMonth() + 1)).slice(-2);//Date().getMonth() 0,1,2,...,11
+      var dd = ('00' + d.getDate()).slice(-2)
+      var hh = ('00' + d.getHours()).slice(-2);
+      var mm = ('00' + d.getMinutes()).slice(-2);
+      var ss = ('00' + d.getSeconds()).slice(-2);
+      var xxx = ('000' + d.getMilliseconds()).slice(-3);
+      var day = new Date().getDay();//0,1,2,...,6
+      var str_day = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+      var day_month = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+      day_month[2 - 1] = 28;
+      if (isLeap(y))
+        day_month[2 - 1] = 29;
+
+      curr_dd = dd - day;
+      curr_month = month;
+      if (curr_dd < 1) {//fix last Sun
+        curr_month--;
+        while (curr_month < 1) curr_month += 12;
+        curr_dd += day_month[(curr_month - 1)];
+      }
+
+      str_week = ""
+      for (i = 0; i < 7; i++) {
+        str_week += " " + curr_dd;
+        curr_dd++;
+        while (curr_dd > day_month[(curr_month - 1) % 12]) {
+          curr_dd -= day_month[(curr_month - 1) % 12];
+          curr_month++;
+          curr_month %= 12;
+        }
+      }
+
+      document.getElementById('time').innerHTML = (yyyy + "-" + month + "-" + dd + " " + hh + ":" + mm + ":" + ss + " " + str_day[day]).fontcolor("#cc0044") + " " + str_week + "<br />";
+      this.timeoutId = window.setTimeout(startTime, 100);   //刷新时间
+    }
+    //window.onload = startTime
+
     function ticket_date() {
       holiday = ['2020-01-01',
         '2020-01-24', '2020-01-25', '2020-01-26', '2020-01-27', '2020-01-28', '2020-01-29', '2020-01-30',
@@ -471,7 +439,8 @@
       document.getElementById("ticket_date").innerHTML += html;
     }
 
-
+    window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
+    endpoint = "/" // "http://127.0.0.1/"
     date = timeStr(0, "yyyy-mm-dd")
     //document.writeln(date + "<br />")
     setValue("date", date);
@@ -534,81 +503,12 @@
       return tele || "";
     }
 
-    function getSchURL(code) { //TODO uppercase
-      if (!typeof (code) === "string") {
-        return "";
-      }
-
-      type = ""
-      switch (code[0]) {
-        case 'G':
-          type = "G";
-          break;
-        case 'D':
-          type = "D";
-          break;
-        case 'C':
-          type = "C";
-          break;
-        case 'Z':
-          type = "Z";
-          break;
-        case 'T':
-          type = "T";
-          break;
-        case 'K':
-          type = "K";
-          break;
-        default:
-          type = "O";
-          break;
-      }
-      var date = getValue("date");
-      for (i in train_list[date][type]) {
-        t = train_list[date][type][i];
-        match = t.station_train_code.match(/(.*)\((.*)-(.*)\)/);
-        if (match && match[1] == code) {
-          url = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + telecode(match[2]) + "&to_station_telecode=" + telecode(match[3]) + "&depart_date=" + date;
-          return url;
-        }
-      }
-      return "";
-    }
-
     function zwdcxURL(str, trainNo, cxlx) {
       if (!str) return "";
       if (!trainNo) return "";
       return "http://www.12306.cn/mapping/kfxt/zwdcx/LCZWD/cx.jsp?cz=" + unicode2gbk(str) + "&cc=" + trainNo + "&cxlx=" + cxlx + "&rq=" + timeStr(0, "yyyy-mm-dd") + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&tp=" + new Date().getTime();
+      //return "https://kyfw.12306.cn/otn/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&randCode="
     }
-
-    /*
-    a = getURL(getSchURL("1461")); //时刻
-    var j = JSON.parse(a);
-    var sch = j.data.data;
-    str = "";
-    for (i in sch) {
-      if(i > 0) {
-        str += (sch[0].station_train_code + " " + sch[i].station_name + " " + sch[i].arrive_time + " " + "0" + " <a href=\"" + zwdcx(sch[i].station_name, sch[0].station_train_code, 0) + "\" target=\"_blank\">正晚点</a><br />\n");
-      }
-      if(i < sch.length - 1) {
-        str += (sch[0].station_train_code + " " + sch[i].station_name + " " + sch[i].start_time + " " + "1" + "  <a href=\"" + zwdcx(sch[i].station_name, sch[0].station_train_code, 1) + "\" target=\"_blank\">正晚点</a><br />\n");
-      }
-    }
-    
-    console.log(str);
-    document.getElementById("sch").innerHTML = str + "<br />\n" + document.getElementById("sch").innerHTML;
-    
-    
-    str = "";
-    str += (sch[0].station_train_code + " " + sch[0].train_class_name + " " + sch[0].start_station_name + " " + sch[0].end_station_name + "<br />\n");
-    for (i in sch) {
-      if(i >= 0) {
-        str += (sch[i].station_name + " " + sch[i].arrive_time + " " + sch[i].start_time + " " + sch[i].stopover_time + "<br />\n");
-      }
-    }
-    */
-
-    // setTimeout(function(){getzwdcx(zwdcx("沧州","k522",0))}, 3600000);
 
     function getzwdcx_id(id) {
       var sp = id.split("_");
@@ -628,7 +528,7 @@
           setHTML(str + "_" + trainNo + "_" + cxlx, zwdcxHTML(s));
         }
       }
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send();
     }
@@ -636,7 +536,7 @@
     function zwdcxHTML(s) {
       var match = s.match(/\d+:\d+/);
       var time = match ? match[0] : "";
-      var match = s.match(/预计|暂无|无时刻/);
+      var match = s.match(/预计|暂无|无时刻|时刻表中无/);
       var status = match ? match[0] : "";
       return status + time;
     }
@@ -644,7 +544,7 @@
 
     function getURL(url) {
       var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), false);
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), false);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send();
       return xhr.responseText;
@@ -663,7 +563,7 @@
       if (service == '0') {
         return "service_0"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D663[56]$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
+      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D663[56]$|^D665[5-8]$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
         return "200J"
       }
       return code[0]
@@ -679,7 +579,7 @@
           }
         }
       }
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send();
     }
@@ -706,6 +606,119 @@
       }
       str += "</div>"
       return str;
+    }
+
+    function hash_no(str) {
+      var c = str.charAt(0);
+      var offset = {
+        "Z": 10000, "T": 20000, "K": 30000,
+        "Y": 00000,
+        "G": 40000, "D": 50000, "C": 60000,
+        "S": 70000,
+        "L": 80000, "A": 80000, "N": 80000,
+        "P": 10000, "Q": 20000, "W": 30000,
+        "V": 01000, "B": 02000, "U": 04000, "X": 05000
+      }
+      var num = Number(str.replace(/\D/, '')) % 10000;
+      return (offset[c] || 0) + num;
+    }
+    maxlen = 90000
+
+    function get_search_time_csv(str) {
+      if (window.timetable) {
+        search_time_csv(str)
+        return
+      }
+      var url = "/delay/time.csv"
+      document.getElementById("result").innerHTML = str
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            data = xhr.responseText.split("\n");
+            window.timetable = Array(maxlen)
+            for (var i = 0; i < maxlen; i++) {
+              window.timetable[i] = []
+            }
+            for (i in data) {
+              var row = data[i].split(",");
+              if (row.length <= 5) continue
+              var key = hash_no(row[0]) - 1
+              if (row[5] == "1" && row[2] > 1) {
+                var idx = window.timetable[key].length - 1
+                if (idx >= 0) {
+                  window.timetable[key][idx].dep_day_diff = row[3] || ""
+                  window.timetable[key][idx].dep_time = row[4] || ""
+                }
+                continue
+              }
+              window.timetable[key].push({
+                train_code: row[0] || "",
+                station: row[1] || "",
+                station_no: row[2] || "",
+                arr_day_diff: row[3] || "",
+                arr_time: row[2] > 1 ? (row[4] || "") : "",
+                dep_day_diff: row[3] || "",
+                dep_time: row[2] == 1 ? (row[4] || "") : "",
+                //cxlx: row[5] || "",
+                src: row[6] || "",
+                date: row[7] || "",
+
+                /*
+                station: row[0] || "",
+                station_no: row[1] || "",
+                arr_day_diff: row[2] || "",
+                arr_time: row[3] || "",
+                dep_day_diff: row[4] || "",
+                dep_time: row[5] || "",
+                distance: row[6] || "",
+                speed: row[7] || "",
+                */
+              })
+            }
+
+            search_time_csv(str)
+          } else {
+            document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+        }
+      }
+      xhr.open("GET", url, true);
+      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function search_time_csv(str) {
+      var key = hash_no(str) - 1
+      sch = window.timetable[key]
+      if (sch.length == 0) {
+        return ""
+      }
+      var str = "";
+      for (i in sch) {
+        if (i == 0 || sch[i].station_no < sch[i - 1].station_no) {
+          if (i > 0) {
+            str += "</div>"
+          }
+          str += ("<div class=\"sch\" id=\"sch_" + sch[i].train_code + "\"><div><span class=\"type"
+            + traintype(sch[i].train_code, sch[i].service_type) + "\">"
+            + sch[i].train_code
+            + "</span> " + name(sch[i].station) + " " + name(sch[sch.length - 1].station) + " " + sch[i].date
+            + "</div>\n");
+        }
+
+        str += ("<div id=\"" + sch[i].station + "_" + sch[0].train_code + "\">"
+          + name(sch[i].station) + " "
+          + sch[i].arr_time + " "
+          + sch[i].dep_time + " "
+          //+ sch[i].stopover_time + " "
+          + ((i > 0 && sch[i].arr_day_diff != sch[i - 1].arr_day_diff) ? "+" + sch[i].arr_day_diff : "") + " "
+          //+ ((i == 0) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
+          //+ ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
+          + "</div>\n");
+      }
+      str += "</div>"
+      setHTML("sch", str + document.getElementById("sch").innerHTML);
     }
 
     function getTicket(from, to, date) {
@@ -755,7 +768,7 @@
           }
         }
       }
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send();
     }
@@ -794,7 +807,7 @@
       "F": 33,
     }
 
-    var header = [
+    var h = [
       "secretStr", //0
       "按钮",
       "车次号",
@@ -817,7 +830,7 @@
       "ctl",  //19
       "gg",   //20 gg_num ?Q观光座
       "GR",   //21 6 高级软卧 //A D954 高级动卧
-      "其他", //22 5 K23 K3 包厢硬卧  //H T31 一人软包 //K9686 一人软包 //old A D954 高级动卧
+      "其他", //22 5 K23 K3 包厢硬卧  //H T31 一人软包 //K9686 一人软包 //old22 A D954 高级动卧
       "RW",   //23 4 软卧 // D7xx 一等卧
       "RZ",   //24 2 软座
       "ZT",   //25 P 特等 CRH3
@@ -833,7 +846,15 @@
       "席别", //35
       "兑",   //36 exchange_train_flag 兑换
       "候补", //37 houbu_train_flag 候补
-      "停止候补" // 38 houbu_seat_limit 不能候补席别
+      "停止候补", // 38 houbu_seat_limit 不能候补席别
+      "yp_info", // 39
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "", // 46 dw_flag 智能动车组标志 is_zndcz
     ]
 
     var headerkey = [
@@ -1030,47 +1051,36 @@
     }
 
 
-    // #004080
-    // #113997
-    // #cc4c33
-    // #305030
-
-    // #a80022 400AF
-    // #bf9540 400BF
-    // #3d668f CRH5A 蓝绿腰线
-
-    // #dedbd3 CR200J 白色
-
     function ticketHTML(result, map) {
       var str = "";
       str += "<table>";
       str += (
         "<tr>\n"
-        + "<td class=\"abs\" title=\"" + header[2] + "\" width='48px'>" + header[3] + "</td>\n"
-        + "<td title=\"" + header[2] + "\" width='48px'>" + header[3] + "</td>\n"
-        + "<td title=\"22 " + header[22] + "\">" + " " + "</td>\n"
-        + "<td title=\"21|32|20|25 " + header[21] + "/" + header[32] + "/" + header[20] + "/" + header[25] + "\">" + "6" + "</td>\n"
-        + "<td title=\"23|27 " + header[23] + "/" + header[27] + "\">" + "4" + "</td>\n"
-        + "<td title=\"28|33 " + header[28] + "/" + header[33] + "\">" + "3" + "</td>\n"
-        + "<td title=\"24|31 " + header[24] + "/" + header[31] + "\">" + "2" + "</td>\n"
-        + "<td title=\"29|30 " + header[29] + "/" + header[30] + "\">" + "1" + "</td>\n"
-        + "<td title=\"26\">" + header[26] + "</td>\n"
-        + "<td title=\"" + header[16] + "\">" + header[8] + "</td>\n"
-        + "<td title=\"" + header[17] + "\">" + header[9] + "</td>\n"
+        + "<td class=\"abs\" title=\"" + h[2] + "\" width='48px'>" + h[3] + "</td>\n"
+        + "<td title=\"" + h[2] + "\" width='48px'>" + h[3] + "</td>\n"
+        + "<td title=\"22 " + h[22] + "\">" + " " + "</td>\n"
+        + "<td title=\"21|32|20|25 " + h[21] + "/" + h[32] + "/" + h[20] + "/" + h[25] + "\">" + "6" + "</td>\n"
+        + "<td title=\"23|27 " + h[23] + "/" + h[27] + "\">" + "4" + "</td>\n"
+        + "<td title=\"28|33 " + h[28] + "/" + h[33] + "\">" + "3" + "</td>\n"
+        + "<td title=\"24|31 " + h[24] + "/" + h[31] + "\">" + "2" + "</td>\n"
+        + "<td title=\"29|30 " + h[29] + "/" + h[30] + "\">" + "1" + "</td>\n"
+        + "<td title=\"26\">" + h[26] + "</td>\n"
+        + "<td title=\"" + h[16] + "\">" + h[8] + "</td>\n"
+        + "<td title=\"" + h[17] + "\">" + h[9] + "</td>\n"
         + "<td>" + "站" + "</td>\n"
-        + "<td>" + header[10] + "</td>\n"
-        + "<td title=\"" + header[6] + "\">" + header[6] + "</td>\n"
-        + "<td title=\"" + header[7] + "\">" + header[7] + "</td>\n"
-        + "<td title=\"" + header[4] + "\">" + header[4] + "</td>\n"
-        + "<td title=\"" + header[5] + "\">" + header[5] + "</td>\n"
+        + "<td>" + h[10] + "</td>\n"
+        + "<td title=\"" + h[6] + "\">" + h[6] + "</td>\n"
+        + "<td title=\"" + h[7] + "\">" + h[7] + "</td>\n"
+        + "<td title=\"" + h[4] + "\">" + h[4] + "</td>\n"
+        + "<td title=\"" + h[5] + "\">" + h[5] + "</td>\n"
         + "<td>" + "票价" + "</td>\n"
-        + "<td title=\"yp_ex\">" + header[34] + "</td>\n"
-        + "<td title=\"seat_types\">" + header[35] + "</td>\n"
-        + "<td>" + header[13] + "</td>\n"
-        + "<td title=\"train_seat_feature\">" + header[14] + "</td>\n"
-        + "<td title=\"location_code\">" + header[15] + "</td>\n"
-        + "<td>" + header[18] + "</td>\n"
-        + "<td title=\"" + header[0] + "\n" + header[12] + "\">" + header[1] + "|" + header[19] + "|" + header[11] + "|" + header[36] + "|" + header[37] + "|" + header[38] + "</td>\n"
+        + "<td title=\"yp_ex\">" + h[34] + "</td>\n"
+        + "<td title=\"seat_types\">" + h[35] + "</td>\n"
+        + "<td>" + h[13] + "</td>\n"
+        + "<td title=\"train_seat_feature\">" + h[14] + "</td>\n"
+        + "<td title=\"location_code\">" + h[15] + "</td>\n"
+        + "<td>" + h[18] + "</td>\n"
+        + "<td title=\"" + h[0] + "\n" + h[12] + "\">" + h[1] + "|" + h[19] + "|" + h[11] + "|" + h[36] + "|" + h[37] + "|" + h[38] + "</td>\n"
         + "</tr>\n"
       );
       for (i = 0; i < result.length; i++) {
@@ -1143,7 +1153,7 @@
           col[35] + "\t|" +
           col[36] + "\t|" +
           col[37] + "\t|" +
-          col[38] + "\t|" + 
+          col[38] + "\t|" +
           col[39]// + "\t|" + 
           //col[0] + "\t|" + 
           //col[12] + "\t|" + 
@@ -1197,7 +1207,7 @@
           }
         }
       }
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send();
     }
@@ -1244,31 +1254,31 @@
       str += "<div><table>";
       str += (
         "<tr>\n"
-        + "<td class=\"abs\" title=\"" + header[2] + "\" width='48px'>" + header[3] + "</td>\n"
-        + "<td title=\"" + header[2] + "\" width='48px'>" + header[3] + "</td>\n"
-        + "<td title=\"22 " + header[22] + "\">" + " " + "</td>\n"
-        + "<td title=\"21|32|20|25 " + header[21] + "/" + header[32] + "/" + header[20] + "/" + header[25] + "\">" + "6" + "</td>\n"
-        + "<td title=\"23|27 " + header[23] + "/" + header[27] + "\">" + "RW" + "</td>\n"
-        + "<td title=\"28|33 " + header[28] + "/" + header[33] + "\">" + "YW" + "</td>\n"
-        + "<td title=\"24|31 " + header[24] + "/" + header[31] + "\">" + "RZ" + "</td>\n"
-        + "<td title=\"29|30 " + header[29] + "/" + header[30] + "\">" + "YZ" + "</td>\n"
-        + "<td title=\"26\">" + header[26] + "</td>\n"
-        + "<td title=\"" + header[16] + "\">" + header[8] + "</td>\n"
-        + "<td title=\"" + header[17] + "\">" + header[9] + "</td>\n"
+        + "<td class=\"abs\" title=\"" + h[2] + "\" width='48px'>" + h[3] + "</td>\n"
+        + "<td title=\"" + h[2] + "\" width='48px'>" + h[3] + "</td>\n"
+        + "<td title=\"22 " + h[22] + "\">" + " " + "</td>\n"
+        + "<td title=\"21|32|20|25 " + h[21] + "/" + h[32] + "/" + h[20] + "/" + h[25] + "\">" + "6" + "</td>\n"
+        + "<td title=\"23|27 " + h[23] + "/" + h[27] + "\">" + "RW" + "</td>\n"
+        + "<td title=\"28|33 " + h[28] + "/" + h[33] + "\">" + "YW" + "</td>\n"
+        + "<td title=\"24|31 " + h[24] + "/" + h[31] + "\">" + "RZ" + "</td>\n"
+        + "<td title=\"29|30 " + h[29] + "/" + h[30] + "\">" + "YZ" + "</td>\n"
+        + "<td title=\"26\">" + h[26] + "</td>\n"
+        + "<td title=\"" + h[16] + "\">" + h[8] + "</td>\n"
+        + "<td title=\"" + h[17] + "\">" + h[9] + "</td>\n"
         + "<td>" + "站" + "</td>\n"
-        + "<td>" + header[10] + "</td>\n"
-        + "<td title=\"" + header[6] + "\">" + header[6] + "</td>\n"
-        + "<td title=\"" + header[7] + "\">" + header[7] + "</td>\n"
-        + "<td title=\"" + header[4] + "\">" + header[4] + "</td>\n"
-        + "<td title=\"" + header[5] + "\">" + header[5] + "</td>\n"
+        + "<td>" + h[10] + "</td>\n"
+        + "<td title=\"" + h[6] + "\">" + h[6] + "</td>\n"
+        + "<td title=\"" + h[7] + "\">" + h[7] + "</td>\n"
+        + "<td title=\"" + h[4] + "\">" + h[4] + "</td>\n"
+        + "<td title=\"" + h[5] + "\">" + h[5] + "</td>\n"
         + "<td>" + "票价" + "</td>\n"
-        + "<td title=\"yp_ex\">" + header[34] + "</td>\n"
-        + "<td title=\"seat_types\">" + header[35] + "</td>\n"
-        + "<td>" + header[13] + "</td>\n"
-        + "<td title=\"train_seat_feature\">" + header[14] + "</td>\n"
-        + "<td title=\"location_code\">" + header[15] + "</td>\n"
-        + "<td>" + header[18] + "</td>\n"
-        + "<td title=\"" + header[12] + "\">" + header[1] + "|" + header[19] + "|" + header[11] + "|" + header[36] + "|" + header[37] + "|" + header[38] + "</td>\n"
+        + "<td title=\"yp_ex\">" + h[34] + "</td>\n"
+        + "<td title=\"seat_types\">" + h[35] + "</td>\n"
+        + "<td>" + h[13] + "</td>\n"
+        + "<td title=\"train_seat_feature\">" + h[14] + "</td>\n"
+        + "<td title=\"location_code\">" + h[15] + "</td>\n"
+        + "<td>" + h[18] + "</td>\n"
+        + "<td title=\"" + h[12] + "\">" + h[1] + "|" + h[19] + "|" + h[11] + "|" + h[36] + "|" + h[37] + "|" + h[38] + "</td>\n"
         + "</tr>\n"
       );
       var min = 99;
@@ -1416,8 +1426,7 @@
           }
         }
       }
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
-      // xhr.open("GET", url, true);
+      xhr.open("GET", url, true);
       //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send();
     }
@@ -1432,6 +1441,11 @@
       }
 
       if (s[0] == '!') {
+        return date
+      }
+
+      //TODO
+      if (s[0] == 'b') {
         return date
       }
 
@@ -1572,20 +1586,20 @@
       for (i in window.train) {
         t = window.train[i];
         if (re.test(t.station_train_code)) { // if(t.station_train_code.includes(str)) { // 
-          schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + t.from_station + "&to_station_telecode=" + t.to_station + "&depart_date=" + has_a_day(t.date);
+          var is_run = is_a_day(t.date, date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3"))
           result += ("<div id=\"" + t.station_train_code + "\">"
             + t.train_no + " " + t.from_station + " " + t.to_station
-            + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
+            + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"get_search_time_csv('" + t.train_no.slice(2, 10).replace(/^[0]+/g, "") + "')\">"
             + multi_train_no(t.train_no, t.station_train_code)
             + "</span>" + " " + (name(t.from_station) || "---") + " " + (name(t.to_station) || "---")
             // + " " + t.service_type
-            + " " + "<span class=\"" + (is_a_day(t.date, date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3")) ? "" : "ctl") + "\">" + t.date + "</span>"
+            + " " + "<span class=\"" + (is_run ? "" : "ctl") + "\">" + t.date + "</span>"
             //+ " " + "<a href=" + schurl + " target='_blank'>" + multi_train_no(t.train_no, t.station_train_code) + "</a>" 
             + "</div>"
           );
-          if (t.station_train_code == str.toUpperCase()) {
+          if (is_run && t.station_train_code == str.toUpperCase()) {
             // document.getElementById("sch").innerHTML = t.station_train_code + "<br />\n";
-            getSch(schurl);
+            get_search_time_csv(t.train_no.slice(2, 10).replace(/^[0]+/g, ""));
           }
         }
       }
@@ -1646,8 +1660,7 @@
           }
         }
       }
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
-      // xhr.open("GET", url, true);
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
       //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send();
     }
@@ -1685,8 +1698,7 @@
           }
         }
       }
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
-      // xhr.open("GET", url, true);
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
       //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send();
     }
@@ -1737,7 +1749,7 @@
           }
         }
       }
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+      xhr.open("GET", url, true);
       xhr.send();
     }
 
