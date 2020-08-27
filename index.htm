@@ -206,7 +206,7 @@
   <a href="/www.12306.cn/index/" target="_blank"> /www.12306.cn/index/</a>
   <br />
 
-  <script src="js/UNICODE2GBK.js" type="text/javascript"></script>
+  <!--script src="js/UNICODE2GBK.js" type="text/javascript"></script//-->
   <script src="js/station_name.js" type="text/javascript"></script>
   <script src="js/qss.js" type="text/javascript"></script>
   <!--script src="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js" type="text/javascript"></script//-->
@@ -629,8 +629,8 @@
         search_time_csv(str)
         return
       }
-      var url = "/delay/time.csv"
-      document.getElementById("result").innerHTML = str
+      var url = "js/time.csv"
+      //document.getElementById("sch").innerHTML = str
       var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
@@ -679,7 +679,7 @@
 
             search_time_csv(str)
           } else {
-            document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
+            document.getElementById("sch").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
           }
         }
       }
