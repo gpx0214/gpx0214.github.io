@@ -8,6 +8,16 @@
       font-family: "Helvetica Neue", Helvetica, monospace;
     }
 
+    table {
+      border-collapse: collapse;
+    }
+
+    td {
+      white-space: nowrap;
+      word-wrap: keep-all;
+      word-break: keep-all;
+    }
+
     input {
       font-size: 1em;
       width: 30%;
@@ -17,16 +27,6 @@
     .sch {
       margin: 0.5em;
       display: inline-table;
-    }
-
-    table {
-      border-collapse: collapse;
-    }
-
-    td {
-      white-space: nowrap;
-      word-wrap: keep-all;
-      word-break: keep-all;
     }
 
     .abs {
@@ -194,7 +194,7 @@
       <span id="to_tele" style="position:absolute;right:0.5em;bottom:0em;"></span>
     </span>
     <input name="btn" type="submit" value="余票查询"
-      onclick="getlcxxcx(getValue('form_station'),getValue('to_station'), getValue('date'));return false;">
+      onclick="getTicket(getValue('form_station'),getValue('to_station'), getValue('date'));return false;">
     <br />
   </form>
   <div id="qss" style="white-space: nowrap;">
@@ -447,7 +447,7 @@
         //valid = h | h << 1 | h >> 1 | h >> 2 | 1 << 0 | 1 << 1 | 1 << 29
         cur_date = dateAdd(base_date, i)
         //if (1 << i & valid) {
-        html += "<span" + (1 << i & h ? " class=\"weekend\"" : "") + " onclick=\"getTicket(getValue('form_station'),getValue('to_station'), '" + cur_date + "');return false;\">" + cur_date.replace(/(\d{4})[-\/]*(\d{2})[-\/]*(\d{2})/, "$3") + "</span>\n"
+        html += "<span" + (1 << i & h ? " class=\"weekend\"" : "") + " onclick=\"getlcxxcx(getValue('form_station'),getValue('to_station'), '" + cur_date + "');return false;\">" + cur_date.replace(/(\d{4})[-\/]*(\d{2})[-\/]*(\d{2})/, "$3") + "</span>\n"
         //}
       }
       document.getElementById("ticket_date").innerHTML += html;
@@ -840,7 +840,7 @@
       "15",   //location_code
       "发#",  //16
       "到#",  //17
-      "card", //18
+      "证", //18
       "ctl",  //19
       "gg",   //20 gg_num ?Q观光座
       "GR",   //21 6 高级软卧 //A D954 高级动卧
@@ -862,13 +862,13 @@
       "候补", //37 houbu_train_flag 候补
       "停止候补", // 38 houbu_seat_limit 不能候补席别
       "yp_info", // 39
+      "", // 40 0 2@列车停运 2@列车运行图调整,暂停发售 5@11@17@8@ 11月17日 8点起售
       "",
       "",
       "",
       "",
-      "",
-      "",
-      "", // 46 dw_flag 智能动车组标志 is_zndcz
+      "", // 45 1
+      "种类", // 46 dw_flag 智能动车组标志 is_zndcz  201027 智能动车组+复兴号标志 zhi+fu
     ]
 
     var headerkey = [
@@ -910,8 +910,15 @@
       "seat_types", //35 席别
       "exchange_train_flag",//36 exchange_train_flag 兑换
       "houbu_train_flag",   //37 houbu_train_flag 候补
-      "houbu_seat_limit"    //38 houbu_seat_limit 不能候补席别
-      //39 yp_info
+      "houbu_seat_limit",    //38 houbu_seat_limit 不能候补席别
+      "yp_info",//39 yp_info
+      "", //40
+      "",
+      "",
+      "",
+      "",
+      "", //45
+      "dw_flag" //46
     ]
 
     function ticketcolor(col, cc) {
@@ -1094,7 +1101,7 @@
         + "<td title=\"train_seat_feature\">" + h[14] + "</td>\n"
         + "<td title=\"location_code\">" + h[15] + "</td>\n"
         + "<td>" + h[18] + "</td>\n"
-        + "<td title=\"" + h[0] + "\n" + h[12] + "\">" + h[1] + "|" + h[19] + "|" + h[11] + "|" + h[36] + "|" + h[37] + "|" + h[38] + "</td>\n"
+        + "<td title=\"" + h[0] + "\n" + h[12] + "\">" + h[1] + "|" + h[11] + "|" + h[46] + "</td>\n"
         + "</tr>\n"
       );
       for (i = 0; i < result.length; i++) {
@@ -1119,14 +1126,14 @@
           + "<td title=\"" + col[7] + "\">" + map[col[7]] + "</td>\n"
           + "<td title=\"" + col[4] + "\">" + name(col[4]) + "</td>\n"
           + "<td title=\"" + col[5] + "\">" + name(col[5]) + "</td>\n"
-          + "<td class=\"right " + ticketdiscount(col[34], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "\">" + ticketprice(col[39], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "</td>\n"
+          + "<td title=\"" + col[39] + "\" class=\"right " + ticketdiscount(col[34], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "\">" + ticketprice(col[39], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "</td>\n"
           + "<td>" + col[34] + "</td>\n"
           + "<td>" + col[35] + "</td>\n"
           + "<td>" + col[13] + "</td>\n"
           + "<td>" + col[14] + "</td>\n"
           + "<td>" + col[15] + "</td>\n"
           + "<td>" + col[18] + "</td>\n"
-          + "<td title=\"secretStr " + decodeURIComponent(col[0]) + "\nyp_info " + decodeURIComponent(col[12]) + "\">" + col[1].replace(/<[^>]+>/g, " ") + "|" + col[19] + "|" + col[11] + "|" + (col[36] > 0 ? "兑" : "") + "|" + (col[37] > 0 ? "候补" : "") + "|" + col[38] + "</td>\n"
+          + "<td title=\"secretStr " + decodeURIComponent(col[0]) + "\nyp_info " + decodeURIComponent(col[12]) + "\">" + col[1].replace(/<[^>]+>/g, " ") + "|" + col[11] + "|" + (col[46].split("#")[1] == "1" ? "复" : "") + (col[46].split("#")[0] == "5" ? "智" : "") + "|" + col[46] + "</td>\n"
           + "</tr>\n"
         );
 
@@ -1168,7 +1175,14 @@
           col[36] + "\t|" +
           col[37] + "\t|" +
           col[38] + "\t|" +
-          col[39]// + "\t|" + 
+          col[39] + "\t|" +
+          col[40] + "\t|" +
+          col[41] + "\t|" +
+          col[42] + "\t|" +
+          col[43] + "\t|" +
+          col[44] + "\t|" +
+          col[45] + "\t|" +
+          col[46]// + "\t|" + 
           //col[0] + "\t|" + 
           //col[12] + "\t|" + 
           //col[36]
@@ -1292,7 +1306,7 @@
         + "<td title=\"train_seat_feature\">" + h[14] + "</td>\n"
         + "<td title=\"location_code\">" + h[15] + "</td>\n"
         + "<td>" + h[18] + "</td>\n"
-        + "<td title=\"" + h[12] + "\">" + h[1] + "|" + h[19] + "|" + h[11] + "|" + h[36] + "|" + h[37] + "|" + h[38] + "</td>\n"
+        + "<td title=\"" + h[12] + "\">" + h[1] + "|" + h[11] + "</td>\n"
         + "</tr>\n"
       );
       var min = 99;
@@ -1325,14 +1339,14 @@
           + "<td title=\"" + col[headerkey[7]] + "\">" + name(col[headerkey[7]]) + "</td>\n"
           + "<td title=\"" + col[headerkey[4]] + "\">" + name(col[headerkey[4]]) + "</td>\n"
           + "<td title=\"" + col[headerkey[5]] + "\">" + name(col[headerkey[5]]) + "</td>\n"
-          + "<td class=\"right " + ticketdiscount(col['yp_ex'], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "\">" + ticketprice(col['yp_info'], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "</td>\n"
+          + "<td title=\"" + col['yp_info'] + "\" class=\"right " + ticketdiscount(col['yp_ex'], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "\">" + ticketprice(col['yp_info'], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "</td>\n"
           + "<td>" + col[headerkey[34]] + "</td>\n"
           + "<td>" + col[headerkey[35]] + "</td>\n"
           + "<td>" + col[headerkey[13]] + "</td>\n"
           + "<td>" + (col[headerkey[14]] || "") + "</td>\n"
           + "<td>" + col[headerkey[15]] + "</td>\n"
           + "<td>" + col[headerkey[18]] + "</td>\n"
-          + "<td title=\"yp_info " + col['yp_info'] + "\">" + (col['note'] || col['controlled_train_message'] || '预订').replace(/<[^>]+>/g, " ") + "|" + col[headerkey[19]] + "|" + col[headerkey[11]] + "|" + (col['exchange_train_flag'] > 0 ? "兑" : "") + "|" + (col['houbu_train_flag'] > 0 ? "候补" : "") + "|" + (col['houbu_seat_limit'] || "") + "</td>\n"
+          + "<td title=\"yp_info " + col['yp_info'] + "\">" + (col['note'] || col['controlled_train_message'] || '预订').replace(/<[^>]+>/g, " ") + "|" + col[headerkey[11]] + "</td>\n"
           + "</tr>\n"
         );
 
