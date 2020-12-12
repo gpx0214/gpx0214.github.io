@@ -4,16 +4,22 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-    input {
+    body {
+      -webkit-text-size-adjust: none;
+    }
+
+    input, textarea {
       font-size: 1em;
-      width: 30%;
-      max-width: 20em;
+      width: 100%;
+      max-width: 30em;
     }
   </style>
 </head>
 
 <body>
-  <input type='text' id='url' style="width:90%;max-width:30em" onchange='geturl(this.value)'>
+  <!--input type='text' id='url' style="width:90%;max-width:30em" onchange='geturl(this.value)'>
+  <br /-->
+  <textarea id='url2' rols="2" style="width:90%;;max-width:30em" onchange='geturl(this.value)'></textarea>
   <br />
   <input type='file' id='file' onchange='showfs(this.files)'>
   <pre id='result' style="overflow-x:scroll;"></pre>
@@ -35,7 +41,6 @@
   }
 
 
-
   function formatjson(s) {
     try {
       j = JSON.parse(s)
@@ -44,6 +49,24 @@
       return s
     }
   }
+
+
+  function tableHTML(s) {
+    var ret = ''
+    var rows = s.split("\n")
+    ret += "<table>"
+    for (var i = 0; i < rows.length; i++) {
+      var cols = rows[i].split(",");
+      ret += "<tr>"
+      for (var j = 0; j < cols.length; j++) {
+        ret += "<td>" + cols[j] + "</td>"
+      }
+      ret += "</tr>"
+    }
+    ret += "</table>"
+    return ret
+  }
+
 
   // document.getElementById('file').onchange = 
 
@@ -89,6 +112,23 @@
     setHTML("result", "loading");
     xhr.send()
   }
+
+  function timeStr(i, ff) {
+    var n = Number(i);
+    var f = ff ? ff : "yyyy-mm-dd HH:MM:SS.xxx"
+    n > 0x7FFFFFFF ? n *= 1 : n *= 1000;
+    var d = n > 0 ? new Date(n) : new Date();
+    return f
+      .replace("yyyy", ('0000' + d.getFullYear()).slice(-4))
+      .replace("mm", ('00' + (d.getMonth() + 1)).slice(-2))
+      .replace("dd", ('00' + d.getDate()).slice(-2))
+      .replace("HH", ('00' + d.getHours()).slice(-2))
+      .replace("MM", ('00' + d.getMinutes()).slice(-2))
+      .replace("SS", ('00' + d.getSeconds()).slice(-2))
+      .replace("xxx", ('000' + d.getMilliseconds()).slice(-3));
+  }
+
+  var date = timeStr(0, 'yyyymmdd')
 
 </script>
 
