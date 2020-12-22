@@ -1,1680 +1,1829 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans">
-<!-- saved from url=(0014)about:internet -->
+<html>
+
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <title>_index1.9.6
-  11:00 2016/9/10
-  </title>
-  <meta content="" name="description" />
-  <meta content="" name="keywords" />
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <!--meta http-equiv="refresh" content=2 /--><!--页面自动刷新 单位s-->
-  <style type="text/css">
-/*
-//tag
-//#id
-//.class
-//span div
-//h1 > strong
-//h1 + p 相邻兄弟选择器
-//div#sidebar
-//#id innertag
-//[title=W3School]
-//input[type="button"]
-//[attribute]  用于选取带有指定属性的元素。
-//[attribute=value]  用于选取带有指定属性和值的元素。
-//[attribute~=value]  用于选取属性值中包含指定词汇的元素。
-//[attribute|=value]  用于选取带有以指定值开头的属性值的元素，该值必须是整个单词。
-//[attribute^=value]  匹配属性值以指定值开头的每个元素。
-//[attribute$=value]  匹配属性值以指定值结尾的每个元素。
-//[attribute*=value]  匹配属性值中包含指定值的每个元素。
-伪类
-:active  向被激活的元素添加样式。  1
-:focus  向拥有键盘输入焦点的元素添加样式。  2
-:hover  当鼠标悬浮在元素上方时，向元素添加样式。  1
-:link  向未被访问的链接添加样式。  1
-:visited  向已被访问的链接添加样式。  1
-:first-child  向元素的第一个子元素添加样式。  2
-:lang  向带有指定 lang 属性的元素添加样式。  2
-伪元素
-:first-letter  向文本的第一个字母添加特殊样式。  1
-:first-line  向文本的首行添加特殊样式。  1
-:before  在元素之前添加内容。  2
-:after  在元素之后添加内容。  2
-*/
-a:link {
-  color: #0000FF;
-  text-decoration:underline;
-}
-a:visited {
-  color: #770077;
-  text-decoration:underline;
-}
-a:hover {
-  color: #FFCC00;
-  text-decoration:none;
-}
-a:active {
-  color: #FF0000
-}
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, monospace;
+      -webkit-text-size-adjust: none;
+    }
 
-a{
-  font-size: 16px;
-}
+    table {
+      border-collapse: collapse;
+    }
 
-#time{
-  font-size: 14px;
-  color: #3e3e3e;
-  text-decoration:none;
-}
+    td {
+      white-space: nowrap;
+      word-wrap: keep-all;
+      word-break: keep-all;
+    }
 
-body{
-  font-size: 12px;
-  color: #3e3e3e;
-  text-decoration: none;
-}
+    input {
+      font-size: 1em;
+      width: 30%;
+      max-width: 20em;
+    }
 
-td,
-ul,
-ol,
-ul,
-li,
-dl,
-dt,
-dd {
-  font-size: 12px;
-}
+    .sch {
+      margin: 0.5em;
+      display: inline-table;
+    }
 
-p{
-  font-size: 12px;
-}
+    .abs {
+      position: absolute;
+    }
 
-a.radiomms,
-span.radiomms {
-  color: #00dd00;
-}
+    .rel {
+      position: relative;
+    }
 
-input[type="button"]{
-  font-size: 12px;
-}
+    .right {
+      text-align: right;
+    }
 
-input:focus,textarea:focus {
-  background: #FFDD66;
-}
+    .hide {
+      display: none;
+    }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  //font-family: georgia, palatino, "New Century Schoolbook", times, serif;
-  //font-weight: normal;
-  font-size: 2em;
-  margin-top: 1em;
-  margin-bottom: 0;
-}
+    .typeZ {
+      background-color: #004a80;
+      color: #ffffff;
+    }
 
+    .typeT {
+      background-color: #1445b8;
+      color: #c32230;
+    }
+
+    .typeK,
+    .typeY,
+    .type1,
+    .type2,
+    .type3,
+    .type4,
+    .type5,
+    .type6,
+    .type7,
+    .type8,
+    .type9 {
+      background-color: #cc4c33;
+      color: #ffffff;
+    }
+
+    .type200J {
+      background-color: #29a352;
+      color: #e6cc4c
+    }
+
+    .typeservice_0 {
+      background-color: #567e60;
+      color: #fff700
+    }
+
+    .typeG {
+      background-color: #d4d4d4;
+      color: #a80022
+    }
+
+    .typeC {
+      background-color: #bf9540;
+      color: #ffffff;
+    }
+
+    .typeD,
+    .typeS {
+      background-color: #ffffff;
+      color: #3d668f;
+    }
+
+    .ctl {
+      color: #999999;
+      text-decoration-line: line-through;
+      text-decoration-color: #FF0000;
+    }
+
+    #ticket {
+      white-space: nowrap;
+      word-wrap: keep-all;
+      word-break: keep-all;
+    }
+
+    .ticket_full {
+      background-color: #569b4c;
+      color: #ffffff;
+    }
+
+    .ticket_warn,
+    .seat_warn.ticket_full {
+      background-color: #ef8a3b;
+      color: #ffffff;
+    }
+
+    .ticket_hb {
+      background-color: #ffffff;
+      color: #5697f5;
+    }
+
+    .ticket_out {
+      background-color: #ffffff;
+      color: #999999;
+    }
+
+    .ticket_discount {
+      background-color: #ffffff;
+      color: #cc4c33;
+    }
+
+    .ticket_ex {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-bottom: 8px solid transparent;
+      border-left: 8px solid #569b4c;
+    }
+
+    .seat_match {
+      font-weight: bolder;
+      text-decoration-line: underline;
+      text-decoration-color: #cccccc;
+      -webkit-text-decoration-color: #cccccc;
+    }
+
+    .weekend {
+      color: #ff0000;
+      text-decoration: underline #ff0000;
+    }
   </style>
+  <style title='hide'>
+  </style>
+</head>
 
-  <script type="text/javascript">
-function startTime(){
-clearTimeout(this.timeoutId);              //清除上一个定时器
-var that=this;                      //将this关键字移动至本次refresh()执行中
+<body>
+  <div id="time"></div>
+  <form>
+    <span onclick="setValue('date',dateAdd(getValue('date'),-7))">-7</span>
+    <span onclick="setValue('date',dateAdd(getValue('date'),-1))">-1</span>
+    <input type="date" id="date" onchange="console.log(this.value)" />
+    <span onclick="setValue('date',dateAdd(getValue('date'),1))">+1</span>
+    <span onclick="setValue('date',dateAdd(getValue('date'),7))">+7</span>
+    <span onclick="setValue('date',dateAdd(timeStr(0, 'yyyy-mm-dd'),29))">+29</span>
+    <span onclick="getemu()">emu</span>
+    <br />
+    <input type="text" id="keyword" placeholder="车次或站名" style="max-width:10em" onchange="console.log(this.value)" />
+    <!--input name="btn" type="submit" value="车次查询" onclick="search_train_list(getValue('keyword'));return false;"//-->
+    <input name="btn" type="submit" value="本地查询" style="max-width:6em"
+      onclick="get_search_train_csv(getValue('keyword'));return false;">
+    <input name="btn" type="submit" value="查询" style="max-width:5em"
+      onclick="search(getValue('keyword'));return false;">
+    <!--input name="btn" type="submit" value="车次查询" onclick="search_v1(getValue('keyword'));return false;">
+    <input name="btn" type="submit" value="车站车次" onclick="czxx(getValue('keyword'));return false;"//-->
+    <br />
+  </form>
+  <div id="sch"></div>
+  <div id="result" style="white-space: nowrap;"></div>
+  <pre id="emu" style="overflow-x:scroll;white-space: nowrap;"></pre>
+  <form>
+    <span style="position: relative;">
+      <input type="text" id="form_station" placeholder="出发站"
+        onkeyup="setHTML('from_tele', telecode(this.value));qss(this.value)" />
+      <span id="from_tele" style="position:absolute;right:0.5em;bottom:0em;"></span>
+    </span>
+    <span onclick="changeFromTo()">&lt;&gt;</span>
+    <span style="position: relative;">
+      <input type="text" id="to_station" placeholder="终到站" onkeyup="setHTML('to_tele',telecode(this.value))" />
+      <span id="to_tele" style="position:absolute;right:0.5em;bottom:0em;"></span>
+    </span>
+    <input name="btn" type="submit" value="余票查询"
+      onclick="getlcxxcx(getValue('form_station'),getValue('to_station'), getValue('date'));return false;">
+    <br />
+  </form>
+  <div id="qss" style="white-space: nowrap;">
+  </div>
+  <div id="ticket_date">
+  </div>
+  <div>
+    <span onclick="setCssRule('hide','.hideG-,.hideD,.hideC,.hideK{display:none}')">G+ZT</span>
+    <span onclick="setCssRule('hide','.hideG,.hideC,.hideK{display:none}')">DZT</span>
+    <span onclick="setCssRule('hide','.hideC,.hideK{display:none}')">GDZT</span>
+    <span onclick="setCssRule('hide','.hideG,.hideD,.hideC{display:none}')">ZTK</span>
+    <span onclick="setCssRule('hide','.hideG,.hideD,.hideC,.hideK{display:none}')">ZT</span>
+    <span onclick="setCssRule('hide','')">All</span>
+    <span onclick="setHTML('ticket', '');return false;">清除余票</span>
+  </div>
+  <div id="ticket"></div>
+  <a href="http://www.gtbyxx.com/wxg/ky/zhengwan.jsp" target="_blank">广铁正晚点</a>
+  <a href="http://61.161.203.55/mobile.myweixin.com/FtStationSch.html" target="_blank">沈局时刻表</a>
+  <a href="https://www.12306.cn/kfzmpt/lcxxcx/init" target="_blank">旧版余票</a>
+  <a href="https://www.12306.cn/kfzmpt/leftTicketPrice/init" target="_blank">旧版票价</a>
+  <a href="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0">train_list.js</a>
+  <a href="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js">station_name.js</a>
+  <a href="/www.12306.cn/index/" target="_blank"> /www.12306.cn/index/</a>
+  <br />
 
-var yyyy=new Date().getFullYear();
-var month=new Date().getMonth()+1;//Date().getMonth() 0,1,2,...,11
-var dd=new Date().getDate();
-var hh=new Date().getHours();
-var mm=new Date().getMinutes();
-var ss=new Date().getSeconds();
-var xxx=new Date().getMilliseconds();
-var day=new Date().getDay();//0,1,2,...,6
-var str_day=new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
-var day_month=new Array(31,28,31,30,31,30,31,31,30,31,30,31);
-if (month < 10)
-  month= '0' +month;
-if (dd < 10)
-  dd= '0' +dd;
-if (hh < 10)
-  hh= '0' +hh;
-if (mm < 10)
-  mm= '0' +mm;
-if (ss < 10)
-  ss= '0' +ss;
-if (xxx < 100)
-  xxx= '0' +xxx;
-if (xxx < 10)
-  xxx= '0' +xxx;
+  <!--script src="js/UNICODE2GBK.js" type="text/javascript"></script//-->
+  <script src="js/station_name.js" type="text/javascript"></script>
+  <script src="js/qss.js" type="text/javascript"></script>
+  <!--script src="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js" type="text/javascript"></script//-->
+  <!--script src="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0" type="text/javascript"></script//-->
+  <script>
+    // #004080
+    // #113997
+    // #cc4c33
+    // #305030
 
-if(yyyy%4==0)day_month[2-1]=29;
-if(yyyy%100==0)day_month[2-1]=28;
-if(yyyy%400==0)day_month[2-1]=29;
+    // #a80022 400AF
+    // #bf9540 400BF
+    // #3d668f CRH5A 蓝绿腰线
 
-last_sund=dd-day;
-last_sunm=month;
-if(last_sund<1){//fix last Sun
-last_sunm--;
-while(last_sunm<1)last_sunm+=12;
-last_sund+=day_month[(last_sunm-1)];
-}
-str_week=last_sund;//sun
-for(i=1;i<7;i++){
-last_sund++;
-if(last_sund>day_month[(last_sunm-1)%12]){
-last_sund-=day_month[(last_sunm-1)%12];
-last_sunm++;
-last_sunm%=12;
-}
-  str_week=str_week+" "+last_sund;
-}
+    // #dedbd3 CR200J 白色
 
-//a040ff,ff40a0,ff3c72，#FF9205
-//Math.floor((new Date().getTime()+new Date().getTimezoneOffset()*60000)/86400000+25569)//excel日期
-date=(yyyy+"-"+month+"-"+dd+" "+hh+":"+mm+":"+ss+" "+str_day[day]).fontcolor("#cc0044")+" "+str_week+"<br />"+"显示器分辨率:"+screen.width+"*"+screen.height+"="+screen.width*screen.height+"像素 宽高比"+screen.width/screen.height+" "+screen.colorDepth+"bit"+"<br />"+location.href+"<br />"+navigator.appName+" "+navigator.appVersion+"<br />";//自定义格式
-//var now="<font color=#ee0055>"+new Date().toString()+"</font>"//toString 时间显示
-document.getElementById('time').innerHTML=date;//在id为time的div标记内容改为date变量的数值
-this.timeoutId=window.setTimeout('startTime()',100);   //刷新时间
-//this.timeoutId=window.setTimeout(function(){startTime();},100);  //闭包
-}
-window.onload=startTime
+    function setHTML(id, str) {
+      e = document.getElementById(id);
+      e && (e.innerHTML = str);
+    }
 
-function rbc(start_y,start_m,start_d,end_y,end_m,end_d,str_stat,str_program,str_num,dayctrl){
-//dayctrl: Sunday=1 Monday=2 Tuesday=4 Wednesday=8 Thursday=16 Friday=32 Saturday=64 1-5:62 1-7:127 6-7:65
-//http://res.audio.rbc.cn/jtgb/hlzqf/hlzqf201312310930347.wma ,"jtgb","hlzqf","0930347",127)
-//http://res.audio.rbc.cn/yygb/nzny/nzny2012100622004608.wma
-//2016-06
-//http://resa.rbc.cn:1935/audio/fm974/20160628/2200017199_mp4/220001_7199_96K.mp4 ,"fm974","220001","7199",127)
-//http://resa.rbc.cn:1935/audio/fm1039/20160730/0730011799_mp4/073001_1799_96K.mp4 ,"fm1039","073001","1799",127)
+    function setValue(id, str) {
+      e = document.getElementById(id);
+      e && (e.value = str);
+    }
 
-var num=0;
-  var i=new Date(start_y,start_m-1,start_d).getTime();
-  var end_num=new Date(end_y,end_m-1,end_d).getTime();
-  while(i<=end_num)
-  {
-    d=new Date(i);
-    d_yyyy=d.getFullYear();
-    d_yy=d_yyyy%100;
-    d_mm=d.getMonth()+1;
-    d_dd=d.getDate();
-    d_day=d.getDay();
-    if (d_mm < 10)
-    d_mm= '0' +d_mm;
-    if (d_dd < 10)
-    d_dd= '0' +d_dd;
-    num++;
-    //if(1<<d_day & dayctrl)document.write("<a href=http://res.audio.rbc.cn/"+str_stat+"/"+str_program+"/"+str_program+d_yy+d_mm+d_dd+str_num+".wma>"+"http://res.audio.rbc.cn/"+str_stat+"/"+str_program+"/"+str_program+d_yy+d_mm+d_dd+str_num+".wma</a><br />");//
-    if(1<<d_day & dayctrl)document.write("<a href=http://resa.rbc.cn:1935/audio2/"+str_stat+"/"+d_yyyy+d_mm+d_dd+"/"+str_program+str_num+"_mp4/"+str_program+"_"+str_num+"_96K.mp4>"+"http://resa.rbc.cn:1935/audio2/"+str_stat+"/"+d_yyyy+d_mm+d_dd+"/"+str_program+str_num+"_mp4/"+str_program+"_"+str_num+"_96K.mp4</a><br />");
-    i+=86400000;
-  }
-  return num;
-}
+    function getValue(id) {
+      e = document.getElementById(id);
+      return e ? e.value : "";
+    }
 
-function ezfm(start_y,start_m,start_d,end_y,end_m,end_d,string1,string2,string3,dayctrl){
-//http://mod.cri.cn/eng/ez/morning/2015/ezm150101.mp3 1-5 ,"morning","ezm","",62)
-//http://mod.cri.cn/eng/ez/mtl/2015/atw150101.mp3 ,"mtl","atw","",127)
-//http://mod.cri.cn/eng/ez/cd/2015/cd0212.mp3 ,"cd","cd","",127);
-//http://mod.cri.cn/eng/ez/cd/2015/rt0212.mp3 ,"cd","rt","",127);
-//http://mod.cri.cn/eng/ez/fgi/2015/0210fgi1.mp3 ,"fgi","","fgi1",62);
-//dayctrl: Sunday=1 Monday=2 Tuesday=4 Wednesday=8 Thursday=16 Friday=32 Saturday=64 1-5:62 1-7:127 6-7:65
-var num=0;
-  var i=new Date(start_y,start_m-1,start_d).getTime();
-  var end_num=new Date(end_y,end_m-1,end_d).getTime();
-  while(i<=end_num)
-  {
-    d=new Date(i);
-    d_yyyy=d.getFullYear();
-    d_yy=d_yyyy%100;
-    d_mm=d.getMonth()+1;
-    d_dd=d.getDate();
-    d_day=d.getDay();
-    if(string1=="cd" ||string1=="fgi")d_yy="";
-    if (d_mm < 10)
-    d_mm= '0' +d_mm;
-    if (d_dd < 10)
-    d_dd= '0' +d_dd;
-    num++;
-    if(1<<d_day & dayctrl)document.write("<a href=http://mod.cri.cn/eng/ez/"+string1+"/"+d_yyyy+"/"+string2+d_yy+d_mm+d_dd+string3+".mp3>http://mod.cri.cn/eng/ez/"+string1+"/"+d_yyyy+"/"+string2+d_yy+d_mm+d_dd+string3+".mp3</a><br />");
-    i+=86400000;
-  }
-  return num;
-}
+    function setCssRule(id, str) {
+      for (i = 0; i < document.styleSheets.length; i++) {
+        var ss = document.styleSheets[i]
+        if (ss.title == id) {
+          var j = ss.cssRules.length
+          while (j) {
+            ss.removeRule(--j)
+          }
+          ss.insertRule(str)
+        }
+      }; return false;
+    }
+
+    function changeFromTo() {
+      var from = getValue("form_station");
+      var to = getValue("to_station");
+      setValue("form_station", to);
+      setValue("to_station", from);
+      setHTML('from_tele', telecode(to))
+      setHTML('to_tele', telecode(from))
+      qss(to)
+    }
+
+    function isLeap(y) {
+      if (y & 0x03)
+        return 0;
+      if (y % 400 == 0)
+        return 1;
+      if (y % 100 == 0)
+        return 0;
+      return 1;
+    }
+
+    function dateAdd(date, diff) {
+      if (typeof (date) != 'string') return ''
+      var f = 'yyyy-mm-dd'
+      var day_month = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+      match = date.match(/(\d+)-(\d+)-(\d+)/)
+      if (!match) return ''
+      y = Number(match[1])
+      m = Number(match[2])
+      d = Number(match[3])
+
+      day_month[2 - 1] = 28;
+      if (isLeap(y))
+        day_month[2 - 1] = 29;
+
+      d += diff
+      // console.log(y, m, d)
+
+      while (d > day_month[(m - 1) % 12]) {
+        // console.log(m, day_month[(m - 1) % 12])
+        d -= day_month[(m - 1) % 12];
+        m++;
+        // console.log(y, m, d)
+        while (m > 12) {
+          m -= 12;
+          y += 1;
+          day_month[2 - 1] = 28;
+          if (isLeap(y))
+            day_month[2 - 1] = 29;
+          // console.log(y, m, d)
+        }
+      }
+
+      while (d < 1) {
+        m--;
+        while (m < 1) {
+          y -= 1;
+          day_month[2 - 1] = 28;
+          if (isLeap(y))
+            day_month[2 - 1] = 29;
+          m += 12;
+          // console.log(y, m, d)
+        }
+        // console.log(m, day_month[(m - 1) % 12])
+        d += day_month[(m - 1) % 12];
+        // console.log(y, m, d)
+      }
+
+      return f
+        .replace("yyyy", ('0000' + y).slice(-4))
+        .replace("mm", ('00' + m).slice(-2))
+        .replace("dd", ('00' + d).slice(-2))
+    }
+
+    function weekday(date) {
+      if (typeof (date) != 'string') return -1
+      match = date.match(/(\d+)-(\d+)-(\d+)/)
+      if (!match) return -1
+      y = Number(match[1])
+      m = Number(match[2])
+      d = Number(match[3])
+
+      if (m <= 2) {
+        m += 12;
+        y -= 1;
+      }
+
+      c = y / 100 | 0;
+      y = y % 100;
+
+      var w = y + (y / 4 | 0) + (c / 4 | 0) - 2 * c + ((13 * (m + 1)) / 5 | 0) + d - 1;
+      while (w < 0) {
+        w += 7;
+      }
+      while (w >= 7) {
+        w -= 7;
+      }
+      return w | 0
+    }
+
+    function timeStr(i, ff) {
+      var n = Number(i);
+      var f = ff ? ff : "yyyy-mm-dd HH:MM:SS.xxx"
+      n > 0x7FFFFFFF ? n *= 1 : n *= 1000;
+      var d = n > 0 ? new Date(n) : new Date();
+      return f
+        .replace("yyyy", ('0000' + d.getFullYear()).slice(-4))
+        .replace("mm", ('00' + (d.getMonth() + 1)).slice(-2))
+        .replace("dd", ('00' + d.getDate()).slice(-2))
+        .replace("HH", ('00' + d.getHours()).slice(-2))
+        .replace("MM", ('00' + d.getMinutes()).slice(-2))
+        .replace("SS", ('00' + d.getSeconds()).slice(-2))
+        .replace("xxx", ('000' + d.getMilliseconds()).slice(-3));
+    }
+
+    function startTime() {
+      clearTimeout(this.timeoutId);              //清除上一个定时器
+      var that = this;                      //将this关键字移动至本次refresh()执行中
+
+      var d = new Date()
+      var yyyy = ('0000' + d.getFullYear()).slice(-4)
+      var month = ('00' + (d.getMonth() + 1)).slice(-2);//Date().getMonth() 0,1,2,...,11
+      var dd = ('00' + d.getDate()).slice(-2)
+      var hh = ('00' + d.getHours()).slice(-2);
+      var mm = ('00' + d.getMinutes()).slice(-2);
+      var ss = ('00' + d.getSeconds()).slice(-2);
+      var xxx = ('000' + d.getMilliseconds()).slice(-3);
+      var day = new Date().getDay();//0,1,2,...,6
+      var str_day = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+      var day_month = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+      day_month[2 - 1] = 28;
+      if (isLeap(y))
+        day_month[2 - 1] = 29;
+
+      curr_dd = dd - day;
+      curr_month = month;
+      if (curr_dd < 1) {//fix last Sun
+        curr_month--;
+        while (curr_month < 1) curr_month += 12;
+        curr_dd += day_month[(curr_month - 1)];
+      }
+
+      str_week = ""
+      for (i = 0; i < 7; i++) {
+        str_week += " " + curr_dd;
+        curr_dd++;
+        while (curr_dd > day_month[(curr_month - 1) % 12]) {
+          curr_dd -= day_month[(curr_month - 1) % 12];
+          curr_month++;
+          curr_month %= 12;
+        }
+      }
+
+      document.getElementById('time').innerHTML = (yyyy + "-" + month + "-" + dd + " " + hh + ":" + mm + ":" + ss + " " + str_day[day]).fontcolor("#cc0044") + " " + str_week + "<br />";
+      this.timeoutId = window.setTimeout(startTime, 100);   //刷新时间
+    }
+    //window.onload = startTime
+
+    function ticket_date() {
+      holiday = ['2021-01-01', '2021-01-02', '2021-01-03',
+        '2021-02-11', '2021-02-12', '2021-02-13', '2021-02-14', '2021-02-15', '2021-02-16', '2021-02-17',
+        '2021-04-03', '2021-04-04', '2021-04-05',
+        '2021-05-01', '2021-05-02', '2021-05-03', '2021-05-04', '2021-05-05',
+        '2021-06-12', '2021-06-13', '2021-06-14',
+        '2021-09-19', '2021-09-20', '2021-09-21',
+        '2021-10-01', '2021-10-02', '2021-10-03', '2021-10-04', '2021-10-05', '2021-10-06', '2021-10-07']
+      var h = 0
+      var html = ''
+      base_date = timeStr(0, "yyyy-mm-dd")
+      for (var i = 0; i < 30; i++) {
+        cur_date = dateAdd(base_date, i)
+        day = weekday(cur_date)
+        if (1 << day & 0x41 || holiday.indexOf(cur_date) >= 0) { // 0b1000001
+          // console.log(cur_date, day)
+          h |= 1 << i
+        }
+      }
+
+      for (var i = 0; i < 30; i++) {
+        //valid = h | h << 1 | h >> 1 | h >> 2 | 1 << 0 | 1 << 1 | 1 << 29
+        cur_date = dateAdd(base_date, i)
+        //if (1 << i & valid) {
+        html += "<span" + (1 << i & h ? " class=\"weekend\"" : "") + " onclick=\"getTicket(getValue('form_station'),getValue('to_station'), '" + cur_date + "');return false;\">" + cur_date.replace(/(\d{4})[-\/]*(\d{2})[-\/]*(\d{2})/, "$3") + "</span>\n"
+        //}
+      }
+      document.getElementById("ticket_date").innerHTML += html;
+    }
+
+    window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
+    endpoint = "/" // "http://127.0.0.1/"
+    date = timeStr(0, "yyyy-mm-dd")
+    //document.writeln(date + "<br />")
+    setValue("date", date);
+
+    ticket_date()
+
+    var s = [];
+    if (typeof (station_names) != "undefined") {
+      var s1 = station_names.split("@");
+      for (var i = 0; i < s1.length; i++) {
+        var ss = s1[i];
+        if (ss.length > 0) {
+          ss = ss.split("|");
+          s.push(ss);
+        }
+      }
+      s.push(["dxc", "大兴机场", "IWP", "daxingjichang", "dxjc", "-1"]);
+      s.push(["", "香港红磡", "JQO", "xiangganghongkan", "xghk", "-1"]); //ktt
+      s.push(["jlo", "九龙", "JQO", "jiulong", "jl", "-1"]); //ktt
+      // s.push(["", "香港西九龙", "XJA", "xianggangxijiulong", "xgxjl", "-1"])
+      // s.push(["tsn", "唐山南", "TNP", "tangshannan", "tsn", "-1"]);
+      s.push(["gye", "古冶", "GYP", "guye", "gy", "-1"]);
+      s.push(['csh', '春申', 'CWH', 'chunshen', 'cs', '-1']);
+      s.push(['xqi', '新桥', 'XQH', 'xinqiao', 'xq', '-1']);
+      // s.push(['', '车墩', 'CDH', 'chedun', 'cd', '-1']);
+      s.push(['yxi', '叶榭', 'YOH', 'yexie', 'yx', '-1']);
+      // s.push(['', '亭林', 'TLH', 'tinglin', 'tl', '-1']);
+      // s.push(['', '金山园区', 'BGH', 'jinshanwei', 'jsw', '-1']);
+      s.push(['jsw', '金山卫', 'BGH', 'jinshanwei', 'jsw', '-1']);
+      s.push(['mji', '梅江', 'MKQ', 'meijiang', 'mj', '-1']);
+      s.push(['ylo', '元龙', 'YLY', 'yuanlong', 'yl', '-1']);
+      s.push(['bdl', '八达岭', 'ILP', 'badaling', 'bdl', '-1']);
+      // s.push(['nsb', '南山北', 'NBQ', 'nanshanbei', 'nsb', '-1']);
+      // s.push(['', '羊木', 'YMJ', 'yangmu', 'ym', '-1']);
+      /* for (var i = 0; i < s.length; i++) {
+        s[i].push(i)
+      } */
+    }
+
+    /*window.namemap = {}
+    for (i in s) {
+      window.namemap[s[i][2]] = s[i][1]
+    }*/
+
+    function telecode(name) {
+      for (ii in s) {
+        if (s[ii][1] === name) {
+          return s[ii][2];
+        }
+      }
+      return "";
+    }
+
+    function name(tele) {
+      for (ii in s) {
+        if (s[ii][2] === tele) {
+          return s[ii][1];
+        }
+      }
+      return tele || "";
+    }
+
+    function tableHTML(s) {
+      var ret = ''
+      var rows = s.split("\n")
+      ret += "<table>"
+      for (var i = 0; i < rows.length; i++) {
+        var cols = rows[i].split(",");
+        ret += "<tr>"
+        for (var j = 0; j < cols.length; j++) {
+          ret += "<td>" + cols[j] + "</td>"
+        }
+        ret += "</tr>"
+      }
+      ret += "</table>"
+      return ret
+    }
+
+    function getemu() {
+      // '/emu/equip'
+      // '/emu/ccrgt'
+      var url = '/emu/emu' + getValue('date').replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, '$1$2$3') + '.csv'
+
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            setHTML("emu", tableHTML(xhr.responseText))
+          } else {
+            setHTML("emu", xhr.status + " " + xhr.statusText);
+          }
+        }
+      }
+
+      xhr.open("GET", url, true);
+      setHTML("emu", "loading " + url);
+      xhr.send()
+    }
+
+    function zwdcxURL(str, trainNo, cxlx) {
+      if (!str) return "";
+      if (!trainNo) return "";
+      return "http://www.12306.cn/mapping/kfxt/zwdcx/LCZWD/cx.jsp?cz=" + unicode2gbk(str) + "&cc=" + trainNo + "&cxlx=" + cxlx + "&rq=" + timeStr(0, "yyyy-mm-dd") + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&tp=" + new Date().getTime();
+      //return "https://kyfw.12306.cn/otn/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&randCode="
+    }
+
+    function getzwdcx_id(id) {
+      var sp = id.split("_");
+      if (sp.length > 2) {
+        getzwdcx(sp[0], sp[1], sp[2]);
+      }
+    }
+
+    function getzwdcx(str, trainNo, cxlx) {
+      var url = zwdcxURL(str, trainNo, cxlx)
+      if (!url) return;
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+          var s = xhr.responseText;
+          console.log(zwdcxHTML(s));
+          setHTML(str + "_" + trainNo + "_" + cxlx, zwdcxHTML(s));
+        }
+      }
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function zwdcxHTML(s) {
+      var match = s.match(/\d+:\d+/);
+      var time = match ? match[0] : "";
+      var match = s.match(/预计|暂无|无时刻|时刻表中无/);
+      var status = match ? match[0] : "";
+      return status + time;
+    }
+
+
+    function getURL(url) {
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), false);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+      return xhr.responseText;
+    }
+
+
+    function schURL(train_no, from_tele, to_tele, date) {
+      if (!train_no) return "";
+      if (!from_tele) return "";
+      if (!to_tele) return "";
+      d = date.replace(/(\d{4})[-\/]*(\d{2})[-\/]*(\d{2})/, "$1-$2-$3")
+      return url = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + train_no + "&from_station_telecode=" + from_tele + "&to_station_telecode=" + to_tele + "&depart_date=" + d;
+    }
+
+    function traintype(code, service) {
+      if (service == '0') {
+        return "service_0"
+      }
+      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D663[56]$|^D665[5-8]$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
+        return "200J"
+      }
+      return code[0]
+    }
+
+    function getSch(url) {
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+          var j = JSON.parse(xhr.responseText);
+          if (j.data.data.length >= 0) {
+            setHTML("sch", schHTML(j.data.data) + document.getElementById("sch").innerHTML);
+          }
+        }
+      }
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function schHTML(sch) {
+      if (sch.length == 0) {
+        return ""
+      }
+      var str = "";
+      str += ("<div class=\"sch\" id=\"sch_" + sch[0].station_train_code + "\"><div><span class=\"type"
+        + traintype(sch[0].station_train_code, sch[0].service_type) + "\">"
+        + sch[0].station_train_code + " " + sch[0].train_class_name
+        + "</span> " + sch[0].start_station_name + " " + sch[0].end_station_name
+        + "</div>\n");
+      for (i in sch) {
+        str += ("<div id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "\">"
+          + sch[i].station_name + " "
+          + sch[i].arrive_time + " "
+          + sch[i].start_time + " "
+          + sch[i].stopover_time + " "
+          + ((i == 0) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
+          + ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
+          + "</div>\n");
+      }
+      str += "</div>"
+      return str;
+    }
+
+    function hash_no(str) {
+      var c = str.charAt(0);
+      var offset = {
+        "Z": 10000, "T": 20000, "K": 30000,
+        "Y": 00000,
+        "G": 40000, "D": 50000, "C": 60000,
+        "S": 70000,
+        "L": 80000, "A": 80000, "N": 80000,
+        "P": 10000, "Q": 20000, "W": 30000,
+        "V": 01000, "B": 02000, "U": 04000, "X": 05000
+      }
+      var num = Number(str.replace(/\D+/, '')) % 10000;
+      return (offset[c] || 0) + num;
+    }
+    maxlen = 90000
+
+    function get_search_time_csv(str) {
+      if (window.timetable) {
+        search_time_csv(str)
+        return
+      }
+      var url = "js/time.csv"
+      //document.getElementById("sch").innerHTML = str
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            data = xhr.responseText.split("\n");
+            window.timetable = Array(maxlen)
+            for (var i = 0; i < maxlen; i++) {
+              window.timetable[i] = []
+            }
+            for (i in data) {
+              var row = data[i].split(",");
+              if (row.length <= 5) continue
+              var key = hash_no(row[0]) - 1
+              if (row[5] == "1" && row[2] > 1) {
+                var idx = window.timetable[key].length - 1
+                if (idx >= 0) {
+                  window.timetable[key][idx].dep_day_diff = row[3] || ""
+                  window.timetable[key][idx].dep_time = row[4] || ""
+                }
+                continue
+              }
+              window.timetable[key].push({
+                train_code: row[0] || "",
+                station: row[1] || "",
+                station_no: row[2] || "",
+                arr_day_diff: row[3] || "",
+                arr_time: row[2] > 1 ? (row[4] || "") : "",
+                dep_day_diff: row[3] || "",
+                dep_time: row[2] == 1 ? (row[4] || "") : "",
+                //cxlx: row[5] || "",
+                src: row[6] || "",
+                date: row[7] || "",
+
+                /*
+                station: row[0] || "",
+                station_no: row[1] || "",
+                arr_day_diff: row[2] || "",
+                arr_time: row[3] || "",
+                dep_day_diff: row[4] || "",
+                dep_time: row[5] || "",
+                distance: row[6] || "",
+                speed: row[7] || "",
+                */
+              })
+            }
+
+            search_time_csv(str)
+          } else {
+            document.getElementById("sch").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+        }
+      }
+      xhr.open("GET", url, true);
+      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function search_time_csv(str) {
+      var key = hash_no(str) - 1
+      sch = window.timetable[key]
+      if (sch.length == 0) {
+        return ""
+      }
+      var str = "";
+      for (i in sch) {
+        if (i == 0 || sch[i].station_no < sch[i - 1].station_no) {
+          if (i > 0) {
+            str += "</div>"
+          }
+          str += ("<div class=\"sch\" id=\"sch_" + sch[i].train_code + "\"><div><span class=\"type"
+            + traintype(sch[i].train_code, sch[i].service_type) + "\">"
+            + sch[i].train_code
+            + "</span> " + name(sch[i].station) + " " + name(sch[sch.length - 1].station) + " " + sch[i].date
+            + "</div>\n");
+        }
+
+        str += ("<div id=\"" + sch[i].station + "_" + sch[0].train_code + "\">"
+          + name(sch[i].station) + " "
+          + sch[i].arr_time + " "
+          + sch[i].dep_time + " "
+          //+ sch[i].stopover_time + " "
+          + ((i > 0 && sch[i].arr_day_diff != sch[i - 1].arr_day_diff) ? "+" + sch[i].arr_day_diff : "") + " "
+          //+ ((i == 0) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
+          //+ ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
+          + "</div>\n");
+      }
+      str += "</div>"
+      setHTML("sch", str + document.getElementById("sch").innerHTML);
+    }
+
+    function getTicket(from, to, date) {
+      var from_station_telecode = telecode(from);
+      var to_station_telecode = telecode(to);
+      if (!from_station_telecode) {
+        return;
+      }
+      if (!to_station_telecode) {
+        return;
+      }
+      //成人ADULT 学生0X00
+      var url = "https://kyfw.12306.cn/otn/" + window.LeftTicketUrl
+        + "?leftTicketDTO.train_date=" + date
+        + "&leftTicketDTO.from_station=" + from_station_telecode
+        + "&leftTicketDTO.to_station=" + to_station_telecode + "&purpose_codes=ADULT";
+      if (!document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode)) {
+        document.getElementById("ticket").innerHTML =
+          "<div style=\"overflow-x:scroll;\" id=\"" + date + "_" + from_station_telecode + "_" + to_station_telecode + "\">"
+          + date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+          + "</div>\n" + document.getElementById("ticket").innerHTML;
+      }
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            var j = JSON.parse(xhr.responseText);
+            if (!j.status) {
+              window.LeftTicketUrl = j.c_url || window.LeftTicketUrl;
+            }
+            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+              date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+              + " center: " + xhr.getResponseHeader("center")
+              + " X-Via: " + xhr.getResponseHeader("X-Via") + "<br />\n"
+              + ticketHTML(j.data.result, j.data.map);
+          } else {
+            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+              date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+              + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+          if ([302].indexOf(xhr.status) > -1) {
+            var j = JSON.parse(xhr.responseText);
+            if (!j.status) {
+              window.LeftTicketUrl = j.c_url || window.LeftTicketUrl;
+              getTicket(from, to, date)
+            }
+          }
+        }
+      }
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    var class_map = {
+      "6": 21,
+      "A": 21,
+
+      "Q": 22, // 400BF-C多功能座 ?20
+      "5": 22, // other
+      "H": 22, // other
+      "B": 22, // other
+      "C": 22, // other
+      "E": 22, // other
+      "K": 22, // other
+      "L": 22, // other
+
+      "I": 23, // 
+      "4": 23,
+
+      "7": 31, //24
+      "2": 24,
+
+      "P": 25,
+      "WZ": 26,
+      "S": 27, // ?
+      "J": 28,
+      "3": 28,
+
+      "8": 30, // 29
+      "1": 29,
+
+      "O": 30,
+      "M": 31,
+      "9": 32,
+      "F": 33,
+    }
+
+    var h = [
+      "secretStr", //0
+      "按钮",
+      "车次号",
+      "车次",
+      "始发",
+      "终到",
+      "出发",
+      "到达",
+      "发时",
+      "到时",
+      "历时", //10
+      "可以购买", // Y/N/IS_TIME_NOT_BUY
+      "12",   // yp_info decodeURIComponent base64 crypt
+      "始发日",
+      ".",   //train_seat_feature
+      "15",   //location_code
+      "发#",  //16
+      "到#",  //17
+      "证", //18
+      "ctl",  //19
+      "gg",   //20 gg_num ?Q观光座
+      "GR",   //21 6 高级软卧 //A D954 高级动卧
+      "其他", //22 5 K23 K3 包厢硬卧  //H T31 一人软包 //K9686 一人软包 //old22 A D954 高级动卧
+      "RW",   //23 4 软卧 // D7xx 一等卧
+      "RZ",   //24 2 软座
+      "ZT",   //25 P 特等 CRH3
+      "无",   //26 1|2|O 无座
+      "yb",   //27 ?S一等包座
+      "YW",   //28 3 硬卧 // D7xx 二等卧
+      "YZ",   //29 1 硬座
+      "ZE",   //30 O 二等座 //O D7xx 二等座
+      "ZY",   //31 M 一等座
+      "ZS",   //32 9 商务座
+      "WY",   //33 F (纵向)动卧 D311
+      "打折", //34 打折 10401031
+      "席别", //35
+      "兑",   //36 exchange_train_flag 兑换
+      "候补", //37 houbu_train_flag 候补
+      "停止候补", // 38 houbu_seat_limit 不能候补席别
+      "yp_info", // 39
+      "", // 40 0 2@列车停运 2@列车运行图调整,暂停发售 5@11@17@8@ 11月17日 8点起售
+      "",
+      "",
+      "",
+      "",
+      "", // 45 1
+      "种类", // 46 dw_flag 智能动车组标志 is_zndcz  201027 智能动车组+复兴号标志 zhi+fu
+    ]
+
+    var headerkey = [
+      "secretStr", //0
+      "buttonTextInfo",
+      "train_no",
+      "station_train_code",
+      "start_station_telecode",
+      "end_station_telecode",
+      "from_station_telecode",
+      "to_station_telecode",
+      "start_time",
+      "arrive_time",
+      "lishi", //10
+      "canWebBuy", // Y/N/IS_TIME_NOT_BUY
+      "yp_info",
+      "start_train_date",
+      "train_seat_feature",   //train_seat_feature
+      "location_code",   //location_code
+      "from_station_no",  //16
+      "to_station_no",  //17
+      "is_support_card", //18
+      "controlled_train_flag",  //19
+      "gg_num",   //20 gg_num ?Q观光座
+      "gr_num",   //21 6 高级软卧 //A D954 高级动卧
+      "qt_num", //22 5 K23 K3 包厢硬卧  //H T31 一人软包 //K9686 一人软包 //old A D954 高级动卧
+      "rw_num",   //23 4 软卧 // D7xx 一等卧
+      "rz_num",   //24 2 软座
+      "tz_num",   //25 P 特等 CRH3
+      "wz_num",   //26 1|2|O 无座
+      "yb_num",   //27 ?S一等包座
+      "yw_num",   //28 3 硬卧 // D7xx 二等卧
+      "yz_num",   //29 1 硬座
+      "ze_num",   //30 O 二等座 //O D7xx 二等座
+      "zy_num",   //31 M 一等座
+      "swz_num",  //32 9 商务座
+      "srrb_num", //33 F (纵向)动卧 D311
+      "yp_ex",    //34 打折 10401031
+      "seat_types", //35 席别
+      "exchange_train_flag",//36 exchange_train_flag 兑换
+      "houbu_train_flag",   //37 houbu_train_flag 候补
+      "houbu_seat_limit",    //38 houbu_seat_limit 不能候补席别
+      "yp_info",//39 yp_info
+      "", //40
+      "",
+      "",
+      "",
+      "",
+      "", //45
+      "dw_flag" //46
+    ]
+
+    function ticketcolor(col, cc) {
+      for (var i in cc) {
+        var c = cc[i];
+        var n = class_map[c] || 22;
+        var s = col[n];
+        if (col[35].indexOf(c) == -1) {
+          continue;
+        }
+        if (s == '') {
+          continue;
+        }
+        if (s == '--') {
+          continue;
+        }
+        if (s == '有' || s > 20) {
+          return "ticket_full"
+        }
+        if (s == '无') {
+          if (col[37] > 0 && col[38] != "null" && col[38].indexOf(c) == -1) return "ticket_hb";
+          return "ticket_out"
+        }
+        if (s >= 0 || s <= 20) {
+          return "ticket_warn"
+        }
+      }
+      return "ticket_out"
+    }
+
+    function hb(col, cc) {
+      for (var i in cc) {
+        var c = cc[i];
+        var n = class_map[c] || 22;
+        var s = col[n];
+        if (col[35].indexOf(c) == -1) {
+          continue;
+        }
+        if (s == '') {
+          continue;
+        }
+        if (s == '--') {
+          continue;
+        }
+        if (s == '有') {
+          return s
+        }
+        if (s == '无') {
+          if (col[37] > 0 && col[38] != "null" && col[38].indexOf(c) == -1) return "候";
+          return s;
+        }
+        if (s >= 0) {
+          return s
+        }
+      }
+      return ""
+    }
+
+    function ticketcolor2(col, cc) {
+      for (var i in cc) {
+        var c = cc[i];
+        var n = headerkey[class_map[c] || 22] || 'qt_num';
+        var s = col[n];
+        if (col['seat_types'].indexOf(c) == -1) {
+          continue;
+        }
+        if (s == '') {
+          continue;
+        }
+        if (s == '--') {
+          continue;
+        }
+        if (s == '有' || s > 20) {
+          return "ticket_full"
+        }
+        if (s == '无') {
+          if (col['houbu_seat_limit'] != undefined && col['houbu_seat_limit'] != "null" && col['houbu_seat_limit'].indexOf(c) == -1) return "ticket_hb";
+          return "ticket_out"
+        }
+        if (s >= 0 || s <= 20) {
+          return "ticket_warn"
+        }
+      }
+      return "ticket_out"
+    }
+
+    function hb2(col, cc) {
+      for (var i in cc) {
+        var c = cc[i];
+        var n = headerkey[class_map[c] || 22] || 'qt_num';
+        var s = col[n];
+        if (col['seat_types'].indexOf(c) == -1) {
+          continue;
+        }
+        if (s == '') {
+          continue;
+        }
+        if (s == '--') {
+          continue;
+        }
+        if (s == '有') {
+          return s
+        }
+        if (s == '无') {
+          // col['houbu_train_flag'] > 0 && 
+          if (col['houbu_seat_limit'] != undefined && col['houbu_seat_limit'] != "null" && col['houbu_seat_limit'].indexOf(c) == -1) return "候";
+          return s;
+        }
+        if (s >= 0) {
+          return s
+        }
+      }
+      return ""
+    }
+
+    function ticketprice(str, cc) {
+      if (typeof (str) != "string") {
+        return ""
+      }
+      for (var i in cc) {
+        var c = cc[i];
+        for (var i = 0; i + 9 < str.length; i += 10) {
+          if (c == str[i]) {
+            return str.slice(i + 1, i + 5).replace(/^[0]{1,3}/, "") + "." + str.slice(i + 5, i + 6)
+          }
+        }
+      }
+      return ""
+    }
+
+
+    function ticketdiscount(str, cc) {
+      if (typeof (str) != "string") {
+        return ""
+      }
+      for (var i in cc) {
+        var c = cc[i];
+        for (var i = 0; i + 1 < str.length; i += 2) {
+          if (c == str[i]) {
+            dis = str.slice(i + 1, i + 2)
+            if (dis == '1') {
+              return ' ticket_discount'
+            }
+            if (dis == '0') {
+              return ''
+            }
+          }
+        }
+      }
+      return ""
+    }
+
+
+    function ticketHTML(result, map) {
+      var str = "";
+      str += "<table>";
+      str += (
+        "<tr>\n"
+        + "<td class=\"abs\" title=\"" + h[2] + "\" width='48px'>" + h[3] + "</td>\n"
+        + "<td title=\"" + h[2] + "\" width='48px'>" + h[3] + "</td>\n"
+        + "<td title=\"22 " + h[22] + "\">" + " " + "</td>\n"
+        + "<td title=\"21|32|20|25 " + h[21] + "/" + h[32] + "/" + h[20] + "/" + h[25] + "\">" + "6" + "</td>\n"
+        + "<td title=\"23|27 " + h[23] + "/" + h[27] + "\">" + "4" + "</td>\n"
+        + "<td title=\"28|33 " + h[28] + "/" + h[33] + "\">" + "3" + "</td>\n"
+        + "<td title=\"24|31 " + h[24] + "/" + h[31] + "\">" + "2" + "</td>\n"
+        + "<td title=\"29|30 " + h[29] + "/" + h[30] + "\">" + "1" + "</td>\n"
+        + "<td title=\"26\">" + h[26] + "</td>\n"
+        + "<td title=\"" + h[16] + "\">" + h[8] + "</td>\n"
+        + "<td title=\"" + h[17] + "\">" + h[9] + "</td>\n"
+        + "<td>" + "站" + "</td>\n"
+        + "<td>" + h[10] + "</td>\n"
+        + "<td title=\"" + h[6] + "\">" + h[6] + "</td>\n"
+        + "<td title=\"" + h[7] + "\">" + h[7] + "</td>\n"
+        + "<td title=\"" + h[4] + "\">" + h[4] + "</td>\n"
+        + "<td title=\"" + h[5] + "\">" + h[5] + "</td>\n"
+        + "<td>" + "票价" + "</td>\n"
+        + "<td title=\"yp_ex\">" + h[34] + "</td>\n"
+        + "<td title=\"seat_types\">" + h[35] + "</td>\n"
+        + "<td>" + h[13] + "</td>\n"
+        + "<td title=\"train_seat_feature\">" + h[14] + "</td>\n"
+        + "<td title=\"location_code\">" + h[15] + "</td>\n"
+        + "<td>" + h[18] + "</td>\n"
+        + "<td title=\"" + h[0] + "\n" + h[12] + "\">" + h[1] + "|" + h[11] + "|" + h[46] + "</td>\n"
+        + "</tr>\n"
+      );
+      for (i = 0; i < result.length; i++) {
+        col = result[i].split("|");
+        sleeper = is_sleeper(col[8], col[9], col[10]);
+        str += (
+          "<tr class=\"" + "hide" + col[3][0] + (col[19] > 0 ? " ctl" : "") + "\">\n"
+          + "<td class=\"abs type" + traintype(col[3], col[14]) + (col[19] > 0 ? " ctl" : "") + "\" title=\"" + col[2] + "\" onclick=\"getSch(schURL('" + col[2] + "','" + col[4] + "','" + col[5] + "','" + col[13] + "'))\">" + col[3] + (col[36] > 0 ? "<div class=\"ticket_ex\"></div>" : "") + "</td>\n"
+          + "<td class=\"type" + traintype(col[3], col[14]) + (col[19] > 0 ? " ctl" : "") + "\" title=\"" + col[2] + "\" onclick=\"getSch(schURL('" + col[2] + "','" + col[4] + "','" + col[5] + "','" + col[13] + "'))\">" + col[3] + "</td>\n"
+          + "<td class=\"right " + ticketcolor(col, 'QH5LCKB0') + "\">" + (hb(col, 'QH5LCKB0') || "-") + "</td>\n"
+          + "<td class=\"right " + ticketcolor(col, '6A9PQE') + "\">" + (hb(col, '6A9PQE') || "-") + "</td>\n"
+          + "<td class=\"right " + ticketcolor(col, '4IS') + "\">" + (hb(col, '4IS') || "-") + "</td>\n" // ?S
+          + "<td class=\"right " + ticketcolor(col, '3FJ') + (sleeper ? " seat_match" : "") + "\">" + (hb(col, '3FJ') || "-") + "</td>\n"
+          + "<td class=\"right " + ticketcolor(col, '2M7') + "\">" + (hb(col, '2M7') || "-") + "</td>\n"
+          + "<td class=\"right " + ticketcolor(col, '1O8') + (!sleeper ? " seat_match" : " seat_warn") + "\">" + (hb(col, '1O8') || "-") + "</td>\n"
+          + "<td class=\"right\" style=\"font-weight: lighter;\">" + (col[26] || "-") + "</td>\n"
+          + "<td title=\"" + col[16] + "\">" + col[8] + "</td>\n"
+          + "<td title=\"" + col[17] + "\">" + col[9] + "</td>\n"
+          + "<td class=\"right\">" + (col[17] - col[16]) + "</td>\n"
+          + "<td>" + col[10] + "</td>\n"
+          + "<td title=\"" + col[6] + "\">" + map[col[6]] + "</td>\n"
+          + "<td title=\"" + col[7] + "\">" + map[col[7]] + "</td>\n"
+          + "<td title=\"" + col[4] + "\">" + name(col[4]) + "</td>\n"
+          + "<td title=\"" + col[5] + "\">" + name(col[5]) + "</td>\n"
+          + "<td title=\"" + col[39] + "\" class=\"right " + ticketdiscount(col[34], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "\">" + ticketprice(col[39], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "</td>\n"
+          + "<td>" + col[34] + "</td>\n"
+          + "<td>" + col[35] + "</td>\n"
+          + "<td>" + col[13] + "</td>\n"
+          + "<td>" + col[14] + "</td>\n"
+          + "<td>" + col[15] + "</td>\n"
+          + "<td>" + col[18] + "</td>\n"
+          + "<td title=\"secretStr " + decodeURIComponent(col[0]) + "\nyp_info " + decodeURIComponent(col[12]) + "\">" + col[1].replace(/<[^>]+>/g, " ") + "|" + col[11] + "|" + (col[46].split("#")[0] == "5" ? "智" : "") + (col[46].split("#")[1] == "1" ? "复" : "") + ("Q" == col[46].split("#")[2].substring(0, 1) ? "静" : "") + "|" + col[46] + "</td>\n"
+          + "</tr>\n"
+        );
+
+        console.log(
+          //col[1] + "\t|" + 
+          col[2] + "|" +
+          (col[18] > 0 ? col[18] : " ") + "|" +
+          col[4] + "|" +
+          col[5] + "|" +
+          col[16] + "|" +
+          col[6] + "|" +
+          col[17] + "|" +
+          col[7] + "|" +
+          col[8] + "|" +
+          col[9] + "|" +
+          col[10] + "|" +
+          col[11] + "|" +
+          col[13] + "|" +
+          col[14] + "|" +
+          col[15] + "|" +
+          col[19] + "|" +
+          col[20] + "\t|" +
+          col[21] + "\t|" +
+          col[22] + "\t|" +
+          col[23] + "\t|" +
+          col[24] + "\t|" +
+          col[25] + "\t|" +
+          col[26] + "\t|" +
+          col[27] + "\t|" +
+          col[28] + "\t|" +
+          col[29] + "\t|" +
+          col[30] + "\t|" +
+          col[31] + "\t|" +
+          col[32] + "\t|" +
+          col[33] + "\t|" +
+          col[3] + "\t|" +
+          col[34] + "\t|" +
+          col[35] + "\t|" +
+          col[36] + "\t|" +
+          col[37] + "\t|" +
+          col[38] + "\t|" +
+          col[39] + "\t|" +
+          col[40] + "\t|" +
+          col[41] + "\t|" +
+          col[42] + "\t|" +
+          col[43] + "\t|" +
+          col[44] + "\t|" +
+          col[45] + "\t|" +
+          col[46]// + "\t|" + 
+          //col[0] + "\t|" + 
+          //col[12] + "\t|" + 
+          //col[36]
+        );
+      }
+      str += "</table>";
+      return str;
+    }
+
+
+    // https://www.12306.cn/kfzmpt/lcxxcx/init
+    function getlcxxcx(from, to, date) {
+      var from_station_telecode = telecode(from);
+      var to_station_telecode = telecode(to);
+      if (!from_station_telecode) {
+        return;
+      }
+      if (!to_station_telecode) {
+        return;
+      }
+      //成人ADULT 学生0X00
+      var url = "https://www.12306.cn/kfzmpt/lcxxcx/query?purpose_codes=ADULT&queryDate=" + date
+        + "&from_station=" + from_station_telecode
+        + "&to_station=" + to_station_telecode;
+      if (!document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode)) {
+        document.getElementById("ticket").innerHTML =
+          "<div style=\"overflow-x:scroll;\" id=\"" + date + "_" + from_station_telecode + "_" + to_station_telecode + "\">"
+          + date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+          + "</div>\n" + document.getElementById("ticket").innerHTML;
+      }
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            var j = JSON.parse(xhr.responseText);
+            if (j.data.flag == false) {
+              j.data.message
+              document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+                date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+                + " " + j.data.message;
+            }
+            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+              date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+              + " X-Via: " + xhr.getResponseHeader("X-Via") + "<br />\n"
+              + lcxxcxHTML(j.data.datas);
+          } else {
+            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+              date + " " + name(from_station_telecode) + " " + name(to_station_telecode)
+              + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+        }
+      }
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function is_sleeper(s, e, d) {
+      //s (5)8-24
+      //e 6-22(25)
+      if (d <= "02:00") {
+        return 0 // "12OM87346FAJI short"
+      }
+      if (d >= "20:00") {
+        return 1 // "346FAJI12OM87 long"
+      }
+      if (s >= e && e >= "02:00") {
+        return 1 // "346FAJI12OM87"
+      }
+      if (s < e && (s <= "04:00")) {
+        return 1 //"346FAJI12OM87 night"
+      }
+      return 0 //"12OM87346FAJI other"
+    }
+    /*
+    //test
+    console.log(is_sleeper("12:00","05:00","41:00"), 3)
+    console.log(is_sleeper("18:00","06:00","36:00"), 3)
+    console.log(is_sleeper("20:00","06:00","10:00"), 3)
+    console.log(is_sleeper("20:00","11:00","15:00"), 3)
+    console.log(is_sleeper("19:00","06:00","11:00"), 3)
+    console.log(is_sleeper("22:00","12:00","14:00"), 3)
+    console.log(is_sleeper("16:00","10:00","18:00"), 3)
+    console.log(is_sleeper("23:00","06:00","07:00"),3)
+    console.log(is_sleeper("01:00","13:00","12:00"),3)
+    console.log(is_sleeper("05:00","24:00","19:00"),1)
+    console.log(is_sleeper("18:00","01:00","07:00"),1)
+    console.log(is_sleeper("08:00","04:00","10:00"),3)
+    console.log(is_sleeper("23:00","03:00","04:00"),3)
+    console.log(is_sleeper("23:00","04:00","05:00"),3)
+    console.log(is_sleeper("01:00","05:00","04:00"),3)
+    console.log(is_sleeper("04:00","05:00","01:00"),1)
+    */
+
+    function lcxxcxHTML(datas) {
+      var str = "";
+      str += "<div><table>";
+      str += (
+        "<tr>\n"
+        + "<td class=\"abs\" title=\"" + h[2] + "\" width='48px'>" + h[3] + "</td>\n"
+        + "<td title=\"" + h[2] + "\" width='48px'>" + h[3] + "</td>\n"
+        + "<td title=\"22 " + h[22] + "\">" + " " + "</td>\n"
+        + "<td title=\"21|32|20|25 " + h[21] + "/" + h[32] + "/" + h[20] + "/" + h[25] + "\">" + "6" + "</td>\n"
+        + "<td title=\"23|27 " + h[23] + "/" + h[27] + "\">" + "RW" + "</td>\n"
+        + "<td title=\"28|33 " + h[28] + "/" + h[33] + "\">" + "YW" + "</td>\n"
+        + "<td title=\"24|31 " + h[24] + "/" + h[31] + "\">" + "RZ" + "</td>\n"
+        + "<td title=\"29|30 " + h[29] + "/" + h[30] + "\">" + "YZ" + "</td>\n"
+        + "<td title=\"26\">" + h[26] + "</td>\n"
+        + "<td title=\"" + h[16] + "\">" + h[8] + "</td>\n"
+        + "<td title=\"" + h[17] + "\">" + h[9] + "</td>\n"
+        + "<td>" + "站" + "</td>\n"
+        + "<td>" + h[10] + "</td>\n"
+        + "<td title=\"" + h[6] + "\">" + h[6] + "</td>\n"
+        + "<td title=\"" + h[7] + "\">" + h[7] + "</td>\n"
+        + "<td title=\"" + h[4] + "\">" + h[4] + "</td>\n"
+        + "<td title=\"" + h[5] + "\">" + h[5] + "</td>\n"
+        + "<td>" + "票价" + "</td>\n"
+        + "<td title=\"yp_ex\">" + h[34] + "</td>\n"
+        + "<td title=\"seat_types\">" + h[35] + "</td>\n"
+        + "<td>" + h[13] + "</td>\n"
+        + "<td title=\"train_seat_feature\">" + h[14] + "</td>\n"
+        + "<td title=\"location_code\">" + h[15] + "</td>\n"
+        + "<td>" + h[18] + "</td>\n"
+        + "<td title=\"" + h[12] + "\">" + h[1] + "|" + h[11] + "</td>\n"
+        + "</tr>\n"
+      );
+      var min = 99;
+      for (i = 0; i < datas.length; i++) {
+        col = datas[i];
+        var a = (col[headerkey[17]] - col[headerkey[16]]);
+        if (a < min && (col[headerkey[3]][0] == 'G')) {
+          min = a;
+        }
+      }
+      for (i = 0; i < datas.length; i++) {
+        col = datas[i];
+        sleeper = is_sleeper(col[headerkey[8]], col[headerkey[9]], col[headerkey[10]]);
+        str += (
+          "<tr class=\"hide" + col[headerkey[3]][0] + (col[headerkey[19]] > 0 ? " ctl" : "") + (((col[headerkey[3]][0] == 'G') && ((col[headerkey[17]] - col[headerkey[16]]) > min + 1)) ? " hideG-" : "") + "\">\n"
+          + "<td class=\"abs type" + traintype(col[headerkey[3]], col[headerkey[14]]) + (col[headerkey[19]] > 0 ? " ctl" : "") + "\" title=\"" + col[headerkey[2]] + "\" onclick=\"getSch(schURL('" + col[headerkey[2]] + "','" + col[headerkey[4]] + "','" + col[headerkey[5]] + "','" + col[headerkey[13]] + "'))\">" + col[headerkey[3]] + (col[headerkey[36]] > 0 ? "<div class=\"ticket_ex\"></div>" : "") + "</td>\n"
+          + "<td class=\"type" + traintype(col[headerkey[3]], col[headerkey[14]]) + (col[headerkey[19]] > 0 ? " ctl" : "") + "\" title=\"" + col[headerkey[2]] + "\" onclick=\"getSch(schURL('" + col[headerkey[2]] + "','" + col[headerkey[4]] + "','" + col[headerkey[5]] + "','" + col[headerkey[13]] + "'))\">" + col[headerkey[3]] + "</td>\n"
+          + "<td class=\"right " + ticketcolor2(col, 'QH5LCKB0') + "\">" + (hb2(col, 'QH5LCKB0') || "-") + "</td>\n"
+          + "<td class=\"right " + ticketcolor2(col, '6A9PQE') + "\">" + (hb2(col, '6A9PQE') || "-") + "</td>\n"
+          + "<td class=\"right " + ticketcolor2(col, '4IS') + "\">" + (hb2(col, '4IS') || "-") + "</td>\n" // ?S
+          + "<td class=\"right " + ticketcolor2(col, '3FJ') + (sleeper ? " seat_match" : "") + "\">" + (hb2(col, '3FJ') || "-") + "</td>\n"
+          + "<td class=\"right " + ticketcolor2(col, '2M7') + "\">" + (hb2(col, '2M7') || "-") + "</td>\n"
+          + "<td class=\"right " + ticketcolor2(col, '1O8') + (!sleeper ? " seat_match" : " seat_warn") + "\">" + (hb2(col, '1O8') || "-") + "</td>\n"
+          + "<td class=\"right\" style=\"font-weight: lighter;\">" + (col[headerkey[26]] || "-") + "</td>\n"
+          + "<td title=\"" + col[headerkey[16]] + "\">" + col[headerkey[8]] + "</td>\n"
+          + "<td title=\"" + col[headerkey[17]] + "\">" + col[headerkey[9]] + "</td>\n"
+          + "<td class=\"right\">" + (col[headerkey[17]] - col[headerkey[16]]) + "</td>\n"
+          + "<td>" + col[headerkey[10]] + "</td>\n"
+          + "<td title=\"" + col[headerkey[6]] + "\">" + name(col[headerkey[6]]) + "</td>\n"
+          + "<td title=\"" + col[headerkey[7]] + "\">" + name(col[headerkey[7]]) + "</td>\n"
+          + "<td title=\"" + col[headerkey[4]] + "\">" + name(col[headerkey[4]]) + "</td>\n"
+          + "<td title=\"" + col[headerkey[5]] + "\">" + name(col[headerkey[5]]) + "</td>\n"
+          + "<td title=\"" + col['yp_info'] + "\" class=\"right " + ticketdiscount(col['yp_ex'], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "\">" + ticketprice(col['yp_info'], (sleeper ? "3456FAJI12OM87" : "12OM873456FAJI")) + "</td>\n"
+          + "<td>" + col[headerkey[34]] + "</td>\n"
+          + "<td>" + col[headerkey[35]] + "</td>\n"
+          + "<td>" + col[headerkey[13]] + "</td>\n"
+          + "<td>" + (col[headerkey[14]] || "") + "</td>\n"
+          + "<td>" + col[headerkey[15]] + "</td>\n"
+          + "<td>" + col[headerkey[18]] + "</td>\n"
+          + "<td title=\"yp_info " + col['yp_info'] + "\">" + (col['note'] || col['controlled_train_message'] || '预订').replace(/<[^>]+>/g, " ") + "|" + col[headerkey[11]] + "</td>\n"
+          + "</tr>\n"
+        );
+
+        console.log(
+          col[headerkey[2]] + "|" +
+          (col[headerkey[18]] > 0 ? col[headerkey[18]] : " ") + "|" +
+          col[headerkey[4]] + "|" +
+          col[headerkey[5]] + "|" +
+          col[headerkey[16]] + "|" +
+          col[headerkey[6]] + "|" +
+          col[headerkey[17]] + "|" +
+          col[headerkey[7]] + "|" +
+          col[headerkey[8]] + "|" +
+          col[headerkey[9]] + "|" +
+          col[headerkey[10]] + "|" +
+          col[headerkey[11]] + "|" +
+          col[headerkey[13]] + "|" +
+          col[headerkey[14]] + "|" +
+          col[headerkey[15]] + "|" +
+          col[headerkey[19]] + "|" +
+          col[headerkey[20]] + "\t|" +
+          col[headerkey[21]] + "\t|" +
+          col[headerkey[22]] + "\t|" +
+          col[headerkey[23]] + "\t|" +
+          col[headerkey[24]] + "\t|" +
+          col[headerkey[25]] + "\t|" +
+          col[headerkey[26]] + "\t|" +
+          col[headerkey[27]] + "\t|" +
+          col[headerkey[28]] + "\t|" +
+          col[headerkey[29]] + "\t|" +
+          col[headerkey[30]] + "\t|" +
+          col[headerkey[31]] + "\t|" +
+          col[headerkey[32]] + "\t|" +
+          col[headerkey[33]] + "\t|" +
+          col[headerkey[3]] + "\t|" +
+          col[headerkey[34]] + "\t|" +
+          col[headerkey[35]] + "\t|" +
+          col[headerkey[36]] + "\t|" +
+          col[headerkey[37]] + "\t|" +
+          col[headerkey[38]] + "\t|" +
+          col[headerkey[12]]// + "\t|" + 
+          //col[headerkey[36]]
+        );
+      }
+      str += "</table></div>";
+      return str;
+    }
+
+    function search_train_list(str) {
+      //console.log("search_train_list()" + str);
+      var result = "";
+      var sch = "";
+      var date = document.getElementById("date").value;
+      var re = new RegExp(document.getElementById('keyword').value, "i");
+      document.getElementById("sch").innerHTML = "";
+      for (type in train_list[date]) {
+        for (i in train_list[date][type]) {
+          t = train_list[date][type][i];
+          if (re.test(t.station_train_code)) { // if(t.station_train_code.includes(str)) {
+            match = t.station_train_code.match(/(.*)\((.*)-(.*)\)/);
+            url = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + telecode(match[2]) + "&to_station_telecode=" + telecode(match[3]) + "&depart_date=" + date;
+            result += ("<div id=\"" + match[1] + "\">" + t.train_no + " " + t.station_train_code
+              + " " + (match ? (match[1] + " " + telecode(match[2]) + " " + telecode(match[3])) : '') + " " + "<a href=" + url + " target='_blank'>" + match[1] + "</a>" + "<span onclick=\"getSch('" + url + "')\">" + match[1] + "</span>" + "</div>");
+            if (match[1] == str.toUpperCase()) {
+              document.getElementById("sch").innerHTML = match[1] + "<br />\n";
+              getSch(url);
+            }
+          }
+        }
+      }
+      document.getElementById("result").innerHTML = result;
+    }
+
+    function get_search_train_csv(str) {
+      if (window.train) {
+        search_train_csv(str)
+        return
+      }
+      var url = "js/train.csv"
+      document.getElementById("result").innerHTML = str
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            data = xhr.responseText.split("\n");
+            window.train = []
+            for (i in data) {
+              var row = data[i].split(",");
+              if (row.length <= 5) continue
+              window.train.push({
+                train_no: row[0] || "",
+                from_station: row[1] || "",
+                to_station: row[2] || "",
+                station_train_code: row[3] || "",
+                total_num: row[4] || "",
+                service_type: row[5] || "", // (row[5].length & row[5] == '0') ? "无空调" : "",
+                src: row[6] || "",
+                date: row[7] || "",
+              })
+            }
+
+            search_train_csv(str)
+          } else {
+            document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+        }
+      }
+      xhr.open("GET", url, true);
+      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function has_a_day(s) {
+      if (s == "") {
+        return date
+      }
+
+      if (s[0] == '停') {
+        return date
+      }
+
+      if (s[0] == '!') {
+        return date
+      }
+
+      //TODO
+      if (s[0] == 'b') {
+        return date
+      }
+
+      if (s[0] == '单') {
+        var t_sp = s.split('&')
+        return has_a_day(t_sp.length > 1 ? t_sp[1] : '')
+      }
+
+      if (s[0] == '双') {
+        var t_sp = s.split('&')
+        return has_a_day(t_sp.length > 1 ? t_sp[1] : '')
+      }
+
+      if (s[0] == 'w') {
+        var diff = (s[1] | 0) - weekday(date)
+        if (diff < 0) {
+          diff += 7
+        }
+        return dateAdd(date, diff)
+      }
+
+      //TODO
+      if (s.length < 4) {
+        return date
+      }
+
+      var yyyymmdd = date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3")
+      sp = s.split("|")
+      for (i in sp) {
+        ssp = sp[i].split("-")
+        if (ssp.length) {
+          //console.log(ssp[0], ssp[ssp.length-1])
+          var tail = ssp[0]
+          yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
+          var d0 = yyyymmdd
+          var tail = ssp[ssp.length - 1]
+          yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
+          var d1 = yyyymmdd
+          //console.log(d0, d1)
+          //console.log(d, d0 <= d, d <= d1)
+        }
+      }
+
+      return yyyymmdd.replace(/(\d\d\d\d)(\d\d)(\d\d)/, "$1-$2-$3")
+    }
+
+    function is_a_day(s, d) {
+      //console.log("is_a_day(s, d)", s, d)
+      if (s == "") {
+        return 1
+      }
+
+      if (s[0] == '停') {
+        return 1 - is_a_day(s.replace("停", ""), d)
+      }
+
+      if (s[0] == '!') {
+        return 1 - is_a_day(s.replace("!", ""), d)
+      }
+
+      if (s[0] == '单' || s[0] == '双') {
+        var t_sp = s.split('&')
+        var t = t_sp[0]
+        // TODO 周期
+        /*if (t.indexOf(w) == -1) {
+          return 0
+        }*/
+        return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
+      }
+
+      if (s[0] == 'w') {
+        var w = weekday(d.replace(/(\d\d\d\d)(\d\d)(\d\d)/, "$1-$2-$3"))
+        if (w == 0) {
+          w = 7
+        }
+        var t_sp = s.split('&')
+        var t = t_sp[0]
+        if (t.indexOf(w) == -1) {
+          return 0
+        }
+        return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
+      }
+
+      //TODO
+      if (s.length < 4) {
+        return 1
+      }
+
+      var yyyymmdd = date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3")
+      sp = s.split("|")
+      for (i in sp) {
+        ssp = sp[i].split("-")
+        if (ssp.length) {
+          //console.log(ssp[0], ssp[ssp.length-1])
+          var tail = ssp[0]
+          yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
+          var d0 = yyyymmdd
+          var tail = ssp[ssp.length - 1]
+          yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
+          var d1 = yyyymmdd
+          //console.log(d0, d1)
+          //console.log(d, d0 <= d, d <= d1)
+          if (d0 <= d && d <= d1) {
+            return 1
+          }
+        }
+      }
+
+      return 0
+    }
+
+    //is_a_day('停200219-200315', '20200314')
+    //is_a_day('191230-200123|25-0201|03|05-10|12|14|16|18|20|22|24|26|28|0301|03|05|07|09|11|13|15-0414', '2020-03-15')
+
+    //Z81 Z80 Z81/0
+    function multi_train_no(train_no, station_train_code) {
+      var no = train_no.slice(2, 10).replace(/^[0]+/g, "");
+      if (no == station_train_code) {
+        return station_train_code;
+      }
+      var l = Math.min(no.length, station_train_code.length);
+      var idx = 0;
+      for (idx = 0; idx < l; idx++) {
+        if (no[idx] != station_train_code[idx]) {
+          break;
+        }
+      }
+      if (idx < station_train_code.length) {
+        return no + "/" + station_train_code.slice(idx);
+      }
+      return ret;
+    }
+
+    function search_train_csv(str) {
+      var result = "";
+      var re = new RegExp(str, "i");
+      //document.getElementById("sch").innerHTML = "";
+      for (i in window.train) {
+        t = window.train[i];
+        if (re.test(t.station_train_code)) { // if(t.station_train_code.includes(str)) { // 
+          var is_run = is_a_day(t.date, date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3"))
+          result += ("<div id=\"" + t.station_train_code + "\">"
+            + t.train_no + " " + t.from_station + " " + t.to_station
+            + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"get_search_time_csv('" + t.train_no.slice(2, 10).replace(/^[0]+/g, "") + "')\">"
+            + multi_train_no(t.train_no, t.station_train_code)
+            + "</span>" + " " + (name(t.from_station) || "---") + " " + (name(t.to_station) || "---")
+            // + " " + t.service_type
+            + " " + "<span class=\"" + (is_run ? "" : "ctl") + "\">" + t.date + "</span>"
+            //+ " " + "<a href=" + schurl + " target='_blank'>" + multi_train_no(t.train_no, t.station_train_code) + "</a>" 
+            + "</div>"
+          );
+          if (is_run && t.station_train_code == str.toUpperCase()) {
+            // document.getElementById("sch").innerHTML = t.station_train_code + "<br />\n";
+            get_search_time_csv(t.train_no.slice(2, 10).replace(/^[0]+/g, ""));
+          }
+        }
+      }
+      document.getElementById("result").innerHTML = result;
+    }
+
+    function search(str) {
+      var re = /^[GDCZTKYL]{1}[1-9][0-9]{0,3}$|^[1-9][0-9]{3}$/
+      if (re.test(str.toUpperCase())) {
+        search_v1(str.toUpperCase())
+        return false
+      }
+      var re2 = /^[a-zA-Z]{3}$/
+      if (re2.test(str)) {
+        czxx(str.toUpperCase())
+        return false
+      }
+      if (telecode(str)) {
+        czxx(telecode(str))
+        return false
+      }
+      search_v1(str.toUpperCase())
+    }
+
+    function search_v1(str) {
+      var date = document.getElementById("date").value;
+      var yyyymmdd = date.replace(/-/g, "")
+      var url = "https://search.12306.cn/search/v1/train/search?keyword=" + str + "&date=" + yyyymmdd
+      document.getElementById("result").innerHTML = str
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            result = ""
+            var j = JSON.parse(xhr.responseText);
+            if (j.status) {
+              result += ("<div>" + (j.data ? j.data.length : 0) + "条</div>")
+              for (i in j.data) {
+                var t = j.data[i];
+                schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + telecode(t.from_station) + "&to_station_telecode=" + telecode(t.to_station) + "&depart_date=" + date;
+                result += ("<div id=\"" + t.station_train_code + "\">"
+                  + t.train_no + " " + telecode(t.from_station) + " " + telecode(t.to_station)
+                  + " " + "<span class=\"type" + t.station_train_code[0] + "\" onclick=\"getSch('" + schurl + "')\">"
+                  + t.station_train_code + "</span>" + " " + t.from_station + " " + t.to_station
+                  + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>"
+                );
+                if (t.station_train_code == str.toUpperCase()) {
+                  document.getElementById("sch").innerHTML = t.station_train_code + "<br />\n";
+                  getSch(schurl);
+                }
+              }
+            } else {
+              result += j.errorMsg
+            }
+            document.getElementById("result").innerHTML = result;
+          } else {
+            document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+        }
+      }
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function czxx(t1) {
+      var date = document.getElementById("date").value;
+      var url = "https://kyfw.12306.cn/otn/czxx/query?train_start_date=" + date + "&train_station_code=" + t1
+      document.getElementById("result").innerHTML = t1 + " ";
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            result = ""
+            var j = JSON.parse(xhr.responseText);
+            if (j.status && j.data) {
+              result += ("<div>" + (j.data.data ? j.data.data.length : 0) + "趟 " + j.data.sameStations.join(" ") + "</div>")
+              for (i in j.data.data) {
+                var t = j.data.data[i];
+                schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no
+                  + "&from_station_telecode=" + telecode(t.start_station_name)
+                  + "&to_station_telecode=" + telecode(t.end_station_name)
+                  + "&depart_date=" + date;
+                result += ("<div id=\"" + t.station_train_code + "\">"
+                  + t.train_no + " " + telecode(t.start_station_name) + " " + telecode(t.end_station_name)
+                  + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
+                  + t.station_train_code + "</span>" + " " + t.start_station_name + " " + t.end_station_name
+                  + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>");
+              }
+            } else {
+              result += j.errorMsg
+            }
+            document.getElementById("result").innerHTML = result;
+          } else {
+            document.getElementById("result").innerHTML = t1 + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+        }
+      }
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+    }
+
+    function search_qss(str) {
+      var c = search_samecity(str)
+      ret = ""
+      for (i in c) {
+        ret += c[i] + ":" + (citys[c[i]] || "") + " "
+      }
+      document.getElementById("qss").innerHTML = ret;
+    }
+
+    function search_samecity(str) {
+      if (!telecode(str)) {
+        return
+      }
+      for (i in window.samecity) {
+        for (j in window.samecity[i]) {
+          if (window.samecity[i][j] == str) {
+            return window.samecity[i] || []
+          }
+        }
+      }
+      return [str]
+    }
+
+    function qss(str) {
+      if (window.samecity) {
+        search_qss(str)
+        return
+      }
+      var url = "samecity.txt"
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            data = xhr.responseText.split("\n");
+            window.samecity = []
+            for (i in data) {
+              if (data[i].length == 0) continue
+              window.samecity.push(data[i].replace("\r", "").split(","))
+            }
+
+            search_qss(str)
+          } else {
+            document.getElementById("qss").innerHTML = ret + " " + xhr.status + " " + (xhr.statusText || "error");
+          }
+        }
+      }
+      xhr.open("GET", url, true);
+      xhr.send();
+    }
 
   </script>
-</head>
-<body><!--body oncontextmenu="self.event.returnValue=false" onselectstart="return false"//-->
-
-  <div id="time"></div>
-  <div>
-
-    <form action="http://www.baidu.com/s" target="_blank">
-      <input type="text" name="wd" size="60" baiduSug="1" />
-      <input type="hidden" name="ie" value="UTF-8" />
-      <input type="submit" value="百度一下" />
-      <a href="http://map.baidu.com" target="_blank">地图</a>
-      <a href="http://tieba.baidu.com" target="_blank">贴吧</a>
-      <a href="http://fanyi.baidu.com" target="_blank">翻译</a>
-      <a href="http://wenku.baidu.com" target="_blank">文库</a>
-	  <a href="http://ipv6.baidu.com" target="_blank">ipv6</a>
-      <a href="http://www.baidu.com/more/" target="_blank">more</a>
-    </form>
-
-    <form action="https://www.google.com.hk/search" target="_blank">
-      <input autocomplete="off" name="q" size="60" title="Google 搜索" value="" />
-      <input name="btnG" type="submit" value="Google" />
-      <a href="http://www.google.com/" target="_blank">google</a>
-      <a href="https://earth.google.com/web/" target="_blank">earth</a>
-      <a href="https://www.google.com/maps/" target="_blank">map</a>
-      <a href="https://translate.google.cn/" target="_blank">翻译</a>
-      <a href="http://mail.google.com/" target="_blank">gmail</a>
-      <a href="http://www.google.com.hk/" target="_blank">.com.hk</a>
-    </form>
-
-  <!--form action="http://www.flvcd.com/parse2.php" target="_blank">
-    <input type="text" name="kw" size="30" />
-    <input type="submit" value="flvcd视频解析" />
-    <input type="hidden" name="flag" value="one" />
-    <input type="radio" checked="checked" name="format" value="real" />原画/1080p
-    <input type="radio" name="format" value="super2" />720p
-    <input type="radio" name="format" value="super" />超清
-    <input type="radio" name="format" value="high" />高清
-    <input type="radio" name="format" value="normal" />标准
-    <input type="radio" name="format" value="fluent" />流畅
-  </form //-->
-  </div>
-  <div>
-  <br />
-    <a href="C:\Users\Administrator\AppData\Local\Microsoft\Windows\Temporary Internet Files" target="_blank">Temporary Internet Files</a>
-    <a href="http://192.168.0.1" target="_blank" class="lan">192.168.0.1</a>
-    <a href="http://192.168.1.1" target="_blank" class="lan">192.168.1.1</a>
-    <!--a href="http://192.168.1.253/" target="_blank" class="lan">192.168.1.253</a//-->
-    <a href="http://192.168.0.2" target="_blank" class="lan">192.168.0.2</a>
-    <a href="ftp://192.168.0.2/hdd" target="_blank" class="lan">hdd</a>
-    <!--a href="https://gpx0214.oicp.net" target="_blank">*.oicp.net:*</a//-->
-    <!--a href="ftp://gpx0214.oicp.net/hdd" target="_blank">ftp</a//-->
-    <a href="https://gpx0214.ddns.net" target="_blank">*.ddns.net</a>
-    <a href="ftp://gpx0214.ddns.net" target="_blank">ftp</a>
-    <a href="#HTML" target="_self">HTML</a>
-    <a href="#software" target="_self">software</a>
-	<br />
-    <a href="https://appengine.google.com/" target="_blank">goagent**</a>
-    <a href="https://www.noip.com/login" target="_blank">no-ip登录</a>
-    <a href="http://www.oray.com/" target="_blank">花生壳</a>
-    <a href="https://dashboard.heroku.com/apps" target="_blank">Heroku</a>
-    <a href="https://ap-northeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-northeast-1#Instances:sort=instanceId" target="_blank">EC2</a>
-    <a href="https://ap-northeast-1.console.aws.amazon.com/cloudwatch/home?region=ap-northeast-1" target="_blank">watch</a>
-    <a href="https://console.aws.amazon.com/billing/home?region=ap-northeast-1#/freetier" target="_blank">bill</a>
-  </div>
-  <div>
-    <!-- //-->
-    <a href="http://www.renren.com/339848634" target="_blank"><font color="#ff8c00">renren</font></a>
-    <a href="http://weibo.com/" target="_blank"><font color="silver">weibo</font></a>
-    <a href="http://qzone.qq.com/" target="_blank">qzone</a>
-    <a href="http://weibo.com/mygroups?gid=3593924293363834" target="_blank"><font color="silver">weibo</font></a>
-    <a href="http://tieba.baidu.com/f?kw=%E9%97%AB%E5%A6%AE" target="_blank">贴吧</a>
-    <a href="http://tieba.baidu.com/f/like/furank?kw=%E3%C6%C4%DD&pn=1" target="_blank">经验</a>
-    <a href="http://club.weibo.com/center" target="_blank"><font color="silver">club</font></a>
-    <a href="http://3g.renren.com/" target="_blank"><font color="silver">手机人人网</font></a>
-    <a href="https://worktile.com/project/95b1d192f5a94e69883a97abe0ff3333/page" target="_blank">worktile</font></a>
-    <br />
-    <br />
-    <a href="http://mail.bjtu.edu.cn" target="_blank">mail</a>
-    <a href="http://zhixing.bjtu.edu.cn" target="_blank">知行论坛</a>
-    <a href="http://121.194.57.131/" target="_blank" class="bjtuvpn">教务系统选课</a>
-    <a href="http://cc.bjtu.edu.cn/" target="_blank" class="bjtuvpn">教学平台</a>
-    <a href="http://jx.bjtu.edu.cn" target="_blank" class="bjtu1">jx</a>
-    <a href="http://sy.bjtu.edu.cn" target="_blank">sy</a>
-    <a href="http://202.112.159.191/cx/" target="_blank" class="bjtuvpn">大创系统</a>
-    <!--a href="http://202.112.154.55/" target="_blank" class="bjtuvpn">党课</a//-->
-    <a href="http://jwc.bjtu.edu.cn" target="_blank" class="bjtuvpn1">教务处</a>
-    <a href="http://jwc.bjtu.edu.cn/login_introduce_s.html" target="_blank" class="bjtuvpn1">学生</a>
-    <a href="http://jwc.bjtu.edu.cn/jwlogin_index.html" target="_blank">选课</a>
-    <a href="http://www.bjtu.edu.cn" target="_blank">bjtu</a>
-    <a href="http://eaie.bjtu.edu.cn/cms/" target="_blank">eaie</a>
-    <br />
-    <a href="http://10.10.43.3/" target="_blank" class="lan">10.10.43.3</a>
-    <a href="http://10.10.42.3/" target="_blank" class="lan">10.10.42.3</a>
-    <!--a href="https://10.1.154.3/portal/logon.htm" target="_blank" class="bjtuvpn">web.wlan.bjtu</a//-->
-    <a href="http://vpn.bjtu.edu.cn/" target="_blank">vpn</a>
-    <a href="http://service.bjtu.edu.cn" target="_blank" class="bjtuvpn">流量查询</a>
-   <a href="http://ic.bjtu.edu.cn" target="_blank">ic</a>
-    <a href="http://myhome.bjtu.edu.cn" target="_blank">myhome</a>
-    <a href="http://ecard.bjtu.edu.cn" target="_blank" class="bjtuvpn">ecard</a>
-    <a href="https://mis.bjtu.edu.cn/cms/" target="_blank">mis</a>
-    <a href="https://202.112.159.178/" target="_blank" class="bjtuvpn">网盘</a>
-    <!--a href="http://portal.bjtu.edu.cn/cms/" target="_blank">mis</a //-->
-    <a href="http://cnms.bjtu.edu.cn/home/" target="_blank" class="bjtuvpn">cnms</a>
-    <a href="http://lib.bjtu.edu.cn/" target="_blank" class="bjtuvpn1">lib</a>
-    <a href="http://218.249.29.217:8080/kaodian/" target="_blank" class="bjtuvpn">思源考试</a>
-    <!--
-    <a href="ftp://ftp.nuedc.com.cn/2015/" target="_blank" class="bjtuvpn">NUEDC</a>
-    <a href="ftp://nuedc:bjtunuedc@202.112.146.12:2121" target="_blank" class="bjtuvpn">nuedcftp</a>
-    //-->
-    <!--
-    <a href="http://zhixing.bjtu.edu.cn/forum-601-1.html" target="_blank">知行算法</a>
-    <a href="http://acm.bjtu.edu.cn/" target="_blank">BOJ</a>
-    <a href="http://acm.bjtu.edu.cn/vjudge/toIndex.action" target="_blank">BVOJ</a>
-    <a href="http://vjudge.net/vjudge/toIndex.action" target="_blank">HUSTVOJ</a>
-    <a href="http://vjudge.net/contest/toListContest.action" target="_blank">contest</a>
-    //-->
-    <!--
-    HDU gpx1
-    POJ,ZOJ gpx
-    UVA gpx(590100)
-    BOJ,BVOJ gpx
-    vjudge gpx
-    CF gpx
-    TC gpx1
-    //-->
-    <br />
-    <br />
-
-    <a href="http://pt.zhixing.bjtu.edu.cn/search/all/" target="_blank" class="ipv6">ZXPT</a>
-    <a href="http://bt.byr.cn/torrents.php" target="_blank" class="ipv6">BYRBT</a>
-    <a href="http://bt.neu6.edu.cn/" target="_blank" class="ipv6">neubt</a>
-    <!--a href="https://hudbt.hust.edu.cn/torrents.php" target="_blank" class="ipv4edu">HUDBT</a//-->
-	<a href="https://hudbt.hust.edu.cn/torrents.php" target="_blank" class="ipv4">HUDBT</a>
-	<a href="https://pt.hit.edu.cn/torrents.php" target="_blank" class="ipv46">pt.hit</a>
-    <a href="http://bt.ruc6.edu.cn/browse.php" target="_blank" class="ipv46">bt.ruc6</a>
-    <a href="https://pt.whu.edu.cn/torrents.php" target="_blank" class="ipv46">WHUPT</a>
-    <a href="http://nanyangpt.com/torrents.php" target="_blank" class="ipv46">NYPT</a>
-    <a href="https://pt.sjtu.edu.cn/signup.php" target="_blank" class="ipv46">pt.sjtu</a>
-    <a href="http://tv.byr.cn/" target="_blank" class="ipv6">tv.byr</a>
-    <a href="http://ivi.bupt.edu.cn/" target="_blank" class="ipv4">ivi.bupt</a>
-    <a href="http://bt.neu6.edu.cn/search.php" target="_blank" class="ipv6">neubt搜索</a>
-    <br />
-
-    <form onsubmit="return false" id="ZXPT" target="_blank">
-      <input type="text" name="" size="30" id="pt_kw" value="" x-webkit-speech autocomplete="off" placeholder="请输入搜索词 PT">
-      <input type="button" class="" value="Multi" onclick="var str1=new Array('http://pt.zhixing.bjtu.edu.cn/search/all-x','http://bt.neu6.edu.cn/search.php?mod=forum&searchsubmit=true&srchtxt=','http://bt.byr.cn/torrents.php?search=','https://hudbt.hust.edu.cn/torrents.php?search=','https://pt.hit.edu.cn/torrents.php?search=','https://pt.whu.edu.cn/torrents.php?search=','http://nanyangpt.com/torrents.php?search=','https://totheglory.im/browse.php?c=M&search_field=%2Bincdead+','https://pt.m-team.cc/torrents.php?search=','http://hdhome.org/torrents.php?search=','https://hdchina.org/torrents.php?search=');for(i=0;i<str1.length;i++){window.open(str1[i]+document.getElementById('pt_kw').value);}return false">
-      <input type="button" class="" value="签到" onclick="var str1=new Array('http://hdhome.org/torrents.php','http://pt.hdupt.com/torrents.php','https://totheglory.im/browse.php?search_field=%2Bincdead','https://pt.hit.edu.cn/torrents.php','https://pt.whu.edu.cn/torrents.php','http://bt.neu6.edu.cn/','http://www.renren.com/','http://bbs.area-11.com/');for(i=0;i<str1.length;i++){window.open(str1[i]);}return false">
-	  <input type="button" class="" value="niconico#" onclick="window.open('http://www.nicovideo.jp/watch/sm'+document.getElementById('pt_kw').value);return false">
-      <input type="button" class="" value="acfun#" onclick="window.open('http://www.acfun.tv/v/ac'+document.getElementById('pt_kw').value+'/');return false">
-      <input type="button" class="" value="bilibili#" onclick="window.open('http://www.bilibili.com/video/av'+document.getElementById('pt_kw').value+'/');return false">
-      <br />
-      <input type="hidden" name="search" value="" id="search" />
-      <input type="button" class="" value="ZXPT" onclick="window.open('http://pt.zhixing.bjtu.edu.cn/search/x'+document.getElementById('pt_kw').value+'-all/');return false">
-      <input type="button" value="neubt" onclick="window.open('http://bt.neu6.edu.cn/search.php?mod=forum&searchsubmit=true&srchtxt='+document.getElementById('pt_kw').value);return false">
-      <input type="button" value="BYRBT" onclick="document.getElementById('search').value=document.getElementById('pt_kw').value;action='http://bt.byr.cn/torrents.php';submit()">
-      <input type="button" value="HITPT" onclick="document.getElementById('search').value=document.getElementById('pt_kw').value;action='https://pt.hit.edu.cn/torrents.php';submit();">
-      <input type="button" value="HUDBT" onclick="document.getElementById('search').value=document.getElementById('pt_kw').value;action='https://hudbt.hust.edu.cn/torrents.php';submit();">
-      <input type="button" value="WHUPT" onclick="document.getElementById('search').value=document.getElementById('pt_kw').value;action='https://pt.whu.edu.cn/torrents.php';submit();">
-      <input type="button" value="NYPT" onclick="document.getElementById('search').value=document.getElementById('pt_kw').value;action='http://nanyangpt.com/torrents.php?';submit();">
-      <input type="button" class="" value="TTG" onclick="window.open('https://totheglory.im/browse.php?c=M&search_field=%2Bincdead%20'+document.getElementById('pt_kw').value+'');return false">
-      <input type="button" value="MTeam" onclick="document.getElementById('search').value=document.getElementById('pt_kw').value;action='https://pt.m-team.cc/torrents.php';submit();">
-      <input type="button" value="HDChina" onclick="document.getElementById('search').value=document.getElementById('pt_kw').value;action='https://hdchina.org/torrents.php';submit();">
-      <input type="button" value="HDHome" onclick="document.getElementById('search').value=document.getElementById('pt_kw').value;action='http://hdhome.org/torrents.php';submit();">
-    </form>
-
-    <a href="https://totheglory.im/browse.php?search_field=%2Bincdead" target="_blank" class="ipv46">TTG</a>
-    <a href="https://totheglory.im/mybonus.php" target="_blank" class="ipv46">积分</a>
-    <a href="https://pt.m-team.cc/torrents.php" target="_blank" class="ipv46">m-team</a>
-    <a href="https://hdcmct.org/login.php" target="_blank" class="ipv46">CMCT</a>
-    <a href="https://hdchina.org/torrents.php" target="_blank" class="ipv46">HDChina</a>
-    <a href="http://hdhome.org/torrents.php" target="_blank" class="ipv4">HDHome</a>
-    <!--a href="http://www.hdarea.co/torrents.php" target="_blank" class="ipv4">HDArea</a-->
-    <a href="http://hdqueen.com/torrents.php" target="_blank" class="ipv4">HDQueen</a>
-    <a href="http://pt.hdupt.com/torrents.php" target="_blank" class="ipv4">HDU</a>
-	<a href="http://www.hyperay.cc/torrents.php" target="_blank" class="ipv4">Hyperay</a>
-    <a href="http://hdclub.org/" target="_blank" class="ipv4">hdclub</a>
-    <!--a href="http://hdtime.org/torrents.php" target="_blank">hdtime</a-->
-    <a href="https://pt.m-team.cc/adult.php" target="_blank" class="ipv46"><font color="#ffffff">&nbsp;</font></a>
-    <a href="https://pornbay.org/torrents.php?filter_cat%5B2%5D=1&filter_cat%5B31%5D=1&filter_cat%5B6%5D=1&filter_cat%5B7%5D=1&filter_cat%5B12%5D=1&filter_cat%5B16%5D=1&filter_cat%5B17%5D=1&filter_cat%5B24%5D=1&filter_cat%5B50%5D=1&filter_cat%5B48%5D=1&filter_cat%5B28%5D=1&order_by=time&order_way=desc&searchtext=&search_type=0&taglist=&tags_type=0" target="_blank" class="ipv46"><font color="#ffffff">&nbsp;</font></a>
-    <br />
-    <a href="http://bbs.area-11.com/" target="_blank" class="ipv4">area-11</a>
-    <!--a href="http://get.area-11.com/plugin.php?id=dsu_paulsign:sign" target="_blank" class="ipv4">get11</a//-->
-    <a href="http://www.pt80.net/" target="_blank" class="ipv4">PT80</a>
-    <a href="http://www.52pojie.cn/" target="_blank" class="ipv4">52pojie</a>
-    <br />
-	<br />
-  </div>
-  <div>
-    <a href="https://www.facebook.com/" target="_blank">facebook</a>
-    <a href="https://twitter.com/" target="_blank">twitter</a>
-	<a href="https://www.instagram.com/" target="_blank">instagram</a>
-    <a href="https://mail.google.com" target="_blank">gmail</a>
-    <a href="http://www.youtube.com/" target="_blank">youtube</a>
-	<a href="http://www.nicovideo.jp/" target="_blank">niconico</a>
-	<a href="http://www.acfun.tv/" target="_blank">AcFun</a>
-	<a href="http://www.bilibili.com/" target="_blank">bilibili</a>
-	<a href="http://music.163.com/" target="_blank">网易云音乐</a>
-	<a href="http://y.qq.com/" target="_blank">QQ音乐</a>
-    <a href="http://www.yinyuetai.com/" target="_blank">yinyuetai</a>
-    <br />
-    <a href="http://www.flvcd.com/" target="_blank">flvcd</a>
-    <a href="http://kej.tw/flvretriever/" target="_blank">Kej's FLV Retriever</a>
-    <a href="http://www.clipconverter.cc/" target="_blank">www.clipconverter.cc</a>
-    <!--a href="http://tv.ipart.cn/" target="_blank">ipart</a//-->
-    <br />
-    <br />
-    <a href="http://www.youku.com/" target="_blank">youku</a>
-    <a href="http://www.tudou.com/" target="_blank">tudou</a>
-    <a href="http://www.ku6.com/" target="_blank">ku6</a>
-    <a href="http://www.pps.tv/" target="_blank">pps</a>
-    <a href="http://www.pptv.com/" target="_blank">pptv</a>
-    <a href="http://tv.sohu.com/" target="_blank">tv.sohu</a>
-    <a href="http://video.sina.com.cn/" target="_blank">video.sina</a>
-    <a href="http://v.qq.com/" target="_blank">v.qq.com</a>
-    <a href="http://www.iqiyi.com/" target="_blank">qiyi</a>
-    <a href="http://www.le.com/" target="_blank">le</a>
-    <a href="http://www.kankan.com/" target="_blank">kankan</a>
-    <a href="http://www.baofeng.com/" target="_blank">baofeng</a>
-    <br />
-    <br />
-  </div>
-  <div>
-    <a href="http://www.12306.cn/mormhweb/" target="_blank">12306</a>
-    <a href="https://kyfw.12306.cn/otn/login/init" target="_blank">登录</a>
-    <a href="https://kyfw.12306.cn/otn/leftTicket/init" target="_blank">购票</a>
-    <a href="https://kyfw.12306.cn/otn/lcxxcx/init" target="_blank">余票</a>
-    <a href="http://www.ctrip.com/" target="_blank">携程</a>
-    <a href="https://mybank.icbc.com.cn" target="_blank">icbc</a>
-    <a href="http://www.boc.cn/ebanking/bocnet_login/" target="_blank">boc</a>
-	
-
-    <a href="http://www.bj.10086.cn/" target="_blank">10086</a>
-    <a href="http://www.10010.com/" target="_blank">10010</a>
-    <a href="http://www.bjguahao.gov.cn/" target="_blank">挂号</a>
-    <a href="http://www.bjguahao.gov.cn/dpt/appoint/168-200002632.htm?week=6" target="_blank">挂号</a>
-    <br />
-    <a href="http://my.alipay.com/" target="_blank">alipay</a>
-    <a href="http://www.taobao.com/" target="_blank">淘宝</a>
-    <a href="http://trade.taobao.com/trade/itemlist/list_bought_items.htm" target="_blank">已买</a>
-    <a href="http://www.tmall.com/" target="_blank">天猫</a>
-    <a href="http://chaoshi.tmall.com/" target="_blank">超市</a> 
-    <a href="http://www.jd.com/" target="_blank">京东</a>
-    <a href="http://www.dangdang.com/" target="_blank">当当</a>
-    <a href="http://ele.me/" target="_blank">ele.me</a>
-    <a href="http://waimai.meituan.com/" target="_blank">meituan</a>
-    <a href="http://waimai.baidu.com/" target="_blank">百度外卖</a>
-
-  </div>
-  <br />
-  <div>
-    <a href="http://www.zhihu.com/" target="_blank">zhihu</a>
-    <a href="http://www.douban.com/" target="_blank">douban</a>
-    <br />
-	<br />
-    <a href="http://www.brtn.cn/" target="_blank">btv</a>
-    <a href="http://www.brtn.cn/2013/epg/" target="_blank">btv节目表</a>
-
-    <a href="http://www.cntv.cn/index.shtml" target="_blank">cntv</a>
-    <a href="http://tv.cntv.cn/epg" target="_blank">cctv节目表</a>
-
-    <a href="http://www.m1905.com/" target="_blank">m1905</a>
-    <a href="http://www.m1905.com/cctv6/program/dypdepg/list/" target="_blank">cctv6 epg</a>
-
-    <a href="http://www.hunantv.com/" target="_blank">芒果TV</a>
-    <a href="http://zixun.hunantv.com/sszn/" target="_blank">epg</a>
-    <!-- http://hunantv.tvsou.com/ //-->
-    <a href="http://3d.tv.cn/" target="_blank">3D试验频道</a>
-    <a href="http://epg.tv.cn/" target="_blank">epg.tv.cn</a>
-    <a href="http://www.chc2004.cn/catid/74" target="_blank">CHC高清 epg</a>
-
-    <br />
-    <a href="http://www.rbc.cn/" target="_blank">rbc.cn</a>
-    <a href="http://www.rbc.cn/audio/xinwenguangbo.shtml" target="_blank">广播回放</a>
-    <a href="http://www.fm1039.com/index/" target="_blank" style="color:#FF9205;">fm1039.com</a>
-    <a href="http://www.fm1039.com/wszb/" target="_blank" class="radiomms">fm1039.rbc.cn/wszb</a>
-    <a href="mms://alive.rbc.cn/fm1039" class="radiomms">mms://alive.rbc.cn/fm1039 wma96k/44.1</a>
-    <br />
-    <a href="http://www.cnr.cn/" target="_blank">CNR</a>
-    <a href="http://aod.cnr.cn/" target="_blank">aod.cnr.cn</a>
-    <a href="http://www.cnr.cn/jmb/" target="_blank">epg</a>
-    <a href="http://www.cnr.cn/2009images/plb/" target="_blank">freq</a>
-    <a href="http://musicradio.cnr.cn/" target="_blank">musicradio</a>
-    <br />
-    <a href="http://gb.cri.cn/" target="_blank">CRI</a>
-    <a href="http://english.cri.cn/easyfm/index.htm" target="_blank">easyfm</a>
-    <a href="http://english.cri.cn/easyfm/ezplaytime.html" target="_blank">epg</a>
-    <a href="mms://enmms.chinabroadcast.cn/fm91.5" class="radiomms">mms://enmms.chinabroadcast.cn/fm91.5 wma9.2 64k/48.0</a>
-    <!--a href="mms://219.142.120.30/fm91.5" class="radiomms">mms://219.142.120.30/fm91.5 wma64k/48.0</a //-->
-    <br />
-    <a href="mms://live.hitfm.cn/fm887" class="radiomms">hitfm 88.7 wma128k/48.0</a>
-    <a href="http://hitfm.cri.cn/" target="_blank">hitfm</a>
-    <a href="http://hitfm.cri.cn/#schedule/" target="_blank">epg</a>
-    <br />
-    <a href="http://newsradio.cri.cn/index.htm" target="_blank">newsradio 90.5</a>
-    <a href="http://newsradio.cri.cn/other/2014/jmd14.html" target="_blank">epg</a>
-    <br />
-	<a href="https://www.flightradar24.com" target="_blank">fr24</a>
-	<a href="https://www.flightradar24.com/account/feed-stats/?id=5402" target="_blank">stat</a>
-	<a href="https://www.flightradar24.com/share-statistics" target="_blank">rank</a>
-	<a href="https://www.flightradar24.com/40.08,116.58/13" target="_blank">ZBAA</a>
-    <br />
-    <br />
-  </div>
-  <div>
-    <a href="http://pan.baidu.com/disk/home" target="_blank">百度网盘</a>
-    <a href="http://pan.baidu.com/wap/home" target="_blank">百度网盘wap</a>
-    <a href="http://kuai.xunlei.com/" target="_blank">迅雷快传</a>
-    <a href="http://www.weiyun.com/" target="_blank">微云</a>
-    <a href="http://vdisk.weibo.com/" target="_blank">微盘</a>
-    <a href="http://c59.yunpan.360.cn/my/?sid=" target="_blank">360云盘</a>
-    <a href="http://yun.uc.cn/cloud/home" target="_blank">UC网盘</a>
-    <a href="http://115.com/" target="_blank">115</a>
-
-    <br />
-    <a href="http://www.sohu.com/" target="_blank">sohu</a>
-    <a href="http://mail.sohu.com/" target="_blank"><font color="red">mail</font></a>
-    <a href="http://tv.sohu.com/" target="_blank">tv</a>
-    <a href="http://yule.sohu.com/" target="_blank">yule</a>
-    <br />
-    <a href="http://www.sina.com.cn/" target="_blank">sina</a>
-    <a href="http://weibo.com/" target="_blank"><font color="silver">weibo</font></a>
-    <a href="http://mail.sina.com.cn/" target="_blank"><font color="red">mail</font></a>
-    <a href="http://video.sina.com.cn/" target="_blank">video</a>
-    <a href="http://ent.sina.com.cn/" target="_blank">ent</a>
-    <a href="http://video.sina.com.cn/e/index.html" target="_blank">e</a>
-    <br />
-    <a href="http://www.renren.com/339848634" target="_blank"><font color="#ff8c00">339848634 renren首页</font></a>
-    <a href="http://www.renren.com/339848634/profile" target="_blank">主页</a>
-    <a href="http://3g.renren.com/" target="_blank"><font color="silver">手机人人网</font></a>
-    <a href="http://blog.renren.com/blog/0/addBlog" target="_blank">写日志</a>
-    <a href="http://upload.renren.com/addphoto.do" target="_blank">上传照片</a>
-    <a href="http://sc.renren.com/scores/mycalendar" target="_blank">日历</a>
-    <a href="http://sc.renren.com/scores/myscore" target="_blank">积分</a>
-    <a href="http://sc.renren.com/scores/friend" target="_blank">好友等级</a>
-    <a href="http://sc.renren.com/scores/help" target="_blank">积分规则</a>
-    <a href="http://renpin.renren.com/myrp" target="_blank">我的人品</a>
-    <br />
-    <a href="http://w.qq.com/" target="_blank">SmartQQ</a>
-    <a href="http://wx.qq.com/" target="_blank">微信</a>
-    <a href="https://mail.qq.com/cgi-bin/frame_html" target="_blank"><font color="red">mail.qq.com</font></a>
-    <a href="http://user.qzone.qq.com/" target="_blank">qzone</a>
-    <a href="http://t.qq.com/" target="_blank">t.qq.com</a>
-    <a href="http://im.qq.com/" target="_blank">im.qq.com</a>
-    <a href="http://v.qq.com/" target="_blank">v.qq.com</a>
-    <br />
-    <a href="http://email.163.com/" target="_blank"><font color="red">email.163</font></a>
-    <a href="http://www.126.com/" target="_blank">126</a>
-    <a href="http://www.foxmail.com/" target="_blank">foxmail</a>
-    <a href="http://mail.sina.com.cn/" target="_blank">sina</a>
-    <a href="http://mail.sohu.com/" target="_blank">sohu</a>
-    <br />
-    <a href="http://bulo.hjenglish.com/home/" target="_blank">沪江首页</a>
-    <a href="http://bulo.hjenglish.com/app/day/sentence_en/" target="_blank">每日一句</a>
-    <a href="http://bulo.hujiang.com/app/cichang/" target="_blank">开心词场</a>
-    <a href="http://www.yeshj.com/" target="_blank">沪江网</a>
-  </div>
-  <div>
-    <a href="http://prolist.kankanews.com/" target="_blank">东方卫视本周节目表</a>
-    <a href="http://www.smg.cn/review/tv/index.shtml" target="_blank">东方卫视本周节目表</a>
-    <a href="http://www.smg.cn/review/tv/radio_list.shtml" target="_blank">广播</a>
-    <a href="http://www.zjstv.com/jmb/" target="_blank">浙江卫视本周节目表</a>
-    <br />
-    <a href="http://tjtv.enorth.com.cn/jmsj/jmsj.htm" target="_blank">天津电视台本周节目表</a>
-    <a href="http://www.hebtv.com/programme/hbws/" target="_blank">河北卫视本周节目表</a>
-    <a href="http://sub.sxtvs.com/Playbill/?chid=8" target="_blank">陕西电视台本周节目表</a>
-    <a href="http://www.iqilu.com/html/weishi/" target="_blank">山东卫视本周节目表</a>
-    <a href="http://www.hljtv.com/time_table.shtml" target="_blank">黑龙江卫视节目表</a>
-    <br />
-    <a href="http://epg.gdtv.cn/" target="_blank">广东卫视本周节目表</a>
-    <a href="http://www.gdtv.cn/epg/" target="_blank">广东卫视本周节目表</a>
-    <a href="http://program.gxtv.cn/" target="_blank">广西卫视两周节目表</a>
-    <a href="http://gd.nxtv.cn/tv/program/" target="_blank">宁夏卫视节目表</a>
-    <a href="http://www.nmtv.cn/live/live_list.shtml?year=1970&months=1&days=1&channelId=208" target="_blank">!内蒙古卫视节目表</a>
-    <a href="http://programme.tvb.com/jade" target="_blank">tvb</a>
-    <br />
-    <a href="http://www.setv.com.cn/ad/" target="_blank">东南卫视节目表</a>
-    <a href="http://www.jstv.com/" target="_blank">江苏卫视</a>
-    <a href="http://star.jstv.com/ggzs/28.html" target="_blank">江苏卫视节目表</a>
-    <a href="http://www.ahtv.cn/c/2016/0225/00715691.html" target="_blank">安徽卫视2016节目表</a>
-    <a href="http://tc.hnntv.cn/sszn/27245860.shtml" target="_blank">2015年旅游卫视广告</a>
-    <br />
-    <a href="http://211.146.6.56/Plpd.aspx" target="_blank">全国广播电视频率表</a>
-  </div>
-  <div>
-    <a href="http://yz.chsi.com.cn/" target="_blank">中国研究生招生信息网</a>
-    <a href="http://www.chsi.com.cn/cet/" target="_blank">四六级查询</a>
-    <a href="http://cet.99sushe.com/" target="_blank">四六级查询</a>
-    <a href="http://chaxun.neea.edu.cn/" target="_blank">四六级查询</a>
-    <br />
-    <a href="http://www.gaokao.com" target="_blank">高考网</a>
-    <a href="http://edu.sina.com.cn/gaokao/" target="_blank">新浪高考</a>
-    <a href="http://gaokao.chsi.com.cn" target="_blank">教育部招生阳光高考</a>
-    <a href="http://www.bjeea.cn/html/gkgz/" target="_blank">北京教育考试院</a>
-    <br />
-    <a href="http://www.timeanddate.com/worldclock/" target="_blank">worldclock</a>
-    <a href="http://www.timeanddate.com/worldclock/city.html?n=33" target="_blank">Current local time in Beijing</a>
-    <a href="http://www.weather.com.cn/" target="_blank">中国天气网</a>
-    <br />
-    <a href="http://www.wfjsd.com/" target="_blank">王府井书店</a>
-    <br />
-    <a href="http://msdn.microsoft.com/zh-cn/library/default.aspx" target="_blank">MSDN资源库</a>
-    <br />
-    <a href="http://mpeg.chiariglione.org/" target="_blank">mpeg</a>
-    <a href="http://flac.sourceforge.net/" target="_blank">flac</a>
-  </div>
-<!--font color="#000000">3.5 527 郭鹏鑫</font><br /-->
-<a href="http://www.126.com/" target="_blank">126邮箱</a>:<font color="#eeeeee">gpx0214@126.com</font><br />
-<a href="http://email.163.com/" target="_blank">163邮箱</a>:<font color="#eeeeee">guopengxin1995@163.com</font><br />
-<a href="http://www.renren.com/339848634" target="_blank">人人ID</a>:<font color="#ffffff">339848634</font><br />
-QQ:<font color="#ffffff">1307909934@qq.com gpx0214@qq.com gpx0214@foxmail.com</font><br />
-QQ:<font color="#ffffff">717764584@qq.com</font><br />
-QQ:<font color="#ffffff">1754439934@qq.com</font><br />
-QQ:<font color="#ffffff">2229878431@qq.com</font><br />
-
-<a href="http://mail.google.com/" target="_blank">gmail邮箱</a>:<font color="#ffffff">gpx0214@gmail.com</font><br />
-<a href="http://weibo.com/" target="_blank">weibo</a>:<font color="#ffffff">http://weibo.com/u/2998431271/</font><br />
-<a href="http://weibo.com/" target="_blank">weibo</a>:<font color="#ffffff">http://weibo.com/u/1824636095</font><br />
-sina博客:<font color="#ffffff">http://blog.sina.com.cn/u/1824636095</font><br />
-你的网页域名是:http://t.sina.com.cn/gpx0214<br />
-你的手机域名是:http://t.sina.cn/gpx0214<br />
-<a href="http://mail.sina.com.cn/" target="_blank">sina邮箱</a>:<font color="#ffffff">guopengxin1995@sina.com</font><br />
-<a href="http://mail.sohu.com/" target="_blank">sohu邮箱</a>:<font color="#ffffff">gpx0214@sohu.com</font><br />
-MSN:<font color="#ffffff">gpx1995@msn.cn</font><br />
-kaixin001:<font color="#ffffff">91292184</font><br />
-百度ID:<font color="#ffffff">gpx1</font><br />
-迅雷ID:<font color="#ffffff">382750180</font><br />
-<a href="http://yun.uc.cn/cloud/home" target="_blank">UC</a>:<font color="#ffffff">37099725</font><br />
-<a href="http://yun.uc.cn/cloud/home" target="_blank">UC</a>:<font color="#ffffff">71724332</font><br />
-<a href="http://115.com/" target="_blank">115</a>:26303114 guopengxin1995@sina.com<br />
-<a href="http://115.com/" target="_blank">115</a>:338225022<br />
-dbank:32279462 guopengxin1995@sina.com<br />
-dbank:32280087 1307909934@qq.com<br />
-docinID:<font color="#ffffff">gpx1 950214</font><br />
-
-<font color="#ffffff">guopengxin1995@163.com;1307909934@qq.com;gpx0214@qq.com;gpx0214@foxmail.com;guopengxin1995@sina.com;gpx0214@sohu.com;gpx0214@gmail.com;</font><br />
-<br />
-进入IE缓存方法:工具->Internet选项->浏览历史记录 设置->查看文件(V)<br />
-<br />
-欢乐正前方 site:rbc.cn<br />
-http://www.fm1039.com/jcjm/list_57_0.htm<br />
-<a href="http://www.fm1039.com/jcjm/list_57_0.htm" target="_blank">00</a>
-<a href="http://www.fm1039.com/jcjm/list_57_1.htm" target="_blank">01</a>
-<a href="http://www.fm1039.com/jcjm/list_57_2.htm" target="_blank">02</a>
-<a href="http://www.fm1039.com/jcjm/list_57_3.htm" target="_blank">03</a>
-<a href="http://www.fm1039.com/jcjm/list_57_4.htm" target="_blank">04</a>
-<a href="http://www.fm1039.com/jcjm/list_57_5.htm" target="_blank">05</a>
-<a href="http://www.fm1039.com/jcjm/list_57_6.htm" target="_blank">06</a>
-<a href="http://www.fm1039.com/jcjm/list_57_7.htm" target="_blank">07</a>
-<a href="http://www.fm1039.com/jcjm/list_57_8.htm" target="_blank">08</a>
-<br />
-
-<script type="text/javascript">
-rbc(2016,8,10,2016,8,20,"fm974","220001","7199",127);
-</script>
-
-
-<!--Facing Joy start //-->
-<!--
-<script type="text/javascript">
-
-/*
-function hlzqf(start,end)
-{
-var i=start;
-while(i>=start&&i<=end)
- {
-document.write("<a href=http://res.audio.rbc.cn/jtgb/hlzqf/hlzqf"+i+"0930347.wma>"+"http://res.audio.rbc.cn/jtgb/hlzqf/hlzqf"+i+"0930347.wma</a><br />");
-i++;
- }
-}
-document.write("<a id=facingJoy />");
-
-hlzqf(20130701,20130731)
-hlzqf(20130801,20130831)
-hlzqf(20130901,20130930)
-hlzqf(20131001,20131031)
-hlzqf(20131101,20131130)
-hlzqf(20131201,20131231)
-*/
-
-</script>
-//-->
-<br />
-1<br />
-http://jmzzzx.bjradio.com.cn/audio/a016.mp3<br />
-http://jmzzzx.bjradio.com.cn/audio/a017.mp3<br />
-2<br />
-http://jmzzzx.bjradio.com.cn/audio/a018.mp3<br />
-http://jmzzzx.bjradio.com.cn/audio/a019.mp3<br />
-3<br />
-http://data2011a.5sing.com/a/fc/2011/02/04/8804610-20110204182455.mp3<br />
-http://down.5sing.com/?SongID=3205537&SongType=fc<br />
-4<br />
-http://data2007a.5sing.com/m/yc/2007/07/06/905808-20070706141540.MP3<br />
-http://down.5sing.com/?SongID=62444&SongType=yc<br />
-4<br />
-http://data2009a.5sing.com/o/fc/2009/04/25/8099103-20090425091225.mp3<br />
-http://down.5sing.com/?SongID=1120494&SongType=fc<br />
-<br />
-<a href="http://v.rbc.cn/myvideo?uid=270168&fid=14200" target="_blank">21rbc</a>
-<a href="http://v.rbc.cn/myvideo?uid=270168&fid=11195" target="_blank">20rbc</a>
-<a href="http://v.rbc.cn/myvideo?uid=90138&fid=11235" target="_blank">20fm1039</a>
-<a href="http://v.rbc.cn/myvideo?uid=90138&fid=7567" target="_blank">19</a>
-<a href="http://v.rbc.cn/myvideo?uid=90138&fid=1357" target="_blank">18</a>
-<a href="http://v.rbc.cn/myvideo?uid=90138&fid=971" target="_blank">17</a>
-<a href="http://v.rbc.cn/myvideo?uid=90138&fid=599" target="_blank">16</a>
-<a href="http://v.rbc.cn/myvideo?uid=90138" target="_blank">15-12 交通广播活动 2008-03-21 & 倒数第10页</a><br />
-<br />
-http://www.fm1039.com/2015/01/20150108112004.htm<br />
-2015年北京交通广播节目时间表<br />
-<br />
-http://www.fm1039.com/2013/12/20131231154425.htm<br />
-2014年北京交通广播节目时间表<br />
-<br />
-http://www.fm1039.com/2012/12/20121231113612.htm<br />
-2013年北京交通广播节目时间表<br />
-<br />
-http://www.fm1039.com/2011/12/20111231094613.htm<br />
-2012年北京交通广播节目时间表<br />
-<br />
-http://www.fm1039.com/2010/12/20101231145324.htm<br />
-2011年北京交通广播节目时间表<br />
-<br />
-http://www.fm1039.com/2009/12/20091229161005.htm<br />
-2010年交通广播节目时间表<br />
-<br />
-http://www.fm1039.com/2008/12/20081208144456.htm<br />
-2009年北京交通广播节目时间表<br />
-<br />
-http://www.fm1039.com/2008/09/20080910135649.htm<br />
-2008年节目时间表<br />
-<br />
-http://www.rbc.cn/ggzq/jmsjb/200702/t20070209_372828.htm<br />
-http://www.rbc.cn/ggzq/jmsjb/200702/W020070405599151251282.jpg<br />
-2007年交通广播节目表<br />
-<br />
-http://t8.rbc.cn/list?uid=14251<br />
-欢乐正前方的音频<br />
-<!--20150218//--><br />
-http://v.rbc.cn/myvideo?uid=270168&fid=14200<br />
-121齐步走 视频数量：12 播放数：124631<br />
-http://v.rbc.cn/myvideo?uid=270168&fid=11195<br />
-交通台20周年 视频数量：28 播放数：366266<br />
-<br />
-http://v.rbc.cn/myvideo?uid=90138&fid=11235<br />
-北京交通台20周年台庆晚会 视频数量：19 播放数：347754<br />
-http://v.rbc.cn/myvideo?uid=90138&fid=7567<br />
-北京交通台19周年台庆晚会 视频数量：19播放数：1120646<br />
-http://v.rbc.cn/myvideo?uid=90138&fid=1357<br />
-北京交通台18周年台庆晚会 视频数量：22播放数：672733<br />
-http://v.rbc.cn/myvideo?uid=90138&fid=971<br />
-交通广播17周年台庆晚会 视频数量：22播放数：467483<br />
-http://v.rbc.cn/myvideo?uid=90138&fid=599<br />
-交通广播十六周年台庆晚会 视频数量：17播放数：833216<br />
-<br />
-<br />
-http://topic.rbc.cn/14/jt21/jtt/index.html<br />
-rtmp://cclive.rbc.cn/live/jtt<br />
-直播链接<br />
-http://www.fm1039.com/2014/12/20141204174451.htm<br />
-《121 齐步走》北京交通广播21周年台庆欢乐汇主题歌欢乐开唱<br />
-141220 121齐步走 北京交通广播21周年台庆欢乐汇<br />
-<br />
-http://topic.rbc.cn/13/jt20/index.html<br />
-http://www.fm1039.com/zhuanti/20tq.htm<br />
-http://www.fm1039.com/2013/12/20131219171916.htm<br />
-交通广播开播20周年听众大联欢节目单新鲜出炉<br />
-http://www.fm1039.com/2013/12/20131221004857.htm<br />
-北京交通广播开播20周年听众大联欢精彩图集（一）<br />
-http://www.fm1039.com/2013/12/20131221005812.htm<br />
-北京交通广播开播20周年听众大联欢之歌曲串烧图集（二）<br />
-rtmp://cclive.rbc.cn/live/dtcw<br />
-直播链接<br />
-131220 一路有你北京交通广播开播20周年听众大联欢<br />
-<br />
-http://topic.rbc.cn/12zt/jt19/index.html<br />
-http://www.fm1039.com/zhuanti/19tq.htm<br />
-http://www.fm1039.com/2012/12/20121219181858.htm<br />
-http://mult.fm1039.com/19tq/19tq.flv<br />
-北京交通广播19周年台庆晚会完整视频<br />
-http://www.fm1039.com/2012/12/20121214164200.htm<br />
-北京交通广播19周年台庆晚会节目单<br />
-rtmp://cclive.rbc.cn/live/jjt<br />
-直播链接<br />
-121215 相伴·最美北京交通广播开播19周年台庆晚会<br />
-<br />
-http://topic.rbc.cn/11zt/tq/<br />
-http://topic.rbc.cn/11zt/tq/dtt/201112/t20111216_2420567.htm<br />
-http://i1.www.rbc.cn/gbwzt/11zt/tq/dtt/201112/W020111216347123755272.wma<br />
-交通广播18周年混搭版特别节目16日上演<br />
-http://topic.rbc.cn/11zt/tq/dtt/201112/t20111219_2422952.htm<br />
-北京交通广播台庆18周年回顾<br />
-http://www.fm1039.com/zhuanti/18tq.htm<br />
-http://www.fm1039.com/2011/12/20111221092601.htm<br />
-《文明交通·绿色出行暨北京交通广播开播18周年台庆主题公益晚会》在工人体育馆举行<br />
-111218 文明交通·绿色出行暨北京交通广播开播18周年台庆主题公益晚会<br />
-<br />
-http://topic.rbc.cn/10zht/tq/<br />
-http://www.fm1039.com/zhuanti/17tq.htm<br />
-http://www.fm1039.com/2010/12/20101215212653.htm<br />
-北京交通广播17周年台庆晚会节目单<br />
-<br />
-http://www.fm1039.com/2010/12/20101221091625.htm<br />
-交通广播开播17周年台庆主题公益晚会在北京工人体育馆举行<br />
-http://topic.rbc.cn/10zht/tq/dtt/201012/t20101220_1951517.htm<br />
-http://pic1.www.rbc.cn/c10/jttq17/chun.mp3<br />
-http://pic1.www.rbc.cn/c10/jttq17/ge.mp3<br />
-http://pic1.www.rbc.cn/c10/jttq17/li.mp3<br />
-http://pic1.www.rbc.cn/c10/jttq17/tong.mp3<br />
-http://pic1.www.rbc.cn/c10/jttq17/wang.mp3<br />
-http://pic1.www.rbc.cn/c10/jttq17/you.mp3<br />
-让动人歌声留住美好回忆 台庆晚会经典好声下载<br />
-http://pic1.www.rbc.cn/c10/jttq17/1.wma<br />
-http://pic1.www.rbc.cn/c10/jttq17/2.mp3<br />
-http://pic1.www.rbc.cn/c10/jttq17/3.mp3<br />
-101218 和谐交通·绿色出行——3510在行动暨北京交通广播开播17周年台庆主题公益晚会<br />
-<br />
-http://topic.rbc.cn/09zt/1039tq/<br />
-http://fm1039.rbc.cn/2009/20091225173144.htm<br />
-http://www.fm1039.com/zhuanti/16tq.htm<br />
-http://www.fm1039.com/2009/12/20091214175431.htm<br />
-台庆晚会精彩节目抢先知<br />
-http://www.fm1039.com/2009/12/20091214180925.htm<br />
-交通广播16周年台庆晚会亮点推荐<br />
-http://www.fm1039.com/2009/2009122391309.htm<br />
-永远相伴——北京交通广播开播16周年台庆晚会在工人体育馆举行<br />
-http://www.fm1039.com/2009/20091225173144.htm<br />
-http://www.fm1039.com/zhuanti/16tq/16taiqing.swf<br />
-http://mult.fm1039.com/16tq/16tqflv.flv<br />
-北京交通广播16周年台庆晚会完整视频<br />
-091221 永远相伴 北京交通广播16周年台庆晚会<br />
-<br />
-http://topic.rbc.cn/08zt/jttq/<br />
-http://www.fm1039.com/zhuanti/15taiqing.htm<br />
-http://www.fm1039.com/2008/12/20081212175231.htm<br />
-http://www.fm1039.com/2008/12/20081212055216.jpg<br />
-北京交通广播举行开播15周年台庆晚会<br />
-http://www.fm1039.com/2008/12/20081222161011.htm<br />
-交通广播15周年台庆晚会　名嘴演小品掀高潮<br />
-081218 永远相伴 北京交通广播15周年台庆晚会<br />
-<br />
-http://topic.rbc.cn/07zt/jttq/<br />
-http://topic.rbc.cn/07zt/jttq/pd4/200712/t20071217_538934.htm<br />
-http://topic.rbc.cn/07zt/jttq/pd5/200712/t20071207_535227.htm<br />
-2007北京交通广播台庆晚会节目流程<br />
-mms://video.rbc.cn/2007video/jtt20071218tq1.wmv<br />
-mms://video.rbc.cn/2007video/jtt20071218tq2.wmv<br />
-mms://video.rbc.cn/2007video/jtt20071218tq3.wmv<br />
-mms://video.rbc.cn/2007video/jtt20071218tq4.wmv<br />
-mms://video.rbc.cn/2007video/jtt20071218tq5.wmv<br />
-mms://video.rbc.cn/2007video/jtt20071218tq6.wmv<br />
-071218 志愿北京 同行奥运 北京交通广播14周年台庆晚会<br />
-<br />
-http://www.fm1039.com/hdzt/13tq.htm<br />
-zt.rbc.cn=topic.rbc.cn<br />
-http://zt.rbc.cn/szzt/06jttq/<br />
-http://topic.rbc.cn/szzt/06jttq/<br />
-http://topic.rbc.cn/szzt/06jttq/pd5/200612/t20061215_317619.htm<br />
-http://zt.rbc.cn/szzt/06jttq/pd8/200612/W020061216487488755866.mp3<br />
-http://zt.rbc.cn/szzt/06jttq/pd5/200612/t20061215_317619.htm<br />
-http://topic.bjradio.com.cn/szzt/06jttq/pd8/200612/W020061216487488755866.mp3<br />
-2006年台庆节目<br />
-http://www.rbc.cn/main/btjh/200612/t20061220_321066.htm<br />
-北京交通广播13周年台庆晚会<br />
-http://www.rbc.cn/main/btjh/200612/t20061218_320201.htm<br />
-交通广播13周年台庆晚会圆满成功<br />
-061217 我们的家 北京交通广播13周年台庆晚会<br />
-<br />
-!http://web05.rbc.cn/zhuanti/05jttq.htm<br />
-http://auto.sina.com.cn/z/anniversary12/index.shtml<br />
-http://www.fm1039.com/hdzt/12tq.htm<br />
-http://www.fm1039.com/hdzt/12zhounian/mp3/gaoyan-lansehao.mp3<br />
-http://www.fm1039.com/hdzt/12zhounian/mp3/pianai-lianghong.mp3<br />
-http://www.fm1039.com/hdzt/12zhounian/mp3/youwobanzheni-naying.mp3<br />
-http://www.fm1039.com/hdzt/12zhounian/mp3/youyixiaxiaxiangnipop-wangwei.mp3<br />
-http://www.fm1039.com/hdzt/12zhounian/mp3/zouzou-chenxiao.mp3<br />
-http://www.fm1039.com/hdzt/12zhounian/mp3/shixishiyi-qunxing.mp3<br />
-http://www.fm1039.com/hdzt/12zhounian/mp3/pianai-yangchenlianghong.mp3<br />
-http://www.fm1039.com/hdzt/12zhounian/mp3/youyixiaxiaxiangnirmb-wangwei.mp3<br />
-<br />
-http://mult.fm1039e.com/gaoyan-lansehao.mp3<br />
-http://mult.fm1039e.com/pianai-lianghong.mp3<br />
-http://mult.fm1039e.com/youwobanzheni-naying.mp3<br />
-http://mult.fm1039e.com/youyixiaxiaxiangnipop-wangwei.mp3<br />
-http://mult.fm1039e.com/zouzou-chenxiao.mp3<br />
-http://mult.fm1039e.com/shixishiyi-qunxing.mp3<br />
-http://mult.fm1039e.com/pianai-yangchenlianghong.mp3<br />
-http://mult.fm1039e.com/youyixiaxiaxiangnirmb-wangwei.mp3<br />
-mms://live.bjradio.com.cn/lianghui/20051218fm1039.wmv<br />
-051218 北京交通广播12周年台庆晚会<br />
-<br />
-http://web2004.rbc.cn/11jtt/11jtt.htm<br />
-http://web2004.rbc.cn/2675/2004-12-15/4@139955.htm<br />
-mms://live.rbc.cn/lianghui/jjt11niantaiqing.wmv<br />
-http://web2004.rbc.cn/2675/more/2502/2502more_3.htm<br />
-现场图片<br />
-041219 永远相伴 北京交通广播11周年台庆晚会<br />
-<br />
-http://auto.sina.com.cn/news/2003-12-18/53039.shtml<br />
-10 031218 北京交通广播10周年台庆晚会<br />
-<br />
-mms://video.rbc.cn/2006video/jtt20061217taiqing.wmv<br />
-mms://live.rbc.cn/lianghui/20051218fm1039.wmv<br />
-mms://live.rbc.cn/lianghui/jjt11niantaiqing.wmv<br />
-<br />
-mms://live.bjradio.com.cn/lianghui/20051218fm1039.wmv<br />
-<br />
-有我陪着你<br />
-永远相伴<br />
-http://fream.info/ref/musicref/1039_yong_yuan_xiang_ban.wma<br />
-http://mult.fm1039e.com/yongyuanxiangban.mp3<br />
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<p>
-<a href="http://www.cntv.cn" target="_blank">cntv</a>
-<a href="http://dianying.cntv.cn/" target="_blank">电影</a>
-<a href="http://dianshiju.cntv.cn/" target="_blank">电视剧</a>
-<a href="http://tv.cntv.cn/" target="_blank">电视</a>
-<a href="http://tv.cntv.cn/live/" target="_blank">直播</a>
-<a href="http://tv.cntv.cn/epg" target="_blank">导视</a>
-<a href="http://cctv.cntv.cn/" target="_blank" title="">
-<!--img src="http://p4.img.cctvpic.com/special/2011newshouye/20110127/images/100956_1296094826989.png" alt="CCTV"-->CCTV</a>
-<a href="http://tv.cntv.cn/live/cctv1" target="_blank">1</a>
-<a href="http://tv.cntv.cn/live/cctv2" target="_blank">2</a>
-<a href="http://tv.cntv.cn/live/cctv3" target="_blank">3</a>
-<a href="http://tv.cntv.cn/live/cctv4" target="_blank">4<span class="fs_12">(亚洲)</span></a>
-<a href="http://tv.cntv.cn/live/cctveurope" target="_blank">4<span class="fs_12">(欧洲)</span></a>
-<a href="http://tv.cntv.cn/live/cctvamerica" target="_blank">4<span class="fs_12">(美洲)</span></a>
-<a href="http://tv.cntv.cn/live/cctv5" target="_blank">5</a>
-<a href="http://tv.cntv.cn/live/cctv5plus/" target="_blank">5+</a>
-<a href="http://tv.cntv.cn/live/cctv6" target="_blank">6</a>
-<a href="http://tv.cntv.cn/live/cctv7" target="_blank">7</a>
-<a href="http://tv.cntv.cn/live/cctv8" target="_blank">8</a>
-<a href="http://tv.cntv.cn/live/cctvjilu" target="_blank">9-纪录</a>
-<a href="http://tv.cntv.cn/live/documentary" target="_blank">9-纪录(英)</a>
-<a href="http://tv.cntv.cn/live/cctv10" target="_blank">10</a>
-<a href="http://tv.cntv.cn/live/cctv11" target="_blank">11</a>
-<a href="http://tv.cntv.cn/live/cctv12" target="_blank">12</a>
-<a href="http://tv.cntv.cn/live/cctv13" target="_blank">13</a>
-<a href="http://tv.cntv.cn/live/cctvchild" target="_blank">14</a>
-<a href="http://tv.cntv.cn/live/cctv15" target="_blank">15</a>
-<a href="http://tv.cntv.cn/live/cctv9" target="_blank">CCTV-NEWS</a>
-<a href="http://tv.cntv.cn/live/cctvfrench" target="_blank">CCTV-Fran&ccedil;ais</a>
-<a href="http://tv.cntv.cn/live/cctvxiyu/" target="_blank">CCTV-Espa&#241;ol</a>
-<a href="http://tv.cntv.cn/live/cctvarabic/" target="_blank">CCTV-&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</a>
-<a href="http://tv.cntv.cn/live/cctvrussian/" target="_blank">CCTV-Pусский</a>
-</p>
-<div >武林外传
-<a href="http://tv.sohu.com/20110315/n304367183.shtml" target="_blank">《武林外传》 - 高清正版在线观看 - 搜狐视频</a><br />
-<p>
-《武林外传》,影片的故事围绕“同福客栈”面临被拆迁的处境展开，佟掌柜在带领“众侠”与地产商进行斗智斗勇的同时，片中主要角色也因各自的现状伤透脑筋。郭芙蓉与秀才成亲后，为了孩子积极筹划买房，最后却只买得一处牛棚。结了婚的佟掌柜忙着给小贝找婆家，更令她烦心的是她和老白要不上孩子，佟掌柜因此一见当了妈妈的郭芙蓉，说话就变得酸溜溜的。
-</p>
-<a href="http://dianshiju.cntv.cn/costume/wulinwaizhuan/videopage/index.shtml" target="_blank">武林外传cntv</a>
-<a href="http://www.wulinwaizhuan.com/" target="_blank">武林外传官方网站</a>
-<a href="http://www.m1905.com/vod/416165.shtml" target="_blank" class="g33_f" title="《武林外传》首映礼">《武林外传》首映礼</a>
-</div>
-<br />
-<div>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/videopage/index.shtml" target="_blank">张小五的春天cntv</a><br />
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100415/101100.shtml" target="_blank">01</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100415/101148.shtml" target="_blank">02</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100416/100899.shtml" target="_blank">03</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100416/100936.shtml" target="_blank">04</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100417/100702.shtml" target="_blank">05</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100417/100758.shtml" target="_blank">06</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100418/100623.shtml" target="_blank">07</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100418/100656.shtml" target="_blank">08</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100419/100973.shtml" target="_blank">09</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100419/101024.shtml" target="_blank">10</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100423/100886.shtml" target="_blank">11</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100423/100934.shtml" target="_blank">12</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100424/101166.shtml" target="_blank">13</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100424/101211.shtml" target="_blank">14</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100425/100608.shtml" target="_blank">15</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100425/100679.shtml" target="_blank">16</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100426/101026.shtml" target="_blank">17</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100426/101071.shtml" target="_blank">18</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100427/100918.shtml" target="_blank">19</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100427/100961.shtml" target="_blank">20</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100428/100968.shtml" target="_blank">21</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100428/101007.shtml" target="_blank">22</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100429/100835.shtml" target="_blank">23</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100429/100880.shtml" target="_blank">24</a>
-<a href="http://dianshiju.cntv.cn/zhangxiaowudechuntian/classpage/video/20100430/100000.shtml" target="_blank">25</a>
-<br />
-http://bbmedia.qq.com/musictop/new/1248243767.mp3<br />
-http://61.160.209.48/bbmedia.qq.com/musictop/new/1248243767.mp3<br />
-<a href="http://tv.sohu.com/s2010/zhangxiaowu" target="_blank">《张小五的春天》全集 - 高清正版在线观看 - 搜狐视频</a><br />
-<a href="http://yule.sohu.com/s2010/zxwdct/" target="_blank">《张小五的春天》-搜狐娱乐</a><br />
-<a href="http://tv.sohu.com/20100416/n271555115.shtml" target="_blank">片头主题曲在线观看</a><br />
-<a href="http://tv.sohu.com/20100416/n271555144.shtml" target="_blank">片尾主题曲在线观看</a><br />
-<a href="http://tv.sohu.com/20100415/n271541177.shtml" target="_blank">01</a>
-<a href="http://tv.sohu.com/20100415/n271541699.shtml" target="_blank">02</a>
-<a href="http://tv.sohu.com/20100416/n271565836.shtml" target="_blank">03</a>
-<a href="http://tv.sohu.com/20100416/n271566359.shtml" target="_blank">04</a>
-<a href="http://tv.sohu.com/20100417/n271577303.shtml" target="_blank">05</a>
-<a href="http://tv.sohu.com/20100417/n271577325.shtml" target="_blank">06</a>
-<a href="http://tv.sohu.com/20100418/n271589830.shtml" target="_blank">07</a>
-<a href="http://tv.sohu.com/20100418/n271589851.shtml" target="_blank">08</a>
-<a href="http://tv.sohu.com/20100419/n271615331.shtml" target="_blank">09</a>
-<a href="http://tv.sohu.com/20100419/n271615356.shtml" target="_blank">10</a>
-<a href="http://tv.sohu.com/20100423/n271714513.shtml" target="_blank">11</a>
-<a href="http://tv.sohu.com/20100423/n271715437.shtml" target="_blank">12</a>
-<a href="http://tv.sohu.com/20100424/n271722799.shtml" target="_blank">13</a>
-<a href="http://tv.sohu.com/20100424/n271722807.shtml" target="_blank">14</a>
-<a href="http://tv.sohu.com/20100425/n271737897.shtml" target="_blank">15</a>
-<a href="http://tv.sohu.com/20100425/n271737899.shtml" target="_blank">16</a>
-<a href="http://tv.sohu.com/20100426/n271766279.shtml" target="_blank">17</a>
-<a href="http://tv.sohu.com/20100426/n271766907.shtml" target="_blank">18</a>
-<a href="http://tv.sohu.com/20100427/n271792147.shtml" target="_blank">19</a>
-<a href="http://tv.sohu.com/20100427/n271793206.shtml" target="_blank">20</a>
-<a href="http://tv.sohu.com/20100428/n271818793.shtml" target="_blank">21</a>
-<a href="http://tv.sohu.com/20100428/n271819504.shtml" target="_blank">22</a>
-<a href="http://tv.sohu.com/20100429/n271844401.shtml" target="_blank">23</a>
-<a href="http://tv.sohu.com/20100429/n271844842.shtml" target="_blank">24</a>
-<a href="http://tv.sohu.com/20100429/n271845393.shtml" target="_blank">25</a>
-<br />
-<a href="http://yule.sohu.com/s2010/2032/s270002109/index.shtml" target="_blank">《张小五的春天》精美剧照</a><br />
-<a href="http://yule.sohu.com/20100203/n270029364.shtml" target="_blank">《张小五的春天》开机发布会</a><br />
-<a href="http://yule.sohu.com/20100203/n270029318.shtml" target="_blank">主创出席</a><br />
-<a href="http://yule.sohu.com/20100203/n270029318.shtml" target="_blank">发布会到场众演员</a><br />
-<a href="http://yule.sohu.com/20100203/n270029322.shtml" target="_blank">演员合影</a><br />
-<a href="http://yule.sohu.com/20100203/n270029324.shtml" target="_blank">发布会现场</a><br />
-<a href="http://yule.sohu.com/20100203/n270029332.shtml" target="_blank">演员在发布会合影</a><br />
-<a href="http://yule.sohu.com/20100203/n270029372.shtml" target="_blank">演员签到</a><br />
-<a href="http://yule.sohu.com/20100203/n270029420.shtml" target="_blank">开机仪式</a><br />
-<a href="http://yule.sohu.com/20100203/n270029416.shtml" target="_blank">主创人员上香祈福</a><br />
-<a href="http://yule.sohu.com/s2010/2032/s270002107/index.shtml" target="_blank">《张小五的春天》新闻动态</a><br />
-<a href="http://yule.sohu.com/20100907/n274767047.shtml" target="_blank">《张小五的春天》再度来袭 闫妮将熟女进行到底</a><br />
-<a href="http://yule.sohu.com/20100507/n271969275.shtml" target="_blank">《张小五的春天》热播 朱虹赞其思想超《奋斗》</a><br />
-<a href="http://yule.sohu.com/20100430/n271850826.shtml" target="_blank">闫妮改做傻气包工头 “这个张小五就是我”</a><br />
-<a href="http://yule.sohu.com/20100429/n271838740.shtml" target="_blank">《张小五的春天》看闫妮时尚转身</a><br />
-<a href="http://yule.sohu.com/20100428/n271801333.shtml" target="_blank">《张小五的春天》热播 闫妮：我在就不是偶像剧</a><br />
-<a href="http://yule.sohu.com/20100429/n271831255.shtml" target="_blank">闫妮加冕全民偶像 “张小五”成创业励志典范</a><br />
-<a href="http://yule.sohu.com/20100427/n271786020.shtml" target="_blank">《张小五的春天》热播 网友激辩“剩女”困局</a><br />
-<a href="http://yule.sohu.com/20100427/n271778290.shtml" target="_blank">闫妮携“女婿”立威廉回娘家 接热线乡音不改</a><br />
-<a href="http://yule.sohu.com/20100427/n271786574.shtml" target="_blank">都市浪漫喜剧《张小五的春天》 80后审讯80后</a><br />
-<a href="http://yule.sohu.com/20100426/n271747594.shtml" target="_blank">《张小五的春天》收视飙升 闫妮新组合夺人眼</a><br />
-<a href="http://yule.sohu.com/20100420/n271623396.shtml" target="_blank">“土洋结合”遭批 闫妮立威廉演情侣太“雷人”</a><br />
-<a href="http://yule.sohu.com/20100420/n271634903.shtml" target="_blank">《张小五的春天》 再造女版许三多</a><br />
-<a href="http://yule.sohu.com/20100419/n271610669.shtml" target="_blank">闫妮演“剩女”大谈姐弟恋 希望收视率超姚晨</a><br />
-<a href="http://yule.sohu.com/20100416/n271549436.shtml" target="_blank">《张小五的春天》做客影视风云榜 闫妮载歌载舞</a><br />
-<a href="http://yule.sohu.com/20100415/n271522246.shtml" target="_blank">《张小五》今开播 闫妮称经张艺谋的洗礼更自信</a><br />
-<a href="http://yule.sohu.com/20100415/n271540322.shtml" target="_blank">“剩女”闫妮新剧赶时髦 与立威廉谈情说爱(图)</a><br />
-<a href="http://yule.sohu.com/20100415/n271519051.shtml" target="_blank">闫妮新剧央视首播 泼辣女掌柜变身大龄剩女</a><br />
-<a href="http://yule.sohu.com/20091021/n267599965.shtml" target="_blank">《张小五的春天》见面会 闫妮王希维大打出手</a><br />
-<a href="http://yule.sohu.com/20091017/n267433149.shtml" target="_blank">《张小五的春天》开机 “剩女”闫妮搭戏立威廉</a><br />
-<pre>
-1.主题曲 爱你爱不够 - 孙楠
-http://www.qq190.com/play/9606/240231.shtml
-2.我们的爱我不放手 - 赵锴
-http://www.qq190.com/play/9606/240232.shtml
-3.片尾曲 左眼皮跳跳 - 王大治
-http://www.qq190.com/play/9606/240233.shtml
-4.插曲 明明 - 宋欣明
-http://www.qq190.com/play/9606/240234.shtml
-5.插曲 我是笨鸟 - 蒋亦煊
-http://www.qq190.com/play/9606/240235.shtml
-6.插曲 爱在你在 - 高泓海
-http://www.qq190.com/play/9606/240236.shtml
-7.插曲 爱我就跟我走 - 王鹤铮
-http://www.qq190.com/play/9606/240237.shtml
-
-01 1.片头曲 《爱你爱不够》 *01 07 *08 25
-mms://f.1ting.com:80/zzzzzmp3/2009kNov/30/30_sunnan/03.wma
-http://f.1ting.com/zzzzzmp3/2009kNov/30/30_sunnan/03.wma
-http://bbmedia.qq.com/musictop/new/1248243767.mp3
-02 3.片尾曲 《左眼皮跳跳》 *01 04 07 25
-03 7.插曲 爱我就跟我走 25
-mms://f.1ting.com:80/zzzzzmp3/2009hAUG/06/06_wanghezheng/01.wma
-http://f.1ting.com/zzzzzmp3/2009hAUG/06/06_wanghezheng/01.wma
-04 6.插曲 爱在你在  06 22 24
-mms://f.1ting.com:80/zzzzzmp3/2010cMar/31/31_gaohonghai/01.wma
-http://f.1ting.com/zzzzzmp3/2010cMar/31/31_gaohonghai/01.wma
-http://www.bhkjj.gov.cn/aizainizai.mp3
-05 4.插曲 明明  06
-06 5.插曲 我是笨鸟  21 24
-07 *.插曲 爱的窗口  12 24
-08 2.我们的爱我不放手 04
-09 *.插曲 每天每天  18
-</pre>
-<br />
-<a href="http://tv.sohu.com/20110301/n279587536.shtml" target="_blank">(2011)6</a>
-<!--17:07 2011/6/8-->
-</div>
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<a href="http://html5test.com"  target="_blank">html5test</a>
-<br />
-0.0.0.0-127.255.255.255 10.0.0.0-10.255.255.255<br />
-128.0.0.0-191.255.255.255 172.16.0.0-172.31.255.255<br />
-192.0.0.0-223.255.255.255 192.168.0.0-192.168.255.255<br />
-224.0.0.0-239.255.255.255<br />
-240.0.0.0-255.255.255.255<br />
-<br />
-IP查询<br />
-cmd-> ipconfig /all<br />
-http://www.580san.com/<br />
-http://geoip.neu.edu.cn/<br />
-<pre>
-localhost;127.0.0.1;10.*.*.*;172.29.*.*;172.30.*.*;172.31.*.*;192.168.*.*;*.edu.cn;*.byr.cn;202.112.159.*;121.194.57.*;totheglory.im;pt.m-team.cc;hdchina.org;
-</pre>
-<a id="HTML" />
-<a href="http://www.w3school.com.cn/" target="_blank">w3school</a><br />
-<a href="http://html-color-codes.info/chinese/" target="_blank">http://html-color-codes.info/chinese/</a><br />
-<font color="red">red</font>
-<font color="green">green</font>
-<font color="blue">blue</font>
-<font color="yellow">yellow</font>
-<font color="orange">orange</font>
-<font color="purple">purple</font>
-<font color="pink">pink</font>
-<font color="gray">gray</font>
-<font color="brown">brown</font>
-<font color="gold">gold</font>
-<font color="silver">silver</font>
-<font color="olive">olive</font>
-<h1>h1</h1><br />
-<h2>h2</h2><br />
-<h3>h3</h3><br />
-<h4>h4</h4><br />
-<h5>h5</h5><br />
-<h6>h6</h6><br />
-<del>删除线</del><br />
-definition
-QQVGA(160*120)
-QCIF(220*176)
-QVGA(320*240)
-WQVGA(400*240)
-HVGA(480*320)
-VGA 640*480
-WVGA(800*480)
-WSVGA(1024*600)
-WXGA(1024*800)
- 640*360
- 960*640
-
-<div class="spctrl"></div>常见显示器分辨率：
-<div class="spctrl"></div>
-<table class="table-view log-set-param" log-set-param="table_view">
-<tr>
-<td width="100" align="left" valign="middle">标屏</td><td width="100" align="left" valign="middle">分辨率</td>
-<td width="100" align="left" valign="middle">宽屏</td><td width="100" align="left" valign="middle">分辨率</td>
-</tr>
-<tr>
-<td width="100" align="left" valign="middle">QVGA</td><td width="100" align="left" valign="middle">320×240</td><td width="100" align="left" valign="middle">WQVGA</td><td width="100" align="left" valign="middle">400×240</td></tr>
-<tr><td width="100" align="left" valign="middle">VGA</td><td width="100" align="left" valign="middle">640×480</td><td width="100" align="left" valign="middle">WVGA</td><td width="100" align="left" valign="middle">800×480</td></tr>
-<tr><td width="100" align="left" valign="middle">SVGA</td><td width="100" align="left" valign="middle">800×600</td><td width="100" align="left" valign="middle">WSVGA</td><td width="100" align="left" valign="middle">1024×600</td></tr>
-<tr><td width="100" align="left" valign="middle">XGA</td><td width="100" align="left" valign="middle">1024×768</td><td width="100" align="left" valign="middle">WXGA</td><td width="100" align="left" valign="middle">1280×768/1280×800/1280*960</td></tr>
-<tr><td width="100" align="left" valign="middle">SXGA</td><td width="100" align="left" valign="middle">1280×1024</td><td width="100" align="left" valign="middle">WXGA+</td><td width="100" align="left" valign="middle">1440×900</td></tr>
-<tr><td width="100" align="left" valign="middle">SXGA+</td><td width="100" align="left" valign="middle">1400×1050</td><td width="100" align="left" valign="middle">WSXGA+</td><td width="100" align="left" valign="middle">1680×1050</td></tr>
-<tr><td width="100" align="left" valign="middle">UXGA</td><td width="100" align="left" valign="middle">1600×1200</td><td width="100" align="left" valign="middle">WUXGA</td><td width="100" align="left" valign="middle">1920×1200</td></tr>
-<tr><td width="100" align="left" valign="middle">QXGA</td><td width="100" align="left" valign="middle">2048×1536</td><td width="100" align="left" valign="middle">WQXGA</td><td width="100" align="left" valign="middle">2560×1536</td></tr>
-</table>
-<div class="spctrl"></div>另外，还有特殊的1152*864
-<div class="spctrl"></div>　　<table class="table-view log-set-param" log-set-param="table_view"><tr><td align="center" valign="middle" colspan="3">显示模式代码对照表</td></tr><tr><td align="center" valign="middle">分辨率（水平数×垂直数）</td><td align="center" valign="middle">类型</td><td align="center" valign="middle">比例</td></tr><tr><td align="center" valign="middle">88×72</td><td align="center" valign="middle">QQCIF</td><td align="center" valign="middle">11:9</td></tr><tr><td align="center" valign="middle">128×96</td><td align="center" valign="middle">SUB-QCIF</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">128×128</td><td align="center" valign="middle">知道的补上</td><td align="center" valign="middle">1:1</td></tr><tr><td align="center" valign="middle">160×120</td><td align="center" valign="middle">QQVGA</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">176×144</td><td align="center" valign="middle">QCIF</td><td align="center" valign="middle">11:9</td></tr><tr><td align="center" valign="middle">208×176</td><td align="center" valign="middle">Sub-QVGA-</td><td align="center" valign="middle">13:11</td></tr><tr><td align="center" valign="middle">220×176</td><td align="center" valign="middle">Sub-QVGA</td><td align="center" valign="middle">5:4</td></tr><tr><td align="center" valign="middle">240×176</td><td align="center" valign="middle">Sub-QVGA+</td><td align="center" valign="middle">15:11</td></tr><tr><td align="center" valign="middle">320×200</td><td align="center" valign="middle">CGA</td><td align="center" valign="middle">16:10</td></tr><tr><td align="center" valign="middle">320×240</td><td align="center" valign="middle">QVGA</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">352×288</td><td align="center" valign="middle">CIF</td><td align="center" valign="middle">11:9</td></tr><tr><td align="center" valign="middle">640×360</td><td align="center" valign="middle">nHD</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">400×240</td><td align="center" valign="middle">WQVGA</td><td align="center" valign="middle">5:3</td></tr><tr><td align="center" valign="middle">400×320</td><td align="center" valign="middle">WQVGA</td><td align="center" valign="middle">5:4</td></tr><tr><td align="center" valign="middle">480×240</td><td align="center" valign="middle">WQVGA</td><td align="center" valign="middle">2:1</td></tr><tr><td align="center" valign="middle">480×272</td><td align="center" valign="middle">WQVGA</td><td align="center" valign="middle">16:9</td></tr><tr><td align="center" valign="middle">480×320</td><td align="center" valign="middle">HQVGA</td><td align="center" valign="middle">3:2</td></tr><tr><td align="center" valign="middle">640×480</td><td align="center" valign="middle">VGA</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">640×350</td><td align="center" valign="middle">EGA</td><td align="center" valign="middle">64:35</td></tr><tr><td align="center" valign="middle">720×480</td><td align="center" valign="middle">VGA+</td><td align="center" valign="middle">3:2</td></tr><tr><td align="center" valign="middle">768×576</td><td align="center" valign="middle">PAL</td><td align="center" valign="middle">　</td></tr><tr><td align="center" valign="middle">800×480</td><td align="center" valign="middle">WVGA</td><td align="center" valign="middle">5:3</td></tr><tr><td align="center" valign="middle">854×480</td><td align="center" valign="middle">FWVGA</td><td align="center" valign="middle">16:9</td></tr><tr><td align="center" valign="middle">800×600</td><td align="center" valign="middle">SVGA</td><td align="center" valign="middle">4:3</td></tr><tr><td> 960×540</td><td> QHD</td><td> 16:9</td></tr><tr><td align="center" valign="middle">960×640</td><td align="center" valign="middle">DVGA</td><td align="center" valign="middle">3:2</td></tr><tr><td align="center" valign="middle">1024×600</td><td align="center" valign="middle">WSVGA</td><td align="center" valign="middle">128:75</td></tr><tr><td align="center" valign="middle">1024×768</td><td align="center" valign="middle">XGA</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">1280×768</td><td align="center" valign="middle">WXGA</td><td align="center" valign="middle">15:9</td></tr><tr><td align="center" valign="middle">1280×800</td><td align="center" valign="middle">WXGA</td><td align="center" valign="middle">16:10</td></tr><tr><td align="center" valign="middle">1280×960</td><td align="center" valign="middle">UxGA/XVGA</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">1280×1024</td><td align="center" valign="middle">SXGA</td><td align="center" valign="middle">25:16</td></tr><tr><td align="center" valign="middle">1400×1050</td><td align="center" valign="middle">SXGA+</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">1440×900</td><td align="center" valign="middle">WXGA+</td><td align="center" valign="middle">16:10</td></tr><tr><td align="center" valign="middle">1600×1024</td><td align="center" valign="middle">WSXGA</td><td align="center" valign="middle">25:16</td></tr><tr><td align="center" valign="middle">1600×1050</td><td align="center" valign="middle">WSXGA</td><td align="center" valign="middle">32:21</td></tr><tr><td align="center" valign="middle">1600×1200</td><td align="center" valign="middle">USVGA/UXGA/UGA</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">1680×1050</td><td align="center" valign="middle">WSXGA+</td><td align="center" valign="middle">16:10</td></tr><tr><td align="center" valign="middle">1900×1200</td><td align="center" valign="middle">UXGA</td><td align="center" valign="middle">19:12</td></tr><tr><td align="center" valign="middle">1920×1080</td><td align="center" valign="middle">WSUVGA+(WSUGA/HDTV)</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">1920×1200</td><td align="center" valign="middle">WUXGA</td><td align="center" valign="middle">16:10</td></tr><tr><td align="center" valign="middle">2048×1536</td><td align="center" valign="middle">SUVGA(QXGA)</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">2560×1600</td><td align="center" valign="middle">UWXGA</td><td align="center" valign="middle">16:10</td></tr><tr><td align="center" valign="middle">2560×2048</td><td align="center" valign="middle">USXGA</td><td align="center" valign="middle">5:4</td></tr><tr><td align="center" valign="middle">3200×2400</td><td align="center" valign="middle">QUXGA</td><td align="center" valign="middle">4:3</td></tr><tr><td align="center" valign="middle">3840×2400</td><td align="center" valign="middle">WQUXGA</td><td align="center" valign="middle">16:10</td></tr></table>
-<div class="spctrl"></div>　　名词缩写解释
-<div class="spctrl"></div>　　VGA：Video Graphics Array（视频图像分辨率）；S:Super(超过)，×:E×tended(扩展)，U:Ultra(终极)，第一个Q:Quarter(四分之一)，最后一个Q:Quantum(量化)
-<div class="spctrl"></div>　　VGA: Video Graphics Array 
-<div class="spctrl"></div>　　QVGA: Quarter Video Graphics Array 
-<div class="spctrl"></div>　　QQVGA: Quarter QVGA 
-<div class="spctrl"></div>　　Sub-QVGA: Sub Quarter QVGA 
-<div class="spctrl"></div>　　CIF: Common Intermediate Format 
-<div class="spctrl"></div>　　QCIF: Quarter Common Intermediate Format 
-<div class="spctrl"></div>　　QQCIF: Quarter QCIF Sub-QCIF: Sub Quarter QCIF 
-<div class="spctrl"></div>　　注：
-<div class="spctrl"></div>　　VGA：Video Graphics Array（视频图像分辨率）；S:Super(超过)，X:Extended(扩展)，U:Ultra(终极)，第一个Q:Quarter(四分之一)，最后一个Q:Quantum(量化)
-<pre>
-F1帮助
-F2改名
-F3搜索
-F4地址
-F5刷新
-F6切换
-F10菜单
-CTRL+A全选
-CTRL+C复制
-CTRL+X剪切
-CTRL+V粘贴
-CTRL+Z撤消
-CTRL+O打开
-SHIFT+DELETE永久删除
-DELETE删除
-ALT+ENTER属性
-ALT+F4关闭
-CTRL+F4关闭
-ALT+TAB切换
-ALT+ESC切换
-ALT+空格键窗口菜单
-CTRL+ESC开始菜单
-拖动某一项时按CTRL复制所选项目
-拖动某一项时按CTRL+SHIFT创建快捷方式
-将光盘插入到CD-ROM驱动器时按SHIFT键阻止光盘自动播放
-Ctrl+1,2,3...　切换到从左边数起第1,2,3...个标签
-Ctrl+A　全部选中当前页面内容
-Ctrl+C　复制当前选中内容
-Ctrl+D　打开"添加收藏"面版(把当前页面添加到收藏夹中)
-Ctrl+E　打开或关闭"搜索"侧边栏(各种搜索引擎可选)
-Ctrl+F　打开"查找"面版
-Ctrl+G　打开或关闭"简易收集"面板
-Ctrl+H　打开"历史"侧边栏
-Ctrl+I　打开"收藏夹"侧边栏/另:将所有垂直平铺或水平平铺或层叠的窗口恢复
-Ctrl+K　关闭除当前和锁定标签外的所有标签
-Ctrl+L　打开"打开"面版(可以在当前页面打开Iternet地址或其他文件...)
-Ctrl+N　新建一个空白窗口(可更改,Maxthon选项→标签→新建)
-Ctrl+O　打开"打开"面版(可以在当前页面打开Iternet地址或其他文件...)
-Ctrl+P　打开"打印"面板(可以打印网页,图片什么的...)
-Ctrl+Q　打开"添加到过滤列表"面板(将当前页面地址发送到过滤列表)
-Ctrl+R　刷新当前页面
-Ctrl+S　打开"保存网页"面板(可以将当前页面所有内容保存下来)
-Ctrl+T　垂直平铺所有窗口
-Ctrl+V　粘贴当前剪贴板内的内容
-Ctrl+W　关闭当前标签(窗口)
-Ctrl+X　剪切当前选中内容(一般只用于文本操作)
-Ctrl+Y　重做刚才动作(一般只用于文本操作)
-Ctrl+Z　撤消刚才动作(一般只用于文本操作)
-Ctrl+F4　关闭当前标签(窗口)
-Ctrl+F5　刷新当前页面
-Ctrl+F6　按页面打开的先后时间顺序向前切换标签(窗口)
-Ctrl+F11　隐藏或显示菜单栏
-Ctrl+Tab　以小菜单方式向下切换标签(窗口)
-Ctrl+Enter　域名自动完成http://www.**.com(内容可更改,Maxthon选项→地址栏→常规)/另:当输入焦点在搜索栏中时,为高亮关键字
-Ctrl+拖曳　保存该链接的地址或已选中的文本或指定的图片到一个文件夹中(保存目录可更改,Maxthon选项→保存)
-Ctrl+小键盘'+'　当前页面放大20%
-Ctrl+小键盘'-'　当前页面缩小20%
-Ctrl+小键盘'*'　恢复当前页面的缩放为原始大小
-Ctrl+Alt+S　自动保存当前页面所有内容到指定文件夹(保存路径可更改,Maxthon选项→保存)
-Ctrl+Shift+小键盘'+'　所有页面放大20%
-Ctrl+Shift+小键盘'-'　所有页面缩小20%
-Ctrl+Shift+F　输入焦点移到搜索栏
-Ctrl+Shift+G　关闭"简易收集"面板
-Ctrl+Shift+H　打开并激活到你设置的主页
-Ctrl+Shift+N　在新窗口中打开剪贴板中的地址,如果剪贴板中为文字,则调用搜索引擎搜索该文字(搜索引擎可选择,Maxthon选项→搜索)
-Ctrl+Shift+S　打开"保存网页"面板(可以将当前页面所有内容保存下来,等同于Ctrl+S)　
-Ctrl+Shift+W　关闭除锁定标签外的全部标签(窗口)
-Ctrl+Shift+F6　按页面打开的先后时间顺序向后切换标签(窗口)
-Ctrl+Shift+Tab　以小菜单方式向上切换标签(窗口)
-Ctrl+Shift+Enter　域名自动完成
-Alt+1　保存当前表单
-Alt+2　保存为通用表单
-Alt+A　展开收藏夹列表
-资源管理器
-END显示当前窗口的底端
-HOME显示当前窗口的顶端
-NUMLOCK+数字键盘的减号(-)折叠所选的文件夹
-NUMLOCK+数字键盘的加号(+)显示所选文件夹的内容
-NUMLOCK+数字键盘的星号(*)显示所选文件夹的所有子文件夹
-向左键当前所选项处于展开状态时折叠该项，或选定其父文件夹
-向右键当前所选项处于折叠状态时展开该项，或选定第一个子文件夹
-自然键盘
-【窗口】显示或隐藏"开始"菜单
-【窗口】+F1帮助
-【窗口】+D显示桌面
-【窗口】+R打开"运行"
-【窗口】+E打开"我的电脑"
-【窗口】+F搜索文件或文件夹
-【窗口】+U打开"工具管理器"
-【窗口】+BREAK显示"系统属性"
-【窗口】+TAB在打开的项目之间切换
-辅助功能
-按右边的SHIFT键八秒钟切换筛选键的开和关
-按SHIFT五次切换粘滞键的开和关
-按NUMLOCK五秒钟切换切换键的开和关
-左边的ALT+左边的SHIFT+NUMLOCK切换鼠标键的开和关
-左边的ALT+左边的SHIFT+PRINTSCREEN切换高对比度的开和关
-运行
-按"开始"－"运行"，或按WIN键+R，在『运行』窗口中输入：
-（按英文字符顺序排列）
-%temp%---------打开临时文件夹
-.--------------C:\DocumentsandSettings\用户名所在文件夹
-..-------------C:\DocumentsandSettings
-...------------我的电脑
-\--------------C盘
-appwize.cpl----添加、删除程序
-access.cpl-----辅助功能选项
-Accwiz---------辅助功能向导
-cmd------------CMD命令提示符
-command--------CMD命令提示符
-chkdsk.exe-----Chkdsk磁盘检查
-certmgr.msc----证书管理实用程序
-calc-----------启动计算器
-charmap--------启动字符映射表
-cintsetp-------仓颉拼音输入法
-cliconfg-------SQLSERVER客户端网络实用程序
-clipbrd--------剪贴板查看器
-control--------打开控制面板
-conf-----------启动netmeeting
-compmgmt.msc---计算机管理
-cleanmgr-------垃圾整理
-ciadv.msc------索引服务程序
-dcomcnfg-------打开系统组件服务
-ddeshare-------打开DDE共享设置
-dxdiag---------检查DirectX信息
-drwtsn32-------系统医生
-devmgmt.msc----设备管理器
-desk.cpl-------显示属性
-dfrg.msc-------磁盘碎片整理程序
-diskmgmt.msc---磁盘管理实用程序
-dvdplay--------DVD播放器
-eventvwr-------一个事情查看器
-eudcedit-------造字程序
-explorer-------打开资源管理器
-fsmgmt.msc-----共享文件夹管理器
-firewall.cpl---WINDOWS防火墙
-gpedit.msc-----组策略
-hdwwiz.cpl-----添加硬件
-iexpress-------木马捆绑工具，系统自带
-inetcpl.cpl----INTETNET选项
-intl.cpl-------区域和语言选项（输入法选项）
-irprops.cpl----无线链接
-joy.cpl--------游戏控制器
-lusrmgr.msc----本机用户和组
-logoff---------注销命令
-main.cpl-------鼠标
-mem.exe--------显示内存使用情况
-migwiz---------文件转移向导
-mlcfg32.cpl----邮件
-mplayer2-------简易widnowsmediaplayer
-mspaint--------画图板
-msconfig.exe---系统配置实用程序
-mstsc----------远程桌面连接
-magnify--------放大镜实用程序
-mmc------------打开控制台
-mmsys.cpl------声音和音频设备
-mobsync--------同步命令
-ncpa.cpl-------网络连接
-nslookup-------IP地址侦测器
-netstartX----开始X服务
-netstopX-----停止X服务
-netstat-an----命令检查接口
-netsetup.cpl---无线网络安装向导
-notepad--------打开记事本
-nslookup-------IP地址侦探器
-narrator-------屏幕"讲述人"
-ntbackup-------系统备份和还原
-ntmsmgr.msc----移动存储管理器
-ntmsoprq.msc---移动存储管理员操作请求
-nusrmgr.cpl----用户账户
-nwc.cpl--------NetWare客户服务
-osk------------打开屏幕键盘
-odbcad32-------ODBC数据源管理器
-odbccp32.cpl---ODBC数据源管理器
-oobe/msoobe/a-检查XP是否激活
-packager-------对象包装程序
-perfmon.msc----计算机性能监测程序
-powercfg.cpl---电源选项
-progman--------程序管理器
-regedit--------注册表
-rsop.msc-------组策略结果集
-regedt32-------注册表编辑器
-regsvr32/?----调用、卸载DLL文件运行（详细请在cmd中输入regsvr32/?）
-sapi.cpl-------语音
-services.msc---本地服务设置
-syncapp--------创建一个公文包
-sysedit--------系统配置编辑器
-sigverif-------文件签名验证程序
-sndrec32-------录音机
-sndvol32-------音量控制程序
-shrpubw--------共享文件夹设置工具
-secpol.msc-----本地安全策略
-sysdm.cpl------系统
-syskey---------系统加密（一旦加密就不能解开，保护windowsxp系统的双重密码）
-services.msc---本地服务设置
-sfc.exe--------系统文件检查器
-sfc/scannow---windows文件保护
-shutdown-------关机命令（详细请在cmd中输入shutdown/?）
-taskmgr--------任务管理器
-telephon.cpl---电话和调制解调器选项
-telnet---------远程连接程序
-timedate.cpl---日期和时间
-tourstart------xp简介（安装完成后出现的漫游xp程序）
-tsshutdn-------60秒倒计时关机命令
-utilman--------辅助工具管理器
-winver---------检查Windows版本
-winmsd---------系统信息
-wiaacmgr-------扫描仪和照相机向导
-winchat--------XP自带局域网聊天
-wmimgmt.msc----打开windows管理体系结构(WMI)
-wordpad--------写字板
-wuaucpl.cpl----自动更新
-wupdmgr--------windows更新程序
-write----------写字板
-wscript--------windows脚本宿主设置
-wscui.cpl------安全中心
-C:/windows/fonts字体
-</pre>
-
-<a href="http://www.elecfans.com/" target="_blank">www.elecfans.com</a>
-<a href="http://radio.com.cn/" target="_blank">radio.com.cn</a>
-<br />
-http://en.wikipedia.org/wiki/H.264
-<br />
-<a id="software" />
-<br />
-<a href="http://office.microsoft.com/zh-cn/" target="_blank">office</a>
-<a href="http://windows.microsoft.com/zh-CN/windows/downloads/personalize" target="_blank">Windows个性化</a>
-<a href="https://www.google.com/intl/zh-CN/chrome/browser/?standalone=1" target="_blank">Chrome独立版</a>
-<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" target="_blank">IE</a>
-<a href="http://www.firefox.com.cn/" target="_blank">firefox中文</a>
-<a href="http://www.mozilla.org/" target="_blank">firefox</a>
-<a href="http://www.opera.com/" target="_blank">oprea</a>
-<br />
-<a href="https://get.adobe.com/flashplayer/" target="_blank">getflash</a>
-<a href="http://www.adobe.com/support/flashplayer/downloads.html" target="_blank">flash_debug</a>
-<a href="http://helpx.adobe.com/flash-player/kb/archived-flash-player-versions.html" target="_blank">flash_old</a>
-<a href="http://www.adobe.com/software/flash/about/" target="_blank">Adobe Flash Player</a>
-
-http://java.com/zh_CN/<br />
-http://www.opera.com/docs/plugins/installation/#wmp<br />
-<br />
-<a href="http://www.rarlab.com/" target="_blank">WinRAR</a>
-<a href="http://www.winrar.com.cn/" target="_blank">WinRAR官方中文主页</a>
-<a href="http://www.7-zip.org/" target="_blank">7z</a>
-<a href="http://sparanoid.com/lab/7z/" target="_blank">7-Zip官方中文主页</a>
-<a href="http://notepad-plus-plus.org/" target="_blank">Notepad++</a>
-<a href="http://www.codeblocks.org/" target="_blank">codeblocks</a>
-<a href="https://sourceforge.net/projects/ultradefrag/" target="_blank">ultradefrag</a>
-<br />
-<a href="http://potplayer.daum.net/" target="_blank">potplayer</a>
-<a href="http://www.kmplayer.com/" target="_blank">kmplayer</a>
-<a href="https://mpc-hc.org/" target="_blank">MPC-HC</a>
-<a href="http://cn.cyberlink.com/products/index_zh_CN.html" target="_blank">PowerDVD</a>
-<a href="https://kodi.tv/" target="_blank">XBMC</a>
-<a href="http://www.videolan.org/" target="_blank">VLC</a>
-<a href="http://www.foobar2000.org/" target="_blank">foobar2000</a>
-<a href="http://www.apple.com.cn/itunes/download/" target="_blank">iTunes</a>
-<a href="http://www.apple.com.cn/quicktime/download/" target="_blank">quicktime</a>
-<a href="http://qianqian.baidu.com/" target="_blank">ttplayer</a>
-<a href="http://splayer.org" target="_blank">splayer</a>
-<a href="http://www.wmzhe.com/" target="_blank">wmzhe</a>
-<br />
-POTplayer,MPC-HC,Windows media player,KMPLAYER,TMT5,POWERDVD10<br />
-TotalMedia_Theatre_3.0.60.185_Platinum_SimHD3D<br />
-<br />
-<a href="http://sourceforge.net/" target="_blank">sourceforge</a>
-<br />
-<a href="http://ffmpeg.org/" target="_blank">ffmpeg</a>
-<a href="http://www.mplayerhq.hu/" target="_blank">MPlayer</a>
-<br />
-<a href="http://www.exactaudiocopy.de/en/index.php/weitere-seiten/download-from-alternative-servers-2/" target="_blank">EAC</a>
-<a href="http://www.monkeysaudio.com/" target="_blank">monkey's audio</a>
-<a href="https://xiph.org/flac/" target="_blank">FLAC</a>
-<a href="http://www.bunkus.org/videotools/mkvtoolnix/downloads.html" target="_blank">MKVToolNix</a>
-<a href="http://sourceforge.net/projects/mediainfo/" target="_blank">MediaInfo</a>
-<a href="http://sourceforge.net/projects/direct264/" target="_blank">direct264</a>
-<a href="http://rtmpdump.mplayerhq.hu/" target="_blank">rtmpdump</a>
-<a href="http://dreamboxedit.com/category/download/" target="_blank">dreamboxedit</a>
-<a href="http://www.fame-ring.com/index.html" target="_blank">Smart Cutter</a>
-<br />
-<a href="http://www.pcfreetime.com/" target="_blank">Format Factory</a>
-<br />
-<br />
-<a href="http://pd.youku.com/pc" target="_blank">优酷客户端</a>
-<a href="http://tv.sohu.com/app/" target="_blank">搜狐影音</a>
-<a href="http://www.baofeng.com/" target="_blank">暴风影音</a>
-<a href="http://cbox.cntv.cn/" target="_blank">CBox网络电视客户端</a>
-<a href="http://app.pptv.com/" target="_blank">PPTV客户端</a>
-<a href="http://www.srslabs.com/" target="_blank">SRS</a>
-<br />
-<a href="http://im.renren.com/" target="_blank">人人桌面</a>
-<a href="http://g.renren.com/" target="_blank">人人游戏助手</a>
-<a href="http://jisu.renren.com/" target="_blank">人人极速相册</a>
-<a href="http://desktop.weibo.com/" target="_blank">微博桌面</a>
-<br />
-<a href="http://pc.qq.com/" target="_blank">QQ</a>
-<br />
-<a href="http://www.360.cn/" target="_blank">360</a>
-<br />
-<a href="http://pinyin.sogou.com/" target="_blank">sogou</a>
-<a href="http://dl.xunlei.com/" target="_blank">迅雷</a>
-<a href="http://wandoujia.com/" target="_blank">豌豆荚</a>
-<br />
-<br />
-<a href="http://www.nirsoft.net/utils/video_cache_view.html" target="_blank">VideoCacheView</a> - Copy video files (.flv and others) from the Web browser cache and temporary folder.<br />
-<a href="http://www.nirsoft.net/utils/web_video_capture.html" target="_blank">WebVideoCap</a> - Capture Flash video (.flv) and RTSP/MMS streams from Video Web sites.<br />
-<a href="http://www.nirsoft.net/utils/web_site_screenshot.html" target="_blank">SiteShoter</a> - Take a screenshot of a Web site.<br />
-<a href="http://www.nirsoft.net/utils/dns_records_viewer.html" target="_blank">DNSDataView </a> - View the DNS records of specified domains.<br />
-<a href="http://www.nirsoft.net/utils/iecookies.html" target="_blank">IECookiesView: Cookies Viewer/Manager for IE</a> - View/Delete/Modify the cookies that Internet Explorer stores on your computer.<br />
-<a href="http://www.nirsoft.net/utils/iehv.html" target="_blank">IEHistoryView</a> - View/Delete the URLs that you visited in the last few days.<br />
-<br />
-<a href="#" target="_self" >回到顶部</a>
-
-<script type="text/javascript">
-var c=0
-var t
-function timedCount()
-{
-document.getElementById('txt').value=c
-c=c+1
-t=setTimeout("timedCount()",1000)
-}
-
-function stopCount()
-{
-clearTimeout(t)
-}
-</script>
-
-<form action="">
-<input type="button" value="开始计时！" onClick="timedCount()" />
-<input type="text" id="txt" />
-<input type="button" value="停止计时！" onClick="stopCount()" />
-</form>
-
-<script type="text/javascript">
-var x = navigator;
-document.write("CodeName=" + x.appCodeName);
-document.write("<br />");
-document.write("MinorVersion=" + x.appMinorVersion);
-document.write("<br />");
-document.write("Name=" + x.appName);
-document.write("<br />");
-document.write("Version=" + x.appVersion);
-document.write("<br />");
-document.write("CookieEnabled=" + x.cookieEnabled);
-document.write("<br />");
-document.write("CPUClass=" + x.cpuClass);
-document.write("<br />");
-document.write("OnLine=" + x.onLine);
-document.write("<br />");
-document.write("Platform=" + x.platform);
-document.write("<br />");
-document.write("UA=" + x.userAgent);
-document.write("<br />");
-document.write("BrowserLanguage=" + x.browserLanguage);
-document.write("<br />");
-document.write("SystemLanguage=" + x.systemLanguage);
-document.write("<br />");
-document.write("UserLanguage=" + x.userLanguage);
-</script>
-
-<script type="text/javascript">
-document.write("Screen resolution:");
-document.write(screen.width + "*" + screen.height);
-document.write("<br />");
-document.write("Available view area:");
-document.write(screen.availWidth + "*" + screen.availHeight);
-document.write("<br />");
-document.write("Color depth:");
-document.write(screen.colorDepth);
-document.write("<br />");
-document.write("Buffer depth:");
-document.write(screen.bufferDepth);
-document.write("<br />");
-document.write("DeviceXDPI:");
-document.write(screen.deviceXDPI);
-document.write("<br />");
-document.write("DeviceYDPI:");
-document.write(screen.deviceYDPI);
-document.write("<br />");
-document.write("LogicalXDPI:");
-document.write(screen.logicalXDPI);
-document.write("<br />");
-document.write("LogicalYDPI:");
-document.write(screen.logicalYDPI);
-document.write("<br />");
-document.write("FontSmoothingEnabled:");
-document.write(screen.fontSmoothingEnabled);
-document.write("<br />");
-document.write("PixelDepth:");
-document.write(screen.pixelDepth);
-document.write("<br />");
-document.write("UpdateInterval:");
-document.write(screen.updateInterval);
-document.write("<br />");
-</script>
-
-
-
-<a href="http://www.webelements.com/" target="_blank">www.webelements.com</a><br />
-<a href="http://pubs.acs.org/" target="_blank">ACS Publications</a><br />
-<p class="equation">2KClO<sub>3</sub> (400&#176;C) &rarr; 2KCl + 3O<sub>2</sub></p>
-<p class="equation">2KMnO<sub>4</sub> (214&#176;C)  &rarr; K<sub>2</sub>MnO<sub>4</sub> + MnO<sub>2</sub> + O<sub>2</sub></p>
-<p><sup>293</sup><sub>118</sub>Uuo  &rarr; <sup>289</sup><sub>116</sub>Uuh + <sup>4</sup><sub>2</sub>He  (0.12 milliseconds)</p>
-<p><sup>289</sup><sub>116</sub>Uuh  &rarr; <sup>285</sup><sub>114</sub>Uuq + <sup>4</sup><sub>2</sub>He  (0.60 milliseconds)</p>
-<p><sup>285</sup><sub>114</sub>Uuq &rarr; <sup>281</sup><sub>112</sub>Uub + <sup>4</sup><sub>2</sub>He  (0.58 milliseconds)</p>
-<p><sup>281</sup><sub>112</sub>Uub &rarr; <sup>277</sup><sub>110</sub>Uun + <sup>4</sup><sub>2</sub>He  (0.89 milliseconds)</p>
-<p><sup>277</sup><sub>110</sub>Uun &rarr; <sup>273</sup><sub>108</sub>Hs + <sup>4</sup><sub>2</sub>He  (3 milliseconds)</p>
-<p><sup>273</sup><sub>108</sub>Hs &rarr; <sup>269</sup><sub>106</sub>Sg + <sup>4</sup><sub>2</sub>He  (1200 milliseconds)</p>
-
 </body>
-</html>
-<!--
-</p><p></p>
-<br />
-<font color="#ffffff"></font>
-<p><a href="__" target="_blank">__</a></p>
-<p><a href="http://_____" target="_blank">_____</a></p>
-<p><a href="http://www._.com/" target="_blank">_</a></p>
-<a href="#" target=_self>回到顶部</a>
-<sub>2</sub>
-<sup>2</sup>//-->
-<!--化学式替换
-)2
-)3
-)4
-)5
-)6
-C2-C1000
-H2-H1000
-H2
-H3
-H4
-N2
-P2
-O2
 
-O3
-O5
-O7
-Fe2
-Al2
-Cu2
-(OH)2
-(OH)3
-(SO4)2
-(SO4)3
-Cl2
-Cl3
-Cl4
-Cl5
-Cl7
-F2
-F3
-F4
-F5
-F7
-Br2
-Br3
-Br4
-Br5
-Br7
-I2
-I3
-I4
-I5
-I7 //-->
+</html>
