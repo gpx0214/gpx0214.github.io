@@ -224,8 +224,8 @@
   <br />
 
   <!--script src="js/UNICODE2GBK.js" type="text/javascript"></script//-->
-  <script src="js/station_name.js" type="text/javascript"></script>
-  <script src="js/qss.js" type="text/javascript"></script>
+  <!--script src="js/station_name.js" type="text/javascript"></script//-->
+  <!--script src="js/qss.js" type="text/javascript"></script//-->
   <!--script src="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js" type="text/javascript"></script//-->
   <!--script src="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0" type="text/javascript"></script//-->
   <script>
@@ -457,15 +457,48 @@
       document.getElementById("ticket_date").innerHTML += html;
     }
 
+    ticket_date()
+
     window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
     endpoint = "/" // "http://127.0.0.1/"
     date = timeStr(0, "yyyy-mm-dd")
-    //document.writeln(date + "<br />")
     setValue("date", date);
 
-    ticket_date()
 
-    var s = [];
+    function getstation() {
+      var url = '/js/station.min.csv'
+
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            window.s = []
+            if (typeof (xhr.responseText) != "undefined") {
+              var s1 = xhr.responseText.split("\n");
+              for (var i = 0; i < s1.length; i++) {
+                var ss = s1[i];
+                if (ss.length > 0) {
+                  ss = ss.split(",");
+                  window.s.push(ss);
+                }
+              }
+            }
+            setHTML("result", "")
+          } else {
+            setHTML("result", xhr.status + " " + xhr.statusText);
+          }
+        }
+      }
+
+      xhr.open("GET", url, true);
+      setHTML("result", "loading station");
+      xhr.send()
+    }
+
+    getstation()
+
+    /*var s = [];
     if (typeof (station_names) != "undefined") {
       var s1 = station_names.split("@");
       for (var i = 0; i < s1.length; i++) {
@@ -493,10 +526,10 @@
       s.push(['bdl', '八达岭', 'ILP', 'badaling', 'bdl', '-1']);
       // s.push(['nsb', '南山北', 'NBQ', 'nanshanbei', 'nsb', '-1']);
       // s.push(['', '羊木', 'YMJ', 'yangmu', 'ym', '-1']);
-      /* for (var i = 0; i < s.length; i++) {
-        s[i].push(i)
-      } */
-    }
+      //for (var i = 0; i < s.length; i++) {
+        //s[i].push(i)
+      //}
+    }*/
 
     /*window.namemap = {}
     for (i in s) {
@@ -505,8 +538,8 @@
 
     function telecode(name) {
       for (ii in s) {
-        if (s[ii][1] === name) {
-          return s[ii][2];
+        if (s[ii][0] === name) {
+          return s[ii][1];
         }
       }
       return "";
@@ -514,11 +547,20 @@
 
     function name(tele) {
       for (ii in s) {
-        if (s[ii][2] === tele) {
-          return s[ii][1];
+        if (s[ii][1] === tele) {
+          return s[ii][0];
         }
       }
       return tele || "";
+    }
+
+    function qssbyname(name) {
+      for (ii in s) {
+        if (s[ii][0] === name) {
+          return s[ii][2];
+        }
+      }
+      return "";
     }
 
     function tableHTML(s) {
@@ -1777,7 +1819,7 @@
       var c = search_samecity(str)
       ret = ""
       for (i in c) {
-        ret += c[i] + ":" + (citys[c[i]] || "") + " "
+        ret += c[i] + ":" + (qssbyname(c[i]) || "") + " "
       }
       document.getElementById("qss").innerHTML = ret;
     }
