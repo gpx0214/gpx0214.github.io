@@ -10,7 +10,7 @@ cqn,重庆南,CRW,chongqingnan,cqn,8,15:30,1tjH7MTP
 cqx,重庆西,CXW,chongqingxi,cqx,9,11,1tjH7M73
 gzd,广州东,GGQ,guangzhoudong,gzd,10,11:30,uePW3bar
 sha,上海,SHH,shanghai,sh,11,14:30,yc+6ow==
-shn,上海南,SNH,shanghainan,shn,12,15:30,yc+6o8TP
+shn,上海南,SNH,shanghainan,shn,12,14:30,yc+6o8TP
 shq,上海虹桥,AOH,shanghaihongqiao,shhq,13,13:30,yc+6o7rnx8U=
 shx,上海西,SXH,shanghaixi,shx,14,16,yc+6o873
 tjb,天津北,TBP,tianjinbei,tjb,15,16,zOy98rGx
@@ -41,9 +41,9 @@ hhd,呼和浩特东,NDC,huhehaotedong,hhhtd,39,14,uvS6zbrGzNi2qw==
 hht,呼和浩特,HHC,huhehaote,hhht,40,14,uvS6zbrGzNg=
 hkd,海口东,HMQ,haikoudong,hkd,42,13:30,uqO/2rar
 hko,海口,VUQ,haikou,hk,43,13:30,uqO/2g==
-hzd,杭州东,HGH,hangzhoudong,hzd,44,11:30,urzW3bar
+hzd,杭州东,HGH,hangzhoudong,hzd,44,10:30,urzW3bar
 hzh,杭州,HZH,hangzhou,hz,45,10:30,urzW3Q==
-hzn,杭州南,XHH,hangzhounan,hzn,46,11:30,urzW3cTP
+hzn,杭州南,XHH,hangzhounan,hzn,46,10:30,urzW3cTP
 jna,济南,JNK,jinan,jn,47,14,vMPEzw==
 jna,济  南,EEI,jinan,jn,48,,vMMgIMTP
 jnx,济南西,JGK,jinanxi,jnx,49,14,vMPEz873
@@ -314,7 +314,7 @@ mya,绵阳,MYW,mianyang,my,313,12:30,w+DR9A==
 mzh,梅州,MOQ,meizhou,mz,314,14,w7fW3Q==
 mzl,满洲里,MLX,manzhouli,mzl,315,16,wvrW3sDv
 nbd,宁波东,NVH,ningbodong,nbd,316,,xP6yqLar
-nbo,宁波,NGH,ningbo,nb,317,08:30,xP6yqA==
+nbo,宁波,NGH,ningbo,nb,317,09:30,xP6yqA==
 nch,南岔,NCB,nancha,nc,318,16:30,xM+y7Q==
 nch,南充,NCW,nanchong,nc,319,08:30,xM+z5A==
 nda,南丹,NDZ,nandan,nd,320,17:30,xM+1pA==
@@ -1211,7 +1211,7 @@ lsc,乐善村,LUM,leshancun,lsc,1211,,wNbJxrTl
 lsd,冷水江东,UDQ,lengshuijiangdong,lsjd,1212,17:30,wOTLrr2ttqs=
 lsg,连山关,LGT,lianshanguan,lsg,1213,16:30,wazJvbnY
 lsg,流水沟,USP,liushuigou,lsg,1214,,wffLrrm1
-lsh,丽水,USH,lishui,ls,1215,09,wPbLrg==
+lsh,丽水,USH,lishui,ls,1215,12,wPbLrg==
 lsh,陵水,LIQ,lingshui,ls,1216,13:30,werLrg==
 lsh,罗山,LRN,luoshan,ls,1217,18,wt7JvQ==
 lsh,鲁山,LAF,lushan,ls,1218,17:30,wrPJvQ==
@@ -1451,7 +1451,7 @@ qsh,确山,QSN,queshan,qs,1451,18,yLfJvQ==
 qsh,清水,QUJ,qingshui,qs,1452,11:30,x+XLrg==
 qsh,前山,QXQ,qianshan,qs,1453,14,x7DJvQ==
 qsy,戚墅堰,QYH,qishuyan,qsy,1454,17,xt3K+9Hf
-qti,青田,QVH,qingtian,qt,1455,09,x+DM7w==
+qti,青田,QVH,qingtian,qt,1455,12,x+DM7w==
 qto,桥头,QAT,qiaotou,qt,1456,16:30,x8XNtw==
 qtx,青铜峡,QTJ,qingtongxia,qtx,1457,11:30,x+DNrc+/
 qwe,前卫,QWD,qianwei,qw,1458,16:30,x7DOwA==
