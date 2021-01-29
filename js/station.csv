@@ -12,7 +12,7 @@ gzd,广州东,GGQ,guangzhoudong,gzd,10,11:30,uePW3bar
 sha,上海,SHH,shanghai,sh,11,14:30,yc+6ow==
 shn,上海南,SNH,shanghainan,shn,12,14:30,yc+6o8TP
 shq,上海虹桥,AOH,shanghaihongqiao,shhq,13,13:30,yc+6o7rnx8U=
-shx,上海西,SXH,shanghaixi,shx,14,16,yc+6o873
+shx,上海西,SXH,shanghaixi,shx,14,14:30,yc+6o873
 tjb,天津北,TBP,tianjinbei,tjb,15,16,zOy98rGx
 tji,天津,TJP,tianjin,tj,16,13:30,zOy98g==
 tjn,天津南,TIP,tianjinnan,tjn,17,13,zOy98sTP
@@ -541,7 +541,7 @@ ame,阿木尔,JTX,amuer,ame,541,16:30,sKLEvrb7
 anz,阿南庄,AZM,ananzhuang,anz,542,,sKLEz9ev
 asx,鞍山西,AXT,anshanxi,asx,543,15:30,sLDJvc73
 ata,安塘,ATV,antang,at,544,15,sLLMwQ==
-atb,安亭北,ASH,antingbei,atb,545,16,sLLNpLGx
+atb,安亭北,ASH,antingbei,atb,545,14:30,sLLNpLGx
 ats,阿图什,ATR,atushi,ats,546,09,sKLNvMqy
 atu,安图,ATL,antu,at,547,16:30,sLLNvA==
 axi,安溪,AXS,anxi,ax,548,18,sLLPqg==
@@ -1266,7 +1266,7 @@ lzh,鹿寨,LIZ,luzhai,lz,1266,17:30,wrnVrw==
 lzh,来舟,LZS,laizhou,lz,1267,18,wLTW2w==
 lzh,拉鲊,LEM,lazha,lz,1268,,wK33hw==
 lzq,兰州新区,LQJ,lanzhouxinqu,lzxq,1269,09,wLzW3dDCx/g=
-mas,马鞍山,MAH,maanshan,mas,1270,18,wu2wsMm9
+mas,马鞍山,MAH,maanshan,mas,1270,10,wu2wsMm9
 mba,毛坝,MBY,maoba,mb,1271,18,w6uw0w==
 mbg,毛坝关,MGY,maobaguan,mbg,1272,18,w6uw07nY
 mcb,麻城北,MBN,machengbei,mcb,1273,15,wumzx7Gx
@@ -1355,7 +1355,7 @@ nta,南台,NTT,nantai,nt,1355,16:30,xM/MqA==
 nto,南头,NOQ,nantou,nt,1356,14,xM/Ntw==
 nwu,宁武,NWV,ningwu,nw,1357,15,xP7O5A==
 nwz,南湾子,NWP,nanwanzi,nwz,1358,,xM/N5dfT
-nxb,南翔北,NEH,nanxiangbei,nxb,1359,16,xM/P6LGx
+nxb,南翔北,NEH,nanxiangbei,nxb,1359,14:30,xM/P6LGx
 nxi,宁乡,NXQ,ningxiang,nx,1360,17:30,xP7P5w==
 nxi,内乡,NXF,neixiang,nx,1361,17:30,xNrP5w==
 nxt,牛心台,NXT,niuxintai,nxt,1362,16:30,xaPQxMyo
@@ -2150,7 +2150,7 @@ alx,安陆西,AXN,anluxi,alx,2150,18,sLLCvc73
 are,安仁,ARG,anren,ar,2151,17:30,sLLIyg==
 asx,安顺西,ASE,anshunxi,asx,2152,15:30,sLLLs873
 atx,安图西,AXL,antuxi,atx,2153,16:30,sLLNvM73
-atx,安亭西,AXU,antingxi,atx,2154,16,sLLNpM73
+atx,安亭西,AXU,antingxi,atx,2154,14:30,sLLNpM73
 ayd,安阳东,ADF,anyangdong,ayd,2155,12,sLLR9Lar
 bba,博白,BBZ,bobai,bb,2156,17:30,sqmw1w==
 bbu,八步,BBE,babu,bb,2157,15:30,sMuyvQ==
