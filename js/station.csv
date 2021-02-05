@@ -3,7 +3,7 @@ bjd,北京东,BOP,beijingdong,bjd,1,16,sbG+qbar
 bji,北京,BJP,beijing,bj,2,10,sbG+qQ==
 bjn,北京南,VNP,beijingnan,bjn,3,12:30,sbG+qcTP
 bjx,北京西,BXP,beijingxi,bjx,4,08,sbG+qc73
-gzn,广州南,IZQ,guangzhounan,gzn,5,09:30,uePW3cTP
+gzn,广州南,IZQ,guangzhounan,gzn,5,13,uePW3cTP
 cqb,重庆北,CUW,chongqingbei,cqb,6,11,1tjH7LGx
 cqi,重庆,CQW,chongqing,cq,7,11,1tjH7A==
 cqn,重庆南,CRW,chongqingnan,cqn,8,15:30,1tjH7MTP
@@ -25,7 +25,7 @@ cdd,成都东,ICW,chengdudong,cdd,23,08:30,s8m2vLar
 cdn,成都南,CNW,chengdunan,cdn,24,09,s8m2vMTP
 cdu,成都,CDW,chengdu,cd,25,09,s8m2vA==
 cdx,成都西,CMW,chengduxi,cdx,26,09,s8m2vM73
-csh,长沙,CSQ,changsha,cs,27,14:30,s6TJsw==
+csh,长沙,CSQ,changsha,cs,27,15,s6TJsw==
 csn,长沙南,CWQ,changshanan,csn,28,14:30,s6TJs8TP
 dmh,大明湖,JAK,daminghu,dmh,29,14,tPPD97r+
 fzh,福州,FZS,fuzhou,fz,30,16,uKPW3Q==
@@ -176,7 +176,7 @@ gsh,固始,GXN,gushi,gs,175,18,uczKvA==
 gsh,广水,GSN,guangshui,gs,176,15,uePLrg==
 gta,干塘,GNJ,gantang,gt,177,,uMnMwQ==
 gyu,广元,GYW,guangyuan,gy,178,12:30,uePUqg==
-gzb,广州北,GBQ,guangzhoubei,gzb,179,11:30,uePW3bGx
+gzb,广州北,GBQ,guangzhoubei,gzb,179,14,uePW3bGx
 gzh,赣州,GZG,ganzhou,gz,180,15:30,uNPW3Q==
 gzl,公主岭,GLT,gongzhuling,gzl,181,16:30,uavW98Hr
 gzn,公主岭南,GBT,gongzhulingnan,gzln,182,16:30,uavW98HrxM8=
@@ -381,10 +381,10 @@ sys,双鸭山,SSB,shuangyashan,sys,381,16:30,y6vRvMm9
 syu,松原,VYT,songyuan,sy,382,08:30,y8nUrQ==
 szh,宿州,OXH,suzhou,sz,383,18,y97W3Q==
 szh,苏州,SZH,suzhou,sz,384,16,y9XW3Q==
-szh,深圳,SZQ,shenzhen,sz,385,09,ye7b2g==
+szh,深圳,SZQ,shenzhen,sz,385,09:30,ye7b2g==
 szh,随州,SZN,suizhou,sz,386,17,y+bW3Q==
 szh,朔州,SUV,shuozhou,sz,387,15,y7fW3Q==
-szx,深圳西,OSQ,shenzhenxi,szx,388,09,ye7b2s73
+szx,深圳西,OSQ,shenzhenxi,szx,388,10:30,ye7b2s73
 tba,塘豹,TBQ,tangbao,tb,389,,zMGxqg==
 teq,塔尔气,TVX,taerqi,teq,390,16:30,y/62+8b4
 tgu,潼关,TGY,tongguan,tg,391,18,5Py52A==
@@ -1625,7 +1625,7 @@ syz,桑园子,SAJ,sangyuanzi,syz,1625,,yaPUsNfT
 szb,绥中北,SND,suizhongbei,szb,1626,16:30,y+fW0LGx
 szb,苏州北,OHH,suzhoubei,szb,1627,16,y9XW3bGx
 szd,宿州东,SRH,suzhoudong,szd,1628,18,y97W3bar
-szd,深圳东,BJQ,shenzhendong,szd,1629,09,ye7b2rar
+szd,深圳东,BJQ,shenzhendong,szd,1629,10,ye7b2rar
 szh,深州,OZP,shenzhou,sz,1630,16,ye7W3Q==
 szh,孙镇,OZY,sunzhen,sz,1631,18,y+/V8g==
 szh,绥中,SZD,suizhong,sz,1632,16:30,y+fW0A==
