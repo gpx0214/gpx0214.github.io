@@ -146,7 +146,7 @@
     }
 
     .seat_match {
-      font-weight: bolder;
+      font-weight: bold;
       text-decoration-line: underline;
       text-decoration-color: #cccccc;
       -webkit-text-decoration-color: #cccccc;
@@ -1581,7 +1581,7 @@
 
 
     function search(str) {
-      var re = /^[GDCZTKYL]{1}[1-9][0-9]{0,3}$|^[1-9][0-9]{3}$/
+      var re = /^[GDCZTKYL]{1}[1-9][0-9]{0,3}$|^[1-9][0-9]{0,3}$/
       if (re.test(str.toUpperCase())) {
         search_v1(str.toUpperCase())
         return false
