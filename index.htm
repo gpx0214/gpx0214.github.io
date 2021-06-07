@@ -97,6 +97,11 @@
       color: #3d668f;
     }
 
+    .double {
+      text-decoration-line: underline;
+      text-decoration-style: double;
+    }
+
     .ctl {
       color: #999999;
       text-decoration-line: line-through;
@@ -174,7 +179,7 @@
     <input name="btn" type="submit" value="本地查询" style="max-width:6em"
       onclick="get_search_train_csv(getValue('keyword'));return false;">
     <span onclick="search(getValue('keyword'))">查询</span>
-    <span onclick="getemu()">emu</span>
+    <span onclick="search_emu(getValue('keyword'))">emu</span>
     <br />
   </form>
   <form>
@@ -760,6 +765,7 @@
             + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"get_search_time_csv('" + t.train_no.slice(2, 10).replace(/^[0]+/g, "") + "')\">"
             + multi_train_no(t.train_no, t.station_train_code)
             + "</span>" + " " + (telename(t.from_station) || "---") + " " + (telename(t.to_station) || "---")
+            + " " + emu_by_no(t.station_train_code)
             // + " " + t.service_type
             + " " + "<span class=\"" + (is_run ? "" : "ctl") + "\">" + t.date + "</span>"
             //+ " " + "<a href=" + schurl + " target='_blank'>" + multi_train_no(t.train_no, t.station_train_code) + "</a>" 
@@ -828,7 +834,7 @@
           str += ("<div class=\"sch\" id=\"sch_" + sch[i].train_code + "\"><div><span class=\"type"
             + traintype(sch[i].train_code, sch[i].service_type) + "\">"
             + sch[i].train_code
-            + "</span> " + telename(sch[i].station) + " " + telename(sch[sch.length - 1].station) + " " + sch[i].date
+            + "</span> " + telename(sch[i].station) + " " + telename(sch[sch.length - 1].station) + " " + sch[i].date + " " + emu_by_no(sch[i].train_code)
             + "</div>\n");
         }
 
@@ -1354,7 +1360,7 @@
           + "<td>" + col[14] + "</td>\n"
           + "<td>" + col[15] + "</td>\n"
           + "<td>" + col[18] + "</td>\n"
-          + "<td title=\"secretStr " + decodeURIComponent(col[0]) + "\nyp_info " + decodeURIComponent(col[12]) + "\">" + col[1].replace(/<[^>]+>/g, " ") + "|" + col[11] + "|" + (col[46].split("#")[0] == "5" ? "智" : "") + (col[46].split("#")[1] == "1" ? "复" : "") + (col[46].split("#")[2] && col[46].split("#")[2].substring(0, 1) == "Q" ? "静" : "") + "|" + col[46] + "</td>\n"
+          + "<td title=\"secretStr " + decodeURIComponent(col[0]) + "\nyp_info " + decodeURIComponent(col[12]) + "\">" + col[1].replace(/<[^>]+>/g, " ") + "|" + col[11] + "|" + (col[46].split("#")[0] == "5" ? "智" : "") + (col[46].split("#")[1] == "1" ? "复" : "") + (col[46].split("#")[2] && col[46].split("#")[2].substring(0, 1) == "Q" ? "静" : "") + "|" + emu_by_no(col[3]) + "|" + col[46] + "</td>\n"
           + "</tr>\n"
         );
 
@@ -1781,17 +1787,68 @@
       return ret
     }
 
+    function search_emu(str) {
+      var result = ""
+      for (var i = 40000; i < 80000; i++) {
+        var trainset = window.emu[i]
+        if (!trainset.emu_type) {
+          continue
+        }
+        if (trainset.emu_type.indexOf(str) > -1 || trainset.emu_no == str) {
+          var c = ""
+          if (trainset.emu_type.indexOf("2*") > -1) {
+            c += "double"
+          }
+          result += trainset.train_code + " " + trainset.bureau + "<span class=\"" + c + "\">" + trainset.emu_type.replace("2*", "") + "</span> " + trainset.emu_no + "<br />\n"
+        }
+      }
+
+      //document.getElementById("emu").innerHTML = result;
+      document.getElementById("result").innerHTML = result;
+    }
+
+    function emu_by_no(code) {
+      var key = hash_no(code)
+      var trainset = window.emu[key]
+      if (!trainset || typeof (trainset.emu_type) != "string") return []
+      var c = ""
+      if (trainset.emu_type.indexOf("2*") > -1) {
+        c += "double"
+      }
+      return trainset.bureau + "<span class=\"" + c + "\">" + trainset.emu_type.replace("2*", "") + "</span> " + trainset.emu_no
+    }
+
     function getemu() {
       // '/emu/equip'
       // '/emu/ccrgt'
-      var url = '/emu/emu' + getValue('date').replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, '$1$2$3') + '.csv'
+      var url = '/emu/emu' + timeStr(new Date().getTime() - 6 * 3600000, 'yyyymmdd') + '.csv'
 
       var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if ([200, 304].indexOf(xhr.status) > -1) {
-            setHTML("emu", tableHTML(xhr.responseText))
+            data = xhr.responseText.split("\n");
+            window.emu = Array(maxlen)
+            for (var i = 0; i < maxlen; i++) {
+              window.emu[i] = []
+            }
+
+            for (i in data) {
+              var row = data[i].split(",");
+              if (row.length <= 6) continue
+              var key = hash_no(row[0]) - 1
+
+              var m = row[2].match(/(.*)-(\d{4})$/)
+              window.emu[key] = {
+                train_code: row[0] || "",
+                bureau: row[1] || "",
+                emu_type: row[2].replace(/(.*)-(\d{4})$/, "$1").replace(/\(\d+\)$/, "") || "",
+                emu_no: m ? m[2] : "",
+              }
+            }
+
+            setHTML("emu", "")
           } else {
             setHTML("emu", xhr.status + " " + xhr.statusText);
           }
@@ -1802,6 +1859,8 @@
       setHTML("emu", "loading " + url);
       xhr.send()
     }
+
+    getemu()
 
   </script>
 </body>

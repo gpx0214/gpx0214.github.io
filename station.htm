@@ -92,6 +92,11 @@
       color: #3d668f;
     }
 
+    .double {
+      text-decoration-line: underline;
+      text-decoration-style: double;
+    }
+
     .ctl {
       color: #999999;
       text-decoration-line: line-through;
@@ -139,6 +144,11 @@
       color: #ff0000;
       text-decoration: underline #ff0000;
     }
+
+    #trainabs_default>div {
+      white-space: nowrap;
+    }
+
   </style>
   <style title='hide'>
   </style>
@@ -148,13 +158,13 @@
   <div id="view-abs" style="z-index:10;position:absolute;">
     <div id="" class="typeZ" style="position:absolute;left:0px">
       <input type="text" id="station" placeholder="电报码" style="min-width:50px;z-index:100"
-        onchange="getstat(this.value)" />
+        onchange="window.location.hash=this.value;getstat(this.value)" />
     </div>
     <div id="typeabs" class="typeG" style="white-space:nowrap;position:absolute;top:0px;left:0px">
     </div>
   </div>
   <div id="view-scroll" style="height:100%;overflow-y:scroll;">
-    <div id="view" style="height:5760px;background-color:#cc9933;position:relative">
+    <div id="view" style="height:5760px;background-color:#333333;position:relative">
       <div id="timeabs" class="typeG" style="position:absolute;top:0px;left:0px">
       </div>
       <div id="trainabs_default" class="typeD" style="position:absolute;top:0px;left:0px">
@@ -177,14 +187,6 @@
     function getValue(id) {
       e = document.getElementById(id);
       return e ? e.value : "";
-    }
-
-    function view_scroll() {
-      var d = new Date()
-      var hh = d.getHours()
-      var mm = d.getMinutes()
-      var e = document.getElementById('view-scroll')
-      e.scrollTop = (hh * 60 + mm) * 4 - e.offsetHeight / 2
     }
 
     function weekday(date) {
@@ -228,7 +230,7 @@
         .replace("xxx", ('000' + d.getMilliseconds()).slice(-3));
     }
 
-    var date = timeStr("", "yyyymmdd")
+    var date = timeStr(0, "yyyymmdd")
 
     function is_a_day(s, d) {
       //console.log("is_a_day(s, d)", s, d)
@@ -295,80 +297,465 @@
       return 0
     }
 
+
+    var px_time = 15//4
+    var px_line = 50//50
+
+
+    function view_scroll() {
+      var d = new Date()
+      var hh = d.getHours()
+      var mm = d.getMinutes()
+      var e = document.getElementById('view-scroll')
+      e.scrollTop = (hh * 60 + mm) * px_time - e.offsetHeight / 2
+    }
+
     function timeHTML() {
+      document.getElementById('view').style.height = px_time * 1445
       str = ''
       for (var i = 0; i <= 1440; i += 15) {
-        str += "<div class=\"typeG\" style=\"position:absolute;top:" + (i * 4) + "px;left:0px\">" + (i / 60 | 0) + ("00" + i % 60).slice(-2) + "</div>"
+        str += "<div class=\"typeG\" style=\"position:absolute;top:" + (i * px_time) + "px;left:0px\">" + (i / 60 | 0) + ("00" + i % 60).slice(-2) + "</div>"
       }
       return str
     }
-
 
     function traintype(code, service) {
       if (service == '0') {
         return "service_0"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D663[56]$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
+      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D663[56]$|^D665[5-8]|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
         return "200J"
       }
       return code[0]
     }
 
+    function hash_no(str) {
+      var c = str.charAt(0);
+      var offset = {
+        "Z": 10000, "T": 20000, "K": 30000,
+        "Y": 00000,
+        "G": 40000, "D": 50000, "C": 60000,
+        "S": 70000,
+        "L": 80000, "A": 80000, "N": 80000,
+        "P": 10000, "Q": 20000, "W": 30000,
+        "V": 01000, "B": 02000, "U": 04000, "X": 05000
+      }
+      var num = Number(str.replace(/\D+/, '')) % 10000;
+      return (offset[c] || 0) + num;
+    }
+    maxlen = 90000
+
+    var default_line = "ZTK_Z_ZTK_1|GD_G_GD_1|CS_C_CS_1"
+    var linemap = {
+      "BJP": "ZTK_Z_京沪_1|GD_D_京哈_1|_Z_北京西_0",
+      "BXP": "ZTK_Z_京广_1|GD_G_京广_1|CS_Z_京九_1",
+      "VNP": "GD_G_京沪_1|C_C_京津_1|ZTK_Z_京沪_1",
+      "VAP": "GDS_G_京张_1|ZTK_K_京张_1",
+      "IFP": "GDC_G_京沈_1|S_S_东北环_1|_G_北京_0",
+      "QIP": "GDS_G_京张_1|_G_北京北_0",
+      "IZQ": "G_G_京广_1|D_D_南广贵广_1|CS_C_广珠_1|_G_京广_0"
+    }
+
     function lineHTML(stat) {
       str = ''
 
-      var default_line = "ZTK_Z|GD_G|CS_C"
-      var linemap = {
-        "BJP": "ZTK_Z|GD_G|CS_C",
-        "BXP": "ZTK_Z|GD_G|CS_C"
-      }
       arr = (linemap[stat] || default_line).split("|")
 
       for (var i = 0; i < arr.length; i++) {
         row = arr[i].split("_")
 
-        name = row[0] + "到"
+        name = row[2] + "到"
         color = row[1]
         linenum = i * 2 + 1
         str += (
           "<div id=\"\" class=\"type" + color
-          + "\"style=\"position:absolute;left:" + linenum * 50 + "px\">"
+          + "\"style=\"position:absolute;left:" + linenum * px_line + "px\">"
           + name
           + "</div>")
-        
-        name = row[0] + "发"
+
+        name = row[2] + "发"
         color = row[1]
         linenum = i * 2 + 2
 
         str += (
           "<div id=\"\" class=\"type" + color
-          + "\"style=\"position:absolute;left:" + linenum * 50 + "px\">"
+          + "\"style=\"position:absolute;left:" + linenum * px_line + "px\">"
           + name
           + "</div>")
       }
       return str
     }
 
-    function stationHTML(arr) {
+    BJPVAB = [
+      "Y509",
+      "Y510",
+      "2549",
+      "2550",
+      "4216",
+      "Z15",
+      "Z16",
+      "Z17",
+      "Z18",
+      "Z61",
+      "Z62",
+      "Z83",
+      "Z84",
+      "Z117",
+      "Z118",
+      "Z157",
+      "Z158",
+      "Z203",
+      "Z204",
+      "Z211",
+      "Z212",
+      "T17",
+      "T18",
+      "T47",
+      "T48",
+      "T297",
+      "T298",
+      "T4115",
+      "T4116",
+      "T4117",
+      "T4118",
+      "T5685",
+      "T5686",
+      "T5687",
+      "T5688",
+      "T5695",
+      "T5696",
+      "T5697",
+      "T5698",
+      "T5699",
+      "T5700",
+      "K53",
+      "K54",
+      "K55",
+      "K56",
+      "K95",
+      "K96",
+      "K339",
+      "K340",
+      "K349",
+      "K350",
+      "K381",
+      "K383",
+      "K429",
+      "K430",
+      "K497",
+      "K498",
+      "K681",
+      "K683",
+      "K960",
+      "K962",
+      "K7714",
+      "K7716",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D6",
+      "D7",
+      "D9",
+      "D10",
+      "D11",
+      "D12",
+      "D13",
+      "D13",
+      "D14",
+      "D17",
+      "D18",
+      "D19",
+      "D20",
+      "D21",
+      "D22",
+      "D23",
+      "D24",
+      "D25",
+      "D26",
+      "D27",
+      "D28",
+      "D29",
+      "D30",
+      "D31",
+      "D33",
+      "D35",
+      "D37",
+      "D39",
+      "D41",
+      "D43",
+      "D45",
+      "D49",
+      "D50",
+      "D51",
+      "D52",
+      "D73",
+      "D74",
+      "D101",
+      "D102",
+      "D4509",
+      "D4510",
+      "D4511",
+      "D4512",
+      "D4515",
+      "D4516",
+      "D4517",
+      "D4518",
+      "D6622",
+      "D6629",
+      "D6635",
+      "D6636",
+      "S101",
+      "S101",
+      "S102",
+      "S102",
+      "S103",
+      "S103",
+      "S104",
+      "S104",
+      "S105",
+      "S105",
+      "S106",
+      "S106",
+      "S107",
+      "S107",
+      "S108",
+      "S108",
+      "S109",
+      "S109",
+      "S110",
+      "S110",
+      "S111",
+      "S111",
+      "S112",
+      "S112",
+      "4216",
+
+      "K1189",
+      "K1190",
+      "K2559",
+      "K2560",
+      "S501",
+      "S502",
+      "S503",
+      "S504",
+      "S511",
+      "S512",
+      "S513",
+      "S514",
+      "S515",
+      "S516",
+      "S517",
+      "S518",
+
+      "2257",
+      "2258",
+      "K7711",
+      "K7711",
+      "K7712",
+      "K7712",
+      "K7752",
+      "K7752",
+
+    ]
+    BJPSHH = [
+      "D335",
+      "D336",
+    ]
+    BXPJQO = [
+      "Y501",
+      "Y502",
+      "1303",
+      "1303",
+      "1304",
+      "Z184",
+      "Z225",
+      "Z227",
+      "Z350",
+      "Z601",
+      "Z602",
+      "K105",
+      "K106",
+      "K147",
+      "K147",
+      "K148",
+      "K148",
+      "K571",
+      "K572",
+      "K609",
+      "K610",
+      "K1071",
+      "K1072",
+      "K1109",
+      "K1110",
+      "K1453",
+      "K1454",
+      "K1613",
+      "K1614",
+      "K1901",
+      "K1902",
+      "K5221",
+      "K5222",
+      "K5223",
+      "K5223",
+      "K5224",
+      "K5224",
+      "D727",
+      "D728",
+      "D733",
+      "D734",
+      "D735",
+      "D736",
+      "D737",
+      "D738",
+      "D739",
+      "D740",
+      "D745",
+      "D746",
+    ]
+    BXPYPV = [
+      "6437",
+      "6438",
+      "K601",
+      "K602",
+      "K603",
+      "K604",
+    ]
+    BXPBTC = [
+      "1134",
+      "2602",
+      "2602",
+      "2604",
+      "2604",
+      "Z179",
+      "Z180",
+      "Z184",
+      "Z282",
+      "Z284",
+      "Z350",
+      "K41",
+      "K43",
+      "K55",
+      "K56",
+      "K89",
+      "K90",
+      "K264",
+      "K395",
+      "K396",
+      "K573",
+      "K574",
+      "K598",
+      "K600",
+      "K696",
+      "K886",
+      "K888",
+      "K960",
+      "K962",
+    ]
+    BJPTJP = [
+      "G217",
+      "G218",
+      "G219",
+      "G220",
+      "G237",
+      "G238",
+      "G371",
+      "G372",
+      "G393",
+      "G394",
+      "G395",
+      "G396",
+      "G399",
+      "G400",
+    ]
+
+    function stationHTML(stat, arr) {
+      linearr = (linemap[stat] || default_line).split("|")
+
       str = ''
       for (var i = 0; i < arr.length; i++) {
         var sp = arr[i].time.split(":")
         var min = (sp[0] | 0) * 60 + (sp[1] | 0)
         var linenum = 0
+        /*
         if ('GD'.indexOf(arr[i].code[0]) > -1) {
-          linenum += 2
+          linenum = 1 * 2
           if (traintype(arr[i].code, "") == '200J') {
             linenum = 0
           }
         }
         if ('CS'.indexOf(arr[i].code[0]) > -1) {
-          linenum += 4
+          linenum = 2 * 2
         }
-        linenum += (arr[i].is_down == "1" ? 2 : 1) //TODO
+        */
+        var t = traintype(arr[i].code, "")
+        if (t == '200J') {
+          t = 'Z'
+        }
+        for (var lineidx = 0; lineidx < linearr.length; lineidx++) {
+          row = linearr[lineidx].split("_")
+          if (row[0].indexOf(t) > -1) {
+            linenum = lineidx * 2
+          }
+        }
+
+        if (stat == 'BJP') {
+          if (BJPVAB.indexOf(arr[i].code) > -1) {
+            linenum = 1 * 2
+          }
+          if (BJPSHH.indexOf(arr[i].code) > -1) {
+            linenum = 0 * 2
+          }
+          if ('CS'.indexOf(arr[i].code[0]) > -1) {
+            if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+              linenum = 1 * 2
+            } else {
+              linenum = 2 * 2
+            }
+
+          }
+        }
+        if (stat == 'BXP') {
+          if (BXPJQO.indexOf(arr[i].code) > -1) {
+            linenum = 2 * 2
+          }
+          if (BXPBTC.indexOf(arr[i].code) > -1) {
+            linenum = 2 * 2
+          }
+          if (BXPYPV.indexOf(arr[i].code) > -1) {
+            linenum = 2 * 2
+          }
+          if ('S'.indexOf(arr[i].code[0]) > -1) {
+            if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+              linenum = 2 * 2
+            } else {
+              linenum = 0 * 2
+            }
+          }
+        }
+        if (stat == 'VNP') {
+          if (BJPTJP.indexOf(arr[i].code) > -1) {
+            linenum = 1 * 2
+          }
+          if (BXPJQO.indexOf(arr[i].code) > -1) {
+            linenum = 2 * 2
+          }
+        }
+        if (stat == 'QIP') {
+          if ('GDCS'.indexOf(arr[i].code[0]) > -1) {
+            if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+
+            } else {
+              linenum += 1 * 2
+            }
+
+          }
+        }
+        linenum += (arr[i].is_dep == "1" ? 2 : 1) //TODO
         str += (
           "<div class=\"type" + traintype(arr[i].code, "") + (is_a_day(arr[i].date, date) ? "" : " ctl")
-          + "\" style=\"position:absolute;top:" + (min * 4) + "px;left:" + linenum * 50 + "px;z-index:" + (is_a_day(arr[i].date, date) ? 2 : 1) + ";\">"
-          + arr[i].code
+          + "\" style=\"position:absolute;top:" + (min * px_time) + "px;left:" + linenum * px_line + "px;z-index:" + (is_a_day(arr[i].date, date) ? 2 : 1) + ";\">"
+          + arr[i].code + emu_by_no(arr[i].code)
           + "</div>")
       }
       return str
@@ -394,12 +781,12 @@
               time: row[1] || "",
               code: row[2] || "",
               station: row[3] || "",
-              is_down: row[4] || "",
+              is_dep: row[4] || "",
               date: row[5] || "",
             })
           }
           setHTML("typeabs", lineHTML(stat))
-          setHTML("trainabs_default", stationHTML(arr))
+          setHTML("trainabs_default", stationHTML(stat, arr))
 
         } else {
           // document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
@@ -412,12 +799,68 @@
       xhr.send();
     }
 
+    function emu_by_no(code) {
+      var key = hash_no(code)
+      if (!window.emu) return ""
+      var trainset = window.emu[key]
+      if (!trainset || !trainset.emu_type) return ""
+      var c = ""
+      if (trainset.emu_type.indexOf("2*") > -1) {
+        c += "double"
+      }
+      return "<br />" + trainset.bureau + "<span class=\"" + c + "\">" + trainset.emu_type.replace("-", "").replace("2*", "") + "</span><br />" + trainset.emu_no
+    }
 
+    var maxlen = 90000
+    function getemu() {
+      // '/emu/equip'
+      // '/emu/ccrgt'
+      var url = '/emu/emu' + timeStr(new Date().getTime() - 6 * 3600000, 'yyyymmdd') + '.csv'
 
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            data = xhr.responseText.split("\n");
+            window.emu = Array(maxlen)
+            for (var i = 0; i < maxlen; i++) {
+              window.emu[i] = []
+            }
+
+            for (i in data) {
+              var row = data[i].split(",");
+              if (row.length <= 6) continue
+              var key = hash_no(row[0]) - 1
+
+              var m = row[2].match(/(.*)-(\d{4})$/)
+              window.emu[key] = {
+                train_code: row[0] || "",
+                bureau: row[1] || "",
+                emu_type: row[2].replace(/(.*)-(\d{4})$/, "$1").replace(/\(\d+\)$/, "") || "",
+                emu_no: m ? m[2] : "",
+              }
+            }
+
+            setHTML("emu", "")
+            getstat(window.location.hash.replace('#', '') || "BJP")
+          } else {
+            setHTML("emu", xhr.status + " " + xhr.statusText);
+          }
+        }
+      }
+
+      xhr.open("GET", url, true);
+      setHTML("emu", "loading " + url);
+      xhr.send()
+    }
+
+    getemu()
 
     view_scroll()
     setHTML("timeabs", timeHTML())
-    getstat("BJP")
+    var stat = window.location.hash.replace('#', '')
+    getstat(stat || "BJP")
 
   </script>
 </body>
