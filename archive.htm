@@ -1,0 +1,281 @@
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    input,
+    textarea {
+      font-size: 1em;
+      width: 100%;
+      max-width: 30em;
+    }
+  </style>
+</head>
+
+<body>
+  <input type='text' id='url' style="width:50%;max-width:30em"
+    onkeyup='setHTML("result",schstrs(timetable[hash_no(this.value.toUpperCase())]).join("\n\n"))'>
+  <span id="load" onclick="gettimecsv()">加载时刻表(6MB)</span>
+  <!--br //-->
+  <!--textarea id='url2' rols="2" style="width:90%;;max-width:30em" onchange='geturl(this.value)'>/emu/equip20200800.csv</textarea>
+  <br />
+  <input type='file' id='file' onchange='showfs(this.files)'//-->
+  <pre id='result' style="overflow-x:scroll;white-space: pre-wrap;word-break: break-all;"></pre>
+</body>
+<script>
+  function setHTML(id, str) {
+    e = document.getElementById(id);
+    e && (e.innerHTML = str);
+  }
+
+  function setValue(id, str) {
+    e = document.getElementById(id);
+    e && (e.value = str);
+  }
+
+  function getValue(id) {
+    e = document.getElementById(id);
+    return e ? e.value : "";
+  }
+
+
+  function timeStr(i, ff) {
+    var n = Number(i);
+    var f = ff ? ff : "yyyy-mm-dd HH:MM:SS.xxx"
+    n > 0x7FFFFFFF ? n *= 1 : n *= 1000;
+    var d = n > 0 ? new Date(n) : new Date();
+    return f
+      .replace("yyyy", ('0000' + d.getFullYear()).slice(-4))
+      .replace("mm", ('00' + (d.getMonth() + 1)).slice(-2))
+      .replace("dd", ('00' + d.getDate()).slice(-2))
+      .replace("HH", ('00' + d.getHours()).slice(-2))
+      .replace("MM", ('00' + d.getMinutes()).slice(-2))
+      .replace("SS", ('00' + d.getSeconds()).slice(-2))
+      .replace("xxx", ('000' + d.getMilliseconds()).slice(-3));
+  }
+
+
+  function formatjson(s) {
+    try {
+      j = JSON.parse(s)
+      return JSON.stringify(j, ' ', 2)
+    } catch {
+      return s
+    }
+  }
+
+  // document.getElementById('file').onchange = 
+
+  function showfs(fs) {
+    var f = fs[0]
+    show(f)
+  }
+
+  function show(f) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      setHTML("result", formatjson(arguments[0].target.result));
+    }
+    reader.readAsText(f, 'utf-8')
+  }
+
+  function fileondrop(event) {
+    event.preventDefault();
+    var files = event.dataTransfer.files;
+    showfs(files);
+  }
+
+  document.ondragover = function (e) {
+    e.preventDefault();
+  };
+  document.body.ondrop = fileondrop // document.ondrop = fileondrop
+
+  function hash_no(str) {
+    var c = str.charAt(0);
+    var offset = {
+      "Z": 10000, "T": 20000, "K": 30000,
+      "Y": 00000,
+      "G": 40000, "D": 50000, "C": 60000,
+      "S": 70000,
+      "L": 80000, "A": 80000, "N": 80000,
+      "P": 10000, "Q": 20000, "W": 30000,
+      "V": 01000, "B": 02000, "U": 04000, "X": 05000
+    }
+    var num = Number(str.replace(/\D+/, '')) % 10000;
+    return (offset[c] || 0) + num;
+  }
+  maxlen = 90000
+
+  function getstation() {
+    var url = '/js/station.min.csv'
+
+    var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+    xhr.onprogress = function (event) {
+      setHTML("result", "loading station " + xhr.responseText.length)
+    }
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if ([200, 304].indexOf(xhr.status) > -1) {
+          window.s = []
+          if (typeof (xhr.responseText) != "undefined") {
+            var s1 = xhr.responseText.split("\n");
+            for (var i = 0; i < s1.length; i++) {
+              var ss = s1[i];
+              if (ss.length > 0) {
+                ss = ss.split(",");
+                window.s.push(ss);
+              }
+            }
+          }
+          setHTML("result", "")
+        } else {
+          setHTML("result", xhr.status + " " + xhr.statusText);
+        }
+      }
+    }
+
+    xhr.open("GET", url, true);
+    setHTML("result", "loading station");
+    xhr.send()
+  }
+
+  getstation()
+
+
+  function telename(tele) {
+    for (var ii in window.s) {
+      if (window.s[ii][1] === tele) {
+        return window.s[ii][0];
+      }
+    }
+    return tele || "";
+  }
+
+
+  function gettimecsv() {
+    url = "/js/time_detail.csv"
+    var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+
+    xhr.onprogress = function (ev) {
+      setHTML("load", "加载时刻表 (" + ev.loaded+")")
+    }
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if ([200, 304].indexOf(xhr.status) > -1) {
+          setHTML("load", "加载时刻表 (" + xhr.responseText.length+")")
+          //window.timetable = xhr.responseText.split("\n\n")
+          window.timetable = Array(maxlen)
+          for (var i = 0; i < maxlen; i++) {
+            window.timetable[i] = []
+          }
+          var tables = xhr.responseText.split("\n\n")
+          for (var i = 0; i < tables.length; i++) {
+            var table = tables[i]
+            if (!table) {
+              continue
+            }
+            key = hash_no(table.slice(2, 10).replace(/^0+/g, ''))
+            if (!key) {
+              console.log(key, i, table)
+              key = 0
+            }
+            window.timetable[key].push(table)
+          }
+          for (var i = 0; i < maxlen; i++) {
+            window.timetable[i].reverse()
+          }
+          setHTML("result", "")
+        } else {
+          setHTML("result", xhr.status + " " + xhr.statusText);
+        }
+      }
+    }
+
+    xhr.open("GET", url, true);
+    setHTML("load", "loading");
+    xhr.send()
+  }
+
+  function getmin(s) {
+    var sp = s.split(":")
+    return sp[0] * 60 + (sp[1] | 0)
+  }
+
+  function minAdd(s, diff) {
+    var t = getmin(s) + (diff | 0)
+    if (t > 1440) {
+      t -= 1440
+    }
+    return ("00" + (t / 60 | 0)).slice(-2) + ":" + ("00" + t % 60).slice(-2)
+  }
+
+  function schstrs(arr) {
+    var ret = []
+    for (var i in arr) {
+      ret.push(schstr(arr[i]))
+    }
+    return ret
+  }
+
+  function schstr(tb) {
+    var rows = []
+    sp = tb.split('\n')
+    var time_row = 0
+    var arr = ""
+    var dep = ""
+    var km = 0
+    var speed = 0
+    for (var ii = 0; ii < sp.length; ii++) {
+      row = sp[ii].split(',')
+      if (row[0].length == 12) {
+        rows.push(row.join('\t'))
+        continue
+      }
+      if (time_row == 0) {
+        var tmp_time = (row[2] || row[1])
+        arr = ""
+        dep = tmp_time.slice(0, -2) + ":" + tmp_time.slice(-2)
+        km = 0
+      } else {
+        arr = minAdd(dep, row[1])
+        dep = ii == sp.length - 1 ? "" : minAdd(arr, row[2])
+        km += row[3] | 0
+        speed = row[3] * 60 / row[1] | 0
+      }
+      var row_new = [telename(row[0]), arr, dep, km, speed || ""]
+      if (row[4]) row_new.push(row[4])
+      if (row[5]) row_new.push(row[5])
+      rows.push(row_new.join('\t'))
+      time_row++
+    }
+    console.log(rows.join('\n'))
+    return rows.join('\n')
+  }
+
+  function rangesearch(no1, no2, date1, date2) {
+    ret = []
+    for (k = hash_no(no1); k <= hash_no(no2); k++) {
+      for (i = 0; i < timetable[k].length; i++) {
+        var tb = timetable[k][i]
+        var sp = tb.split('\n')
+        for (ii = 0; ii < sp.length; ii++) {
+          sp[ii] = sp[ii].split(',')
+          if (sp[ii][0].length < 12) {
+            break
+          }
+          if (sp[ii][1] >= date1 && sp[ii][2] <= date2) {
+            ret.push(schstr(tb))
+            break
+          }
+        }
+      }
+    }
+    return ret
+  }
+
+  // setHTML("result",rangesearch("K5200","K5299","2210630","210831").join("\n\n"))
+
+</script>
+
+</html>
