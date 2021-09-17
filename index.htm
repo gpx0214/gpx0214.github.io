@@ -76,6 +76,46 @@
       color: #e6cc4c
     }
 
+    .type200JSG {
+      background-color: #29a352;
+      color: #ba0c1c;
+    }
+
+    .type300AF {
+      background-color: #ddddff;
+      color: #a80022
+    }
+
+    .type300BF {
+      background-color: #ddddff;
+      color: #bf9540;
+    }
+
+    .type400AF {
+      background-color: #d4d4d4;
+      color: #a80022
+    }
+
+    .type400BF {
+      background-color: #bf9540;
+      color: #ffffff;
+    }
+
+    .type400AFZ {
+      background-color: #d4d4d4;
+      color: #d06301
+    }
+
+    .type400BFZ {
+      background-color: #bf9540;
+      color: #fdfc9a;
+    }
+
+    .typeCRH {
+      background-color: #ffffff;
+      color: #3d668f;
+    }
+
     .typeservice_0 {
       background-color: #567e60;
       color: #fff700
@@ -214,6 +254,10 @@
   <div id="result" style="white-space: nowrap;"></div>
   <pre id="emu" style="overflow-x:scroll;white-space: nowrap;"></pre>
   <div id="ticket"></div>
+  <a href="/archive.htm" target="_blank">历史时刻表</a>
+  <a href="/station.htm" target="_blank">车站车次图示</a>
+  <a href="/price.htm" target="_blank">票价计算</a>
+  <br />
   <a href="http://www.gtbyxx.com/wxg/ky/zhengwan.jsp" target="_blank">广铁正晚点</a>
   <a href="http://61.161.203.55/mobile.myweixin.com/FtStationSch.html" target="_blank">沈局时刻表</a>
   <a href="https://www.12306.cn/kfzmpt/lcxxcx/init" target="_blank">旧版余票</a>
@@ -241,17 +285,17 @@
     // #dedbd3 CR200J 白色
 
     function setHTML(id, str) {
-      e = document.getElementById(id);
+      var e = document.getElementById(id);
       e && (e.innerHTML = str);
     }
 
     function setValue(id, str) {
-      e = document.getElementById(id);
+      var e = document.getElementById(id);
       e && (e.value = str);
     }
 
     function getValue(id) {
-      e = document.getElementById(id);
+      var e = document.getElementById(id);
       return e ? e.value : "";
     }
 
@@ -278,6 +322,19 @@
       qss(to)
     }
 
+
+    function getmin(s) {
+      var sp = s.split(":")
+      return sp[0] * 60 + (sp[1] | 0)
+    }
+
+    function minAdd(s, diff) {
+      var t = getmin(s) + (diff | 0)
+      if (t > 1440) {
+        t -= 1440
+      }
+      return ("00" + (t / 60 | 0)).slice(-2) + ":" + ("00" + t % 60).slice(-2)
+    }
 
     function isLeap(y) {
       if (y & 0x03)
@@ -629,7 +686,7 @@
     getstation()
 
     function telecode(name) {
-      for (ii in s) {
+      for (var ii in s) {
         if (s[ii][0] === name) {
           return s[ii][1];
         }
@@ -638,7 +695,7 @@
     }
 
     function telename(tele) {
-      for (ii in s) {
+      for (var ii in s) {
         if (s[ii][1] === tele) {
           return s[ii][0];
         }
@@ -647,7 +704,7 @@
     }
 
     function qssbyname(name) {
-      for (ii in s) {
+      for (var ii in s) {
         if (s[ii][0] === name) {
           return s[ii][2];
         }
@@ -710,8 +767,11 @@
       if (service == '0') {
         return "service_0"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D663[56]$|^D665[5-8]$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
+      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
         return "200J"
+      }
+      if ('DC'.indexOf(code[0]) > -1 && /^D89[89]\d$/.test(code)) {
+        return "200JSG"
       }
       return code[0]
     }
@@ -734,49 +794,58 @@
 
 
     //Z81 Z80 Z81/0
-    function multi_train_no(train_no, station_train_code) {
+    function multi_train_no(train_no, train_code) {
       var no = train_no.slice(2, 10).replace(/^[0]+/g, "");
-      if (no == station_train_code) {
-        return station_train_code;
+      if (no == train_code) {
+        return train_code;
       }
-      var l = Math.min(no.length, station_train_code.length);
+      var l = Math.min(no.length, train_code.length);
       var idx = 0;
       for (idx = 0; idx < l; idx++) {
-        if (no[idx] != station_train_code[idx]) {
+        if (no[idx] != train_code[idx]) {
           break;
         }
       }
-      if (idx < station_train_code.length) {
-        return no + "/" + station_train_code.slice(idx);
+      if (idx < train_code.length) {
+        return no + "/" + train_code.slice(idx);
       }
       return ret;
     }
 
-    function search_train_csv(str) {
+    function search_train_csv(kw) {
       var result = "";
-      var re = new RegExp(str, "i");
+      // var re = new RegExp(str, "i");
       //document.getElementById("sch").innerHTML = "";
-      for (i in window.train) {
-        t = window.train[i];
-        if (re.test(t.station_train_code)) { // if(t.station_train_code.includes(str)) { // 
+      var sp = kw.split("-")
+      var minkey = hash_no(sp[0]) - 1
+      var maxkey = minkey
+      if (sp.length > 1) {
+        maxkey = hash_no(sp[1]) - 1
+      }
+      for (var key = minkey; key <= maxkey; key++) {
+        for (i in window.train[key]) {
+          t = window.train[key][i];
+          //if (re.test(t.train_code)) { // if(t.train_code.includes(str)) { // 
           var is_run = is_a_day(t.date, date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3"))
-          result += ("<div id=\"" + t.station_train_code + "\">"
+          result += ("<div id=\"" + t.train_code + "\">"
             + t.train_no + " " + t.from_station + " " + t.to_station
-            + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"get_search_time_csv('" + t.train_no.slice(2, 10).replace(/^[0]+/g, "") + "')\">"
-            + multi_train_no(t.train_no, t.station_train_code)
+            + " " + "<span class=\"type" + traintype(t.train_code, t.service_type) + "\" onclick=\"get_search_time_csv('" + t.train_no.slice(2, 10).replace(/^[0]+/g, "") + "')\">"
+            + t.train_code // multi_train_no(t.train_no, t.train_code)
             + "</span>" + " " + (telename(t.from_station) || "---") + " " + (telename(t.to_station) || "---")
-            + " " + emu_by_no(t.station_train_code)
+            + " " + emu_by_no(t.train_code)
             // + " " + t.service_type
             + " " + "<span class=\"" + (is_run ? "" : "ctl") + "\">" + t.date + "</span>"
-            //+ " " + "<a href=" + schurl + " target='_blank'>" + multi_train_no(t.train_no, t.station_train_code) + "</a>" 
+            //+ " " + "<a href=" + schurl + " target='_blank'>" + multi_train_no(t.train_no, t.train_code) + "</a>" 
             + "</div>"
           );
-          if (is_run && t.station_train_code == str.toUpperCase()) {
-            // document.getElementById("sch").innerHTML = t.station_train_code + "<br />\n";
-            get_search_time_csv(t.train_no.slice(2, 10).replace(/^[0]+/g, ""));
-          }
+          //if (is_run && t.train_code == str.toUpperCase()) {
+          // document.getElementById("sch").innerHTML = t.train_code + "<br />\n";
+          
+          //}
+          //}
         }
       }
+      get_search_time_csv(kw);
       document.getElementById("result").innerHTML = result;
     }
 
@@ -788,23 +857,33 @@
       var url = "js/train.csv"
       document.getElementById("result").innerHTML = str
       var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onprogress = function (ev) {
+        document.getElementById("result").innerHTML = str + " " + ev.loaded
+      }
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if ([200, 304].indexOf(xhr.status) > -1) {
             data = xhr.responseText.split("\n");
-            window.train = []
+            window.train = Array(maxlen)
+            for (var i = 0; i < maxlen; i++) {
+              window.train[i] = []
+            }
             for (i in data) {
               var row = data[i].split(",");
               if (row.length <= 5) continue
-              window.train.push({
+              key = hash_no(row[0].slice(2, 10).replace(/^0+/g, '')) - 1
+              if (key < 0 || key >= maxlen) {
+                key = maxlen - 1
+              }
+              window.train[key].push({
                 train_no: row[0] || "",
                 from_station: row[1] || "",
                 to_station: row[2] || "",
-                station_train_code: row[3] || "",
+                train_code: multi_train_no(row[0], row[3]),
                 total_num: row[4] || "",
                 service_type: row[5] || "", // (row[5].length & row[5] == '0') ? "无空调" : "",
-                src: row[6] || "",
-                date: row[7] || "",
+                date: row[6] || "",
+                // src: row[7] || "",
               })
             }
 
@@ -819,36 +898,53 @@
       xhr.send();
     }
 
-    function search_time_csv(str) {
-      var key = hash_no(str) - 1
-      sch = window.timetable[key]
-      if (sch.length == 0) {
-        return ""
+    function search_time_csv(kw) {
+      var sp = kw.split("-")
+      var minkey = hash_no(sp[0]) - 1
+      var maxkey = minkey
+      if (sp.length > 1) {
+        maxkey = hash_no(sp[1]) - 1
       }
       var str = "";
-      for (i in sch) {
-        if (i == 0 || sch[i].station_no < sch[i - 1].station_no) {
-          if (i > 0) {
-            str += "</div>"
+      for (var key = minkey; key <= maxkey; key++) {
+        sch = window.timetable[key]
+        if (sch.length == 0) {
+          continue
+        }
+        for (i in sch) {
+          if (i == 0 || sch[i].arr_time == "") {
+            if (i > 0) {
+              str += "</div>"
+            }
+            if (!window.train[key]) {
+              continue;
+            }
+            var t = window.train[key][0]
+            for (var idx in window.train[key]) {
+              if (window.train[key][idx].date == sch[i].date) {
+                t = window.train[key][idx]
+                break
+              }
+            }
+            str += ("<div class=\"sch\" id=\"sch_" + t.train_code + "\"><div><span class=\"type"
+              + traintype(t.train_code, t.service_type) + "\">"
+              + t.train_code
+              + "</span> " + telename(t.from_station) + " " + telename(t.to_station) + " " + t.date + " " + emu_by_no(t.train_code)
+              + "</div>\n");
           }
-          str += ("<div class=\"sch\" id=\"sch_" + sch[i].train_code + "\"><div><span class=\"type"
-            + traintype(sch[i].train_code, sch[i].service_type) + "\">"
-            + sch[i].train_code
-            + "</span> " + telename(sch[i].station) + " " + telename(sch[sch.length - 1].station) + " " + sch[i].date + " " + emu_by_no(sch[i].train_code)
+
+          str += ("<div id=\"" + sch[i].station + "_" + sch[0].train_code + "\">"
+            + telename(sch[i].station) + " "
+            + sch[i].arr_time + " "
+            + sch[i].dep_time + " "
+            //+ sch[i].stopover_time + " "
+            + ((i > 0 && sch[i].arr_day_diff && sch[i].arr_day_diff != sch[i - 1].arr_day_diff) ? "+" + sch[i].arr_day_diff : "") + " "
+            //+ ((i == 0) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
+            //+ ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
             + "</div>\n");
         }
-
-        str += ("<div id=\"" + sch[i].station + "_" + sch[0].train_code + "\">"
-          + telename(sch[i].station) + " "
-          + sch[i].arr_time + " "
-          + sch[i].dep_time + " "
-          //+ sch[i].stopover_time + " "
-          + ((i > 0 && sch[i].arr_day_diff != sch[i - 1].arr_day_diff) ? "+" + sch[i].arr_day_diff : "") + " "
-          //+ ((i == 0) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
-          //+ ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
-          + "</div>\n");
+        str += "</div>"
       }
-      str += "</div>"
       setHTML("sch", str + document.getElementById("sch").innerHTML);
     }
 
@@ -857,52 +953,64 @@
         search_time_csv(str)
         return
       }
-      var url = "js/time.csv"
+      var url = "js/time.min.csv"
       //document.getElementById("sch").innerHTML = str
       var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+      xhr.onprogress = function (ev) {
+        document.getElementById("sch").innerHTML = str + " " + ev.loaded
+      }
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if ([200, 304].indexOf(xhr.status) > -1) {
+            document.getElementById("sch").innerHTML = ""
             data = xhr.responseText.split("\n");
             window.timetable = Array(maxlen)
             for (var i = 0; i < maxlen; i++) {
               window.timetable[i] = []
             }
+            var train_code = ""
+            var arr_time = ""
+            var dep_time = ""
+            var day_diff = ""
             for (i in data) {
               var row = data[i].split(",");
-              if (row.length <= 5) continue
-              var key = hash_no(row[0]) - 1
-              if (row[5] == "1" && row[2] > 1) {
-                var idx = window.timetable[key].length - 1
-                if (idx >= 0) {
-                  window.timetable[key][idx].dep_day_diff = row[3] || ""
-                  window.timetable[key][idx].dep_time = row[4] || ""
-                }
-                continue
+              if (row.length <= 1) continue
+              if (row[3]) {
+                train_code = row[3] || ""
+                day_diff = ""
               }
+              if (row[4]) {
+                day_diff = row[4] || ""
+              }
+              if (!row[1]) {
+                arr_time = ""
+                dep_time = row[2] || ""
+              } else {
+                arr_time = minAdd(dep_time, row[1])
+                dep_time = row[2] ? minAdd(arr_time, row[2]) : ""
+              }
+              var key = hash_no(train_code) - 1
               window.timetable[key].push({
-                train_code: row[0] || "",
-                station: row[1] || "",
-                station_no: row[2] || "",
-                arr_day_diff: row[3] || "",
-                arr_time: row[2] > 1 ? (row[4] || "") : "",
-                dep_day_diff: row[3] || "",
-                dep_time: row[2] == 1 ? (row[4] || "") : "",
-                //cxlx: row[5] || "",
-                src: row[6] || "",
-                date: row[7] || "",
-
-                /*
+                train_code: row[3] || "",
                 station: row[0] || "",
-                station_no: row[1] || "",
-                arr_day_diff: row[2] || "",
-                arr_time: row[3] || "",
-                dep_day_diff: row[4] || "",
-                dep_time: row[5] || "",
-                distance: row[6] || "",
-                speed: row[7] || "",
-                */
+                // station_no: "",
+                arr_day_diff: day_diff,
+                arr_time: arr_time,
+                dep_day_diff: day_diff,
+                dep_time: dep_time,
+                date: row[5] || "",
               })
+
+              /*
+              station: row[0] || "",
+              station_no: row[1] || "",
+              arr_day_diff: row[2] || "",
+              arr_time: row[3] || "",
+              dep_day_diff: row[4] || "",
+              dep_time: row[5] || "",
+              distance: row[6] || "",
+              speed: row[7] || "",
+              */
             }
 
             search_time_csv(str)
@@ -912,7 +1020,6 @@
         }
       }
       xhr.open("GET", url, true);
-      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send();
     }
 
@@ -1620,14 +1727,14 @@
               for (i in j.data) {
                 var t = j.data[i];
                 schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + telecode(t.from_station) + "&to_station_telecode=" + telecode(t.to_station) + "&depart_date=" + date;
-                result += ("<div id=\"" + t.station_train_code + "\">"
+                result += ("<div id=\"" + t.train_code + "\">"
                   + t.train_no + " " + telecode(t.from_station) + " " + telecode(t.to_station)
-                  + " " + "<span class=\"type" + t.station_train_code[0] + "\" onclick=\"getSch('" + schurl + "')\">"
-                  + t.station_train_code + "</span>" + " " + t.from_station + " " + t.to_station
-                  + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>"
+                  + " " + "<span class=\"type" + t.train_code[0] + "\" onclick=\"getSch('" + schurl + "')\">"
+                  + t.train_code + "</span>" + " " + t.from_station + " " + t.to_station
+                  + " " + "<a href=" + schurl + " target='_blank'>" + t.train_code + "</a>" + "</div>"
                 );
-                if (t.station_train_code == str.toUpperCase()) {
-                  document.getElementById("sch").innerHTML = t.station_train_code + "<br />\n";
+                if (t.train_code == str.toUpperCase()) {
+                  document.getElementById("sch").innerHTML = t.train_code + "<br />\n";
                   getSch(schurl);
                 }
               }
@@ -1663,11 +1770,11 @@
                   + "&from_station_telecode=" + telecode(t.start_station_name)
                   + "&to_station_telecode=" + telecode(t.end_station_name)
                   + "&depart_date=" + date;
-                result += ("<div id=\"" + t.station_train_code + "\">"
+                result += ("<div id=\"" + t.train_code + "\">"
                   + t.train_no + " " + telecode(t.start_station_name) + " " + telecode(t.end_station_name)
-                  + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
-                  + t.station_train_code + "</span>" + " " + t.start_station_name + " " + t.end_station_name
-                  + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>");
+                  + " " + "<span class=\"type" + traintype(t.train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
+                  + t.train_code + "</span>" + " " + t.start_station_name + " " + t.end_station_name
+                  + " " + "<a href=" + schurl + " target='_blank'>" + t.train_code + "</a>" + "</div>");
               }
             } else {
               result += j.errorMsg
@@ -1751,19 +1858,19 @@
         return ""
       }
       var str = "";
-      str += ("<div class=\"sch\" id=\"sch_" + sch[0].station_train_code + "\"><div><span class=\"type"
-        + traintype(sch[0].station_train_code, sch[0].service_type) + "\">"
-        + sch[0].station_train_code + " " + sch[0].train_class_name
+      str += ("<div class=\"sch\" id=\"sch_" + sch[0].train_code + "\"><div><span class=\"type"
+        + traintype(sch[0].train_code, sch[0].service_type) + "\">"
+        + sch[0].train_code + " " + sch[0].train_class_name
         + "</span> " + sch[0].start_station_name + " " + sch[0].end_station_name
         + "</div>\n");
       for (i in sch) {
-        str += ("<div id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "\">"
+        str += ("<div id=\"" + sch[i].station_name + "_" + sch[0].train_code + "\">"
           + sch[i].station_name + " "
           + sch[i].arrive_time + " "
           + sch[i].start_time + " "
           + sch[i].stopover_time + " "
-          + ((i == 0) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
-          + ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
+          + ((i == 0) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
+          + ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
           + "</div>\n");
       }
       str += "</div>"
@@ -1787,41 +1894,85 @@
       return ret
     }
 
-    function search_emu(str) {
-      var result = ""
-      for (var i = 40000; i < 80000; i++) {
-        var trainset = window.emu[i]
-        if (!trainset.emu_type) {
-          continue
+    function css_emu(t) {
+      if (t.indexOf("Z") > -1) {
+        if (t.indexOf("AF") > -1) {
+          return "type400AFZ"
         }
-        if (trainset.emu_type.indexOf(str) > -1 || trainset.emu_no == str) {
-          var c = ""
-          if (trainset.emu_type.indexOf("2*") > -1) {
-            c += "double"
-          }
-          result += trainset.train_code + " " + trainset.bureau + "<span class=\"" + c + "\">" + trainset.emu_type.replace("2*", "") + "</span> " + trainset.emu_no + "<br />\n"
+        if (t.indexOf("BF") > -1) {
+          return "type400BFZ"
         }
       }
 
+      if (t.indexOf("300AF") > -1) {
+        return "type300AF"
+      }
+      if (t.indexOf("300BF") > -1) {
+        return "type300BF"
+      }
+
+      if (t.indexOf("AF") > -1) {
+        return "type400AF"
+      }
+      if (t.indexOf("BF") > -1) {
+        return "type400BF"
+      }
+
+      return "typeCRH"
+    }
+
+    function search_emu(str) {
+      var ret = []
+      for (var key = 40000; key < 80000; key++) {
+        if (!window.emu[key].emu_type) {
+          continue
+        }
+        if (window.emu[key].emu_type.indexOf(str) > -1 || window.emu[key].emu_no == str) {
+          ret.push(window.emu[key])
+        }
+      }
+
+      ret.sort(function (a, b) {
+        if (a.emu_type > b.emu_type) return 1
+        if (a.emu_type < b.emu_type) return -1
+        if (!a.emu_no && b.emu_no) return 1
+        if (a.emu_no && !b.emu_no) return -1
+        if (a.emu_no > b.emu_no) return 1
+        if (a.emu_no < b.emu_no) return -1
+        //train start time
+        return 0
+      })
+
+      var result = ""
+      for (var i = 0; i < ret.length; i++) {
+        var trainset = ret[i]
+        var c = ""
+        if (trainset.emu_double) {
+          c += "double"
+        }
+        c += " " + css_emu(trainset.emu_type)
+        result += trainset.train_code + " " + trainset.bureau + " <span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span><br />\n"
+      }
       //document.getElementById("emu").innerHTML = result;
       document.getElementById("result").innerHTML = result;
     }
 
     function emu_by_no(code) {
-      var key = hash_no(code)
+      var key = hash_no(code) - 1
       var trainset = window.emu[key]
       if (!trainset || typeof (trainset.emu_type) != "string") return []
       var c = ""
-      if (trainset.emu_type.indexOf("2*") > -1) {
+      if (trainset.emu_double) {
         c += "double"
       }
-      return trainset.bureau + "<span class=\"" + c + "\">" + trainset.emu_type.replace("2*", "") + "</span> " + trainset.emu_no
+      c += " " + css_emu(trainset.emu_type)
+      return trainset.bureau + "<span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span>"
     }
 
     function getemu() {
       // '/emu/equip'
       // '/emu/ccrgt'
-      var url = '/emu/emu' + timeStr(new Date().getTime() - 6 * 3600000, 'yyyymmdd') + '.csv'
+      var url = '/emu/emu' + timeStr(new Date().getTime() - 4 * 3600000, 'yyyymmdd') + '.csv'
 
       var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
 
@@ -1843,8 +1994,10 @@
               window.emu[key] = {
                 train_code: row[0] || "",
                 bureau: row[1] || "",
-                emu_type: row[2].replace(/(.*)-(\d{4})$/, "$1").replace(/\(\d+\)$/, "") || "",
+                emu_type: row[2].replace(/(.*)-(\d{4})$/, "$1").replace(/\(\d+\)$/, "").replace(/^2\*/, "") || "",
                 emu_no: m ? m[2] : "",
+                emu_double: /2\*|重/.test(row[2]) ? 1 : 0,
+                emu_flag: 0,
               }
             }
 
