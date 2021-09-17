@@ -95,12 +95,19 @@
 </head>
 
 <body>
-  <span id=""></div>
+  <form>
+    基本费率 0.05861
+    上浮 <input type="text" id="up" value="0.5" placeholder="上浮" style="max-width:3em" />
+    空调 <input type="text" id="kd" value="1" placeholder="空调" style="max-width:3em" />
+    加快 <input type="text" id="fast" value="2" placeholder="加快" style="max-width:3em" />
+    退保险 <input type="text" id="bxoff" value="1" placeholder="退保险" style="max-width:3em" />
+    <span onclick="setHTML('pricetable', priceHTML(pricetable(Number(getValue('up')), Number(getValue('kd')), Number(getValue('fast')), Number(getValue('bxoff')))));return false">票价表</span>
+  </form>
+  </form>
 
-    <div id="pricetable">
-    </div>
+  <div id="pricetable"></div>
 
-    <pre>
+  <pre>
 计算里程|所属区段|小区段里程|区段数|N|正负号
 硬座|软座|基本票|保险费
 硬卧上|硬卧中|硬卧下|软卧上|软卧下|高包上|高包下|普快票|空调票|候车室空调|客票发展金|卧铺订票费
@@ -188,222 +195,223 @@ CB4=ROUNDUP($L4/5,1)*5
 */
   </pre>
 
-    <script>
+  <script>
 
-      function setHTML(id, str) {
-        e = document.getElementById(id);
-        e && (e.innerHTML = str);
+    function setHTML(id, str) {
+      e = document.getElementById(id);
+      e && (e.innerHTML = str);
+    }
+
+    function setValue(id, str) {
+      e = document.getElementById(id);
+      e && (e.value = str);
+    }
+
+    function getValue(id) {
+      e = document.getElementById(id);
+      return e ? e.value : "";
+    }
+
+    function gen_sections() {
+      var ret = []
+      var ans = 0;
+      var last = 0;
+      for (var i = 1; i <= 10; i++) {
+        n = 10;
+        if (i == 1) { n = 20 }
+        if (i == 10) { n = 14 }
+        for (var ii = 1; ii <= n; ii++) {
+          last = ans;
+          ans += i * 10;
+          // console.log(ans, (ans + last) / 2, i * 10, n, ii)
+          ret.push({
+            "floor": last,
+            "ceil": ans,
+            "center": (ans + last) / 2
+          })
+          last = ans;
+        }
       }
 
-      function setValue(id, str) {
-        e = document.getElementById(id);
-        e && (e.value = str);
+      ret.shift()
+      ret[0].floor = 0
+
+      return ret
+    }
+
+
+    function binary_search(arr, idx, key) {
+      var low = 0, high = arr.length - 1;
+      while (low < high) {
+        var mid = low + ((high - low) >> 2);
+        console.log(low, high, mid, arr[mid])
+        if (key <= arr[mid][idx]) {
+          high = mid;
+        }
+        if (key > arr[mid][idx]) {
+          low = mid + 1;
+        }
       }
+      console.log("end", low, high, mid, arr[mid])
+      return low
+    };
+    //binary_search(rows, 15, 43.5)
+    //binary_search(rows, 17, 261.5)
+    //binary_search(rows, 20, 409.5)
 
-      function getValue(id) {
-        e = document.getElementById(id);
-        return e ? e.value : "";
+    function at_least(x, n) {
+      if (x < n) {
+        return n
       }
+      return x
+    }
 
-      function gen_sections() {
-        var ret = []
-        var ans = 0;
-        var last = 0;
-        for (var i = 1; i <= 10; i++) {
-          n = 10;
-          if (i == 1) { n = 20 }
-          if (i == 10) { n = 14 }
-          for (var ii = 1; ii <= n; ii++) {
-            last = ans;
-            ans += i * 10;
-            // console.log(ans, (ans + last) / 2, i * 10, n, ii)
-            ret.push({
-              "floor": last,
-              "ceil": ans,
-              "center": (ans + last) / 2
-            })
-            last = ans;
-          }
-        }
 
-        ret.shift()
-        ret[0].floor = 0
-
-        return ret
+    function miles_off(x) {
+      if (x > 2500) {
+        return .5 * x + 570 //(x - 2500) * .5 + 1000 * .6 + 500 * .7 + 500 * .8 + 300 * .9 + 200
       }
-
-
-      function binary_search(arr, idx, key) {
-        var low = 0, high = arr.length - 1;
-        while (low < high) {
-          var mid = low + ((high - low) >> 2);
-          console.log(low, high, mid, arr[mid])
-          if (key <= arr[mid][idx]) {
-            high = mid;
-          }
-          if (key > arr[mid][idx]) {
-            low = mid + 1;
-          }
-        }
-        console.log("end",low,high,mid, arr[mid])
-        return low
-      };
-      //binary_search(rows, 15, 43.5)
-      //binary_search(rows, 17, 261.5)
-      //binary_search(rows, 20, 409.5)
-
-      function at_least(x, n) {
-        if (x < n) {
-          return n
-        }
-        return x
+      if (x > 1500) {
+        return .6 * x + 320 //(x - 1500) * .6 + 500 * .7 + 500 * .8 + 300 * .9 + 200
       }
-
-
-      function miles_off(x) {
-        if (x > 2500) {
-          return .5 * x + 570 //(x - 2500) * .5 + 1000 * .6 + 500 * .7 + 500 * .8 + 300 * .9 + 200
-        }
-        if (x > 1500) {
-          return .6 * x + 320 //(x - 1500) * .6 + 500 * .7 + 500 * .8 + 300 * .9 + 200
-        }
-        if (x > 1000) {
-          return .7 * x + 170 //(x - 1000) * .7 + 500 * .8 + 300 * .9 + 200
-        }
-        if (x > 500) {
-          return .8 * x + 70 //(x - 500) * .8 + 300 * .9 + 200
-        }
-        if (x > 200) {
-          return .9 * x + 20 //(x - 200) * .9 + 200
-        }
-        return x
+      if (x > 1000) {
+        return .7 * x + 170 //(x - 1000) * .7 + 500 * .8 + 300 * .9 + 200
       }
+      if (x > 500) {
+        return .8 * x + 70 //(x - 500) * .8 + 300 * .9 + 200
+      }
+      if (x > 200) {
+        return .9 * x + 20 //(x - 200) * .9 + 200
+      }
+      return x
+    }
 
-      function unionprice(x, up, kd, fast) {
-        var km = miles_off(x)
+    function unionprice(x, up, kd, fast, bxoff) {
+      var km = miles_off(x)
 
-        var bx = Math.ceil(km * 0.05861 * 0.02 * 10) / 10
-        var hcs = x > 200 ? 1 : 0 //候车室空调
-        var yz0 = km * 0.05861
-        var rz0 = km * 0.05861 * 2
-        var bx1 = Math.ceil(bx * 2) / 2
+      var bx = Math.ceil(km * 0.05861 * 0.02 * 10) / 10
+      var hcs = x > 200 ? 1 : 0 //候车室空调
+      var yz0 = km * 0.05861
+      var rz0 = km * 0.05861 * 2
+      var bx1 = Math.ceil(bx * 2) / 2
 
-        var yz = Math.round((1 + up) * Math.round(yz0 + bx)) + hcs
-        var rz = Math.round((1 + up) * Math.round(rz0 + bx))
+      var yz = Math.round((1 + up) * Math.round(yz0 + bx)) + hcs
+      var rz = Math.round((1 + up) * Math.round(rz0 + bx))
 
-        //客票发展金
-        yz += yz <= 5 ? 0.5 : 1
-        rz += yz <= 5 ? 0.5 : 1
+      //客票发展金
+      yz += yz <= 5 ? 0.5 : 1
+      rz += yz <= 5 ? 0.5 : 1
 
-        yz -= bx1
-        rz -= bx1
+      yz -= bx1 * bxoff
+      rz -= bx1 * bxoff
 
-        var jk = Math.round(km * 0.05861 * 0.2)
-        if (jk < 1) {
-          jk = 1
-        }
-        jk = Math.round((1 + up) * jk)
-        var kt = Math.round(km * 0.05861 * 0.25)
-        if (kt < 1) {
-          kt = 1
-        }
-        kt = Math.round((1 + up) * kt)
+      var jk = Math.round(km * 0.05861 * 0.2)
+      if (jk < 1) {
+        jk = 1
+      }
+      jk = Math.round((1 + up) * jk)
+      var kt = Math.round(km * 0.05861 * 0.25)
+      if (kt < 1) {
+        kt = 1
+      }
+      kt = Math.round((1 + up) * kt)
 
-        km = miles_off(at_least(x, 400)) //卧铺起步400km
+      km = miles_off(at_least(x, 400)) //卧铺起步400km
 
-        var yw1 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.1)) + 10
-        var yw2 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.2)) + 10
-        var yw3 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.3)) + 10
+      var yw1 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.1)) + 10
+      var yw2 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.2)) + 10
+      var yw3 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.3)) + 10
 
-        //yb1 = yw2 (1+0.3)
-        //yb3 = yw3 (1+0.3)
+      //yb1 = yw2 (1+0.3)
+      //yb3 = yw3 (1+0.3)
 
-        var rw1 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.75)) + 10
-        var rw3 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.95)) + 10
-        var gr1 = Math.round((1 + up) * Math.round(km * 0.05861 * 2.1)) + 10
-        var gr3 = Math.round((1 + up) * Math.round(km * 0.05861 * 2.3)) + 10
+      var rw1 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.75)) + 10
+      var rw3 = Math.round((1 + up) * Math.round(km * 0.05861 * 1.95)) + 10
+      var gr1 = Math.round((1 + up) * Math.round(km * 0.05861 * 2.1)) + 10
+      var gr3 = Math.round((1 + up) * Math.round(km * 0.05861 * 2.3)) + 10
 
-        var ret = []
-        ret.push(
-          yz, rz,
-          jk, fast * jk,
-          kt,
-          yw1, yw2, yw3,
-          rw1, rw3,
-          gr1, gr3
+      var ret = []
+      ret.push(
+        yz, rz,
+        jk, fast * jk,
+        kt,
+        yw1, yw2, yw3,
+        rw1, rw3,
+        gr1, gr3
+      )
+      ret.push(
+        yz + fast * jk + kd * kt,
+        rz + fast * jk + kd * kt,
+
+        yz + fast * jk + kd * kt + yw1,
+        yz + fast * jk + kd * kt + yw2,
+        yz + fast * jk + kd * kt + yw3,
+
+        rz + fast * jk + kd * kt + rw1,
+        rz + fast * jk + kd * kt + rw3,
+
+        rz + fast * jk + kd * kt + gr1,
+        rz + fast * jk + kd * kt + gr3
+      )
+
+      return ret
+    }
+
+    function priceHTML(rows) {
+      var str = "";
+      str += "<table>";
+      for (i = 0; i < rows.length; i++) {
+        col = rows[i];
+        str += "<tr>\n"
+        str += (""
+          + "<td class=\"right\">" + ("    " + col[0]).slice(-4) + "-" + ("    " + col[1]).slice(-4) + "</td>\n"
+          + "<td class=\"right typeC\">" + col[2] + "</td>\n"
+          + "<td class=\"right typeD\">" + col[3].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeG\">" + col[4].toFixed(1) + "</td>\n"
+
+          + "<td class=\"right typeK\">" + col[5].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeK seat_match\">" + col[6].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeZ seat_match\">" + col[7].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeD\">" + col[8].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeD\">" + col[9].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeD\">" + col[10].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeG\">" + col[11].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeG\">" + col[12].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeC\">" + col[13].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeC\">" + col[14].toFixed(1) + "</td>\n"
+
+          + "<td class=\"right typeD seat_match\">" + col[15].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeG seat_match\">" + col[16].toFixed(1) + "</td>\n"
+
+          + "<td class=\"right typeD\">" + col[17].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeD\">" + col[18].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeD seat_match\">" + col[19].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeG\">" + col[20].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeG seat_match\">" + col[21].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeC\">" + col[22].toFixed(1) + "</td>\n"
+          + "<td class=\"right typeC seat_match\">" + col[23].toFixed(1) + "</td>\n"
         )
-        ret.push(
-          yz + fast * jk + kd * kt,
-          rz + fast * jk + kd * kt,
-
-          yz + fast * jk + kd * kt + yw1,
-          yz + fast * jk + kd * kt + yw2,
-          yz + fast * jk + kd * kt + yw3,
-
-          rz + fast * jk + kd * kt + rw1,
-          rz + fast * jk + kd * kt + rw3,
-
-          rz + fast * jk + kd * kt + gr1,
-          rz + fast * jk + kd * kt + gr3
-        )
-
-        return ret
+        str += "</tr>\n"
       }
+      str += "</table>";
+      return str;
+    }
 
-      function priceHTML(rows) {
-        var str = "";
-        str += "<table>";
-        for (i = 0; i < rows.length; i++) {
-          col = rows[i];
-          str += "<tr>\n"
-          str += (""
-            + "<td class=\"right\">" + ("    " + col[0]).slice(-4) + "-" + ("    " + col[1]).slice(-4) + "</td>\n"
-            + "<td class=\"right typeC\">" + col[2] + "</td>\n"
-            + "<td class=\"right typeD\">" + col[3].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeG\">" + col[4].toFixed(1) + "</td>\n"
-
-            + "<td class=\"right typeK\">" + col[5].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeK seat_match\">" + col[6].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeZ seat_match\">" + col[7].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeD\">" + col[8].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeD\">" + col[9].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeD\">" + col[10].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeG\">" + col[11].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeG\">" + col[12].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeC\">" + col[13].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeC\">" + col[14].toFixed(1) + "</td>\n"
-
-            + "<td class=\"right typeD seat_match\">" + col[15].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeG seat_match\">" + col[16].toFixed(1) + "</td>\n"
-
-            + "<td class=\"right typeD\">" + col[17].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeD\">" + col[18].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeD seat_match\">" + col[19].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeG\">" + col[20].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeG seat_match\">" + col[21].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeC\">" + col[22].toFixed(1) + "</td>\n"
-            + "<td class=\"right typeC seat_match\">" + col[23].toFixed(1) + "</td>\n"
-          )
-          str += "</tr>\n"
-        }
-        str += "</table>";
-        return str;
+    function pricetable(up, kd, fast, bxoff) {
+      console.log(up, kd, fast, bxoff)
+      var rows = []
+      var sections = gen_sections()
+      for (var i = 0; i < sections.length; i++) {
+        var section = sections[i]
+        var row = [section.floor + 1, section.ceil, section.center].concat(unionprice(section.center, up, kd, fast, bxoff))
+        rows.push(row)
+        console.log(row)
       }
+      return rows
+    }
+    setHTML("pricetable", priceHTML(pricetable(0.5, 1, 2, 1)))
 
-      function pricetable(up, kd, fast) {
-        var rows = []
-        var sections = gen_sections()
-        for (var i = 0; i < sections.length; i++) {
-          var section = sections[i]
-          var row = [section.floor + 1, section.ceil, section.center].concat(unionprice(section.center, up, kd, fast))
-          rows.push(row)
-          console.log(row)
-        }
-        return rows
-      }
-      setHTML("pricetable", priceHTML(pricetable(0.5, 1, 2)))
-
-    </script>
+  </script>
 </body>
 
 </html>
