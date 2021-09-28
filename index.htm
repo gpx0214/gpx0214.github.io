@@ -216,9 +216,9 @@
   <span onclick="setValue('date',dateAdd(timeStr(0, 'yyyy-mm-dd'),29))">+29</span>
   <form>
     <input type="text" id="keyword" placeholder="车次或站名" style="max-width:10em" onchange="console.log(this.value)" />
-    <input name="btn" type="submit" value="本地查询" style="max-width:6em"
+    <input name="btn" type="submit" value="查询" style="max-width:4em"
       onclick="get_search_train_csv(getValue('keyword'));return false;">
-    <span onclick="search(getValue('keyword'))">查询</span>
+    <span onclick="search(getValue('keyword'))">联网查询</span>
     <span onclick="search_emu(getValue('keyword'))">emu</span>
     <br />
   </form>
@@ -646,7 +646,7 @@
 
     ticket_date()
 
-    window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
+    window.LeftTicketUrl = "leftTicket/queryY"; // 余票默认URL
     endpoint = "/" // "http://127.0.0.1/"
     date = timeStr(0, "yyyy-mm-dd")
     setValue("date", date);
@@ -767,10 +767,10 @@
       if (service == '0') {
         return "service_0"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
+      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]$|^C\d{1,3}$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code.split("/")[0])) {
         return "200J"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D89[89]\d$/.test(code)) {
+      if ('DC'.indexOf(code[0]) > -1 && /^D89[89]\d$/.test(code.split("/")[0])) {
         return "200JSG"
       }
       return code[0]
@@ -787,7 +787,7 @@
         "P": 10000, "Q": 20000, "W": 30000,
         "V": 01000, "B": 02000, "U": 04000, "X": 05000
       }
-      var num = Number(str.replace(/\D+/, '')) % 10000;
+      var num = Number(str.replace(/\D+/g, '')) % 10000;
       return (offset[c] || 0) + num;
     }
     maxlen = 90000
@@ -821,6 +821,10 @@
       var maxkey = minkey
       if (sp.length > 1) {
         maxkey = hash_no(sp[1]) - 1
+      }
+      if (kw == '') {
+        minkey = 0
+        maxkey = window.train.length - 1
       }
       for (var key = minkey; key <= maxkey; key++) {
         for (i in window.train[key]) {
@@ -871,7 +875,7 @@
             for (i in data) {
               var row = data[i].split(",");
               if (row.length <= 5) continue
-              key = hash_no(row[0].slice(2, 10).replace(/^0+/g, '')) - 1
+              var key = hash_no(row[0].slice(2, 10).replace(/^0+/g, '')) - 1
               if (key < 0 || key >= maxlen) {
                 key = maxlen - 1
               }
@@ -899,6 +903,9 @@
     }
 
     function search_time_csv(kw) {
+      if (kw == "") {
+        return
+      }
       var sp = kw.split("-")
       var minkey = hash_no(sp[0]) - 1
       var maxkey = minkey
@@ -990,6 +997,9 @@
                 dep_time = row[2] ? minAdd(arr_time, row[2]) : ""
               }
               var key = hash_no(train_code) - 1
+              if (key < 0 || key >= maxlen) {
+                key = maxlen - 1
+              }
               window.timetable[key].push({
                 train_code: row[3] || "",
                 station: row[0] || "",
@@ -1770,11 +1780,11 @@
                   + "&from_station_telecode=" + telecode(t.start_station_name)
                   + "&to_station_telecode=" + telecode(t.end_station_name)
                   + "&depart_date=" + date;
-                result += ("<div id=\"" + t.train_code + "\">"
+                result += ("<div id=\"" + t.station_train_code + "\">"
                   + t.train_no + " " + telecode(t.start_station_name) + " " + telecode(t.end_station_name)
-                  + " " + "<span class=\"type" + traintype(t.train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
-                  + t.train_code + "</span>" + " " + t.start_station_name + " " + t.end_station_name
-                  + " " + "<a href=" + schurl + " target='_blank'>" + t.train_code + "</a>" + "</div>");
+                  + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
+                  + t.station_train_code + "</span>" + " " + t.start_station_name + " " + t.end_station_name
+                  + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>");
               }
             } else {
               result += j.errorMsg
@@ -1858,19 +1868,19 @@
         return ""
       }
       var str = "";
-      str += ("<div class=\"sch\" id=\"sch_" + sch[0].train_code + "\"><div><span class=\"type"
-        + traintype(sch[0].train_code, sch[0].service_type) + "\">"
-        + sch[0].train_code + " " + sch[0].train_class_name
+      str += ("<div class=\"sch\" id=\"sch_" + sch[0].station_train_code + "\"><div><span class=\"type"
+        + traintype(sch[0].station_train_code, sch[0].service_type) + "\">"
+        + sch[0].station_train_code + " " + sch[0].train_class_name
         + "</span> " + sch[0].start_station_name + " " + sch[0].end_station_name
         + "</div>\n");
       for (i in sch) {
-        str += ("<div id=\"" + sch[i].station_name + "_" + sch[0].train_code + "\">"
+        str += ("<div id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "\">"
           + sch[i].station_name + " "
           + sch[i].arrive_time + " "
           + sch[i].start_time + " "
           + sch[i].stopover_time + " "
-          + ((i == 0) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
-          + ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
+          + ((i == 0) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
+          + ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station_name + "_" + sch[0].station_train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
           + "</div>\n");
       }
       str += "</div>"
@@ -1958,7 +1968,7 @@
     }
 
     function emu_by_no(code) {
-      var key = hash_no(code) - 1
+      var key = hash_no(code.split("/")[0]) - 1
       var trainset = window.emu[key]
       if (!trainset || typeof (trainset.emu_type) != "string") return []
       var c = ""
