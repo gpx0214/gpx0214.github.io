@@ -15,7 +15,7 @@
 
 <body>
   <input type='text' id='url' style="width:50%;max-width:30em"
-    onkeyup='setHTML("result",schstrs(timetable[hash_no(this.value.toUpperCase())]).join("\n\n"))'>
+    onkeyup='setHTML("result",search(this.value.toUpperCase()))'>
   <span id="load" onclick="gettimecsv()">加载时刻表(6MB)</span>
   <!--br //-->
   <!--textarea id='url2' rols="2" style="width:90%;;max-width:30em" onchange='geturl(this.value)'>/emu/equip20200800.csv</textarea>
@@ -158,12 +158,12 @@
     var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
 
     xhr.onprogress = function (ev) {
-      setHTML("load", "加载时刻表 (" + ev.loaded+")")
+      setHTML("load", "加载时刻表 (" + ev.loaded + ")")
     }
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
         if ([200, 304].indexOf(xhr.status) > -1) {
-          setHTML("load", "加载时刻表 (" + xhr.responseText.length+")")
+          setHTML("load", "加载时刻表 (" + xhr.responseText.length + ")")
           //window.timetable = xhr.responseText.split("\n\n")
           window.timetable = Array(maxlen)
           for (var i = 0; i < maxlen; i++) {
@@ -210,12 +210,28 @@
     return ("00" + (t / 60 | 0)).slice(-2) + ":" + ("00" + t % 60).slice(-2)
   }
 
-  function schstrs(arr) {
-    var ret = []
-    for (var i in arr) {
-      ret.push(schstr(arr[i]))
+  function search(kw) {
+    var sp = kw.split("-")
+    if (sp[0] == "") {
+      return
     }
-    return ret
+    var minkey = hash_no(sp[0]) // - 1
+    var maxkey = minkey
+    if (sp.length > 1 && sp[1].length) {
+      maxkey = hash_no(sp[1]) // - 1
+      return rangesearch(sp[0], sp[1], "210925", "999999").join("\n\n")
+    }
+    if (maxkey - minkey > 100) {
+      maxkey = minkey + 100 - 1
+    }
+    var ret = []
+    for (var key = minkey; key <= maxkey; key++) {
+      var arr = timetable[key]
+      for (var i in arr) {
+        ret.push(schstr(arr[i]))
+      }
+    }
+    return ret.join("\n\n")
   }
 
   function schstr(tb) {
