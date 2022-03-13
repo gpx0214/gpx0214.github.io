@@ -34,6 +34,13 @@
       position: absolute;
     }
 
+    .stickytop {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
     .rel {
       position: relative;
     }
@@ -109,6 +116,11 @@
     .type400BFZ {
       background-color: #bf9540;
       color: #fdfc9a;
+    }
+
+    .type400BFC5162 {
+      background-color: #1f63a8;
+      color: #999999;
     }
 
     .typeCRH {
@@ -237,8 +249,6 @@
       onclick="getlcxxcx(getValue('form_station'),getValue('to_station'), getValue('date'));return false;">
     <br />
   </form>
-  <div id="qss" style="white-space: nowrap;">
-  </div>
   <div id="ticket_date">
   </div>
   <div>
@@ -249,6 +259,8 @@
     <span onclick="setCssRule('hide','.hideG,.hideD,.hideC,.hideK{display:none}')">ZT</span>
     <span onclick="setCssRule('hide','')">All</span>
     <span onclick="setHTML('ticket', '');return false;">清除余票</span>
+  </div>
+  <div id="qss" style="word-break: keep-all;">
   </div>
   <div id="sch"></div>
   <div id="result" style="white-space: nowrap;"></div>
@@ -264,7 +276,8 @@
   <a href="https://www.12306.cn/kfzmpt/leftTicketPrice/init" target="_blank">旧版票价</a>
   <a href="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0">train_list.js</a>
   <a href="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js">station_name.js</a>
-  <a href="/www.12306.cn/index/" target="_blank"> /www.12306.cn/index/</a>
+  <a href="/www.12306.cn/index/" target="_blank">/www.12306.cn/index/</a>
+  <a href="/kyfw.12306.cn/otn/leftTicket/init" target="_blank">余票</a>
   <br />
 
   <!--script src="js/UNICODE2GBK.js" type="text/javascript"></script//-->
@@ -651,6 +664,32 @@
     date = timeStr(0, "yyyy-mm-dd")
     setValue("date", date);
 
+    function getLeftTicketUrl() {
+      setHTML("ticket", "start LeftTicketUrl"); //
+      var url = 'https://kyfw.12306.cn/otn/leftTicket/init'
+
+      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ([200, 304].indexOf(xhr.status) > -1) {
+            if (typeof (xhr.responseText) != "undefined") {
+              var m = xhr.responseText.match("leftTicket/query[^']*")
+              if (m) {
+                window.LeftTicketUrl = m[0]
+              }
+            }
+            setHTML("ticket", "") //
+          } else {
+            setHTML("ticket", xhr.status + " " + xhr.statusText); //
+          }
+        }
+      }
+
+      xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+      setHTML("ticket", "loading LeftTicketUrl"); //
+      xhr.send()
+    }
 
     function getstation() {
       var url = '/js/station.min.csv'
@@ -874,7 +913,7 @@
             }
             for (i in data) {
               var row = data[i].split(",");
-              if (row.length <= 5) continue
+              if (row.length <= 3) continue
               var key = hash_no(row[0].slice(2, 10).replace(/^0+/g, '')) - 1
               if (key < 0 || key >= maxlen) {
                 key = maxlen - 1
@@ -979,7 +1018,7 @@
             var arr_time = ""
             var dep_time = ""
             var day_diff = ""
-            for (i in data) {
+            for (var i in data) {
               var row = data[i].split(",");
               if (row.length <= 1) continue
               if (row[3]) {
@@ -1048,9 +1087,10 @@
         + "?leftTicketDTO.train_date=" + date
         + "&leftTicketDTO.from_station=" + from_station_telecode
         + "&leftTicketDTO.to_station=" + to_station_telecode + "&purpose_codes=ADULT";
-      if (!document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode)) {
+        var id = date + "_" + from_station_telecode + "_" + to_station_telecode;
+      if (!document.getElementById(id)) {
         document.getElementById("ticket").innerHTML =
-          "<div style=\"overflow-x:scroll;\" id=\"" + date + "_" + from_station_telecode + "_" + to_station_telecode + "\">"
+          "<div id=\"" + id + "\">"
           + date + " " + telename(from_station_telecode) + " " + telename(to_station_telecode)
           + "</div>\n" + document.getElementById("ticket").innerHTML;
       }
@@ -1062,13 +1102,15 @@
             if (!j.status) {
               window.LeftTicketUrl = j.c_url || window.LeftTicketUrl;
             }
-            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
-              date + " " + telename(from_station_telecode) + " " + telename(to_station_telecode)
-              + " center: " + xhr.getResponseHeader("center")
-              + " X-Via: " + xhr.getResponseHeader("X-Via") + "<br />\n"
+            document.getElementById(id).innerHTML =
+              "<div class=\"stickytop ticket_hb\">"
+              + date + " " + telename(from_station_telecode) + " " + telename(to_station_telecode)
+              + "</div>\n<div style=\"overflow-x:scroll;\">"
+              + " center: " + xhr.getResponseHeader("center") + " X-Via: " + xhr.getResponseHeader("X-Via")
               + ticketHTML(j.data.result, j.data.map);
+              + "</div>"
           } else {
-            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+            document.getElementById(id).innerHTML =
               date + " " + telename(from_station_telecode) + " " + telename(to_station_telecode)
               + " " + xhr.status + " " + (xhr.statusText || "error");
           }
@@ -1551,9 +1593,10 @@
       var url = "https://www.12306.cn/kfzmpt/lcxxcx/query?purpose_codes=ADULT&queryDate=" + date
         + "&from_station=" + from_station_telecode
         + "&to_station=" + to_station_telecode;
-      if (!document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode)) {
+        var id = date + "_" + from_station_telecode + "_" + to_station_telecode;
+      if (!document.getElementById(id)) {
         document.getElementById("ticket").innerHTML =
-          "<div style=\"overflow-x:scroll;\" id=\"" + date + "_" + from_station_telecode + "_" + to_station_telecode + "\">"
+          "<div id=\"" + id + "\">"
           + date + " " + telename(from_station_telecode) + " " + telename(to_station_telecode)
           + "</div>\n" + document.getElementById("ticket").innerHTML;
       }
@@ -1563,17 +1606,19 @@
           if ([200, 304].indexOf(xhr.status) > -1) {
             var j = JSON.parse(xhr.responseText);
             if (j.data.flag == false) {
-              j.data.message
-              document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+              document.getElementById(id).innerHTML =
                 date + " " + telename(from_station_telecode) + " " + telename(to_station_telecode)
                 + " " + j.data.message;
             }
-            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
-              date + " " + telename(from_station_telecode) + " " + telename(to_station_telecode)
-              + " X-Via: " + xhr.getResponseHeader("X-Via") + "<br />\n"
+            document.getElementById(id).innerHTML =
+              "<div class=\"stickytop ticket_hb\">"
+              + date + " " + telename(from_station_telecode) + " " + telename(to_station_telecode)
+              + "</div>\n<div style=\"overflow-x:scroll;\">"
+              + " X-Via: " + xhr.getResponseHeader("X-Via")
               + lcxxcxHTML(j.data.datas);
+              + "</div>"
           } else {
-            document.getElementById(date + "_" + from_station_telecode + "_" + to_station_telecode).innerHTML =
+            document.getElementById(id).innerHTML =
               date + " " + telename(from_station_telecode) + " " + telename(to_station_telecode)
               + " " + xhr.status + " " + (xhr.statusText || "error");
           }
@@ -1961,6 +2006,9 @@
           c += "double"
         }
         c += " " + css_emu(trainset.emu_type)
+        if (trainset.emu_type == 'BF-C' && trainset.emu_no == '5162') {
+          c += " " + "type400BFC5162"
+        }
         result += trainset.train_code + " " + trainset.bureau + " <span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span><br />\n"
       }
       //document.getElementById("emu").innerHTML = result;
@@ -1976,6 +2024,9 @@
         c += "double"
       }
       c += " " + css_emu(trainset.emu_type)
+      if (trainset.emu_type == 'BF-C' && trainset.emu_no == '5162') {
+          c += " " + "type400BFC5162"
+      }
       return trainset.bureau + "<span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span>"
     }
 
