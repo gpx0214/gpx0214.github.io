@@ -106,6 +106,11 @@
       color: #fdfc9a;
     }
 
+    .type400BFC5162 {
+      background-color: #1f63a8;
+      color: #999999;
+    }
+
     .typeCRH {
       background-color: #ffffff;
       color: #3d668f;
@@ -361,10 +366,10 @@
       if (service == '0') {
         return "service_0"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]|^C\d{1,3}$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code)) {
+      if (/^C\d{1,3}$/.test(code)) { // /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]|^C\d{1,3}$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/
         return "200J"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D89[89]\d$/.test(code)) {
+      if (/^C8[89]\d$/.test(code)) { // /^D89[89]\d$/
         return "200JSG"
       }
       return code[0]
@@ -785,12 +790,6 @@
       "K5288",
     ]
     VNPTJP = [
-      "G217",
-      "G218",
-      "G219",
-      "G220",
-      "G237",
-      "G238",
       "G371",
       "G372",
       "G393",
@@ -799,6 +798,16 @@
       "G396",
       "G399",
       "G400",
+      "G497",
+      "G408",
+      "G4603",
+      "G4604",
+      "G8923",
+      "G8926",
+      "G8927",
+      "G8928",
+      "G8929",
+      "G8932",
     ]
 
     function stationHTML(stat, arr) {
@@ -915,14 +924,13 @@
         str += (
           "<div class=\"type" + traintype(arr[i].code, "") + (is_a_day(arr[i].date, date) ? "" : " ctl")
           + "\" style=\"position:absolute;top:" + (min * px_time) + "px;left:" + linenum * px_line + "px;z-index:" + (is_a_day(arr[i].date, date) ? 2 : 1) + ";\">"
-          + arr[i].code + (linename ? "<br />\n[" + linename + "]" : "") + emu_by_no(arr[i].code)
+          + arr[i].code + (linename ? "<br />\n[" + linename + "]" : "") + emu_by_no(arr[i].bureau, arr[i].emu_type, arr[i].emu_no)
           + "</div>")
       }
       return str
     }
 
     function getstat(stat) {
-      // var url = "/stat/" + stat
       var url = "/stat/" + stat
       // document.getElementById("result").innerHTML = str
       var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
@@ -943,6 +951,10 @@
               station: row[3] || "",
               is_dep: row[4] || "",
               date: row[5] || "",
+              bureau: row[6] || "",
+              emu_type: (row[7] || "").replace(/(.*)-(\d{4})$/, "$1").replace(/\(\d+\)$/, "").replace(/^2\*/, "") || "",
+              emu_no: row[8] || "",
+              emu_double: /2\*|重/.test(row[7]) ? 1 : 0,
             })
           }
           setHTML("typeabs", lineHTML(stat))
@@ -986,67 +998,46 @@
       return "typeCRH"
     }
 
-    function emu_by_no(code) {
-      var key = hash_no(code) - 1
-      if (!window.emu) return ""
-      var trainset = window.emu[key]
-      if (!trainset || !trainset.emu_type) return ""
+    var bureau_arr = [
+        "哈尔滨,哈,B",
+        "沈阳,沈,T",
+        "北京,京,P",
+        "呼和浩特,呼,C",
+        "郑州,郑,F",
+        "济南,济,K",
+        "上海,上,H",
+        "南昌,南,G",
+        "广州,广,Q",
+        "南宁,宁,Z",
+        "成都,成,W",
+        "昆明,昆,M",
+        "兰州,兰,J",
+        "乌鲁木齐,乌,R",
+        "西宁,青,O",
+        "太原,太,V",
+        "武汉,武,N",
+        "西安,西,Y"
+    ]
+
+    var bureau_map = {}
+    for (var i=0; i<bureau_arr.length; i++) {
+      var sp = bureau_arr[i].split(",")
+      bureau_map[sp[2]] = sp[1]
+    }
+
+    function emu_by_no(bureau, emu_type, emu_no) {
+      if (!emu_type) return ""
       var c = ""
-      if (trainset.emu_double) {
+      if (/2\*|重/.test(emu_type)) {
         c += "double"
       }
-      c += " " + css_emu(trainset.emu_type)
-      return "<br />" + trainset.bureau + "<span class=\"" + c + "\">" + trainset.emu_type.replace("-", "") + "<br />"
-        + trainset.emu_no + "</span>"
-    }
-
-    var maxlen = 90000
-    function getemu() {
-      // '/emu/equip'
-      // '/emu/ccrgt'
-      var url = '/emu/emu' + date + '.csv'
-
-      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-          if ([200, 304].indexOf(xhr.status) > -1) {
-            data = xhr.responseText.split("\n");
-            window.emu = Array(maxlen)
-            for (var i = 0; i < maxlen; i++) {
-              window.emu[i] = []
-            }
-
-            for (i in data) {
-              var row = data[i].split(",");
-              if (row.length <= 6) continue
-              var key = hash_no(row[0]) - 1
-
-              var m = row[2].match(/(.*)-(\d{4})$/)
-              window.emu[key] = {
-                train_code: row[0] || "",
-                bureau: row[1] || "",
-                emu_type: row[2].replace(/(.*)-(\d{4})$/, "$1").replace(/\(\d+\)$/, "").replace(/^2\*/, "") || "",
-                emu_no: m ? m[2] : "",
-                emu_double: /2\*|重/.test(row[2]) ? 1 : 0,
-                emu_flag: 0,
-              }
-            }
-
-            setHTML("emu", "")
-            getstat(window.location.hash.replace('#', '') || "BJP")
-          } else {
-            setHTML("emu", xhr.status + " " + xhr.statusText);
-          }
-        }
+      c += " " + css_emu(emu_type)
+      if (emu_type == 'BF-C' && emu_no == '5162') {
+          c += " " + "type400BFC5162"
       }
-
-      xhr.open("GET", url, true);
-      setHTML("emu", "loading " + url);
-      xhr.send()
+      return "<br />" + (bureau_map[bureau] || bureau) + "<span class=\"" + c + "\">" + emu_type.replace("-", "") + "<br />"
+        + emu_no + "</span>"
     }
-
-    getemu()
 
     setHTML("timeabs", timeHTML())
     view_scroll()

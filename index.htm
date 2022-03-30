@@ -258,7 +258,7 @@
     <span onclick="setCssRule('hide','.hideG,.hideD,.hideC{display:none}')">ZTK</span>
     <span onclick="setCssRule('hide','.hideG,.hideD,.hideC,.hideK{display:none}')">ZT</span>
     <span onclick="setCssRule('hide','')">All</span>
-    <span onclick="setHTML('ticket', '');return false;">清除余票</span>
+    <span onclick="setHTML('ticket', '');">清除余票</span>
   </div>
   <div id="qss" style="word-break: keep-all;">
   </div>
@@ -270,14 +270,18 @@
   <a href="/station.htm" target="_blank">车站车次图示</a>
   <a href="/price.htm" target="_blank">票价计算</a>
   <br />
+  <br />
   <a href="http://www.gtbyxx.com/wxg/ky/zhengwan.jsp" target="_blank">广铁正晚点</a>
   <a href="http://61.161.203.55/mobile.myweixin.com/FtStationSch.html" target="_blank">沈局时刻表</a>
+  <a href="https://ec.95306.cn/gis/inputSearchStationHyzy.html" target="_blank">95306地图</a>
+  <br />
+  <br />
   <a href="https://www.12306.cn/kfzmpt/lcxxcx/init" target="_blank">旧版余票</a>
   <a href="https://www.12306.cn/kfzmpt/leftTicketPrice/init" target="_blank">旧版票价</a>
   <a href="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0">train_list.js</a>
   <a href="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js">station_name.js</a>
-  <a href="/www.12306.cn/index/" target="_blank">/www.12306.cn/index/</a>
   <a href="/kyfw.12306.cn/otn/leftTicket/init" target="_blank">余票</a>
+  <a href="/www.12306.cn/index/" target="_blank">/www.12306.cn/index/</a>
   <br />
 
   <!--script src="js/UNICODE2GBK.js" type="text/javascript"></script//-->
@@ -803,13 +807,14 @@
 
 
     function traintype(code, service) {
+      code = code.split("/")[0]
       if (service == '0') {
         return "service_0"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]$|^C\d{1,3}$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/.test(code.split("/")[0])) {
+      if (/^C\d{1,3}$/.test(code)) { // /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]|^C\d{1,3}$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/
         return "200J"
       }
-      if ('DC'.indexOf(code[0]) > -1 && /^D89[89]\d$/.test(code.split("/")[0])) {
+      if (/^C8[89]\d$/.test(code)) { // /^D89[89]\d$/
         return "200JSG"
       }
       return code[0]
