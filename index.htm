@@ -671,7 +671,7 @@ if (window.location.href.indexOf('github.io') >= 0) {
 }
 date = timeStr(0, "yyyy-mm-dd")
 setValue("date", date);
-graph_yymmdd = '220408'
+graph_yymmdd = '220620'
 
 function getLeftTicketUrl() {
   setHTML("ticket", "start LeftTicketUrl"); //
@@ -995,8 +995,8 @@ function search_time_csv(kw) {
         + sch[i].dep_time + " "
         //+ sch[i].stopover_time + " "
         + ((i > 0 && sch[i].arr_day_diff && sch[i].arr_day_diff != sch[i - 1].arr_day_diff) ? "+" + sch[i].arr_day_diff : "") + " "
-        //+ ((i == 0) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
-        //+ ((i == sch.length - 1) ? "" : (" <span id=\"" + sch[i].station + "_" + sch[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
+        + ((i == 0) ? "" : (" <span id=\"" + telename(sch[i].station) + "_" + sch[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
+        + ((i == sch.length - 1) ? "" : (" <span id=\"" + telename(sch[i].station) + "_" + sch[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
         + "</div>\n");
     }
     str += "</div>"
@@ -1789,17 +1789,16 @@ function search_v1(str) {
         var j = JSON.parse(xhr.responseText);
         if (j.status) {
           result += ("<div>" + (j.data ? j.data.length : 0) + "条</div>")
-          for (i in j.data) {
+          for (var i in j.data) {
             var t = j.data[i];
-            schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no + "&from_station_telecode=" + telecode(t.from_station) + "&to_station_telecode=" + telecode(t.to_station) + "&depart_date=" + date;
-            result += ("<div id=\"" + t.train_code + "\">"
+            result += ("<div id=\"" + t.station_train_code + "\">"
               + t.train_no + " " + telecode(t.from_station) + " " + telecode(t.to_station)
-              + " " + "<span class=\"type" + t.train_code[0] + "\" onclick=\"getSch('" + schurl + "')\">"
-              + t.train_code + "</span>" + " " + t.from_station + " " + t.to_station
-              + " " + "<a href=" + schurl + " target='_blank'>" + t.train_code + "</a>" + "</div>"
+              + " " + "<span class=\"type" + traintype(t.station_train_code) + "\" onclick=\"getSch(schURL('" + t.train_no + "','" + telecode(t.from_station) + "','" + telecode(t.to_station) + "','" + date + "'))\">"
+              + t.station_train_code + "</span>" + " " + t.from_station + " " + t.to_station
+              + " " + "<a href=" + schURL(t.train_no, telecode(t.from_station), telecode(t.to_station), date) + " target='_blank'>" + t.station_train_code + "</a>" + "</div>"
             );
-            if (t.train_code == str.toUpperCase()) {
-              document.getElementById("sch").innerHTML = t.train_code + "<br />\n";
+            if (t.station_train_code == str.toUpperCase()) {
+              document.getElementById("sch").innerHTML = t.station_train_code + "<br />\n";
               getSch(schurl);
             }
           }
@@ -1819,7 +1818,8 @@ function search_v1(str) {
 
 function czxx(t1) {
   var date = document.getElementById("date").value;
-  var url = "https://kyfw.12306.cn/otn/czxx/query?train_start_date=" + date + "&train_station_code=" + t1
+  // var url = "https://kyfw.12306.cn/otn/czxx/query?train_start_date=" + date + "&train_station_code=" + t1
+  var url = "https://www.12306.cn/kfzmpt/czxx/query?train_start_date=" + date + "&train_station_code=" + t1
   document.getElementById("result").innerHTML = t1 + " ";
   var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
   xhr.onreadystatechange = function () {
@@ -1831,15 +1831,11 @@ function czxx(t1) {
           result += ("<div>" + (j.data.data ? j.data.data.length : 0) + "趟 " + j.data.sameStations.join(" ") + "</div>")
           for (i in j.data.data) {
             var t = j.data.data[i];
-            schurl = "https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=" + t.train_no
-              + "&from_station_telecode=" + telecode(t.start_station_name)
-              + "&to_station_telecode=" + telecode(t.end_station_name)
-              + "&depart_date=" + date;
             result += ("<div id=\"" + t.station_train_code + "\">"
               + t.train_no + " " + telecode(t.start_station_name) + " " + telecode(t.end_station_name)
-              + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"getSch('" + schurl + "')\">"
+              + " " + "<span class=\"type" + traintype(t.station_train_code, t.service_type) + "\" onclick=\"getSch(schURL('" + t.train_no + "','" + telecode(t.start_station_name) + "','" + telecode(t.end_station_name) + "','" + date + "'))\">"
               + t.station_train_code + "</span>" + " " + t.start_station_name + " " + t.end_station_name
-              + " " + "<a href=" + schurl + " target='_blank'>" + t.station_train_code + "</a>" + "</div>");
+              + " " + "<a href=" + schURL(t.train_no, telecode(t.start_station_name), telecode(t.end_station_name), date) + " target='_blank'>" + t.station_train_code + "</a>" + "</div>");
           }
         } else {
           result += j.errorMsg
@@ -1859,8 +1855,8 @@ function czxx(t1) {
 function zwdcxURL(str, trainNo, cxlx) {
   if (!str) return "";
   if (!trainNo) return "";
-  return "http://www.12306.cn/mapping/kfxt/zwdcx/LCZWD/cx.jsp?cz=" + unicode2gbk(str) + "&cc=" + trainNo + "&cxlx=" + cxlx + "&rq=" + timeStr(0, "yyyy-mm-dd") + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&tp=" + new Date().getTime();
-  //return "https://kyfw.12306.cn/otn/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&randCode="
+  // return "http://www.12306.cn/mapping/kfxt/zwdcx/LCZWD/cx.jsp?cz=" + unicode2gbk(str) + "&cc=" + trainNo + "&cxlx=" + cxlx + "&rq=" + timeStr(0, "yyyy-mm-dd") + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&tp=" + new Date().getTime();
+  return "https://kyfw.12306.cn/otn/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") // + "&randCode=&&if_check_slide_passcode_token="
 }
 
 function getzwdcx_id(id) {
