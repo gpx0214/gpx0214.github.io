@@ -219,7 +219,7 @@
     var maxkey = minkey
     if (sp.length > 1 && sp[1].length) {
       maxkey = hash_no(sp[1]) // - 1
-      return rangesearch(sp[0], sp[1], "210925", "999999").join("\n\n")
+      return rangesearch(sp[0], sp[1], "220618", "999999").join("\n\n")
     }
     if (maxkey - minkey > 100) {
       maxkey = minkey + 100 - 1
