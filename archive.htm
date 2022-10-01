@@ -15,7 +15,7 @@
 
 <body>
   <input type='text' id='url' style="width:50%;max-width:30em"
-    onkeyup='setHTML("result",search(this.value.toUpperCase()))'>
+    onkeyup='setInnerHTML("result",search(this.value.toUpperCase()))'>
   <span id="load" onclick="gettimecsv()">加载时刻表(6MB)</span>
   <!--br //-->
   <!--textarea id='url2' rols="2" style="width:90%;;max-width:30em" onchange='geturl(this.value)'>/emu/equip20200800.csv</textarea>
@@ -24,7 +24,7 @@
   <pre id='result' style="overflow-x:scroll;white-space: pre-wrap;word-break: break-all;"></pre>
 </body>
 <script>
-  function setHTML(id, str) {
+  function setInnerHTML(id, str) {
     e = document.getElementById(id);
     e && (e.innerHTML = str);
   }
@@ -75,7 +75,7 @@
   function show(f) {
     var reader = new FileReader();
     reader.onload = function () {
-      setHTML("result", formatjson(arguments[0].target.result));
+      setInnerHTML("result", formatjson(arguments[0].target.result));
     }
     reader.readAsText(f, 'utf-8')
   }
@@ -112,7 +112,7 @@
 
     var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
     xhr.onprogress = function (event) {
-      setHTML("result", "loading station " + xhr.responseText.length)
+      setInnerHTML("result", "loading station " + xhr.responseText.length)
     }
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
@@ -128,15 +128,15 @@
               }
             }
           }
-          setHTML("result", "")
+          setInnerHTML("result", "")
         } else {
-          setHTML("result", xhr.status + " " + xhr.statusText);
+          setInnerHTML("result", xhr.status + " " + xhr.statusText);
         }
       }
     }
 
     xhr.open("GET", url, true);
-    setHTML("result", "loading station");
+    setInnerHTML("result", "loading station");
     xhr.send()
   }
 
@@ -158,12 +158,12 @@
     var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
 
     xhr.onprogress = function (ev) {
-      setHTML("load", "加载时刻表 (" + ev.loaded + ")")
+      setInnerHTML("load", "加载时刻表 (" + ev.loaded + ")")
     }
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
         if ([200, 304].indexOf(xhr.status) > -1) {
-          setHTML("load", "加载时刻表 (" + xhr.responseText.length + ")")
+          setInnerHTML("load", "加载时刻表 (" + xhr.responseText.length + ")")
           //window.timetable = xhr.responseText.split("\n\n")
           window.timetable = Array(maxlen)
           for (var i = 0; i < maxlen; i++) {
@@ -185,15 +185,15 @@
           for (var i = 0; i < maxlen; i++) {
             window.timetable[i].reverse()
           }
-          setHTML("result", "")
+          setInnerHTML("result", "")
         } else {
-          setHTML("result", xhr.status + " " + xhr.statusText);
+          setInnerHTML("result", xhr.status + " " + xhr.statusText);
         }
       }
     }
 
     xhr.open("GET", url, true);
-    setHTML("load", "loading");
+    setInnerHTML("load", "loading");
     xhr.send()
   }
 
@@ -290,7 +290,7 @@
     return ret
   }
 
-  // setHTML("result",rangesearch("K5200","K5299","210630","210831").join("\n\n"))
+  // setInnerHTML("result",rangesearch("K5200","K5299","210630","210831").join("\n\n"))
 
 </script>
 

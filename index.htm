@@ -229,25 +229,23 @@ input {
   <span onclick="setValue('date',dateAdd(timeStr(0, 'yyyy-mm-dd'),29))">+29</span>
   <form>
     <input type="text" id="keyword" placeholder="车次或站名" style="max-width:10em" onchange="console.log(this.value)" />
-    <input name="btn" type="submit" value="查询" style="max-width:4em"
-      onclick="get_search_train_csv(getValue('keyword'));return false;">
+    <input name="btn" type="submit" value="查询" style="max-width:4em" onclick="get_search_train_csv(getValue('keyword'));return false;">
     <span onclick="search(getValue('keyword'))">联网查询</span>
     <span onclick="search_emu(getValue('keyword'))">emu</span>
+    <span onclick="getemuqrcode(getValue('keyword'))">qr</span>
     <br />
   </form>
   <form>
     <span style="position: relative;">
-      <input type="text" id="form_station" placeholder="出发站"
-        onkeyup="setHTML('from_tele', telecode(this.value));qss(this.value)" />
+      <input type="text" id="form_station" placeholder="出发站" onkeyup="console.log(this.value);setInnerHTML('from_tele', telecode(this.value));qss(this.value)" />
       <span id="from_tele" style="position:absolute;right:0.5em;bottom:0em;"></span>
     </span>
     <span onclick="changeFromTo()">&lt;&gt;</span>
     <span style="position: relative;">
-      <input type="text" id="to_station" placeholder="终到站" onkeyup="setHTML('to_tele',telecode(this.value))" />
+      <input type="text" id="to_station" placeholder="终到站" onkeyup="console.log(this.value);setInnerHTML('to_tele',telecode(this.value))" />
       <span id="to_tele" style="position:absolute;right:0.5em;bottom:0em;"></span>
     </span>
-    <input name="btn" type="submit" value="余票查询" style="max-width:6em"
-      onclick="getlcxxcx(getValue('form_station'),getValue('to_station'), getValue('date'));return false;">
+    <input name="btn" type="submit" value="余票查询" style="max-width:6em" onclick="getlcxxcx(getValue('form_station'),getValue('to_station'), getValue('date'));return false;">
     <br />
   </form>
   <div id="ticket_date">
@@ -259,7 +257,7 @@ input {
     <span onclick="setCssRule('hide','.hideG,.hideD,.hideC{display:none}')">ZTK</span>
     <span onclick="setCssRule('hide','.hideG,.hideD,.hideC,.hideK{display:none}')">ZT</span>
     <span onclick="setCssRule('hide','')">All</span>
-    <span onclick="setHTML('ticket', '');">清除余票</span>
+    <span onclick="setInnerHTML('ticket', '');">清除余票</span>
   </div>
   <div id="qss" style="word-break: keep-all;">
   </div>
@@ -302,7 +300,7 @@ input {
 
 // #dedbd3 CR200J 白色
 
-function setHTML(id, str) {
+function setInnerHTML(id, str) {
   var e = document.getElementById(id);
   e && (e.innerHTML = str);
 }
@@ -335,8 +333,8 @@ function changeFromTo() {
   var to = getValue("to_station");
   setValue("form_station", to);
   setValue("to_station", from);
-  setHTML('from_tele', telecode(to))
-  setHTML('to_tele', telecode(from))
+  setInnerHTML('from_tele', telecode(to))
+  setInnerHTML('to_tele', telecode(from))
   qss(to)
 }
 
@@ -664,7 +662,7 @@ function ticket_date() {
 
 ticket_date()
 
-window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
+window.LeftTicketUrl = "leftTicket/queryZ"; // 余票默认URL
 endpoint = "/" // "http://127.0.0.1/"
 if (window.location.href.indexOf('github.io') >= 0) {
   endpoint = "http://127.0.0.1/"
@@ -674,7 +672,7 @@ setValue("date", date);
 graph_yymmdd = '220620'
 
 function getLeftTicketUrl() {
-  setHTML("ticket", "start LeftTicketUrl"); //
+  setInnerHTML("ticket", "start LeftTicketUrl"); //
   var url = 'https://kyfw.12306.cn/otn/leftTicket/init'
 
   var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
@@ -688,15 +686,15 @@ function getLeftTicketUrl() {
             window.LeftTicketUrl = m[0]
           }
         }
-        setHTML("ticket", "") //
+        setInnerHTML("ticket", "") //
       } else {
-        setHTML("ticket", xhr.status + " " + xhr.statusText); //
+        setInnerHTML("ticket", xhr.status + " " + xhr.statusText); //
       }
     }
   }
 
   xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
-  setHTML("ticket", "loading LeftTicketUrl"); //
+  setInnerHTML("ticket", "loading LeftTicketUrl"); //
   xhr.send()
 }
 
@@ -719,15 +717,15 @@ function getstation() {
             }
           }
         }
-        setHTML("result", "")
+        setInnerHTML("result", "")
       } else {
-        setHTML("result", xhr.status + " " + xhr.statusText);
+        setInnerHTML("result", xhr.status + " " + xhr.statusText);
       }
     }
   }
 
   xhr.open("GET", url, true);
-  setHTML("result", "loading station");
+  setInnerHTML("result", "loading station");
   xhr.send()
 }
 
@@ -811,20 +809,6 @@ function qss(str) {
 }
 
 
-function traintype(code, service) {
-  code = code.split("/")[0]
-  if (service == '0') {
-    return "service_0"
-  }
-  if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^C\d{1,3}$/.test(code)) { // /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]|^C\d{1,3}$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/
-    return "200J"
-  }
-  if (/^C8[89]\d$/.test(code)) { // /^D89[89]\d$/
-    return "200JSG"
-  }
-  return code[0]
-}
-
 function hash_no(str) {
   var c = str.charAt(0);
   var offset = {
@@ -840,6 +824,27 @@ function hash_no(str) {
   return (offset[c] || 0) + num;
 }
 maxlen = 90000
+
+function traintype(code, service) {
+  code = code.split("/")[0]
+  if (service == '0') {
+    return "service_0"
+  }
+  var key = (hash_no(code)-1)
+  if ([6088,6089,6092].indexOf(key / 10 | 0) > -1) {
+    return "200JSG"
+  }
+  if ([507,508].indexOf(key / 100 | 0) > -1) {
+    return "200J"
+  }
+  if ([60].indexOf(key / 1000 | 0) > -1) {
+    return "200J"
+  }
+  // if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^C\d{1,3}$/.test(code)) { // /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]|^C\d{1,3}$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/
+  //   return "200J"
+  // }
+  return code[0]
+}
 
 
 //Z81 Z80 Z81/0
@@ -1001,7 +1006,7 @@ function search_time_csv(kw) {
     }
     str += "</div>"
   }
-  setHTML("sch", str + document.getElementById("sch").innerHTML);
+  setInnerHTML("sch", str + document.getElementById("sch").innerHTML);
 }
 
 function get_search_time_csv(str) {
@@ -1874,7 +1879,7 @@ function getzwdcx(str, trainNo, cxlx) {
     if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
       var s = xhr.responseText;
       console.log(zwdcxHTML(s));
-      setHTML(str + "_" + trainNo + "_" + cxlx, zwdcxHTML(s));
+      setInnerHTML(str + "_" + trainNo + "_" + cxlx, zwdcxHTML(s));
     }
   }
   xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
@@ -1905,7 +1910,7 @@ function getSch(url) {
     if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
       var j = JSON.parse(xhr.responseText);
       if (j.data.data.length >= 0) {
-        setHTML("sch", schHTML(j.data.data) + document.getElementById("sch").innerHTML);
+        setInnerHTML("sch", schHTML(j.data.data) + document.getElementById("sch").innerHTML);
       }
     }
   }
@@ -1982,6 +1987,33 @@ function css_emu(t) {
   return "typeCRH"
 }
 
+var bureau_arr = [
+  "哈尔滨,哈,B",
+  "沈阳,沈,T",
+  "北京,京,P",
+  "呼和浩特,呼,C",
+  "郑州,郑,F",
+  "济南,济,K",
+  "上海,上,H",
+  "南昌,南,G",
+  "广州,广,Q",
+  "南宁,宁,Z",
+  "成都,成,W",
+  "昆明,昆,M",
+  "兰州,兰,J",
+  "乌鲁木齐,乌,R",
+  "西宁,青,O",
+  "太原,太,V",
+  "武汉,武,N",
+  "西安,西,Y"
+]
+
+var bureau_map = {}
+for (var i = 0; i < bureau_arr.length; i++) {
+  var sp = bureau_arr[i].split(",")
+  bureau_map[sp[2]] = sp[1]
+}
+
 function search_emu(str) {
   var ret = []
   for (var key = 40000; key < 80000; key++) {
@@ -2015,7 +2047,7 @@ function search_emu(str) {
     if (trainset.emu_type == 'BF-C' && trainset.emu_no == '5162') {
       c += " " + "type400BFC5162"
     }
-    result += trainset.train_code + " " + trainset.bureau + " <span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span><br />\n"
+    result += trainset.train_code + " " + (bureau_map[trainset.bureau] || trainset.bureau) + " <span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span><br />\n"
   }
   //document.getElementById("emu").innerHTML = result;
   document.getElementById("result").innerHTML = result;
@@ -2024,7 +2056,7 @@ function search_emu(str) {
 function emu_by_no(code) {
   var key = hash_no(code.split("/")[0]) - 1
   var trainset = window.emu[key]
-  if (!trainset || typeof (trainset.emu_type) != "string") return []
+  if (!trainset || typeof (trainset.emu_type) != "string") return ""
   var c = ""
   if (trainset.emu_double) {
     c += "double"
@@ -2033,7 +2065,7 @@ function emu_by_no(code) {
   if (trainset.emu_type == 'BF-C' && trainset.emu_no == '5162') {
     c += " " + "type400BFC5162"
   }
-  return trainset.bureau + "<span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span>"
+  return (bureau_map[trainset.bureau] || trainset.bureau) + "<span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span>"
 }
 
 function getemu() {
@@ -2054,6 +2086,16 @@ function getemu() {
 
         for (i in data) {
           var row = data[i].split(",");
+          if (row.length == 2) {
+              var key = hash_no(row[0]) - 1
+              window.emu[key] = {
+              train_code: row[0] || "",
+              bureau: row[1] || "",
+              emu_type: "",
+              emu_no: "",
+            }
+            continue
+          }
           if (row.length <= 6) continue
           var key = hash_no(row[0]) - 1
 
@@ -2068,19 +2110,70 @@ function getemu() {
           }
         }
 
-        setHTML("emu", "")
+        setInnerHTML("emu", "")
       } else {
-        setHTML("emu", xhr.status + " " + xhr.statusText);
+        setInnerHTML("emu", xhr.status + " " + xhr.statusText);
       }
     }
   }
 
   xhr.open("GET", url, true);
-  setHTML("emu", "loading " + url);
+  setInnerHTML("emu", "loading " + url);
   xhr.send()
 }
 
 getemu()
+
+
+// function getbureau(trainNo, id) {
+//   var date = document.getElementById("date").value;
+//   var yyyymmdd = date.replace(/-/g, "")
+//   var url = "https://mobile.12306.cn/wxxcx/wechat/bigScreen/queryTrainBureau"
+//   var body = "queryDate=" + yyyymmdd + "&trainCode=" + trainNo
+//   var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+//   xhr.onreadystatechange = function () {
+//     if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+//       var j = JSON.parse(xhr.responseText);
+//       if (j.data) {
+//         if(!id) {
+//           id = "emu"
+//           setInnerHTML(id, trainNo + " " + j.data.bureau_code + " " + j.data.bureau_code_name  + " " + j.data.subbureau_code  + " " + j.data.subbureau_code_name  + " " + j.data.startDate + "<br />\n" + document.getElementById(id).innerHTML);
+//         } else {
+//           setInnerHTML(id, j.data.bureau_code + " " + j.data.bureau_code_name  + " " + j.data.subbureau_code  + " " + j.data.subbureau_code_name);
+//         }
+//       } else {
+//         if(!id) {
+//           id = "emu"
+//         }
+//         setInnerHTML(id, trainNo + " " + j.errorMsg + "<br />\n" + document.getElementById("emu").innerHTML);
+//       }
+//     }
+//   }
+//   xhr.open("POST", url.replace(/^http[s]*:\/\//g, endpoint), true);
+//   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//   xhr.send(body);
+// }
+
+function getemuqrcode(emuSeatCode) {
+  var url = "https://mobile.12306.cn/wxxcx/wechat/main/travelServiceDecodeQrcode"
+  var body = "c=" + emuSeatCode + "-02-01A&w=h"
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+      var j = JSON.parse(xhr.responseText);
+      console.log(j.data)
+      if (j.data) {
+        setInnerHTML("emu", j.data.carCode + " " + j.data.trainCode + " " + j.data.trainNo + " " + j.data.bureauCode + " " + j.data.bureauName.replace(/中国铁路(.*)集团有限公司/g, "$1") + " " + j.data.deptName + " " + j.data.startDay + " " + j.data.trainRepeat + " " + j.data.coachNo + " " + j.data.seatNo + " " + j.data.seatType + "<br />\n" + document.getElementById("emu").innerHTML);
+      } else {
+        setInnerHTML("emu", emuSeatCode + " " + j.errorMsg + "<br />\n" + document.getElementById("emu").innerHTML);
+      }
+    }
+  }
+  xhr.open("POST", url.replace(/^http[s]*:\/\//g, endpoint), true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send(body);
+}
+
 
   </script>
 </body>
