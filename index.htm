@@ -223,7 +223,7 @@ input {
   <div id="time"></div>
   <span onclick="setValue('date',dateAdd(getValue('date'),-7))">-7</span>
   <span onclick="setValue('date',dateAdd(getValue('date'),-1))">-1</span>
-  <input type="date" id="date" onchange="console.log(this.value)" />
+  <input type="date" id="date" style="min-width:8em;max-width:8em" onchange="console.log(this.value)" />
   <span onclick="setValue('date',dateAdd(getValue('date'),1))">+1</span>
   <span onclick="setValue('date',dateAdd(getValue('date'),7))">+7</span>
   <span onclick="setValue('date',dateAdd(timeStr(0, 'yyyy-mm-dd'),29))">+29</span>
@@ -263,7 +263,8 @@ input {
   </div>
   <div id="sch"></div>
   <div id="result" style="white-space: nowrap;"></div>
-  <pre id="emu" style="overflow-x:scroll;white-space: nowrap;"></pre>
+  <div id="emu" style="white-space: nowrap;"></div>
+  <pre id="emuQR" style="overflow-x:scroll;white-space: nowrap;"></pre>
   <div id="ticket"></div>
   <a href="/archive.htm" target="_blank">历史时刻表</a>
   <a href="/station.htm" target="_blank">车站车次图示</a>
@@ -631,13 +632,12 @@ function is_a_day(s, d) {
 //is_a_day('191230-200123|25-0201|03|05-10|12|14|16|18|20|22|24|26|28|0301|03|05|07|09|11|13|15-0414', '2020-03-15')
 
 function ticket_date() {
-  holiday = ['2022-01-01', '2022-01-02', '2022-01-03',
-    '2022-01-31', '2022-02-01', '2022-02-02', '2022-02-03', '2022-02-04', '2022-02-056', '2022-02-06',
-    '2022-04-03', '2022-04-04', '2022-04-05',
-    '2022-04-30', '2022-05-01', '2022-05-02', '2022-05-03', '2022-05-04',
-    '2022-06-03', '2022-06-04', '2022-06-05',
-    '2022-09-10', '2022-09-11', '2022-09-12',
-    '2022-10-01', '2022-10-02', '2022-10-03', '2022-10-04', '2022-10-05', '2022-10-06', '2022-10-07']
+  holiday = ['2022-12-31', '2023-01-01', '2023-01-02',
+    '2023-01-21', '2023-01-22', '2023-01-23', '2023-01-24', '2023-01-25', '2023-01-26','2023-01-27', 
+    '2023-04-05',
+    '2023-04-29', '2023-04-30', '2023-05-01', '2023-05-02', '2023-05-03',
+    '2023-06-03', '2023-06-04', '2023-06-05',
+    '2023-09-29', '2023-09-30', '2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05', '2023-10-06']
   var h = 0
   var html = ''
   var base_date = timeStr(0, "yyyy-mm-dd")
@@ -662,14 +662,14 @@ function ticket_date() {
 
 ticket_date()
 
-window.LeftTicketUrl = "leftTicket/queryZ"; // 余票默认URL
+window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
 endpoint = "/" // "http://127.0.0.1/"
 if (window.location.href.indexOf('github.io') >= 0) {
   endpoint = "http://127.0.0.1/"
 }
 date = timeStr(0, "yyyy-mm-dd")
 setValue("date", date);
-graph_yymmdd = '220620'
+graph_yymmdd = '221011'
 
 function getLeftTicketUrl() {
   setInnerHTML("ticket", "start LeftTicketUrl"); //
@@ -890,7 +890,7 @@ function search_train_csv(kw) {
         + " " + "<span class=\"type" + traintype(t.train_code, t.service_type) + "\" onclick=\"get_search_time_csv('" + t.train_no.slice(2, 10).replace(/^[0]+/g, "") + "')\">"
         + t.train_code // multi_train_no(t.train_no, t.train_code)
         + "</span>" + " " + (telename(t.from_station) || "---") + " " + (telename(t.to_station) || "---")
-        + " " + emu_by_no(t.train_code)
+        + " " + emu_by_code(t.train_code)
         // + " " + t.service_type
         + " " + "<span class=\"" + (is_run ? "" : "ctl") + "\">" + t.date + "</span>"
         //+ " " + "<a href=" + schurl + " target='_blank'>" + multi_train_no(t.train_no, t.train_code) + "</a>" 
@@ -969,7 +969,7 @@ function search_time_csv(kw) {
   var str = "";
   for (var key = minkey; key <= maxkey; key++) {
     sch = window.timetable[key]
-    if (sch.length == 0) {
+    if (!sch || sch.length == 0) {
       continue
     }
     for (i in sch) {
@@ -990,7 +990,7 @@ function search_time_csv(kw) {
         str += ("<div class=\"sch\" id=\"sch_" + t.train_code + "\"><div><span class=\"type"
           + traintype(t.train_code, t.service_type) + "\">"
           + t.train_code
-          + "</span> " + telename(t.from_station) + " " + telename(t.to_station) + " " + t.date + " " + emu_by_no(t.train_code)
+          + "</span> " + telename(t.from_station) + " " + telename(t.to_station) + " " + t.date + " " + emu_by_code(t.train_code)
           + "</div>\n");
       }
 
@@ -1534,7 +1534,7 @@ function ticketHTML(result, map) {
       + "<td>" + col[14] + "</td>\n"
       + "<td>" + col[15] + "</td>\n"
       + "<td>" + col[18] + "</td>\n"
-      + "<td title=\"secretStr " + decodeURIComponent(col[0]) + "\nyp_info " + decodeURIComponent(col[12]) + "\">" + col[1].replace(/<[^>]+>/g, " ") + "|" + col[11] + "|" + (col[46].split("#")[0] == "5" ? "智" : "") + (col[46].split("#")[1] == "1" ? "复" : "") + (col[46].split("#")[2] && col[46].split("#")[2].substring(0, 1) == "Q" ? "静" : "") + "|" + emu_by_no(col[3]) + "|" + col[46] + "</td>\n"
+      + "<td title=\"secretStr " + decodeURIComponent(col[0]) + "\nyp_info " + decodeURIComponent(col[12]) + "\">" + col[1].replace(/<[^>]+>/g, " ") + "|" + col[11] + "|" + (col[46].split("#")[0] == "5" ? "智" : "") + (col[46].split("#")[1] == "1" ? "复" : "") + (col[46].split("#")[2] && col[46].split("#")[2].substring(0, 1) == "Q" ? "静" : "") + "|" + emu_by_code(col[3]) + "|" + col[46] + "</td>\n"
       + "</tr>\n"
     );
 
@@ -2039,33 +2039,29 @@ function search_emu(str) {
   var result = ""
   for (var i = 0; i < ret.length; i++) {
     var trainset = ret[i]
-    var c = ""
-    if (trainset.emu_double) {
-      c += "double"
-    }
-    c += " " + css_emu(trainset.emu_type)
-    if (trainset.emu_type == 'BF-C' && trainset.emu_no == '5162') {
-      c += " " + "type400BFC5162"
-    }
-    result += trainset.train_code + " " + (bureau_map[trainset.bureau] || trainset.bureau) + " <span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span><br />\n"
+    result += "<span onclick=\"get_search_train_csv('" + trainset.train_code + "')\">" + trainset.train_code + "</span> " 
+    + emu_type_no(trainset.bureau, trainset.emu_type, trainset.emu_no, trainset.emu_double) + "<br />\n"
   }
-  //document.getElementById("emu").innerHTML = result;
-  document.getElementById("result").innerHTML = result;
+  document.getElementById("emu").innerHTML = result;
 }
 
-function emu_by_no(code) {
+function emu_by_code(code) {
   var key = hash_no(code.split("/")[0]) - 1
   var trainset = window.emu[key]
   if (!trainset || typeof (trainset.emu_type) != "string") return ""
+  return emu_type_no(trainset.bureau, trainset.emu_type, trainset.emu_no, trainset.emu_double)
+}
+
+function emu_type_no(bureau, emu_type, emu_no, emu_double) {
   var c = ""
-  if (trainset.emu_double) {
+  if (emu_double) {
     c += "double"
   }
-  c += " " + css_emu(trainset.emu_type)
-  if (trainset.emu_type == 'BF-C' && trainset.emu_no == '5162') {
+  c += " " + css_emu(emu_type)
+  if (emu_type == 'BF-C' && emu_no == '5162') {
     c += " " + "type400BFC5162"
   }
-  return (bureau_map[trainset.bureau] || trainset.bureau) + "<span class=\"" + c + "\">" + trainset.emu_type + " " + trainset.emu_no + "</span>"
+  return (bureau_map[bureau] || bureau) + " <span class=\"" + c + "\">" + emu_type + " " + emu_no + "</span>"
 }
 
 function getemu() {
@@ -2136,16 +2132,16 @@ getemu()
 //       var j = JSON.parse(xhr.responseText);
 //       if (j.data) {
 //         if(!id) {
-//           id = "emu"
+//           id = "emuQR"
 //           setInnerHTML(id, trainNo + " " + j.data.bureau_code + " " + j.data.bureau_code_name  + " " + j.data.subbureau_code  + " " + j.data.subbureau_code_name  + " " + j.data.startDate + "<br />\n" + document.getElementById(id).innerHTML);
 //         } else {
 //           setInnerHTML(id, j.data.bureau_code + " " + j.data.bureau_code_name  + " " + j.data.subbureau_code  + " " + j.data.subbureau_code_name);
 //         }
 //       } else {
 //         if(!id) {
-//           id = "emu"
+//           id = "emuQR"
 //         }
-//         setInnerHTML(id, trainNo + " " + j.errorMsg + "<br />\n" + document.getElementById("emu").innerHTML);
+//         setInnerHTML(id, trainNo + " " + j.errorMsg + "<br />\n" + document.getElementById("emuQR").innerHTML);
 //       }
 //     }
 //   }
@@ -2163,9 +2159,9 @@ function getemuqrcode(emuSeatCode) {
       var j = JSON.parse(xhr.responseText);
       console.log(j.data)
       if (j.data) {
-        setInnerHTML("emu", j.data.carCode + " " + j.data.trainCode + " " + j.data.trainNo + " " + j.data.bureauCode + " " + j.data.bureauName.replace(/中国铁路(.*)集团有限公司/g, "$1") + " " + j.data.deptName + " " + j.data.startDay + " " + j.data.trainRepeat + " " + j.data.coachNo + " " + j.data.seatNo + " " + j.data.seatType + "<br />\n" + document.getElementById("emu").innerHTML);
+        setInnerHTML("emuQR", j.data.carCode + " " + j.data.trainCode + " " + j.data.trainNo + " " + j.data.bureauCode + " " + j.data.bureauName.replace(/中国铁路(.*)集团有限公司/g, "$1") + " " + j.data.deptName + " " + j.data.startDay + " " + j.data.trainRepeat + " " + j.data.coachNo + " " + j.data.seatNo + " " + j.data.seatType + "<br />\n" + document.getElementById("emuQR").innerHTML);
       } else {
-        setInnerHTML("emu", emuSeatCode + " " + j.errorMsg + "<br />\n" + document.getElementById("emu").innerHTML);
+        setInnerHTML("emuQR", emuSeatCode + " " + j.errorMsg + "<br />\n" + document.getElementById("emuQR").innerHTML);
       }
     }
   }
