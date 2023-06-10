@@ -1542,7 +1542,7 @@ function ticketHTML(result, map) {
       + "<td>" + col[14] + "</td>\n"
       + "<td>" + col[15] + "</td>\n"
       + "<td>" + col[18] + "</td>\n"
-      + "<td title=\"secretStr " + decodeURIComponent(col[0]) + "\nyp_info " + decodeURIComponent(col[12]) + "\">" + col[1].replace(/<[^>]+>/g, " ") + "|" + col[11] + "|" + (col[46].split("#")[0] == "5" ? "智" : "") + (col[46].split("#")[1] == "1" ? "复" : "") + (col[46].split("#")[2] && col[46].split("#")[2].substring(0, 1) == "Q" ? "静" : "") + (col[46].split("#")[5] && col[46].split("#")[5].substring(0, 1) == "D" ? "動感號" : "") + (col[46].split("#")[6] && col[46].split("#")[6] != "z" ? "铺" : "") + "|" + emu_by_code(col[3]) + (col[46].split("#")[5] && col[46].split("#")[5].substring(0, 1) == "D" ? "MTR" : "") + "|" + col[46] + "</td>\n"
+      + "<td title=\"secretStr " + decodeURIComponent(col[0]) + "\nyp_info " + decodeURIComponent(col[12]) + "\">" + col[1].replace(/<[^>]+>/g, " ") + "|" + col[11] + "|" + (col[46].split("#")[0] == "5" ? "智" : "") + (col[46].split("#")[1] == "1" ? "复" : "") + (col[46].split("#")[2] && col[46].split("#")[2].substring(0, 1) == "Q" ? "静" : "") + (col[46].split("#")[5] == "D" ? "動感號" : "") + (col[46].split("#")[6] != "z" ? "铺" : "") + "|" + emu_by_code(col[3]) + (col[46].split("#")[5] && col[46].split("#")[5].substring(0, 1) == "D" ? "MTR" : "") + "|" + col[46] + "</td>\n"
       + "</tr>\n"
     );
 
