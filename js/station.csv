@@ -543,7 +543,7 @@ hgz,红光镇,IGW,hongguangzhen,hgz,556,1707,成都,15:30,uuy54tXy
 hhe,红河,HHM,honghe,hh,557,1955,蒙自,15,uuy60w==
 hhe,黑河,HJB,heihe,hh,558,0009,黑河,16:30,utq60w==
 hhn,怀化南,KAQ,huaihuanan,hhn,559,1403,怀化,17:30,u7O7r8TP
-hhq,黄河景区,HCF,huanghejingqu,hhjq,560,1222,郑州,08,u8a6076wx/g=
+hhq,黄河景区,HCF,huanghejingqu,hhjq,560,1222,郑州,14,u8a6076wx/g=
 hhu,怀化,HHQ,huaihua,hh,561,1403,怀化,17,u7O7rw==
 hhu,后湖,IHN,houhu,hh,562,1314,武汉,18,uvO6/g==
 hji,环江,HFZ,huanjiang,hj,563,1601,河池,17:30,u7e9rQ==
@@ -741,7 +741,7 @@ lan,六安,UAH,luan,la,755,0819,六安,12:30,wfmwsg==
 lba,灵宝,LBF,lingbao,lb,756,1207,三门峡,17:30,wemxpg==
 lbb,来宾北,UCZ,laibinbei,lbb,757,1628,来宾,17:30,wLSx9rGx
 lbx,灵宝西,LPF,lingbaoxi,lbx,758,1207,三门峡,17:30,wemxps73
-lby,绿博园,LCF,lvboyuan,lby,759,1222,郑州,08,wsyyqdSw
+lby,绿博园,LCF,lvboyuan,lby,759,1222,郑州,14,wsyyqdSw
 lca,临沧,LXM,lincang,lc,760,6913,临沧,15,wdmy1w==
 lcb,隆昌北,NWW,longchangbei,lcb,761,1712,内江,,wqGy/bGx
 lcd,乐昌东,ILQ,lechangdong,lcd,762,1501,韶关,14:30,wNay/bar
@@ -954,7 +954,7 @@ nya,南阳,NFF,nanyang,ny,971,1216,南阳,17,xM/R9A==
 nyd,南阳东,NOF,nanyangdong,nyd,972,1216,南阳,17,xM/R9Lar
 nyo,纳雍,NYE,nayong,ny,973,1848,毕节,15:30,xMnTug==
 nyu,南峪,NUP,nanyu,ny,974,0365,石家庄,16,xM/T+A==
-nyz,南阳寨,NYF,nanyangzhai,nyz,975,1222,郑州,08,xM/R9NWv
+nyz,南阳寨,NYF,nanyangzhai,nyz,975,1222,郑州,14,xM/R9NWv
 nzs,碾子山,NZX,nianzishan,nzs,976,0007,齐齐哈尔,16:30,xOvX08m9
 pan,普安,PAN,puan,pa,977,1314,武汉,18,xtWwsg==
 pcd,蒲城东,PEY,puchengdong,pcd,978,2002,渭南,18,xtGzx7ar
@@ -1064,7 +1064,7 @@ scb,双城北,SBB,shuangchengbei,scb,1082,0034,哈尔滨,16:30,y6uzx7Gx
 scd,舒城东,SDU,shuchengdong,scd,1083,0819,六安,12:30,yuazx7ar
 sch,莎车,SCR,shache,sc,1084,2410,喀什,09,ya+ztQ==
 sch,沙城,SCP,shacheng,sc,1085,0315,张家口,16,ybOzxw==
-scl,宋城路,SFF,songchenglu,scl,1086,1211,开封,08,y86zx8K3
+scl,宋城路,SFF,songchenglu,scl,1086,1211,开封,15,y86zx8K3
 scp,双城堡,SCB,shuangchengpu,scp,1087,0034,哈尔滨,16:30,y6uzx7Gk
 sdo,邵东,FIQ,shaodong,sd,1088,1415,邵阳,17:30,ydu2qw==
 sdu,十渡,SEP,shidu,sd,1089,0357,北京,16,yq62yQ==
@@ -1402,7 +1402,7 @@ xyi,秀英,XYA,xiuying,xy,1423,2501,海口,13:30,0OPTog==
 xyu,祥云,XQM,xiangyun,xy,1424,1906,大理,15,z+nUxg==
 xyu,新余,XUG,xinyu,xy,1425,1111,新余,17:30,0MLT4A==
 xyx,咸阳西,XOY,xianyangxi,xyx,1426,2004,咸阳,18,z8zR9M73
-xzc,新郑机场,EZF,xinzhengjichang,xzjc,1427,1222,郑州,08,0MLWo7v6s6E=
+xzc,新郑机场,EZF,xinzhengjichang,xzjc,1427,1222,郑州,14,0MLWo7v6s6E=
 xzd,徐州东,UUH,xuzhoudong,xzd,1428,0701,徐州,17:30,0OzW3bar
 xzh,忻州,XXV,xinzhou,xz,1429,0403,忻州,15,0MPW3Q==
 xzh,新肇,XZT,xinzhao,xz,1430,0037,大庆,16:30,0MLV2A==
@@ -2862,7 +2862,7 @@ whb,芜湖北,WBU,wuhubei,whb,2883,0812,芜湖,10,zt+6/rGx
 whh,威海南海,WRK,weihainanhai,whnh,2884,0612,威海,10:30,zf66o8TPuqM=
 whn,芜湖南,RVH,wuhunan,whn,2885,0812,芜湖,10,zt+6/sTP
 whn,卫辉南,WVF,weihuinan,whn,2886,1204,新乡,12,zsC71MTP
-whu,卫辉,WHF,weihui,wh,2887,1204,新乡,17:30,zsC71A==
+whu,卫辉,WHF,weihui,wh,2887,1204,新乡,12,zsC71A==
 wjc,吴家川,WCJ,wujiachuan,wjc,2888,2103,白银,,zuK80rSo
 wji,渭津,WJL,weijin,wj,2889,0122,辽源,16:30,zry98g==
 wji,午汲,WJP,wuji,wj,2890,0349,邯郸,,zue8sw==
@@ -2916,7 +2916,7 @@ wzb,温州北,URH,wenzhoubei,yj,2937,0920,温州,,zsLW3bGx
 wzg,苇子沟,WZL,weizigou,wzg,2938,9097,延边,16:30,zq3X07m1
 wzh,韦庄,WZY,weizhuang,wz,2939,2002,渭南,18,zqTXrw==
 wzh,五寨,WZV,wuzhai,wz,2940,0403,忻州,15,zuXVrw==
-wzh,武陟,WIF,wuzhi,wz,2941,1205,焦作,08,zuTa7A==
+wzh,武陟,WIF,wuzhi,wz,2941,1205,焦作,17:30,zuTa7A==
 wzn,湾沚南,WNU,wanzhinan,wzn,2942,0812,芜湖,10,zeWbYsTP
 wzz,魏杖子,WKD,weizhangzi,wzz,2943,0233,朝阳,16:30,zrrVyNfT
 wzz,微子镇,WQP,weizizhen,wzz,2944,0414,长治,,zqLX09Xy
@@ -3014,7 +3014,7 @@ xwn,兴文南,XAE,xingwennan,xwn,3035,1714,宜宾,15:30,0MvOxMTP
 xwp,新窝铺,EPD,xinwopu,xwp,3036,0508,赤峰,16:30,0MLO0cbM
 xwq,西乌旗,XWD,xiwuqi,xwq,3037,1646,兴安,16:30,zvfO2sbs
 xwu,修武,XWF,xiuwu,xw,3038,1205,焦作,17:30,0N7O5A==
-xwx,修武西,EXF,xiuwuxi,xwx,3039,1205,焦作,08,0N7O5M73
+xwx,修武西,EXF,xiuwuxi,xwx,3039,1205,焦作,17:30,0N7O5M73
 xxi,新县,XSN,xinxian,xx,3040,1220,信阳,18,0MLP2A==
 xxi,息县,ENN,xixian,xx,3041,1220,信阳,18,z6LP2A==
 xxi,湘乡,XXQ,xiangxiang,xx,3042,1410,湘潭,17:30,z+bP5w==
