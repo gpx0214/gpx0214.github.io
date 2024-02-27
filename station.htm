@@ -4,195 +4,204 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-    body {
-      font-family: "Helvetica Neue", Helvetica, monospace;
-    }
+body {
+  font-family: "Helvetica Neue", Helvetica, monospace;
+  -webkit-text-size-adjust: none;
+}
 
-    input {
-      font-size: 1em;
-      width: 30%;
-      max-width: 20em;
-    }
+table {
+  border-collapse: collapse;
+}
 
-    .sch {
-      margin: 0.5em;
-      display: inline-table;
-    }
+td {
+  white-space: nowrap;
+  word-wrap: keep-all;
+  word-break: keep-all;
+}
 
-    table {
-      border-collapse: collapse;
-    }
+input {
+  font-size: 1em;
+  width: 30%;
+  max-width: 20em;
+  padding: 1px;
+}
 
-    td {
-      white-space: nowrap;
-      word-wrap: keep-all;
-      word-break: keep-all;
-    }
+form {
+  margin: 0px;
+}
 
-    .abs {
-      position: absolute;
-    }
+.rel {
+  position: relative;
+}
 
-    .rel {
-      position: relative;
-    }
+.abs {
+  position: absolute;
+}
 
-    .hide {
-      display: none;
-    }
+.stickytop {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
 
-    .typeZ {
-      background-color: #004a80;
-      color: #ffffff;
-    }
+.right {
+  text-align: right;
+}
 
-    .typeT {
-      background-color: #1445b8;
-      color: #c32230;
-    }
+.hide {
+  display: none;
+}
 
-    .typeK,
-    .typeY,
-    .type1,
-    .type2,
-    .type3,
-    .type4,
-    .type5,
-    .type6,
-    .type7,
-    .type8,
-    .type9 {
-      background-color: #cc4c33;
-      color: #ffffff;
-    }
+.typeZ,
+.type25T {
+  background-color: #004a80;
+  color: #ffffff;
+}
 
-    .type200J {
-      background-color: #29a352;
-      color: #e6cc4c
-    }
+.typeBSP {
+  background-color: #004a80;
+  color: #acd2c9;
+}
 
-    .type200JSG {
-      background-color: #29a352;
-      color: #ba0c1c;
-    }
+.type25DT {
+  background-color: #1445b8;
+  color: #c32230;
+}
 
-    .type300AF {
-      background-color: #ddddff;
-      color: #a80022
-    }
+.typeT,
+.type25K {
+  background-color: #1445b8;
+  color: #c32230;
+}
 
-    .type300BF {
-      background-color: #ddddff;
-      color: #bf9540;
-    }
+.type25Z {
+  background-color: #33a6cc;
+  color: #ffffff;
+}
 
-    .type400AF {
-      background-color: #d4d4d4;
-      color: #a80022
-    }
+.typeK,
+.typeY,
+.type1,
+.type2,
+.type3,
+.type4,
+.type5,
+.type6,
+.type7,
+.type8,
+.type9,
+.type25G,
+.type25A {
+  background-color: #cc4c33;
+  color: #ffffff;
+}
 
-    .type400BF {
-      background-color: #bf9540;
-      color: #ffffff;
-    }
+.type200J {
+  background-color: #29a352;
+  color: #e6cc4c;
+}
 
-    .type400AFZ {
-      background-color: #d4d4d4;
-      color: #d06301
-    }
+.type200JSG {
+  background-color: #29a352;
+  color: #ba0c1c;
+}
 
-    .type400BFZ {
-      background-color: #bf9540;
-      color: #fdfc9a;
-    }
+.type200JAD {
+  background-color: #e0e8f3;
+  color: #415853;
+}
 
-    .type400BFC5162 {
-      background-color: #1f63a8;
-      color: #999999;
-    }
+.type300AF {
+  background-color: #ddddff;
+  color: #a80022;
+}
 
-    .typeCRH {
-      background-color: #ffffff;
-      color: #3d668f;
-    }
+.type300BF {
+  background-color: #ddddff;
+  color: #bf9540;
+}
 
-    .typeservice_0 {
-      background-color: #567e60;
-      color: #fff700
-    }
+.type400AF {
+  background-color: #d4d4d4;
+  color: #a80022;
+}
 
-    .typeG {
-      background-color: #d4d4d4;
-      color: #a80022
-    }
+.type400BF {
+  background-color: #bf9540;
+  color: #ffffff;
+}
 
-    .typeC {
-      background-color: #bf9540;
-      color: #ffffff;
-    }
+.type400AFZ {
+  background-color: #d4d4d4;
+  color: #d06301;
+}
 
-    .typeD,
-    .typeS {
-      background-color: #ffffff;
-      color: #3d668f;
-    }
+.type400BFZ {
+  background-color: #bf9540;
+  color: #fdfc9a;
+}
 
-    .double {
-      text-decoration-line: underline;
-      text-decoration-style: double;
-    }
+.type400BFC5162 {
+  background-color: #1f63a8;
+  color: #999999;
+}
 
-    .ctl {
-      color: #999999;
-      text-decoration-line: line-through;
-      text-decoration-color: #FF0000;
-    }
+.type400BFZ0524 {
+  background-color: #4b2673;
+  color: #d98cb3;
+}
 
-    #ticket {
-      white-space: nowrap;
-      word-wrap: keep-all;
-      word-break: keep-all;
-    }
+.typeCRH {
+  background-color: #ffffff;
+  color: #3d668f;
+}
 
-    .ticket_full {
-      background-color: #569b4c;
-      color: #ffffff;
-    }
+.typeservice_0 {
+  background-color: #567e60;
+  color: #fff700;
+}
 
-    .ticket_warn,
-    .seat_warn.ticket_full {
-      background-color: #ef8a3b;
-      color: #ffffff;
-    }
+.typeG {
+  background-color: #d4d4d4;
+  color: #a80022;
+}
 
-    .ticket_hb {
-      background-color: #ffffff;
-      color: #5697f5;
-    }
+.typeC {
+  background-color: #bf9540;
+  color: #ffffff;
+}
 
-    .ticket_out {
-      background-color: #ffffff;
-      color: #999999;
-    }
+.typeD,
+.typeS {
+  background-color: #ffffff;
+  color: #3d668f;
+}
 
-    .ticket_discount {
-      background-color: #ffffff;
-      color: #cc4c33;
-    }
+.double {
+  text-decoration-line: underline;
+  text-decoration-style: double;
+}
 
-    .seat_match {
-      font-weight: bolder;
-      text-decoration: underline #cccccc;
-    }
+.AC380V {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+}
 
-    .weekend {
-      color: #ff0000;
-      text-decoration: underline #ff0000;
-    }
+.DC600V {
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+}
 
-    #trainabs_default>div {
-      white-space: nowrap;
-    }
+.ctl {
+  color: #999999;
+  text-decoration-line: line-through;
+  text-decoration-color: #FF0000;
+}
+
+#trainabs_default>div {
+  white-space: nowrap;
+}
   </style>
   <style title='hide'>
   </style>
@@ -201,7 +210,7 @@
 <body>
   <div id="view-abs" style="z-index:10;position:absolute;">
     <div id="" class="typeZ" style="position:absolute;left:0px">
-      <input type="text" id="station" placeholder="电报码" style="min-width:50px;z-index:100"
+      <input type="text" id="station" placeholder="站" style="min-width:50px;z-index:100"
         onchange="window.location.hash=this.value;getstat(this.value)" />
     </div>
     <div id="typeabs" class="typeG" style="white-space:nowrap;position:absolute;top:0px;left:0px">
@@ -217,832 +226,1159 @@
   </div>
 
   <script>
-    function setHTML(id, str) {
-      e = document.getElementById(id);
-      e && (e.innerHTML = str);
+function setInnerHTML(id, str) {
+  e = document.getElementById(id);
+  e && (e.innerHTML = str);
+}
+
+function setValue(id, str) {
+  e = document.getElementById(id);
+  e && (e.value = str);
+}
+
+function getValue(id) {
+  e = document.getElementById(id);
+  return e ? e.value : "";
+}
+
+graph_yymmdd = '240110'
+
+function isLeap(y) {
+  if (y & 0x03)
+    return 0;
+  if (y % 400 == 0)
+    return 1;
+  if (y % 100 == 0)
+    return 0;
+  return 1;
+}
+
+function weekday(date) {
+  if (typeof (date) != 'string') return -1
+  match = date.match(/(\d+)-(\d+)-(\d+)/)
+  if (!match) return -1
+  y = Number(match[1])
+  m = Number(match[2])
+  d = Number(match[3])
+
+  if (m <= 2) {
+    m += 12;
+    y -= 1;
+  }
+
+  c = y / 100 | 0;
+  y = y % 100;
+
+  var w = y + (y / 4 | 0) + (c / 4 | 0) - 2 * c + ((13 * (m + 1)) / 5 | 0) + d - 1;
+  while (w < 0) {
+    w += 7;
+  }
+  while (w >= 7) {
+    w -= 7;
+  }
+  return w | 0
+}
+
+function timeStr(i, ff) {
+  var n = Number(i);
+  var f = ff ? ff : "yyyy-mm-dd HH:MM:SS.xxx"
+  n > 0x7FFFFFFF ? n *= 1 : n *= 1000;
+  var d = n > 0 ? new Date(n) : new Date();
+  return f
+    .replace("yyyy", ('0000' + d.getFullYear()).slice(-4))
+    .replace("mm", ('00' + (d.getMonth() + 1)).slice(-2))
+    .replace("dd", ('00' + d.getDate()).slice(-2))
+    .replace("HH", ('00' + d.getHours()).slice(-2))
+    .replace("MM", ('00' + d.getMinutes()).slice(-2))
+    .replace("SS", ('00' + d.getSeconds()).slice(-2))
+    .replace("xxx", ('000' + d.getMilliseconds()).slice(-3));
+}
+
+endpoint = "/" // "http://127.0.0.1/"
+if (window.location.href.indexOf('github.io') >= 0) {
+  endpoint = "http://127.0.0.1/"
+}
+var date = timeStr(0, "yyyymmdd")
+
+
+function date_ymd(s) {
+  if (s.length == 6) {
+    s = '20' + s
+  }
+  return s.replace(/(\d\d\d\d)(\d\d)(\d\d)/, "$1-$2-$3")
+}
+
+function date_yyyymmdd(s) {
+  return s.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3")
+}
+
+
+function datediff(date1, date0) {
+  if (typeof (date1) != 'string') return 0
+  if (typeof (date0) != 'string') return 0
+  var day_month = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+  match = date_ymd(date0).match(/(\d+)-(\d+)-(\d+)/)
+  if (!match) return 0
+  y = Number(match[1])
+  m = Number(match[2])
+  d = Number(match[3])
+
+  match1 = date_ymd(date1).match(/(\d+)-(\d+)-(\d+)/)
+  if (!match1) return 0
+  y1 = Number(match1[1])
+  m1 = Number(match1[2])
+  d1 = Number(match1[3])
+
+  day_month[2 - 1] = 28;
+  if (isLeap(y))
+    day_month[2 - 1] = 29;
+
+  cmp = 0
+  if (y < y1) {
+    cmp = 1
+  }
+  if (y > y1) {
+    cmp = -1
+  }
+  if (y == y1) {
+    if (m < m1) {
+      cmp = 1
     }
-
-    function setValue(id, str) {
-      e = document.getElementById(id);
-      e && (e.value = str);
+    if (m > m1) {
+      cmp = -1
     }
+  }
 
-    function getValue(id) {
-      e = document.getElementById(id);
-      return e ? e.value : "";
+  while (cmp == 1) {
+    d -= day_month[(m - 1) % 12]
+    m ++
+    while (m > 12) {
+      m -= 12;
+      y += 1;
+      day_month[2 - 1] = 28;
+      if (isLeap(y))
+        day_month[2 - 1] = 29;
     }
-
-    function weekday(date) {
-      if (typeof (date) != 'string') return -1
-      match = date.match(/(\d+)-(\d+)-(\d+)/)
-      if (!match) return -1
-      y = Number(match[1])
-      m = Number(match[2])
-      d = Number(match[3])
-
-      if (m <= 2) {
-        m += 12;
-        y -= 1;
-      }
-
-      c = y / 100 | 0;
-      y = y % 100;
-
-      var w = y + (y / 4 | 0) + (c / 4 | 0) - 2 * c + ((13 * (m + 1)) / 5 | 0) + d - 1;
-      while (w < 0) {
-        w += 7;
-      }
-      while (w >= 7) {
-        w -= 7;
-      }
-      return w | 0
+    if (y1 == y && m1 == m) {
+      break;
     }
+  }
 
-    function timeStr(i, ff) {
-      var n = Number(i);
-      var f = ff ? ff : "yyyy-mm-dd HH:MM:SS.xxx"
-      n > 0x7FFFFFFF ? n *= 1 : n *= 1000;
-      var d = n > 0 ? new Date(n) : new Date();
-      return f
-        .replace("yyyy", ('0000' + d.getFullYear()).slice(-4))
-        .replace("mm", ('00' + (d.getMonth() + 1)).slice(-2))
-        .replace("dd", ('00' + d.getDate()).slice(-2))
-        .replace("HH", ('00' + d.getHours()).slice(-2))
-        .replace("MM", ('00' + d.getMinutes()).slice(-2))
-        .replace("SS", ('00' + d.getSeconds()).slice(-2))
-        .replace("xxx", ('000' + d.getMilliseconds()).slice(-3));
+  while (cmp == -1) {
+    m--
+    while (m < 1) {
+      y -= 1;
+      day_month[2 - 1] = 28;
+      if (isLeap(y))
+        day_month[2 - 1] = 29;
+      m += 12;
     }
+    d += day_month[(m - 1) % 12]
+    if (y1 == y && m1 == m) {
+      break;
+    }
+  }
 
-    var date = timeStr(0, "yyyymmdd")
+  return d1 - d
+}
 
-    function is_a_day(s, d) {
-      //console.log("is_a_day(s, d)", s, d)
-      if (s == "") {
-        return 1
-      }
+function weekday(date) {
+  if (typeof (date) != 'string') return -1
+  match = date.match(/(\d+)-(\d+)-(\d+)/)
+  if (!match) return -1
+  y = Number(match[1])
+  m = Number(match[2])
+  d = Number(match[3])
 
-      if (s[0] == '停') {
-        return 1 - is_a_day(s.replace("停", ""), d)
-      }
+  if (m <= 2) {
+    m += 12;
+    y -= 1;
+  }
 
-      if (s[0] == '!') {
-        return 1 - is_a_day(s.replace("!", ""), d)
-      }
+  c = y / 100 | 0;
+  y = y % 100;
 
-      if (s[0] == '单' || s[0] == '双') {
-        var t_sp = s.split('&')
-        var t = t_sp[0]
-        // TODO 周期
-        /*if (t.indexOf(w) == -1) {
-          return 0
-        }*/
-        return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
-      }
+  var w = y + (y / 4 | 0) + (c / 4 | 0) - 2 * c + ((13 * (m + 1)) / 5 | 0) + d - 1;
+  while (w < 0) {
+    w += 7;
+  }
+  while (w >= 7) {
+    w -= 7;
+  }
+  return w | 0
+}
+function is_a_day(s, d) {
+  // console.log("is_a_day(s, d)", s, d)
+  if (s == "") {
+    return 1
+  }
 
-      if (s[0] == 'w') {
-        var w = weekday(d.replace(/(\d\d\d\d)(\d\d)(\d\d)/, "$1-$2-$3"))
-        if (w == 0) {
-          w = 7
-        }
-        var t_sp = s.split('&')
-        var t = t_sp[0]
-        if (t.indexOf(w) == -1) {
-          return 0
-        }
-        return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
-      }
+  if (s[0] == '停') {
+    return 1 - is_a_day(s.replace("停", ""), d)
+  }
 
-      //TODO
-      if (s.length < 4) {
-        return 1
-      }
+  if (s[0] == '!') {
+    return 1 - is_a_day(s.replace("!", ""), d)
+  }
 
-      var yyyymmdd = date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3")
-      sp = s.split("|")
-      for (i in sp) {
-        ssp = sp[i].split("-")
-        if (ssp.length) {
-          //console.log(ssp[0], ssp[ssp.length-1])
-          var tail = ssp[0]
-          yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
-          var d0 = yyyymmdd
-          var tail = ssp[ssp.length - 1]
-          yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
-          var d1 = yyyymmdd
-          //console.log(d0, d1)
-          //console.log(d, d0 <= d, d <= d1)
-          if (d0 <= d && d <= d1) {
-            return 1
-          }
-        }
-      }
-
+  if (s[0] == 'b') {
+    var t_sp = s.split('&')
+    var t = t_sp[0]
+    var diff = datediff(d, graph_yymmdd)
+    var c = (t.length-1)
+    if (t[c - diff % c] != '1') {
       return 0
     }
+    return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
+  }
+
+  if (s[0] == '单' || s[0] == '双') {
+    var t_sp = s.split('&')
+    var t = t_sp[0]
+    var diff = datediff(d, graph_yymmdd)
+    if (diff % 2 != ((s[0] == '单')?1:0) ) {
+      return 0
+    }
+    return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
+  }
+
+  if (s[0] == 'w') {
+    var w = weekday(d.replace(/(\d\d\d\d)(\d\d)(\d\d)/, "$1-$2-$3"))
+    if (w == 0) {
+      w = 7
+    }
+    var t_sp = s.split('&')
+    var t = t_sp[0]
+    if (t.indexOf(w) == -1) {
+      return 0
+    }
+    return is_a_day(t_sp.length > 1 ? t_sp[1] : '', d)
+  }
+
+  //TODO
+  if (s.length < 4) {
+    return 1
+  }
+
+  var yyyymmdd = date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3")
+  sp = s.split("|")
+  for (i in sp) {
+    ssp = sp[i].split("-")
+    if (ssp.length) {
+      //console.log(ssp[0], ssp[ssp.length-1])
+      var tail = ssp[0]
+      yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
+      var d0 = yyyymmdd
+      var tail = ssp[ssp.length - 1]
+      yyyymmdd = yyyymmdd.slice(0, 8 - tail.length) + tail
+      var d1 = yyyymmdd
+      //console.log(d0, d1)
+      //console.log(d, d0 <= d, d <= d1)
+      if (d0 <= d && d <= d1) {
+        return 1
+      }
+    }
+  }
+
+  return 0
+}
 
 
-    var px_time = 15//4
-    var px_line = 50//50
+var px_time = 15//4
+var px_line = 56//50
 
 
-    function view_scroll() {
-      var d = new Date()
-      var hh = d.getHours()
-      var mm = d.getMinutes()
-      var e = document.getElementById('view-scroll')
-      e.scrollTop = (hh * 60 + mm) * px_time - e.offsetHeight / 2
+function view_scroll() {
+  var d = new Date()
+  var hh = d.getHours()
+  var mm = d.getMinutes()
+  var e = document.getElementById('view-scroll')
+  e.scrollTop = (hh * 60 + mm) * px_time - e.offsetHeight / 2
+}
+
+
+
+function timeHTML(arr) {
+    if (!arr) arr = []
+
+    var minarr = []
+    for (var i = 0; i < arr.length; i++) {
+      var sp = arr[i].time.split(":")
+      var min = (sp[0] | 0) * 60 + (sp[1] | 0)
+      minarr.push(min)
     }
 
-    function timeHTML() {
-      document.getElementById('view').style.height = px_time * 1445
-      str = ''
-      for (var i = 0; i <= 1440; i += 15) {
-        str += "<div class=\"typeG\" style=\"position:absolute;top:" + (i * px_time) + "px;left:0px\">" + (i / 60 | 0) + ("00" + i % 60).slice(-2) + "</div>"
-      }
-      return str
-    }
-
-    function traintype(code, service) {
-      if (service == '0') {
-        return "service_0"
-      }
-      if (/^C\d{1,3}$/.test(code)) { // /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]|^C\d{1,3}$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/
-        return "200J"
-      }
-      if (/^C8[89]\d$/.test(code)) { // /^D89[89]\d$/
-        return "200JSG"
-      }
-      return code[0]
-    }
-
-    function hash_no(str) {
-      var c = str.charAt(0);
-      var offset = {
-        "Z": 10000, "T": 20000, "K": 30000,
-        "Y": 00000,
-        "G": 40000, "D": 50000, "C": 60000,
-        "S": 70000,
-        "L": 80000, "A": 80000, "N": 80000,
-        "P": 10000, "Q": 20000, "W": 30000,
-        "V": 01000, "B": 02000, "U": 04000, "X": 05000
-      }
-      var num = Number(str.replace(/\D+/g, '')) % 10000;
-      return (offset[c] || 0) + num;
-    }
-    maxlen = 90000
-
-    var default_line = "ZTK_Z_ZTK_1|GD_G_GD_1|CS_C_CS_1"
-    var linemap = {
-      "BJP": "ZTK_Z_京沪_1|GDC_D_京哈_1|_Z_北京西_0",
-      "BXP": "ZTK_Z_京广_1|GD_G_京广_1|CS_Z_京九_1",
-      "VNP": "GD_G_京沪_1|C_C_京津_1|ZTK_Z_京沪_1",
-      "VAP": "GDS_G_京张_1|ZTK_K_京张_1",
-      "IFP": "GDC_G_京沈_1|S_S_东北环_1|_G_北京_0",
-      "QIP": "GDS_G_京张_1|_G_北京北_0",
-      "IZQ": "G_G_京广_1|D_D_南广贵广_1|CS_C_广珠_1|_G_京广_0"
-    }
-
-    function lineHTML(stat) {
-      str = ''
-
-      arr = (linemap[stat] || default_line).split("|")
-
-      for (var i = 0; i < arr.length; i++) {
-        row = arr[i].split("_")
-
-        name = row[2] + "到"
-        color = row[1]
-        linenum = i * 2 + 1
-        str += (
-          "<div id=\"\" class=\"type" + color
-          + "\"style=\"position:absolute;left:" + linenum * px_line + "px\">"
-          + name
-          + "</div>")
-
-        name = row[2] + "发"
-        color = row[1]
-        linenum = i * 2 + 2
-
-        str += (
-          "<div id=\"\" class=\"type" + color
-          + "\"style=\"position:absolute;left:" + linenum * px_line + "px\">"
-          + name
-          + "</div>")
-      }
-      return str
-    }
-
-    BJPVAB = [
-      "Y509",
-      "Y510",
-      "2549",
-      "2550",
-      "4216",
-      "Z15",
-      "Z16",
-      "Z17",
-      "Z18",
-      "Z61",
-      "Z62",
-      "Z83",
-      "Z84",
-      "Z117",
-      "Z118",
-      "Z157",
-      "Z158",
-      "Z203",
-      "Z204",
-      "Z211",
-      "Z212",
-      "Z4061",
-      "Z4062",
-      "T17",
-      "T18",
-      "T47",
-      "T48",
-      "T297",
-      "T298",
-      "T4115",
-      "T4116",
-      "T4117",
-      "T4118",
-      "T5685",
-      "T5686",
-      "T5687",
-      "T5688",
-      "T5695",
-      "T5696",
-      "T5697",
-      "T5698",
-      "T5699",
-      "T5700",
-      "K53",
-      "K54",
-      "K55",
-      "K56",
-      "K95",
-      "K96",
-      "K215",
-      "K216",
-      "K339",
-      "K340",
-      "K349",
-      "K350",
-      "K381",
-      "K383",
-      "K429",
-      "K430",
-      "K497",
-      "K498",
-      "K681",
-      "K683",
-      "K960",
-      "K962",
-      'K1023',
-      'K1024',
-      'K1301',
-      'K1302',
-      'K1303',
-      'K1304',
-      'K4675',
-      'K4676',
-      'K5209',
-      'K5210',
-      "K5251",
-      'K5253',
-      'K5284',
-      'K5286',
-      "K7714",
-      "K7716",
-      'K7717',
-      'K7718',
-      "D1",
-      "D2",
-      "D3",
-      "D4",
-      "D6",
-      "D7",
-      "D9",
-      "D10",
-      "D11",
-      "D12",
-      "D13",
-      "D13",
-      "D14",
-      "D17",
-      "D18",
-      "D19",
-      "D20",
-      "D21",
-      "D22",
-      "D23",
-      "D24",
-      "D25",
-      "D26",
-      "D27",
-      "D28",
-      "D29",
-      "D30",
-      "D31",
-      "D33",
-      "D35",
-      "D37",
-      "D39",
-      "D41",
-      "D43",
-      "D45",
-      "D49",
-      "D50",
-      "D51",
-      "D52",
-      "D73",
-      "D74",
-      "D101",
-      "D102",
-      'D4509',
-      'D4510',
-      'D4511',
-      'D4512',
-      'D4515',
-      'D4516',
-      'D4517',
-      'D4518',
-      'D4519',
-      'D4520',
-      'D4521',
-      'D4522',
-      'D4523',
-      'D4524',
-      'D4525',
-      'D4526',
-      'D4527',
-      'D4528',
-      'D4531',
-      'D4532',
-      'D4535',
-      'D4536',
-      'D4537',
-      'D4538',
-      "D6621",
-      "D6622",
-      "D6623",
-      "D6624",
-      "D6625",
-      "D6626",
-      "D6629",
-      "D6635",
-      "D6636",
-      "C101",
-      "C102",
-      "C103",
-      "C104",
-      "C105",
-      "C106",
-      "C121",
-      "C123",
-      "S101",
-      "S101",
-      "S102",
-      "S102",
-      "S103",
-      "S103",
-      "S104",
-      "S104",
-      "S105",
-      "S105",
-      "S106",
-      "S106",
-      "S107",
-      "S107",
-      "S108",
-      "S108",
-      "S109",
-      "S109",
-      "S110",
-      "S110",
-      "S111",
-      "S111",
-      "S112",
-      "S112",
-      "4216",
-    ]
-
-    VAPTLD = [
-      "K1189",
-      "K1190",
-      "K2559",
-      "K2560",
-      "S501",
-      "S502",
-      "S503",
-      "S504",
-      "S511",
-      "S512",
-      "S513",
-      "S514",
-      "S515",
-      "S516",
-      "S517",
-      "S518",
-
-    ]
-
-    BJPCDP = [
-      "2257",
-      "2258",
-      'K5264',
-      "K7711",
-      "K7712",
-      "K7752",
-    ]
-    BJPSHH = [
-      "D725",
-      "D726",
-    ]
-    BXPGZQ = [
-      "Z205",
-      "Z206",
-      "Z207",
-      "Z208",
-      "T145",
-      "T146",
-      "T147",
-      'K157',
-      'K158',
-      'K473',
-      'K474',
-      'K965',
-      'K967',
-      'K968',
-      'K5201',
-      'K5202',
-      'K5235',
-      'K5236',
-      'K5289',
-      'K5290',
-      'K7707',
-      'K7708',
-    ]
-    BXPJQO = [
-      "Y501",
-      "Y502",
-      "Y505",
-      "Y506",
-      "1303",
-      "1304",
-      "Z59",
-      "Z60",
-      "Z184",
-      "Z225",
-      "Z227",
-      "Z350",
-      "Z601",
-      "Z602",
-      'K105',
-      'K106',
-      'K571',
-      'K572',
-      'K609',
-      'K610',
-      'K1071',
-      'K1072',
-      'K1109',
-      'K1110',
-      'K1453',
-      'K1454',
-      'K1613',
-      'K1614',
-      'K1901',
-      'K1902',
-      'K4159',
-      'K4160',
-      'K5223',
-      'K5224',
-      'K5225',
-      'K5226',
-      'K5227',
-      'K5228',
-      'K5229',
-      'K5230',
-      'K5279',
-      'K5280',
-      "D727",
-      "D728",
-      "D733",
-      "D734",
-      "D735",
-      "D736",
-      "D737",
-      "D738",
-      "D739",
-      "D740",
-      "D745",
-      "D746",
-    ]
-    BXPYPV = [
-      "6437",
-      "6438",
-      "K601",
-      "K602",
-      "K603",
-      "K604",
-      "K5295",
-      "K5296",
-    ]
-    BXPBTC = [
-      "Y535",
-      "Y536",
-      "1134",
-      "2602",
-      "2602",
-      "2604",
-      "2604",
-      "Z179",
-      "Z180",
-      "Z184",
-      "Z282",
-      "Z284",
-      "Z350",
-      "K41",
-      "K43",
-      "K55",
-      "K56",
-      "K89",
-      "K90",
-      "K263",
-      "K264",
-      "K395",
-      "K396",
-      "K573",
-      "K574",
-      "K598",
-      "K600",
-      "K696",
-      "K886",
-      "K888",
-      "K960",
-      "K962",
-      "K1177",
-      "K1178",
-      "K5232",
-      "K5234",
-      "K5287",
-      "K5288",
-    ]
-    VNPTJP = [
-      "G371",
-      "G372",
-      "G393",
-      "G394",
-      "G395",
-      "G396",
-      "G399",
-      "G400",
-      "G497",
-      "G408",
-      "G4603",
-      "G4604",
-      "G8923",
-      "G8926",
-      "G8927",
-      "G8928",
-      "G8929",
-      "G8932",
-    ]
-
-    function stationHTML(stat, arr) {
-      linearr = (linemap[stat] || default_line).split("|")
-
-      str = ''
-      for (var i = 0; i < arr.length; i++) {
-        var sp = arr[i].time.split(":")
-        var min = (sp[0] | 0) * 60 + (sp[1] | 0)
-        var linenum = 0
-        var linename = ""
-        /*
-        if ('GD'.indexOf(arr[i].code[0]) > -1) {
-          linenum = 1 * 2
-          if (traintype(arr[i].code, "") == '200J') {
-            linenum = 0
-          }
+    var step = 15
+    var ret = []
+    var cur = 0, i = 0
+    while (cur <= 1440 && i < minarr.length) {
+        if (minarr[i] <= cur) {
+            if ((minarr[i] - ret[ret.length - 1]) * px_time < 20) {
+                i++
+                continue
+            }
+            ret.push(minarr[i])
+            i++
+            continue
         }
-        if ('CS'.indexOf(arr[i].code[0]) > -1) {
+        if ((cur - ret[ret.length - 1]) * px_time < 5 * px_time) {
+            cur += step
+            continue
+        }
+        if ((minarr[i] - cur) * px_time < 5 * px_time) {
+            cur += step
+            continue
+        }
+        ret.push(cur)
+        cur += step
+    }
+    while (cur <= 1440) {
+        ret.push(cur)
+        cur += step
+    }
+    while (i < minarr.length) {
+        ret.push(minarr[i])
+        i++
+    }
+    // console.log(ret)
+
+    document.getElementById('view').style.height = px_time * 1445
+    str = ''
+    for (var i in ret) {
+        var t = ret[i]
+        str += "<div class=\"typeG\" style=\"position:absolute;top:" + (t * px_time) + "px;left:0px\">" + (t / 60 | 0) + ":" + ("00" + t % 60).slice(-2) + "</div>\n"
+    }
+    return str
+}
+
+
+function hash_no(str) {
+  var c = str.charAt(0);
+  var offset = {
+    "Z": 10000, "T": 20000, "K": 30000,
+    "Y": 00000,
+    "G": 40000, "D": 50000, "C": 60000,
+    "S": 70000,
+    "L": 80000, "A": 80000, "N": 80000,
+    "P": 10000, "Q": 20000, "W": 30000,
+    "V": 01000, "B": 02000, "U": 04000, "X": 05000
+  }
+  var num = Number(str.replace(/\D+/g, '')) % 10000;
+  return (offset[c] || 0) + num;
+}
+maxlen = 90000
+
+function traintype(code, service) {
+  code = code.split("/")[0]
+  if (service == '0') {
+    return "service_0"
+  }
+  var key = (hash_no(code)-1)
+  if ([6088,6089,6092].indexOf(key / 10 | 0) > -1) {
+    return "200JSG"
+  }
+  if ([500,501,502].indexOf(key / 100 | 0) > -1) { // 507 508 [2019-2024.1.10)
+    return "200JAD"
+  }
+  if ([60].indexOf(key / 1000 | 0) > -1) {
+    return "200J"
+  }
+  // if ('DC'.indexOf(code[0]) > -1 && /^D[78]\d\d$|^C\d{1,3}$/.test(code)) { // /^D[78]\d\d$|^D54\d\d$|^D662[1-8]$|^D663[56]$|^D665[5-8]|^C\d{1,3}$|^C15\d\d$|^C56[5-9]\d$|^C5[78]\d\d$|^C81[0-4]\d$|^C8[34]\d\d$|^C8[56]\d\d$|^C87[2-9]\d$|^C950\d$/
+  //   return "200J"
+  // }
+  return code[0]
+}
+
+
+var default_line = "ZTK_Z_ZTK_1|GD_G_GD_1|CS_C_CS_1"
+var linemap = {
+  "BJP": "ZTK_Z_京沪_1|GDC_D_京哈_1|_Z_北京西_0",
+  "BXP": "ZTK_Z_京广_1|GD_G_京广_1|CS_Z_京九_1",
+  "VNP": "GD_G_京沪_1|C_C_京津_1|ZTK_Z_京沪_1",
+  "VAP": "GDS_G_京张_1|ZTK_K_京张_1",
+  "IFP": "GDC_G_京沈_1|S_S_东北环_1|_G_北京_0",
+  "QIP": "GDS_G_京张_1|_G_北京北_0",
+  "IZQ": "G_G_京广_1|D_D_南广贵广_1|CS_C_广珠_1|_G_京广_0"
+}
+
+function lineHTML(stat) {
+  str = ''
+
+  arr = (linemap[stat] || default_line).split("|")
+
+  for (var i = 0; i < arr.length; i++) {
+    row = arr[i].split("_")
+
+    name = row[2] + "到"
+    color = row[1]
+    linenum = i * 2 + 1
+    str += (
+      "<div id=\"\" class=\"type" + color
+      + "\"style=\"position:absolute;left:" + linenum * px_line + "px\">"
+      + name
+      + "</div>")
+
+    name = row[2] + "发"
+    color = row[1]
+    linenum = i * 2 + 2
+
+    str += (
+      "<div id=\"\" class=\"type" + color
+      + "\"style=\"position:absolute;left:" + linenum * px_line + "px\">"
+      + name
+      + "</div>")
+  }
+  return str
+}
+
+BJPHBB = [
+  "Y509",
+  "Y510",
+  "2549",
+  "2550",
+  "4216",
+  "Z15",
+  "Z16",
+  "Z17",
+  "Z18",
+  "Z61",
+  "Z62",
+  "Z67",
+  "Z68",
+  "Z83",
+  "Z84",
+  "Z117",
+  "Z118",
+  "Z157",
+  "Z158",
+  "Z203",
+  "Z204",
+  "Z211",
+  "Z212",
+  "Z4061",
+  "Z4062",
+  "Z4063",
+  "Z4064",
+  "T17",
+  "T18",
+  "T39",
+  "T40",
+  "T47",
+  "T48",
+  "T297",
+  "T298",
+  "T4115",
+  "T4116",
+  "T4117",
+  "T4118",
+  "T5685",
+  "T5686",
+  "T5687",
+  "T5688",
+  "T5695",
+  "T5696",
+  "T5697",
+  "T5698",
+  "T5699",
+  "T5700",
+  "K53",
+  "K54",
+  "K55",
+  "K56",
+  "K58",
+  "K95",
+  "K96",
+  "K97",
+  "K98",
+  "K215",
+  "K216",
+  "K339",
+  "K340",
+  "K349",
+  "K350",
+  "K381",
+  "K383",
+  "K429",
+  "K430",
+  "K497",
+  "K498",
+  "K579",
+  "K581",
+  "K681",
+  "K683",
+  "K960",
+  "K961",
+  "K962",
+  'K1023',
+  'K1024',
+  'K1301',
+  'K1302',
+  'K1303',
+  'K1304',
+  'K2549',
+  'K2550',
+  'K4675',
+  'K4676',
+  'K5209',
+  'K5210',
+  "K5251",
+  'K5253',
+  'K5284',
+  'K5286',
+  "K7714",
+  "K7716",
+  'K7717',
+  'K7718',
+  'K7719',
+  'K7720',
+  'K7781',
+  'K7782',
+  'K7783',
+  'K7784',
+  'K7787',
+  'K7788',
+  'D821',
+  'D822',
+  'D823',
+  'D824',
+  'D825',
+  'D826',
+  'D827',
+  'D828',
+  'D829',
+  'D830',
+  'D831',
+  'D832',
+  'D833',
+  'D834',
+  'D835',
+  'D836',
+  'D4509',
+  'D4510',
+  'D4511',
+  'D4512',
+  'D4515',
+  'D4516',
+  'D4517',
+  'D4518',
+  'D4519',
+  'D4520',
+  'D4521',
+  'D4522',
+  'D4523',
+  'D4524',
+  'D4525',
+  'D4526',
+  'D4527',
+  'D4528',
+  'D4531',
+  'D4532',
+  'D4535',
+  'D4536',
+  'D4537',
+  'D4538',
+  "D6621",
+  "D6622",
+  "D6623",
+  "D6624",
+  "D6625",
+  "D6626",
+  "D6629",
+  "D6635",
+  "D6636",
+  "C101",
+  "C102",
+  "C103",
+  "C104",
+  "C105",
+  "C106",
+  "C121",
+  "C123",
+  "S101",
+  "S102",
+  "S103",
+  "S104",
+  "S105",
+  "S106",
+  "S107",
+  "S108",
+  "S109",
+  "S110",
+  "S111",
+  "S112",
+]
+
+VAPTLD = [
+  "K1189",
+  "K1190",
+  "K2559",
+  "K2560",
+  "S501",
+  "S502",
+  "S503",
+  "S504",
+  "S511",
+  "S512",
+  "S513",
+  "S514",
+  "S515",
+  "S516",
+  "S517",
+  "S518",
+
+]
+
+BJPCDP = [
+  "2257",
+  "2258",
+  'Y512',
+  'Y514',
+  'K5264',
+  "K7711",
+  "K7712",
+  "K7752",
+  "K7754",
+]
+BJPSHH = [
+  "D725",
+  "D726",
+]
+BXPGZQ = [
+  "Z205",
+  "Z206",
+  "Z207",
+  "Z208",
+  "T145",
+  "T146",
+  "T147",
+  'K157',
+  'K158',
+  'K473',
+  'K474',
+  'K965',
+  'K967',
+  'K968',
+  'K5201',
+  'K5202',
+  'K5235',
+  'K5236',
+  'K5289',
+  'K5290',
+  'K7707',
+  'K7708',
+]
+BXPJQO = [
+  "Y501",
+  "Y502",
+  "Y505",
+  "Y506",
+  "1303",
+  "1304",
+  "Z59",
+  "Z60",
+  "Z184",
+  "Z225",
+  "Z227",
+  "Z350",
+  "Z601",
+  "Z602",
+  'K105',
+  'K106',
+  'K571',
+  'K572',
+  'K609',
+  'K610',
+  'K1071',
+  'K1072',
+  'K1109',
+  'K1110',
+  'K1453',
+  'K1454',
+  'K1613',
+  'K1614',
+  'K1901',
+  'K1902',
+  'K4159',
+  'K4160',
+  'K5223',
+  'K5224',
+  'K5225',
+  'K5226',
+  'K5227',
+  'K5228',
+  'K5229',
+  'K5230',
+  'K5279',
+  'K5280',
+  'K7701',
+  'K7702',
+  'K7723',
+  'K7724',
+  "D727",
+  "D728",
+  "D733",
+  "D734",
+  "D735",
+  "D736",
+  "D737",
+  "D738",
+  "D739",
+  "D740",
+  "D745",
+  "D746",
+  "C125",
+  "C126",
+  "C127",
+  "C128",
+  "C129",
+  "C130",
+]
+BXPYPV = [
+  "6437",
+  "6438",
+  "K601",
+  "K602",
+  "K603",
+  "K604",
+  "K5295",
+  "K5296",
+]
+BXPBTC = [
+  "Y535",
+  "Y536",
+  "1134",
+  "2602",
+  "2602",
+  "2604",
+  "2604",
+  "Z179",
+  "Z180",
+  "Z184",
+  "Z282",
+  "Z284",
+  "Z350",
+  "K41",
+  "K43",
+  "K55",
+  "K56",
+  "K89",
+  "K90",
+  "K263",
+  "K264",
+  "K395",
+  "K396",
+  "K573",
+  "K574",
+  "K598",
+  "K600",
+  "K696",
+  "K886",
+  "K888",
+  "K960",
+  "K962",
+  "K1177",
+  "K1178",
+  "K5232",
+  "K5234",
+  "K5287",
+  "K5288",
+]
+VNPTJP = [
+  "G371",
+  "G372",
+  "G393",
+  "G394",
+  "G395",
+  "G396",
+  "G399",
+  "G400",
+  "G497",
+  "G408",
+  "G4603",
+  "G4604",
+  "G8923",
+  "G8919",
+  "G8920",
+  "G8926",
+  "G8927",
+  "G8928",
+  "G8929",
+  "G8932",
+]
+
+function stationHTML(stat, arr) {
+  linearr = (linemap[stat] || default_line).split("|")
+
+  str = ''
+  for (var i = 0; i < arr.length; i++) {
+    var sp = arr[i].time.split(":")
+    var min = (sp[0] | 0) * 60 + (sp[1] | 0)
+    var linenum = 0
+    var linename = ""
+    /*
+    if ('GD'.indexOf(arr[i].code[0]) > -1) {
+      linenum = 1 * 2
+      if (traintype(arr[i].code, "") == '200J') {
+        linenum = 0
+      }
+    }
+    if ('CS'.indexOf(arr[i].code[0]) > -1) {
+      linenum = 2 * 2
+    }
+    */
+    var t = traintype(arr[i].code, "")
+    if (t == '200J') {
+      t = 'Z'
+    }
+    for (var lineidx = 0; lineidx < linearr.length; lineidx++) {
+      row = linearr[lineidx].split("_")
+      if (row[0].indexOf(t) > -1) {
+        linenum = lineidx * 2
+      }
+    }
+
+    if (stat == 'BJP') {
+      if ('C'.indexOf(arr[i].code[0]) > -1) {
+        linenum = 1 * 2
+      }
+      if (BJPSHH.indexOf(arr[i].code) > -1) {
+        linenum = 0 * 2
+      }
+      if (BXPJQO.indexOf(arr[i].code) > -1) {
+        linenum = 0 * 2
+        linename = "京九"
+      }
+      if (BXPBTC.indexOf(arr[i].code) > -1) {
+        linenum = 0 * 2
+        linename = "丰沙"
+      }
+      if (BXPGZQ.indexOf(arr[i].code) > -1) {
+        linenum = 0 * 2
+        linename = "京广"
+      }
+      if (BXPYPV.indexOf(arr[i].code) > -1) {
+        linenum = 0 * 2
+        linename = "京原"
+      }
+      if (BJPHBB.indexOf(arr[i].code) > -1) {
+        linenum = 1 * 2
+      }
+      if (VAPTLD.indexOf(arr[i].code) > -1) {
+        linenum = 1 * 2
+        linename = "京通"
+      }
+      if (BJPCDP.indexOf(arr[i].code) > -1) {
+        linenum = 1 * 2
+        linename = "京承"
+      }
+      if ('S'.indexOf(arr[i].code[0]) > -1 || ['K7753','K7754','G7812','G7816','K548','G935','G3694'].indexOf(arr[i].code) > -1) {
+        if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+          linenum = 1 * 2
+        } else {
           linenum = 2 * 2
         }
-        */
-        var t = traintype(arr[i].code, "")
-        if (t == '200J') {
-          t = 'Z'
-        }
-        for (var lineidx = 0; lineidx < linearr.length; lineidx++) {
-          row = linearr[lineidx].split("_")
-          if (row[0].indexOf(t) > -1) {
-            linenum = lineidx * 2
-          }
-        }
 
-        if (stat == 'BJP') {
-          if (BJPSHH.indexOf(arr[i].code) > -1) {
-            linenum = 0 * 2
-          }
-          if (BXPJQO.indexOf(arr[i].code) > -1) {
-            linenum = 0 * 2
-            linename = "京九"
-          }
-          if (BXPBTC.indexOf(arr[i].code) > -1) {
-            linenum = 0 * 2
-            linename = "丰沙"
-          }
-          if (BXPGZQ.indexOf(arr[i].code) > -1) {
-            linenum = 0 * 2
-            linename = "京广"
-          }
-          if (BXPYPV.indexOf(arr[i].code) > -1) {
-            linenum = 0 * 2
-            linename = "京原"
-          }
-          if (BJPVAB.indexOf(arr[i].code) > -1) {
-            linenum = 1 * 2
-          }
-          if (VAPTLD.indexOf(arr[i].code) > -1) {
-            linenum = 1 * 2
-            linename = "京通"
-          }
-          if (BJPCDP.indexOf(arr[i].code) > -1) {
-            linenum = 1 * 2
-            linename = "京承"
-          }
-          if ('CS'.indexOf(arr[i].code[0]) > -1) {
-            if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
-              linenum = 1 * 2
-            } else {
-              linenum = 2 * 2
-            }
-
-          }
-        }
-        if (stat == 'BXP') {
-          if (BXPJQO.indexOf(arr[i].code) > -1) {
-            linenum = 2 * 2
-          }
-          if (BXPBTC.indexOf(arr[i].code) > -1) {
-            linenum = 2 * 2
-            linename = "丰沙"
-          }
-          if (BXPYPV.indexOf(arr[i].code) > -1) {
-            linenum = 2 * 2
-            linename = "京原"
-          }
-          if ('S'.indexOf(arr[i].code[0]) > -1) {
-            if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
-              linenum = 2 * 2
-            } else {
-              linenum = 0 * 2
-            }
-          }
-        }
-        if (stat == 'VNP') {
-          if (VNPTJP.indexOf(arr[i].code) > -1) {
-            linenum = 1 * 2
-          }
-          if (BXPJQO.indexOf(arr[i].code) > -1) {
-            linenum = 2 * 2
-            linename = "京九"
-          }
-        }
-        if (stat == 'QIP') {
-          if ('GDCS'.indexOf(arr[i].code[0]) > -1) {
-            if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
-
-            } else {
-              linenum += 1 * 2
-            }
-
-          }
-        }
-        linenum += (arr[i].is_dep == "1" ? 2 : 1) //TODO
-        str += (
-          "<div class=\"type" + traintype(arr[i].code, "") + (is_a_day(arr[i].date, date) ? "" : " ctl")
-          + "\" style=\"position:absolute;top:" + (min * px_time) + "px;left:" + linenum * px_line + "px;z-index:" + (is_a_day(arr[i].date, date) ? 2 : 1) + ";\">"
-          + arr[i].code + (linename ? "<br />\n[" + linename + "]" : "") + emu_by_no(arr[i].bureau, arr[i].emu_type, arr[i].emu_no)
-          + "</div>")
       }
-      return str
+      if (['G7814','G7818','K546','G65','G526','G421','G422','G485','G486'].indexOf(arr[i].code) > -1) {
+        if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+          linenum = 2 * 2
+        } else {
+          linenum = 1 * 2
+        }
+
+      }
+      if (['Z157','Z158','Y514'].indexOf(arr[i].code) > -1) {
+        if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+          linenum = 1 * 2
+        } else {
+          linenum = 0 * 2
+        }
+
+      }
+      if (['Y512'].indexOf(arr[i].code) > -1) {
+        if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+          linenum = 0 * 2
+        } else {
+          linenum = 1 * 2
+        }
+
+      }
     }
-
-    function getstat(stat) {
-      var url = "/stat/" + stat
-      // document.getElementById("result").innerHTML = str
-      var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
-
-          data = xhr.responseText.split("\n");
-          console.log(data)
-
-          var arr = []
-          for (i in data) {
-            var row = data[i].split(",");
-            if (row.length <= 5) continue
-            arr.push({
-              day_diff: row[0] || "",
-              time: row[1] || "",
-              code: row[2] || "",
-              station: row[3] || "",
-              is_dep: row[4] || "",
-              date: row[5] || "",
-              bureau: row[6] || "",
-              emu_type: (row[7] || "").replace(/(.*)-(\d{4})$/, "$1").replace(/\(\d+\)$/, "").replace(/^2\*/, "") || "",
-              emu_no: row[8] || "",
-              emu_double: /2\*|重/.test(row[7]) ? 1 : 0,
-            })
-          }
-          setHTML("typeabs", lineHTML(stat))
-          setHTML("trainabs_default", stationHTML(stat, arr))
+    if (stat == 'BXP' || stat == 'FTP') {
+      if (BXPJQO.indexOf(arr[i].code) > -1) {
+        linenum = 2 * 2
+      }
+      if (BXPBTC.indexOf(arr[i].code) > -1) {
+        linenum = 2 * 2
+        linename = "丰沙"
+      }
+      if (BXPYPV.indexOf(arr[i].code) > -1) {
+        linenum = 2 * 2
+        linename = "京原"
+      }
+      if ('S'.indexOf(arr[i].code[0]) > -1 || ['K7753','K7754','K548','Z61','Z62','G935','G3694'].indexOf(arr[i].code) > -1) {
+        if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+          linenum = 2 * 2
+        } else {
+          // linenum = 0 * 2
+        }
+      }
+      if (['K546','G65','G526','G421','G422','G485','G486'].indexOf(arr[i].code) > -1) { // BJP 切换上下行
+        if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+          // linenum = 0 * 2
+        } else {
+          linenum = 2 * 2
+        }
+      }
+    }
+    if (stat == 'VNP') {
+      if (VNPTJP.indexOf(arr[i].code) > -1) {
+        linenum = 1 * 2
+      }
+      if (BXPJQO.indexOf(arr[i].code) > -1) {
+        linenum = 2 * 2
+        linename = "京九"
+      }
+    }
+    if (stat == 'QIP') {
+      if ('GDCS'.indexOf(arr[i].code[0]) > -1) {
+        if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
 
         } else {
-          // document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
+          linenum += 1 * 2
         }
 
       }
-      xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
-      // xhr.open("GET", url, true);
-      //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.send();
+    }
+    linenum += (arr[i].is_dep == "1" ? 2 : 1) //TODO
+    str += (
+      "<div class=\"type" + traintype(arr[i].code, "") + (is_a_day(arr[i].date, date) ? "" : " ctl")
+      + "\" style=\"position:absolute;top:" + (min * px_time) + "px;left:" + linenum * px_line + "px;z-index:" + (is_a_day(arr[i].date, date) ? 2 : 1) + ";\">"
+      + arr[i].code
+      + emu_type_no(arr[i].bureau, arr[i].emu_type, arr[i].emu_no, arr[i].emu_double)
+      // + "<br />\n<span id=\""+ (is_a_day(arr[i].date, date)?(stat + "_" + arr[i].code + "_" + arr[i].is_dep) : "") + "\" onclick=\"getzwdcx_id(this.id)\">"+arr[i].time+"</span>" // TODO telename(station)
+      + (linename ? "<br />\n[" + linename + "]" : "")
+      + "</div>")
+  }
+  return str
+}
+
+function getstat(stat) {
+  var url = "/stat/" + stat
+  // document.getElementById("result").innerHTML = str
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+
+      data = xhr.responseText.split("\n");
+      console.log(data)
+
+      var arr = []
+      for (i in data) {
+        var row = data[i].split(",");
+        if (row.length <= 5) continue
+        arr.push({
+          day_diff: row[0] || "",
+          time: row[1] || "",
+          code: row[2] || "",
+          station: row[3] || "",
+          is_dep: row[4] || "",
+          date: row[5] || "",
+          bureau: row[6] || "",
+          emu_type: (row[7] || "").replace(/(.*)-(\d{4})$/, "$1").replace(/\(\d+\)$/, "").replace(/^2\*/, "") || "",
+          emu_no: row[8] || "",
+          emu_double: /2\*|重/.test(row[7]) ? 1 : 0,
+        })
+      }
+      setInnerHTML("typeabs", lineHTML(stat))
+      setInnerHTML("trainabs_default", stationHTML(stat, arr))
+      setInnerHTML("timeabs", timeHTML(arr))
+    } else {
+      // document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
     }
 
-    function css_emu(t) {
-      if (t.indexOf("Z") > -1) {
-        if (t.indexOf("AF") > -1) {
-          return "type400AFZ"
-        }
-        if (t.indexOf("BF") > -1) {
-          return "type400BFZ"
-        }
-      }
+  }
+  xhr.open("GET", url.replace("https://", "/").replace("http://", "/"), true);
+  // xhr.open("GET", url, true);
+  //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send();
+}
 
-      if (t.indexOf("300AF") > -1) {
-        return "type300AF"
-      }
-      if (t.indexOf("300BF") > -1) {
-        return "type300BF"
-      }
 
-      if (t.indexOf("AF") > -1) {
-        return "type400AF"
-      }
-      if (t.indexOf("BF") > -1) {
-        return "type400BF"
-      }
+function zwdcxURL(str, trainNo, cxlx) {
+  if (!str) return "";
+  if (!trainNo) return "";
+  // return "http://www.12306.cn/mapping/kfxt/zwdcx/LCZWD/cx.jsp?cz=" + unicode2gbk(str) + "&cc=" + trainNo + "&cxlx=" + cxlx + "&rq=" + timeStr(0, "yyyy-mm-dd") + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&tp=" + new Date().getTime();
+  return "https://kyfw.12306.cn/otn/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") // + "&randCode=&&if_check_slide_passcode_token="
+}
 
-      return "typeCRH"
+function getzwdcx_id(id) {
+  var sp = id.split("_");
+  if (sp.length > 2) {
+    getzwdcx(sp[0], sp[1], sp[2]);
+  }
+}
+
+function getzwdcx(str, trainNo, cxlx) {
+  var namemap = {
+    "BJP":"北京",
+    "BXP":"北京西",
+    "VNP":"北京南",
+    "FTP":"北京丰台",
+  }
+  if (str) {
+    str = namemap[str] // TODO
+  }
+  var url = zwdcxURL(str, trainNo, cxlx)
+  if (!url) return;
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+      var s = xhr.responseText;
+      console.log(zwdcxHTML(s));
+      setInnerHTML(str + "_" + trainNo + "_" + cxlx, zwdcxHTML(s));
     }
+  }
+  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send();
+}
 
-    var bureau_arr = [
-        "哈尔滨,哈,B",
-        "沈阳,沈,T",
-        "北京,京,P",
-        "呼和浩特,呼,C",
-        "郑州,郑,F",
-        "济南,济,K",
-        "上海,上,H",
-        "南昌,南,G",
-        "广州,广,Q",
-        "南宁,宁,Z",
-        "成都,成,W",
-        "昆明,昆,M",
-        "兰州,兰,J",
-        "乌鲁木齐,乌,R",
-        "西宁,青,O",
-        "太原,太,V",
-        "武汉,武,N",
-        "西安,西,Y"
-    ]
+function zwdcxHTML(s) {
+  var match = s.match(/\d+:\d+/);
+  var time = match ? match[0] : "";
+  var match = s.match(/预计|暂无|无时刻|时刻表中无/);
+  var status = match ? match[0] : "";
+  return time + status;
+}
 
-    var bureau_map = {}
-    for (var i=0; i<bureau_arr.length; i++) {
-      var sp = bureau_arr[i].split(",")
-      bureau_map[sp[2]] = sp[1]
+
+function css_emu(t) {
+  if (t.indexOf("BST") > -1) {
+    return "typeBSP"
+  }
+
+  if (t.indexOf("25T") > -1) {
+    return "type25T"
+  }
+
+  if (t.indexOf("25DT") > -1) {
+    return "type25DT"
+  }
+
+  if (t.indexOf("25K") > -1) {
+    return "type25K"
+  }
+
+  if (t.indexOf("25Z") > -1) {
+    return "type25Z"
+  }
+
+  if (t.indexOf("25G") > -1) {
+    return "type25G"
+  }
+
+  if (t.indexOf("25A") > -1) {
+    return "type25A"
+  }
+
+  if ((t.indexOf("25B") > -1) || (t.indexOf("22") > -1)) {
+    return "typeservice_0"
+  }
+
+  if (t.indexOf("Z") > -1) {
+    if (t.indexOf("AF") > -1) {
+      return "type400AFZ"
     }
-
-    function emu_by_no(bureau, emu_type, emu_no) {
-      if (!emu_type) return ""
-      var c = ""
-      if (/2\*|重/.test(emu_type)) {
-        c += "double"
-      }
-      c += " " + css_emu(emu_type)
-      if (emu_type == 'BF-C' && emu_no == '5162') {
-          c += " " + "type400BFC5162"
-      }
-      return "<br />" + (bureau_map[bureau] || bureau) + "<span class=\"" + c + "\">" + emu_type.replace("-", "") + "<br />"
-        + emu_no + "</span>"
+    if (t.indexOf("BF") > -1) {
+      return "type400BFZ"
     }
+  }
 
-    setHTML("timeabs", timeHTML())
-    view_scroll()
-    var stat = window.location.hash.replace('#', '')
-    getstat(stat || "BJP")
+  if ((t.indexOf("200J-D") > -1) || (t.indexOf("200J1-D") > -1) || (t.indexOf("200J3-C") > -1) || (t.indexOf("200J1-C") > -1) ) {
+    return "type200J3C"
+  }
+  if (t.indexOf("200JS-G") > -1) {
+    return "type200JSG"
+  }
+  if (t.indexOf("200J") > -1) {
+    return "type200J"
+  }
+
+  if (t.indexOf("300AF") > -1) {
+    return "type300AF"
+  }
+  if (t.indexOf("300BF") > -1) {
+    return "type300BF"
+  }
+
+  if (t.indexOf("AF") > -1) {
+    return "type400AF"
+  }
+  if (t.indexOf("BF") > -1) {
+    return "type400BF"
+  }
+
+  return "typeCRH"
+}
+
+var bureau_arr = [
+  "哈尔滨,哈,B",
+  "沈阳,沈,T",
+  "北京,京,P",
+  "呼和浩特,呼,C",
+  "郑州,郑,F",
+  "济南,济,K",
+  "上海,上,H",
+  "南昌,南,G",
+  "广州,广,Q",
+  "南宁,宁,Z",
+  "成都,成,W",
+  "昆明,昆,M",
+  "兰州,兰,J",
+  "乌鲁木齐,乌,R",
+  "西宁,青,O",
+  "太原,太,V",
+  "武汉,武,N",
+  "西安,西,Y"
+]
+
+var bureau_map = {}
+for (var i = 0; i < bureau_arr.length; i++) {
+  var sp = bureau_arr[i].split(",")
+  bureau_map[sp[2]] = sp[1]
+}
+
+function emu_type_no(bureau, emu_type, emu_no, emu_double) {
+  if (!bureau && !emu_type) return ""
+  if (!emu_type) return "<br />" + (bureau_map[bureau] || bureau || "")
+  var c = ""
+  if (emu_double || /2\*|重/.test(emu_type)) {
+    c += "double"
+  }
+  if (emu_type.indexOf("~") > -1) {
+    c += " " + "AC380V"
+  }
+  if (/-$/g.test(emu_type)) {
+    c += " " + "DC600V"
+  }
+  emu_type = emu_type.replace(/[-~]$/g, '')
+  c += " " + css_emu(emu_type)
+  if (emu_type == 'BF-C' && emu_no == '5162') {
+    c += " " + "type400BFC5162"
+  }
+  if (emu_type == 'BF-Z' && emu_no == '0524') {
+    c += " " + "type400BFZ0524"
+  }
+  return "<br />" + (bureau_map[bureau] || bureau || "") + "<span class=\"" + c + "\">" + emu_type.replace("-", "").replace("200", "") + (emu_no?"<br />":"")
+    + emu_no.split("_").join("<br />") + "</span>"
+}
+
+setInnerHTML("timeabs", timeHTML())
+view_scroll()
+var stat = window.location.hash.replace('#', '')
+getstat(stat || "BJP")
 
   </script>
 </body>
