@@ -843,7 +843,7 @@ if (window.location.href.indexOf('github.io') >= 0) {
 }
 date = timeStr(0, "yyyy-mm-dd")
 setValue("date", date);
-graph_yymmdd = '240110'
+graph_yymmdd = '240410'
 
 function getLeftTicketUrl() {
   setInnerHTML("ticket", "start LeftTicketUrl"); //
@@ -1830,12 +1830,12 @@ function ticketHTML(result, map, date) {
     col = result[i].split("|");
     sleeper = is_sleeper(col[8], col[9], col[10]);
     dw = col[46].split("#") // 46 dw_flag
-    idsuffix = col[6]+"_"+col[7]+"_"+date+"_"+col[3]
+    trid = "tr_"+col[6]+"_"+col[7]+"_"+date+"_"+col[3]
     absemu = ("<span class=\"rel\">-<div class=\"abs\" style=\"top:0;right:0;\">" + (emu_short_by_code(col[2].slice(2, 10).replace(/^[0]+/g, "")) || ((dw[5] || '').substring(0, 1) == "D" ? "MTR" : "") || (dw[0] == "5" ? "智" : "") || (dw[1] == "1" ? "复" : "")) + "</div></span>");
     str += (
-      "<tr id=\"tr_"+idsuffix+"\" class=\"" + "hide" + col[3][0] + (col[19] > 0 ? " ctl" : "") + (((col[3][0] == 'G') && ((col[17] - col[16]) > min + 1)) ? " hideG-" : "") + "\">\n"
-      + "<td onclick=\"getcrleftraw('"+col[6]+"','"+col[7]+"', '"+date+"','"+col[3]+"')\" class=\"abs type" + traintype(col[3], col[14]) + (col[19] > 0 ? " ctl" : "") + "\" title=\"" + col[2] + "\" onclick=\"getSch(schURL('" + col[2] + "','" + col[4] + "','" + col[5] + "','" + col[13] + "'))\">" + col[3] + (col[36] > 0 ? "<div class=\"ticket_ex\"></div>" : "") + "</td>\n"
-      + "<td class=\"type" + traintype(col[3], col[14]) + (col[19] > 0 ? " ctl" : "") + "\" title=\"" + col[2] + "\" onclick=\"getSch(schURL('" + col[2] + "','" + col[4] + "','" + col[5] + "','" + col[13] + "'))\">" + col[3] + "</td>\n"
+      "<tr id=\""+trid+"\" class=\"" + "hide" + col[3][0] + (col[19] > 0 ? " ctl" : "") + (((col[3][0] == 'G') && ((col[17] - col[16]) > min + 1)) ? " hideG-" : "") + "\">\n"
+      + "<td onclick=\"getcrleftraw('"+result[i]+"', '"+date+"', '"+trid+"')\" class=\"abs type" + traintype(col[3], col[14]) + (col[19] > 0 ? " ctl" : "") + "\" title=\"" + col[2] + "\">" + col[3] + (col[36] > 0 ? "<div class=\"ticket_ex\"></div>" : "") + "</td>\n"
+      + "<td class=\"type" + traintype(col[3], col[14]) + (col[19] > 0 ? " ctl" : "") + "\" title=\"" + col[2] + "\">" + col[3] + "</td>\n"
       + "<td class=\"right " + hbc(col, 'QH5LCKB0') + "\">" + (hb(col, 'QH5LCKB0') || col[26] || "-") + "</td>\n"
       + "<td class=\"right " + hbc(col, '6A9PQE') + "\">" + (hb(col, '6A9PQE') || ((hb(col, '1OS82M7')&&hb(col, '3FJ4I')&&!hb(col, 'QH5LCKB0'))?absemu:"") || "-") + "</td>\n"
       + "<td class=\"rel right " + hbc(col, '4I') + "\">" + (hb(col, '4I') || "-") + (choicebed(dw[6], '4I') ? "<div class=\"choice_bed\"></div>" : "") + "</td>\n" // ?S
@@ -1845,7 +1845,7 @@ function ticketHTML(result, map, date) {
       // + "<td class=\"right\" style=\"font-weight: lighter;\">" + (col[26] || "-") + "</td>\n"
       + "<td title=\"" + col[16] + "\">" + col[8] + "</td>\n"
       + "<td title=\"" + col[17] + "\">" + col[9] + "</td>\n"
-      + "<td class=\"right\">" + (col[17] - col[16]) + "</td>\n"
+      + "<td class=\"right\" onclick=\"getSch(schURL('" + col[2] + "','" + col[4] + "','" + col[5] + "','" + col[13] + "'))\">" + (col[17] - col[16]) + "</td>\n"
       + "<td>" + col[10] + "</td>\n"
       + "<td title=\"" + col[39].replaceAll(/([\W\w]{10})/g,'$1\n') + "\" class=\"right " + ticketdiscountex(col[34], (sleeper ? "3456FAJI12OMPS87E" : "12OMPS87E3456FAJI")) + "\">" + ticketprice(col[39], (sleeper ? "3456FAJI12OMPS87E" : "12OMPS87E3456FAJI")) + "</td>\n"
       + "<td title=\"" + col[6] + "\">" + map[col[6]] + "</td>\n"
@@ -2027,8 +2027,8 @@ function lcxxcxHTML(datas) {
     sleeper = is_sleeper(col[hkey[8]], col[hkey[9]], col[hkey[10]]);
     str += (
       "<tr class=\"hide" + col[hkey[3]][0] + (col[hkey[19]] > 0 ? " ctl" : "") + (((col[hkey[3]][0] == 'G') && ((col[hkey[17]] - col[hkey[16]]) > min + 1)) ? " hideG-" : "") + "\">\n"
-      + "<td class=\"abs type" + traintype(col[hkey[3]], col[hkey[14]]) + (col[hkey[19]] > 0 ? " ctl" : "") + "\" title=\"" + col[hkey[2]] + "\" onclick=\"getSch(schURL('" + col[hkey[2]] + "','" + col[hkey[4]] + "','" + col[hkey[5]] + "','" + col[hkey[13]] + "'))\">" + col[hkey[3]] + (col[hkey[36]] > 0 ? "<div class=\"ticket_ex\"></div>" : "") + "</td>\n"
-      + "<td class=\"type" + traintype(col[hkey[3]], col[hkey[14]]) + (col[hkey[19]] > 0 ? " ctl" : "") + "\" title=\"" + col[hkey[2]] + "\" onclick=\"getSch(schURL('" + col[hkey[2]] + "','" + col[hkey[4]] + "','" + col[hkey[5]] + "','" + col[hkey[13]] + "'))\">" + col[hkey[3]] + "</td>\n"
+      + "<td class=\"abs type" + traintype(col[hkey[3]], col[hkey[14]]) + (col[hkey[19]] > 0 ? " ctl" : "") + "\" title=\"" + col[hkey[2]] + "\">" + col[hkey[3]] + (col[hkey[36]] > 0 ? "<div class=\"ticket_ex\"></div>" : "") + "</td>\n"
+      + "<td class=\"type" + traintype(col[hkey[3]], col[hkey[14]]) + (col[hkey[19]] > 0 ? " ctl" : "") + "\" title=\"" + col[hkey[2]] + "\">" + col[hkey[3]] + "</td>\n"
       + "<td class=\"right " + hbc2(col, 'QH5LCKB0') + "\">" + (hb2(col, 'QH5LCKB0') || "-") + "</td>\n"
       + "<td class=\"right " + hbc2(col, '6A9PQE') + "\">" + (hb2(col, '6A9PQE') || "-") + "</td>\n"
       + "<td class=\"right " + hbc2(col, '4I') + "\">" + (hb2(col, '4I') || "-") + "</td>\n" // ?S
@@ -2038,7 +2038,7 @@ function lcxxcxHTML(datas) {
       + "<td class=\"right\" style=\"font-weight: lighter;\">" + (col[hkey[26]] || "-") + "</td>\n"
       + "<td title=\"" + col[hkey[16]] + "\">" + col[hkey[8]] + "</td>\n"
       + "<td title=\"" + col[hkey[17]] + "\">" + col[hkey[9]] + "</td>\n"
-      + "<td class=\"right\">" + (col[hkey[17]] - col[hkey[16]]) + "</td>\n"
+      + "<td class=\"right\" onclick=\"getSch(schURL('" + col[hkey[2]] + "','" + col[hkey[4]] + "','" + col[hkey[5]] + "','" + col[hkey[13]] + "'))\">" + (col[hkey[17]] - col[hkey[16]]) + "</td>\n"
       + "<td>" + col[hkey[10]] + "</td>\n"
       + "<td title=\"" + col['yp_info'] + "\" class=\"right " + ticketdiscountex(col['yp_ex'], (sleeper ? "3456FAJI12OMPS87E" : "12OMPS87E3456FAJI")) + "\">" + ticketprice(col['yp_info'], (sleeper ? "3456FAJI12OMPS87E" : "12OMPS87E3456FAJI")) + "</td>\n"
       + "<td title=\"" + col[hkey[6]] + "\">" + telename(col[hkey[6]]) + "</td>\n"
@@ -2697,6 +2697,7 @@ function crqrcheck() {
         }
       } else {
         setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
+        setInnerHTML("emucar", xhr.responseText);
       }
     }
   }
@@ -2704,7 +2705,6 @@ function crqrcheck() {
   setInnerHTML("login_status", "load");
   xhr.send()
 }
-
 
 function getcrqr() {
   var url = "/cr/qr/json"
@@ -2718,6 +2718,7 @@ function getcrqr() {
         getcheckqr(j.uuid)
       } else {
         setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
+        setInnerHTML("emucar", xhr.responseText);
       }
     }
   }
@@ -2734,6 +2735,9 @@ function getcheckqr(uuid) {
       if (j.code == 0) {
         setInnerHTML("login",'本次登录' + timeStr(0, 'HH:MM:SS'))
         setInnerHTML("login_status",' ')
+      } else {
+        setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
+        setInnerHTML("emucar", xhr.responseText);
       }
     }
   }
@@ -2741,27 +2745,20 @@ function getcheckqr(uuid) {
   xhr.send()
 }
 
-function getcrleftraw(from, to, date, no) {
-  if (!from) {
-    return;
-  }
-  if (!to) {
-    return;
-  }
-
-  var url = "/cr/leftraw/" + from + "/" + to + "/" + date + "/" + no
+function getcrleftraw(rowstr, date, trid) {
+  var url = "/cr/leftraw/" + date
   var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
       if ([200, 304].indexOf(xhr.status) > -1) {
-        setrawleft(xhr.responseText, "tr_"+from+"_"+to+"_"+date+"_"+no)
+        setrawleft(xhr.responseText, trid)
       } else {
         setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
       }
     }
   }
-  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
-  xhr.send()
+  xhr.open("POST", url.replace(/^http[s]*:\/\//g, endpoint), true);
+  xhr.send(rowstr)
 }
 
 function setrawleft(str, trid) {
