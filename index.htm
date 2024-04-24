@@ -344,7 +344,7 @@ pre {
   <div id="result" style="white-space: nowrap;"></div>
   <div id="ticket"></div>
   <div id="emu" style="white-space: nowrap;"></div>
-  <pre id="emucar" style="overflow-x:scroll;white-space: nowrap;"></pre>
+  <pre id="emupre" style="overflow-x:scroll;/*white-space: nowrap;*/"></pre>
   <div id="local" style="word-break: keep-all;"></div>
   <a href="/archive.htm" target="_blank">历史时刻表</a>
   <a href="/station.htm" target="_blank">车站车次图示</a>
@@ -355,6 +355,7 @@ pre {
   <a href="http://61.161.203.55/mobile.myweixin.com/FtStationSch.html" target="_blank">沈局时刻表</a>
   <a href="https://ec.95306.cn/gis/inputSearchStationHyzy.html" target="_blank">95306地图</a>
   <span onclick="getloginconf()">conf</span>
+  <span onclick="getorder()">order</span>
   <br />
   <br />
   <a href="https://www.12306.cn/kfzmpt/lcxxcx/init" target="_blank">旧版余票</a>
@@ -2604,16 +2605,16 @@ function getbureau(trainNo, id) {
       var j = JSON.parse(xhr.responseText);
       if (j.data) {
         if(!id) {
-          id = "emucar"
+          id = "emupre"
           setInnerHTML(id, trainNo + " " + j.data.bureau_code + " " + j.data.bureau_code_name  + " " + j.data.subbureau_code  + " " + j.data.subbureau_code_name  + " " + j.data.startDate + "<br />\n" + document.getElementById(id).innerHTML);
         } else {
           setInnerHTML(id, j.data.bureau_code + " " + j.data.bureau_code_name  + " " + j.data.subbureau_code  + " " + j.data.subbureau_code_name);
         }
       } else {
         if(!id) {
-          id = "emucar"
+          id = "emupre"
         }
-        setInnerHTML(id, trainNo + " " + j.errorMsg + "<br />\n" + document.getElementById("emucar").innerHTML);
+        setInnerHTML(id, trainNo + " " + j.errorMsg + "<br />\n" + document.getElementById("emupre").innerHTML);
       }
     }
   }
@@ -2631,9 +2632,9 @@ function getemuqrcode(emuSeatCode) {
       var j = JSON.parse(xhr.responseText);
       console.log(j.data)
       if (j.data) {
-        setInnerHTML("emucar", j.data.carCode + " " + j.data.trainCode + " " + j.data.trainNo + " " + j.data.bureauCode + " " + j.data.bureauName.replace(/中国铁路(.*)集团有限公司/g, "$1") + " " + j.data.deptName + " " + j.data.startDay + " " + j.data.trainRepeat + " " + j.data.coachNo + " " + j.data.seatNo + " " + j.data.seatType + "<br />\n" + document.getElementById("emucar").innerHTML);
+        setInnerHTML("emupre", j.data.carCode + " " + j.data.trainCode + " " + j.data.trainNo + " " + j.data.bureauCode + " " + j.data.bureauName.replace(/中国铁路(.*)集团有限公司/g, "$1") + " " + j.data.deptName + " " + j.data.startDay + " " + j.data.trainRepeat + " " + j.data.coachNo + " " + j.data.seatNo + " " + j.data.seatType + "<br />\n" + document.getElementById("emupre").innerHTML);
       } else {
-        setInnerHTML("emucar", emuSeatCode + " " + j.errorMsg + "<br />\n" + document.getElementById("emucar").innerHTML);
+        setInnerHTML("emupre", emuSeatCode + " " + j.errorMsg + "<br />\n" + document.getElementById("emupre").innerHTML);
       }
     }
   }
@@ -2651,7 +2652,7 @@ function getemucar(code, date) {
       var j = JSON.parse(xhr.responseText);
       console.log(j.data)
       if (j.content && j.content.data) {
-        setInnerHTML("emucar", code + " " + j.content.data.carCode + "<br />\n" + document.getElementById("emucar").innerHTML);
+        setInnerHTML("emupre", code + " " + j.content.data.carCode + "<br />\n" + document.getElementById("emupre").innerHTML);
       }
     }
   }
@@ -2667,8 +2668,8 @@ function gettraininfo(code, date) {
     if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
       var j = JSON.parse(xhr.responseText);
       if (j.data && j.data.trainDetail.stopTime && j.data.trainDetail.stopTime.length) {
-        setInnerHTML("emucar", gettraininfoHTML(j) +
-        "<br />\n" + document.getElementById("emucar").innerHTML);
+        setInnerHTML("emupre", gettraininfoHTML(j) +
+        "<br />\n" + document.getElementById("emupre").innerHTML);
       }
     }
   }
@@ -2714,8 +2715,8 @@ function gettrainmapline(trainNo) {
       for (var i in j.data) {
         ret += j.data[i].index + " " + i + "<br />\n"
       }
-      setInnerHTML("emucar", trainNo + "<br />\n" + ret + 
-        "<br />\n" + document.getElementById("emucar").innerHTML);
+      setInnerHTML("emupre", trainNo + "<br />\n" + ret + 
+        "<br />\n" + document.getElementById("emupre").innerHTML);
     }
   }
   xhr.open("POST", url.replace(/^http[s]*:\/\//g, endpoint), true);
@@ -2741,7 +2742,7 @@ function crqrcheck() {
         }
       } else {
         setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
-        setInnerHTML("emucar", xhr.responseText);
+        setInnerHTML("emupre", xhr.responseText);
       }
     }
   }
@@ -2762,7 +2763,7 @@ function getcrqr() {
         getcheckqr(j.uuid)
       } else {
         setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
-        setInnerHTML("emucar", xhr.responseText);
+        setInnerHTML("emupre", xhr.responseText);
       }
     }
   }
@@ -2781,7 +2782,22 @@ function getcheckqr(uuid) {
         setInnerHTML("login_status",' ')
       } else {
         setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
-        setInnerHTML("emucar", xhr.responseText);
+        setInnerHTML("emupre", xhr.responseText);
+      }
+    }
+  }
+  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+  xhr.send()
+}
+
+function getorder(uuid) {
+  var url = "/cr/order"
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+      var j = JSON.parse(xhr.responseText);
+      if (j.data) {
+        setInnerHTML("emupre", j.data)
       }
     }
   }
