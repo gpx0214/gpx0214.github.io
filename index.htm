@@ -274,7 +274,6 @@ pre {
 }
 
 .favorite{
-  background-color: #00ffffff;
   position:absolute;
   width:280%;
   max-width:25em;
@@ -312,14 +311,14 @@ pre {
     <span id="from_station_span" style="position: relative;">
       <input type="text" id="from_station" placeholder="出发站" onkeyup="setInnerHTML('from_tele', telecode(this.value));qss(this.value)" onfocus="setDisplay('favorite_from', '')"/>
       <span id="from_tele" style="position:absolute;right:0.5em;bottom:0em;"></span>
-      <div id="favorite_from" class="favorite" style="left:0;top:120%;display:none;">
+      <div id="favorite_from" class="favorite typeZ" style="left:0;top:120%;display:none;">
       </div>
     </span>
     <span onclick="changeFromTo()">&lt;&gt;</span>
     <span id="to_station_span" style="position: relative;">
       <input type="text" id="to_station" placeholder="终到站" onkeyup="setInnerHTML('to_tele',telecode(this.value))" onfocus="setDisplay('favorite_to', '')"/>
       <span id="to_tele" style="position:absolute;right:0.5em;bottom:0em;"></span>
-      <div id="favorite_to" class="favorite" style="right:-5em;top:120%;display:none;">
+      <div id="favorite_to" class="favorite typeZ" style="right:-5em;top:120%;display:none;">
       </div>
     </span>
     <input id="btn_left" name="btn" type="submit" value="余票查询" style="max-width:6em" onclick="getlcxxcx(getValue('from_station'),getValue('to_station'), getValue('date'));return false;">
@@ -345,6 +344,7 @@ pre {
   <div id="ticket"></div>
   <div id="emu" style="white-space: nowrap;"></div>
   <pre id="emupre" style="overflow-x:scroll;/*white-space: nowrap;*/"></pre>
+  <pre id="order" style="overflow-x:scroll;"></pre>
   <div id="local" style="word-break: keep-all;"></div>
   <a href="/archive.htm" target="_blank">历史时刻表</a>
   <a href="/station.htm" target="_blank">车站车次图示</a>
@@ -2724,7 +2724,7 @@ function gettrainmapline(trainNo) {
   xhr.send(body);
 }
 
-
+// /cr/
 function crqrcheck() {
   var url = "/cr/check"
   var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
@@ -2797,7 +2797,7 @@ function getorder(uuid) {
     if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
       var j = JSON.parse(xhr.responseText);
       if (j.data) {
-        setInnerHTML("emupre", j.data)
+        setInnerHTML("order", j.data)
       }
     }
   }
