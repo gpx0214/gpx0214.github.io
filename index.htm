@@ -1176,9 +1176,6 @@ function search_cr_csv(kw) {
         + "</div>\n");
       }
 
-      if (!sch || sch.length == 0) {
-        continue
-      }
       for (var i in sch) {
         str += ("<div id=\"" + sch[i].station + "_" + t[0].train_code + "\">"
         + telename(sch[i].station) + " "
