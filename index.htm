@@ -365,7 +365,6 @@ pre {
   <a href="https://kyfw.12306.cn/otn/resources/js/query/train_list.js?scriptVersion=1.0">train_list.js</a>
   <a href="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js">station_name.js</a>
   <a href="/kyfw.12306.cn/otn/leftTicket/init" target="_blank">余票</a>
-  <a href="/www.12306.cn/index/" target="_blank">/www.12306.cn/index/</a>
   <br />
   <br />
 
@@ -845,12 +844,6 @@ setValue("date", date);
 graph_yymmdd = '240410'
 
 
-window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
-if (/leftTicket\/query[^']*/.test(localStorage.getItem('LeftTicketUrl'))) {
-  setValue("btn_left", "余票查询" + localStorage.getItem('LeftTicketUrl').split('/')[1].slice(5))
-  window.LeftTicketUrl = localStorage.getItem('LeftTicketUrl') || window.LeftTicketUrl
-}
-
 endpoint = "/" // "http://127.0.0.1/"
 if (window.location.href.indexOf('github.io') >= 0) {
   endpoint = "http://127.0.0.1/"
@@ -860,6 +853,21 @@ if (localStorage.getItem('endpoint')) {
   endpoint = localStorage.getItem('endpoint')
 }
 
+window.LeftTicketUrl = "leftTicket/query"; // 余票默认URL
+if (/leftTicket\/query[^']*/.test(localStorage.getItem('LeftTicketUrl'))) {
+  setValue("btn_left", "余票查询" + localStorage.getItem('LeftTicketUrl').split('/')[1].slice(5))
+  window.LeftTicketUrl = localStorage.getItem('LeftTicketUrl') || window.LeftTicketUrl
+}
+
+function setglobalLeftTicketUrl(str) {
+  if (!(/leftTicket\/query[^']*/.test(str))) {
+    return
+  }
+  setValue("btn_left", "余票查询" + localStorage.getItem('LeftTicketUrl').split('/')[1].slice(5))
+  window.LeftTicketUrl = localStorage.getItem('LeftTicketUrl') || window.LeftTicketUrl
+}
+
+// @Deprecated
 function getLeftTicketUrl() {
   var url = 'https://kyfw.12306.cn/otn/leftTicket/init'
 
@@ -1362,7 +1370,7 @@ function get_search_time_csv(str) {
   xhr.open("GET", url, true);
   xhr.send();
 }
-
+/*time end*/ // TODO
 
 function getTicket(from, to, date) {
   var from_station_telecode = telecode(from);
@@ -1410,7 +1418,7 @@ function getTicket(from, to, date) {
         if (!j.status) {
           window.LeftTicketUrl = j.c_url || window.LeftTicketUrl;
           localStorage.setItem('LeftTicketUrl', j.c_url || window.LeftTicketUrl)
-          setInnerHTML("local", localStorage.getItem('LeftTicketUrl').split('/')[1])
+          setValue("btn_left", "余票查询" + localStorage.getItem('LeftTicketUrl').split('/')[1].slice(5))
           getTicket(from, to, date)
         }
       }
@@ -1731,6 +1739,42 @@ function hb2(col, cc) {
   return ""
 }
 
+function ticketrawleft(str, cc) {
+  if (typeof (str) != "string") {
+    return ""
+  }
+  for (var ii in cc) {
+    var c = cc[ii];
+    if (c == 'W') {
+      for (var i = 0; i + 9 < str.length; i += 10) {
+        var num = Number(str.slice(i + 6, i + 10))
+        if (num > 3000) {
+          return num - 3000
+        }
+      }
+    }
+    for (var i = 0; i + 9 < str.length; i += 10) {
+      if (c == str[i]) {
+        return str.slice(i + 6, i + 10).replace(/^[0]{1,3}/, "")
+      }
+    }
+  }
+  return ""
+}
+
+function setrawleft(str, trid) {
+  var etr = document.getElementById(trid)
+  if (!etr) return
+  var etds = etr.getElementsByTagName('td')
+  if (!etds || etds.length < 8) return
+
+  etds[2].innerHTML = ticketrawleft(str, 'QH5LCKB0W') || etds[2].innerHTML
+  etds[3].innerHTML = ticketrawleft(str, '6A9PQE') || etds[3].innerHTML
+  etds[4].innerHTML = ticketrawleft(str, '4I') || etds[4].innerHTML
+  etds[5].innerHTML = ticketrawleft(str, '3FJ') || etds[5].innerHTML
+  etds[6].innerHTML = ticketrawleft(str, '2M7') || etds[6].innerHTML
+  etds[7].innerHTML = ticketrawleft(str, '1OS8') || etds[7].innerHTML
+}
 
 function pricefont(str) {
   return str.replaceAll(/(\.[0])/g, '<span style="color:#fff0;font-size:8px;">$1</span>').replaceAll(/(\.[5])/g, '<span style="font-size:8px;">$1</span>')
@@ -1825,7 +1869,6 @@ function ticketdiscountex(str, cc) {
   }
   return ""
 }
-
 
 function ticketHTML(result, map, date) {
   var str = "";
@@ -2241,46 +2284,6 @@ function czxx(t1) {
 }
 
 
-function zwdcxURL(str, trainNo, cxlx) {
-  if (!str) return "";
-  if (!trainNo) return "";
-  // return "http://www.12306.cn/mapping/kfxt/zwdcx/LCZWD/cx.jsp?cz=" + unicode2gbk(str) + "&cc=" + trainNo + "&cxlx=" + cxlx + "&rq=" + timeStr(0, "yyyy-mm-dd") + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&tp=" + new Date().getTime();
-  // return "https://kyfw.12306.cn/otn/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") // + "&randCode=&&if_check_slide_passcode_token="
-  return "https://kyfw.12306.cn/kfzmpt/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") // + "&randCode=&&if_check_slide_passcode_token="
-}
-
-function getzwdcx_id(id) {
-  var sp = id.split("_");
-  if (sp.length > 2) {
-    getzwdcx(sp[0], sp[1], sp[2]);
-  }
-}
-
-function getzwdcx(str, trainNo, cxlx) {
-  var url = zwdcxURL(str, trainNo, cxlx)
-  if (!url) return;
-  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
-      var s = xhr.responseText;
-      console.log(zwdcxHTML(s));
-      setInnerHTML(str + "_" + trainNo + "_" + cxlx, zwdcxHTML(s));
-    }
-  }
-  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send();
-}
-
-function zwdcxHTML(s) {
-  var match = s.match(/\d+:\d+/);
-  var time = match ? match[0] : "";
-  var match = s.match(/预计|暂无|无时刻|时刻表中无/);
-  var status = match ? match[0] : "";
-  return status + time;
-}
-
-
 function schURL(train_no, from_tele, to_tele, date) {
   if (!train_no) return "";
   if (!from_tele) return "";
@@ -2329,20 +2332,72 @@ function schHTML(sch) {
 }
 
 
-function tableHTML(s) {
-  var ret = ''
-  var rows = s.split("\n")
-  ret += "<table>"
-  for (var i = 0; i < rows.length; i++) {
-    var cols = rows[i].split(",");
-    ret += "<tr>"
-    for (var j = 0; j < cols.length; j++) {
-      ret += "<td>" + cols[j] + "</td>"
-    }
-    ret += "</tr>"
+function zwdcxURL(str, trainNo, cxlx) {
+  if (!str) return "";
+  if (!trainNo) return "";
+  // return "http://www.12306.cn/mapping/kfxt/zwdcx/LCZWD/cx.jsp?cz=" + unicode2gbk(str) + "&cc=" + trainNo + "&cxlx=" + cxlx + "&rq=" + timeStr(0, "yyyy-mm-dd") + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&tp=" + new Date().getTime();
+  // return "https://kyfw.12306.cn/otn/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") // + "&randCode=&&if_check_slide_passcode_token="
+  return "https://kyfw.12306.cn/kfzmpt/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") // + "&randCode=&&if_check_slide_passcode_token="
+}
+
+function getzwdcx_id(id) {
+  var sp = id.split("_");
+  if (sp.length > 2) {
+    getzwdcx(sp[0], sp[1], sp[2]);
   }
-  ret += "</table>"
-  return ret
+}
+
+function getzwdcx(str, trainNo, cxlx) {
+  var url = zwdcxURL(str, trainNo, cxlx)
+  if (!url) return;
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+      var s = xhr.responseText;
+      console.log(zwdcxHTML(s));
+      setInnerHTML(str + "_" + trainNo + "_" + cxlx, zwdcxHTML(s));
+    }
+  }
+  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send();
+}
+
+function zwdcxHTML(s) {
+  var match = s.match(/\d+:\d+/);
+  var time = match ? match[0] : "";
+  var match = s.match(/预计|暂无|无时刻|时刻表中无/);
+  var status = match ? match[0] : "";
+  return status + time;
+}
+
+
+var bureau_arr = [
+  "哈尔滨,哈,B",
+  "沈阳,沈,T",
+  "北京,京,P",
+  "呼和浩特,呼,C",
+  "郑州,郑,F",
+  "济南,济,K",
+  "上海,上,H",
+  "南昌,南,G",
+  "广州,广,Q",
+  "南宁,宁,Z",
+  "成都,成,W",
+  "昆明,昆,M",
+  "兰州,兰,J",
+  "乌鲁木齐,乌,R",
+  "西宁,青,O",
+  "太原,太,V",
+  "武汉,武,N",
+  "西安,西,Y",
+  "香港,港,X"
+]
+
+var bureau_map = {}
+for (var i = 0; i < bureau_arr.length; i++) {
+  var sp = bureau_arr[i].split(",")
+  bureau_map[sp[2]] = sp[1]
 }
 
 function css_emu(t) {
@@ -2414,32 +2469,62 @@ function css_emu(t) {
   return "typeCRH"
 }
 
-var bureau_arr = [
-  "哈尔滨,哈,B",
-  "沈阳,沈,T",
-  "北京,京,P",
-  "呼和浩特,呼,C",
-  "郑州,郑,F",
-  "济南,济,K",
-  "上海,上,H",
-  "南昌,南,G",
-  "广州,广,Q",
-  "南宁,宁,Z",
-  "成都,成,W",
-  "昆明,昆,M",
-  "兰州,兰,J",
-  "乌鲁木齐,乌,R",
-  "西宁,青,O",
-  "太原,太,V",
-  "武汉,武,N",
-  "西安,西,Y",
-  "香港,港,X"
-]
+function emu_type_no(bureau, emu_type, emu_no, emu_double) {
+  var c = ""
+  if (emu_double) {
+    c += "double"
+  }
+  if (emu_type.indexOf("~") > -1) {
+    c += " " + "AC380V"
+  }
+  if (/-$/g.test(emu_type)) {
+    c += " " + "DC600V"
+  }
+  emu_type = emu_type.replace(/[-~]$/g, '')
+  c += " " + css_emu(emu_type)
+  if (emu_type == 'BF-C' && emu_no == '5162') {
+    c += " " + "type400BFC5162"
+  }
+  if (emu_type == 'BF-Z' && emu_no == '0524') {
+    c += " " + "type400BFZ0524"
+  }
+  return (bureau_map[bureau] || bureau) + " <span class=\"" + c + "\">" + emu_type + " " + emu_no + "</span>"
+}
 
-var bureau_map = {}
-for (var i = 0; i < bureau_arr.length; i++) {
-  var sp = bureau_arr[i].split(",")
-  bureau_map[sp[2]] = sp[1]
+function emu_by_code(code) {
+  var key = hash_no(code.split("/")[0]) - 1
+  var trainset = window.emu[key]
+  if (!trainset || typeof (trainset.emu_type) != "string") return ""
+  return emu_type_no(trainset.bureau, trainset.emu_type, trainset.emu_no, trainset.emu_double)
+}
+
+function emu_type_short(bureau, emu_type, emu_no, emu_double) {
+  var c = ""
+  if (emu_double) {
+    c += "double"
+  }
+  if (emu_type.indexOf("~") > -1) {
+    c += " " + "AC380V"
+  }
+  if (/-$/g.test(emu_type)) {
+    c += " " + "DC600V"
+  }
+  emu_type = emu_type.replace(/[-~]$/g, '')
+  c += " " + css_emu(emu_type)
+  if (emu_type == 'BF-C' && emu_no == '5162') {
+    c += " " + "type400BFC5162"
+  }
+  if (emu_type == 'BF-Z' && emu_no == '0524') {
+    c += " " + "type400BFZ0524"
+  }
+  return (bureau_map[bureau] || bureau) + (emu_type?("<span class=\"" + c + "\">" + emu_type.replace("-", "").replace("300", "").replace("200", "")  + "</span>"):"")
+}
+
+function emu_short_by_code(code) {
+  var key = hash_no(code.split("/")[0]) - 1
+  var trainset = window.emu[key]
+  if (!trainset || typeof (trainset.emu_type) != "string") return ""
+  return emu_type_short(trainset.bureau, trainset.emu_type, trainset.emu_no, trainset.emu_double)
 }
 
 function search_emu(str) {
@@ -2490,64 +2575,6 @@ function search_emu(str) {
   document.getElementById("emu").innerHTML = result;
 }
 
-function emu_by_code(code) {
-  var key = hash_no(code.split("/")[0]) - 1
-  var trainset = window.emu[key]
-  if (!trainset || typeof (trainset.emu_type) != "string") return ""
-  return emu_type_no(trainset.bureau, trainset.emu_type, trainset.emu_no, trainset.emu_double)
-}
-
-function emu_type_no(bureau, emu_type, emu_no, emu_double) {
-  var c = ""
-  if (emu_double) {
-    c += "double"
-  }
-  if (emu_type.indexOf("~") > -1) {
-    c += " " + "AC380V"
-  }
-  if (/-$/g.test(emu_type)) {
-    c += " " + "DC600V"
-  }
-  emu_type = emu_type.replace(/[-~]$/g, '')
-  c += " " + css_emu(emu_type)
-  if (emu_type == 'BF-C' && emu_no == '5162') {
-    c += " " + "type400BFC5162"
-  }
-  if (emu_type == 'BF-Z' && emu_no == '0524') {
-    c += " " + "type400BFZ0524"
-  }
-  return (bureau_map[bureau] || bureau) + " <span class=\"" + c + "\">" + emu_type + " " + emu_no + "</span>"
-}
-
-function emu_short_by_code(code) {
-  var key = hash_no(code.split("/")[0]) - 1
-  var trainset = window.emu[key]
-  if (!trainset || typeof (trainset.emu_type) != "string") return ""
-  return emu_type_short(trainset.bureau, trainset.emu_type, trainset.emu_no, trainset.emu_double)
-}
-
-function emu_type_short(bureau, emu_type, emu_no, emu_double) {
-  var c = ""
-  if (emu_double) {
-    c += "double"
-  }
-  if (emu_type.indexOf("~") > -1) {
-    c += " " + "AC380V"
-  }
-  if (/-$/g.test(emu_type)) {
-    c += " " + "DC600V"
-  }
-  emu_type = emu_type.replace(/[-~]$/g, '')
-  c += " " + css_emu(emu_type)
-  if (emu_type == 'BF-C' && emu_no == '5162') {
-    c += " " + "type400BFC5162"
-  }
-  if (emu_type == 'BF-Z' && emu_no == '0524') {
-    c += " " + "type400BFZ0524"
-  }
-  return (bureau_map[bureau] || bureau) + (emu_type?("<span class=\"" + c + "\">" + emu_type.replace("-", "").replace("300", "").replace("200", "")  + "</span>"):"")
-}
-
 function getemu() {
   // '/emu/equip'
   // '/emu/ccrgt'
@@ -2594,34 +2621,107 @@ get_search_train_csv(' ')
 getemu()
 
 
-function getbureau(trainNo, id) {
-  var date = document.getElementById("date").value;
-  var yyyymmdd = date.replace(/-/g, "")
-  var url = "https://mobile.12306.cn/wxxcx/wechat/bigScreen/queryTrainBureau"
-  var body = "queryDate=" + yyyymmdd + "&trainCode=" + trainNo
+
+// start /cr/
+function crqrcheck() {
+  var url = "/cr/check"
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+      if ([200, 304].indexOf(xhr.status) > -1) {
+        var j = JSON.parse(xhr.responseText);
+        if (j.code == 0) {
+          setInnerHTML("login",'已登录' + timeStr(0, 'HH:MM:SS'))
+          setInnerHTML("login_status",' ')
+        }
+        if (j.code == -1) {
+          setInnerHTML("login",'需要登录')
+          getcrqr()
+        }
+      } else {
+        setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
+        setInnerHTML("emupre", xhr.responseText);
+      }
+    }
+  }
+  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+  setInnerHTML("login_status", "load");
+  xhr.send()
+}
+
+function getcrqr() {
+  var url = "/cr/qr/json"
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+      if ([200, 304].indexOf(xhr.status) > -1) {
+        var j = JSON.parse(xhr.responseText);
+        setInnerHTML("login",'二维码')
+        setInnerHTML("login_status",'<a href="com.12306://12306/QRLogin?loginUUID='+ j.uuid+'">12306</a>')
+        getcheckqr(j.uuid)
+      } else {
+        setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
+        setInnerHTML("emupre", xhr.responseText);
+      }
+    }
+  }
+  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+  xhr.send()
+}
+
+function getcheckqr(uuid) {
+  var url = "/cr/qr/check/" + uuid
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
+      var j = JSON.parse(xhr.responseText);
+      if (j.code == 0) {
+        setInnerHTML("login",'本次登录' + timeStr(0, 'HH:MM:SS'))
+        setInnerHTML("login_status",' ')
+      } else {
+        setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
+        setInnerHTML("emupre", xhr.responseText);
+      }
+    }
+  }
+  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+  xhr.send()
+}
+
+function getorder(uuid) {
+  var url = "/cr/order"
   var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
       var j = JSON.parse(xhr.responseText);
       if (j.data) {
-        if(!id) {
-          id = "emupre"
-          setInnerHTML(id, trainNo + " " + j.data.bureau_code + " " + j.data.bureau_code_name  + " " + j.data.subbureau_code  + " " + j.data.subbureau_code_name  + " " + j.data.startDate + "<br />\n" + document.getElementById(id).innerHTML);
-        } else {
-          setInnerHTML(id, j.data.bureau_code + " " + j.data.bureau_code_name  + " " + j.data.subbureau_code  + " " + j.data.subbureau_code_name);
+        setInnerHTML("order", j.data)
+      }
+    }
+  }
+  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
+  xhr.send()
+}
+
+function getcrleftraw(rowstr, date, trid) {
+  var url = "/cr/leftraw/" + date
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+      if ([200, 304].indexOf(xhr.status) > -1) {
+        var j = JSON.parse(xhr.responseText);
+        if (j.ypInfoDetail) {
+          setrawleft(j.ypInfoDetail, trid)
         }
       } else {
-        if(!id) {
-          id = "emupre"
-        }
-        setInnerHTML(id, trainNo + " " + j.errorMsg + "<br />\n" + document.getElementById("emupre").innerHTML);
+        setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
       }
     }
   }
   xhr.open("POST", url.replace(/^http[s]*:\/\//g, endpoint), true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send(body);
+  xhr.send(rowstr)
 }
+
 
 function getemuqrcode(emuSeatCode) {
   var url = "https://mobile.12306.cn/wxxcx/wechat/main/travelServiceDecodeQrcode"
@@ -2723,144 +2823,6 @@ function gettrainmapline(trainNo) {
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.send(body);
 }
-
-// /cr/
-function crqrcheck() {
-  var url = "/cr/check"
-  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4) {
-      if ([200, 304].indexOf(xhr.status) > -1) {
-        var j = JSON.parse(xhr.responseText);
-        if (j.code == 0) {
-          setInnerHTML("login",'已登录' + timeStr(0, 'HH:MM:SS'))
-          setInnerHTML("login_status",' ')
-        }
-        if (j.code == -1) {
-          setInnerHTML("login",'需要登录')
-          getcrqr()
-        }
-      } else {
-        setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
-        setInnerHTML("emupre", xhr.responseText);
-      }
-    }
-  }
-  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
-  setInnerHTML("login_status", "load");
-  xhr.send()
-}
-
-function getcrqr() {
-  var url = "/cr/qr/json"
-  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4) {
-      if ([200, 304].indexOf(xhr.status) > -1) {
-        var j = JSON.parse(xhr.responseText);
-        setInnerHTML("login",'二维码')
-        setInnerHTML("login_status",'<a href="com.12306://12306/QRLogin?loginUUID='+ j.uuid+'">12306</a>')
-        getcheckqr(j.uuid)
-      } else {
-        setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
-        setInnerHTML("emupre", xhr.responseText);
-      }
-    }
-  }
-  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
-  xhr.send()
-}
-
-function getcheckqr(uuid) {
-  var url = "/cr/qr/check/" + uuid
-  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
-      var j = JSON.parse(xhr.responseText);
-      if (j.code == 0) {
-        setInnerHTML("login",'本次登录' + timeStr(0, 'HH:MM:SS'))
-        setInnerHTML("login_status",' ')
-      } else {
-        setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
-        setInnerHTML("emupre", xhr.responseText);
-      }
-    }
-  }
-  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
-  xhr.send()
-}
-
-function getorder(uuid) {
-  var url = "/cr/order"
-  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
-      var j = JSON.parse(xhr.responseText);
-      if (j.data) {
-        setInnerHTML("order", j.data)
-      }
-    }
-  }
-  xhr.open("GET", url.replace(/^http[s]*:\/\//g, endpoint), true);
-  xhr.send()
-}
-
-function getcrleftraw(rowstr, date, trid) {
-  var url = "/cr/leftraw/" + date
-  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4) {
-      if ([200, 304].indexOf(xhr.status) > -1) {
-        var j = JSON.parse(xhr.responseText);
-        if (j.ypInfoDetail) {
-          setrawleft(j.ypInfoDetail, trid)
-        }
-      } else {
-        setInnerHTML("login_status", xhr.status + " " + xhr.statusText);
-      }
-    }
-  }
-  xhr.open("POST", url.replace(/^http[s]*:\/\//g, endpoint), true);
-  xhr.send(rowstr)
-}
-
-function setrawleft(str, trid) {
-  var etr = document.getElementById(trid)
-  if (!etr) return
-  var etds = etr.getElementsByTagName('td')
-  if (!etds || etds.length < 8) return
-
-  etds[2].innerHTML = ticketrawleft(str, 'QH5LCKB0W') || etds[2].innerHTML
-  etds[3].innerHTML = ticketrawleft(str, '6A9PQE') || etds[3].innerHTML
-  etds[4].innerHTML = ticketrawleft(str, '4I') || etds[4].innerHTML
-  etds[5].innerHTML = ticketrawleft(str, '3FJ') || etds[5].innerHTML
-  etds[6].innerHTML = ticketrawleft(str, '2M7') || etds[6].innerHTML
-  etds[7].innerHTML = ticketrawleft(str, '1OS8') || etds[7].innerHTML
-}
-
-function ticketrawleft(str, cc) {
-  if (typeof (str) != "string") {
-    return ""
-  }
-  for (var ii in cc) {
-    var c = cc[ii];
-    if (c == 'W') {
-      for (var i = 0; i + 9 < str.length; i += 10) {
-        var num = Number(str.slice(i + 6, i + 10))
-        if (num > 3000) {
-          return num - 3000
-        }
-      }
-    }
-    for (var i = 0; i + 9 < str.length; i += 10) {
-      if (c == str[i]) {
-        return pricefont(str.slice(i + 6, i + 10).replace(/^[0]{1,3}/, ""))
-      }
-    }
-  }
-  return ""
-}
-
 
 </script>
 </body>
