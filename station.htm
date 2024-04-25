@@ -1254,6 +1254,33 @@ function zwdcxHTML(s) {
 }
 
 
+var bureau_arr = [
+  "哈尔滨,哈,B",
+  "沈阳,沈,T",
+  "北京,京,P",
+  "呼和浩特,呼,C",
+  "郑州,郑,F",
+  "济南,济,K",
+  "上海,上,H",
+  "南昌,南,G",
+  "广州,广,Q",
+  "南宁,宁,Z",
+  "成都,成,W",
+  "昆明,昆,M",
+  "兰州,兰,J",
+  "乌鲁木齐,乌,R",
+  "西宁,青,O",
+  "太原,太,V",
+  "武汉,武,N",
+  "西安,西,Y"
+]
+
+var bureau_map = {}
+for (var i = 0; i < bureau_arr.length; i++) {
+  var sp = bureau_arr[i].split(",")
+  bureau_map[sp[2]] = sp[1]
+}
+
 function css_emu(t) {
   if (t.indexOf("BST") > -1) {
     return "typeBSP"
@@ -1321,33 +1348,6 @@ function css_emu(t) {
   }
 
   return "typeCRH"
-}
-
-var bureau_arr = [
-  "哈尔滨,哈,B",
-  "沈阳,沈,T",
-  "北京,京,P",
-  "呼和浩特,呼,C",
-  "郑州,郑,F",
-  "济南,济,K",
-  "上海,上,H",
-  "南昌,南,G",
-  "广州,广,Q",
-  "南宁,宁,Z",
-  "成都,成,W",
-  "昆明,昆,M",
-  "兰州,兰,J",
-  "乌鲁木齐,乌,R",
-  "西宁,青,O",
-  "太原,太,V",
-  "武汉,武,N",
-  "西安,西,Y"
-]
-
-var bureau_map = {}
-for (var i = 0; i < bureau_arr.length; i++) {
-  var sp = bureau_arr[i].split(",")
-  bureau_map[sp[2]] = sp[1]
 }
 
 function emu_type_no(bureau, emu_type, emu_no, emu_double) {
