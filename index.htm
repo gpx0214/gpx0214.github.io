@@ -304,7 +304,7 @@ pre {
     <span onclick="gettraininfo(getValue('keyword'), getValue('date').replace(/-/g, ''))">info</span>
     <span onclick="getemucar(getValue('keyword'), getValue('date').replace(/-/g, ''))">car</span>
     <span onclick="getemuqrcode(getValue('keyword'))">qr</span>
-    <span onclick="gettrainmapline(getValue('keyword'))">line</span>
+    <span onclick="gettrainmapline_code(getValue('keyword'))">line</span>
     <br />
   </form>
   <form>
@@ -343,7 +343,7 @@ pre {
   <div id="result" style="white-space: nowrap;"></div>
   <div id="ticket"></div>
   <div id="emu" style="white-space: nowrap;"></div>
-  <pre id="emupre" style="overflow-x:scroll;/*white-space: nowrap;*/"></pre>
+  <pre id="emupre" style="overflow-x:scroll;white-space: nowrap;"></pre>
   <pre id="order" style="overflow-x:scroll;"></pre>
   <div id="local" style="word-break: keep-all;"></div>
   <a href="/archive.htm" target="_blank">历史时刻表</a>
@@ -2499,7 +2499,8 @@ function search_emu(str) {
         }
       }
     }
-    result += "<span onclick=\"get_search_cr_csv('" + trainset.train_code + "')\">" + trainset.train_code + "</span> " 
+    result += "<span class=\"type"
+    + traintype(trainset.train_code) + "\" onclick=\"get_search_cr_csv('" + trainset.train_code + "')\">" + trainset.train_code + "</span> " 
     + emu_type_no(trainset.bureau, trainset.emu_type, trainset.emu_no, trainset.emu_double) + schstr + "<br />\n"
 
   }
@@ -2732,6 +2733,20 @@ function gettraininfoHTML(j) {
   return ret
 }
 
+
+function gettrainmapline_code(train_code) {
+  if (window.cr) {
+      var key = hash_no(train_code) - 1
+      for(var idx in window.cr[key]) {
+        var t = window.cr[key][idx].train
+        for (var i in t) {
+          if (is_a_day(t[i].date, date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3"))) {
+            gettrainmapline(t[i].train_no)
+          }
+        }
+      }
+  }
+}
 
 function gettrainmapline(trainNo) {
   var url = "https://mobile.12306.cn/wxxcx/wechat/main/getTrainMapLine"
