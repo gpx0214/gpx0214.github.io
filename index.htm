@@ -298,7 +298,7 @@ pre {
   <span id="login_status"></span>
   <form>
     <input type="text" id="keyword" placeholder="车次或站名" style="max-width:10em" onchange="console.log(this.value)" />
-    <input name="btn" type="submit" value="查询" style="max-width:4em" onclick="get_search_train_csv(getValue('keyword'));return false;">
+    <input name="btn" type="submit" value="查询" style="max-width:4em" onclick="get_search_cr_csv(getValue('keyword'));return false;">
     <span onclick="search(getValue('keyword'))">联网查询</span>
     <span onclick="search_emu(getValue('keyword'))">emu</span>
     <span onclick="gettraininfo(getValue('keyword'), getValue('date').replace(/-/g, ''))">info</span>
@@ -973,7 +973,6 @@ function set_to(name) {
 function changeFromTo() {
   var from = getValue("from_station");
   var to = getValue("to_station");
-  console.log(from, to)
   set_from(to);
   set_to(from);
 }
@@ -1144,100 +1143,7 @@ function multi_train_no(train_no, train_code) {
   return no;
 }
 
-function search_train_csv(kw) {
-  var result = "";
-  // var re = new RegExp(str, "i");
-  //document.getElementById("sch").innerHTML = "";
-  var sp = kw.split("-")
-  var minkey = hash_no(sp[0]) - 1
-  var maxkey = minkey
-  if (sp.length > 1) {
-    if (sp[1].length < sp[0].length) {
-      sp[1] = sp[0].slice(0, sp[0].length -sp[1].length) + sp[1]
-    }
-    maxkey = hash_no(sp[1]) - 1
-  }
-  if (kw == '') {
-    minkey = 0
-    maxkey = window.train.length - 1
-  }
-  for (var key = minkey; key <= maxkey; key++) {
-    for (i in window.train[key]) {
-      t = window.train[key][i];
-      //if (re.test(t.train_code)) { // if(t.train_code.includes(str)) { // 
-      var is_run = is_a_day(t.date, date.replace(/(\d\d\d\d)-(\d\d)-(\d\d)/, "$1$2$3"))
-      result += ("<div id=\"" + t.train_code + "\">"
-        + t.train_no + " " + t.from_station + " " + t.to_station
-        + " " + "<span class=\"type" + traintype(t.train_code, t.service_type) + "\" onclick=\"get_search_time_csv('" + t.train_no.slice(2, 10).replace(/^[0]+/g, "") + "')\">"
-        + t.train_code // multi_train_no(t.train_no, t.train_code)
-        + "</span>" + " " + (telename(t.from_station) || "---") + " " + (telename(t.to_station) || "---")
-        + " " + emu_by_code(t.train_code)
-        // + " " + t.service_type
-        + " " + "<span class=\"" + (is_run ? "" : "ctl") + "\">" + t.date + "</span>"
-        //+ " " + "<a href=" + schurl + " target='_blank'>" + multi_train_no(t.train_no, t.train_code) + "</a>" 
-        + "</div>"
-      );
-      //if (is_run && t.train_code == str.toUpperCase()) {
-      // document.getElementById("sch").innerHTML = t.train_code + "<br />\n";
-
-      //}
-      //}
-    }
-  }
-  get_search_time_csv(kw);
-  document.getElementById("result").innerHTML = result;
-}
-
-function get_search_train_csv(str) {
-  if (window.train) {
-    search_train_csv(str)
-    return
-  }
-  var url = "js/train" + graph_yymmdd + ".csv"
-  document.getElementById("result").innerHTML = str
-  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-  xhr.onprogress = function (ev) {
-    document.getElementById("result").innerHTML = str + " " + ev.loaded
-  }
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4) {
-      if ([200, 304].indexOf(xhr.status) > -1) {
-        data = xhr.responseText.split("\n");
-        window.train = Array(maxlen)
-        for (var i = 0; i < maxlen; i++) {
-          window.train[i] = []
-        }
-        for (i in data) {
-          var row = data[i].split(",");
-          if (row.length <= 3) continue
-          var key = hash_no(row[0].slice(2, 10).replace(/^0+/g, '')) - 1
-          if (key < 0 || key >= maxlen) {
-            key = maxlen - 1
-          }
-          window.train[key].push({
-            train_no: row[0] || "",
-            from_station: row[1] || "",
-            to_station: row[2] || "",
-            train_code: multi_train_no(row[0], row[3]),
-            total_num: row[4] || "",
-            service_type: row[5] || "", // (row[5].length & row[5] == '0') ? "无空调" : "",
-            date: row[6] || "",
-            // src: row[7] || "",
-          })
-        }
-
-        search_train_csv(str)
-      } else {
-        document.getElementById("result").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
-      }
-    }
-  }
-  xhr.open("GET", url, true);
-  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send();
-}
-
-function search_time_csv(kw) {
+function search_cr_csv(kw) {
   if (kw == "") {
     return
   }
@@ -1252,125 +1158,151 @@ function search_time_csv(kw) {
   }
   var str = "";
   for (var key = minkey; key <= maxkey; key++) {
-    sch = window.timetable[key]
-    if (!sch || sch.length == 0) {
-      continue
-    }
-    for (i in sch) {
-      if (i == 0 || sch[i].arr_time == "") {
-        if (i > 0) {
-          str += "</div>"
-        }
-        if (!window.train[key]) {
-          continue;
-        }
-        var t = window.train[key][0]
-        for (var idx in window.train[key]) {
-          if (window.train[key][idx].date == sch[i].date) {
-            t = window.train[key][idx]
-            break
-          }
-        }
-        str += ("<div class=\"sch\" id=\"sch_" + t.train_code + "\"><div><span class=\"type"
-          + traintype(t.train_code, t.service_type) + "\">"
-          + t.train_code
-          + "</span> " + telename(t.from_station) + " " + telename(t.to_station) + " " + t.date + " " + emu_by_code(t.train_code)
-          + "</div>\n");
+    for (var idx in window.cr[key]) {
+      var t = window.cr[key][idx].train
+      var sch = window.cr[key][idx].time
+      if (!t || t.length == 0) {
+        continue
       }
 
-      str += ("<div id=\"" + sch[i].station + "_" + sch[0].train_code + "\">"
+      str += ("<div class=\"sch\" id=\"sch_" + t[0].train_code + "\">\n")
+      for (var i in t) {
+        str += ("<div><span class=\"type"
+        + traintype(t[i].train_code, t[i].service_type) + "\">"
+        + t[i].train_code
+        + "</span> " 
+        + (sch.length ?(telename(sch[0].station) + " " + telename(sch[sch.length-1].station) + " "):'')
+        + t[i].date + " " + emu_by_code(t[i].train_code)
+        + "</div>\n");
+      }
+
+      if (!sch || sch.length == 0) {
+        continue
+      }
+      for (var i in sch) {
+        str += ("<div id=\"" + sch[i].station + "_" + t[0].train_code + "\">"
         + telename(sch[i].station) + " "
         + sch[i].arr_time + " "
         + sch[i].dep_time + " "
-        //+ sch[i].stopover_time + " "
+        // + sch[i].stopover_time + " "
         + ((i > 0 && sch[i].arr_day_diff && sch[i].arr_day_diff != sch[i - 1].arr_day_diff) ? "+" + sch[i].arr_day_diff : "") + " "
-        // + ((i == 0) ? "" : (" <span id=\"" + telename(sch[i].station) + "_" + sch[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
-        // + ((i == sch.length - 1) ? "" : (" <span id=\"" + telename(sch[i].station) + "_" + sch[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
+        + ((i == 0) ? "" : (" <span id=\"" + telename(sch[i].station) + "_" + t[0].train_code + "_0\" onclick=\"getzwdcx_id(this.id)\">到</span>"))
+        + ((i == sch.length - 1) ? "" : (" <span id=\"" + telename(sch[i].station) + "_" + t[0].train_code + "_1\" onclick=\"getzwdcx_id(this.id)\">发</span>"))
         + "</div>\n");
+      }
+      str += "</div>"
     }
-    str += "</div>"
   }
   setInnerHTML("sch", str + document.getElementById("sch").innerHTML);
 }
 
-function get_search_time_csv(str) {
-  if (window.timetable) {
-    search_time_csv(str)
+function get_search_cr_csv(str) {
+  if (window.cr) {
+    search_cr_csv(str)
     return
   }
-  var url = "js/time" + graph_yymmdd + ".min.csv"
-  //document.getElementById("sch").innerHTML = str
+  var url = "js/cr" + graph_yymmdd + ".min.csv"
+  // document.getElementById("sch").innerHTML = str
   var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
   xhr.onprogress = function (ev) {
-    document.getElementById("sch").innerHTML = str + " " + ev.loaded
+    // document.getElementById("sch").innerHTML = str + " " + ev.loaded
   }
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
       if ([200, 304].indexOf(xhr.status) > -1) {
-        document.getElementById("sch").innerHTML = ""
-        data = xhr.responseText.split("\n");
-        window.timetable = Array(maxlen)
+        data = xhr.responseText.split("\n\n");
+        window.cr = Array(maxlen)
         for (var i = 0; i < maxlen; i++) {
-          window.timetable[i] = []
+          window.cr[i] = []
         }
-        var train_code = ""
-        var arr_time = ""
-        var dep_time = ""
-        var day_diff = ""
-        for (var i in data) {
-          var row = data[i].split(",");
-          if (row.length <= 1) continue
-          if (row[3]) {
-            train_code = row[3] || ""
-            day_diff = ""
-          }
-          if (row[4]) {
-            day_diff = row[4] || ""
-          }
-          if (!row[1]) {
-            arr_time = ""
-            dep_time = row[2] || ""
-          } else {
-            arr_time = minAdd(dep_time, row[1])
-            dep_time = row[2] ? minAdd(arr_time, row[2]) : ""
-          }
-          var key = hash_no(train_code) - 1
-          if (key < 0 || key >= maxlen) {
-            key = maxlen - 1
-          }
-          window.timetable[key].push({
-            train_code: row[3] || "",
+        for (idx in data) {
+          var rows = data[idx].split("\n");
+
+          var trains = []
+          var times = []
+
+          var train_code = ""
+          var arr_time = ""
+          var dep_time = ""
+          var day_diff = 0
+          
+          for (i in rows) {
+            var row = rows[i].split(",");
+            if (row.length <= 1) continue
+
+            if (row[0].length == 12) {
+              var key = hash_no(row[0].slice(2, 10).replace(/^0+/g, '')) - 1
+              if (key < 0 || key >= maxlen) {
+                key = maxlen - 1
+              }
+              trains.push({
+                train_no: row[0] || "",
+                train_code: multi_train_no(row[0], row[1]),
+                date: row[2] || "",
+                service_type: row[3] || "", // (row[3].length & row[3] == '0') ? "无空调" : "",
+                // src: row[4] || "",
+                // from_station: row[] || "",
+                // to_station: row[] || "",
+                // total_num: row[] || "",
+              })
+              train_code = row[1]
+              continue
+            }
+
+            var cross_day = 0
+            if (!row[1]) {
+              arr_time = ""
+              dep_time = row[2] || ""
+            } else {
+              if (getmin(dep_time) + (row[1] | 0) + (row[2] | 0) > 1440) {
+                day_diff++
+              }
+              arr_time = minAdd(dep_time, row[1])
+              dep_time = row[2] ? minAdd(arr_time, row[2]) : ""
+            }
+            times.push({
+              station: row[0] || "",
+              // station_no: "",
+              arr_day_diff: day_diff,
+              arr_time: arr_time,
+              dep_day_diff: day_diff,
+              dep_time: dep_time,
+              // date: row[] || "",
+            })
+
+            /*
             station: row[0] || "",
-            // station_no: "",
-            arr_day_diff: day_diff,
-            arr_time: arr_time,
-            dep_day_diff: day_diff,
-            dep_time: dep_time,
-            date: row[5] || "",
-          })
+            station_no: row[1] || "",
+            arr_day_diff: row[2] || "",
+            arr_time: row[3] || "",
+            dep_day_diff: row[4] || "",
+            dep_time: row[5] || "",
+            distance: row[6] || "",
+            speed: row[7] || "",
+            */
+          }
 
-          /*
-          station: row[0] || "",
-          station_no: row[1] || "",
-          arr_day_diff: row[2] || "",
-          arr_time: row[3] || "",
-          dep_day_diff: row[4] || "",
-          dep_time: row[5] || "",
-          distance: row[6] || "",
-          speed: row[7] || "",
-          */
+          if (!trains) {
+            continue
+          }
+
+          window.cr[key].push({
+              "train": trains,
+              "time":  times,
+          })
         }
 
-        search_time_csv(str)
+        search_cr_csv(str)
       } else {
         document.getElementById("sch").innerHTML = str + " " + xhr.status + " " + (xhr.statusText || "error");
       }
     }
   }
   xhr.open("GET", url, true);
+  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.send();
 }
-/*time end*/ // TODO
+
 
 function getTicket(from, to, date) {
   var from_station_telecode = telecode(from);
@@ -2354,7 +2286,6 @@ function getzwdcx(str, trainNo, cxlx) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
       var s = xhr.responseText;
-      console.log(zwdcxHTML(s));
       setInnerHTML(str + "_" + trainNo + "_" + cxlx, zwdcxHTML(s));
     }
   }
@@ -2546,12 +2477,12 @@ function search_emu(str) {
     if (a.emu_no > b.emu_no) return 1
     if (a.emu_no < b.emu_no) return -1
     //train start time
-    if (window.timetable) {
+    if (window.cr) {
       var keyA = hash_no(a.train_code) - 1
       var keyB = hash_no(b.train_code) - 1
-      if (window.timetable[keyA] && window.timetable[keyB]) {
-        if (window.timetable[keyA][0].dep_time > window.timetable[keyB][0].dep_time) return 1
-        if (window.timetable[keyA][0].dep_time < window.timetable[keyB][0].dep_time) return -1
+      if (window.cr[keyA].length && window.cr[keyB].length && window.cr[keyA][0].time.length && window.cr[keyB][0].time.length) {
+        if (window.cr[keyA][0].time[0].dep_time > window.cr[keyB][0].time[0].dep_time) return 1
+        if (window.cr[keyA][0].time[0].dep_time < window.cr[keyB][0].time[0].dep_time) return -1
       }
     }
     return 0
@@ -2561,14 +2492,17 @@ function search_emu(str) {
   for (var i = 0; i < ret.length; i++) {
     var trainset = ret[i]
     var schstr = ""
-    if (window.timetable) {
+    if (window.cr) {
       var key = hash_no(trainset.train_code) - 1
-      var sch = window.timetable[key]
-      if (sch) {
-        schstr = " " + sch[0].dep_time + " " + sch[sch.length-1].arr_time + " " + telename(sch[0].station) + " " + telename(sch[sch.length-1].station)
+      for (var i in window.cr[key]) {
+        var sch = window.cr[key][i].time
+        if (sch.length) {
+          schstr = " " + sch[0].dep_time + " " + sch[sch.length-1].arr_time + " " + telename(sch[0].station) + " " + telename(sch[sch.length-1].station)
+          break
+        }
       }
     }
-    result += "<span onclick=\"get_search_train_csv('" + trainset.train_code + "')\">" + trainset.train_code + "</span> " 
+    result += "<span onclick=\"get_search_cr_csv('" + trainset.train_code + "')\">" + trainset.train_code + "</span> " 
     + emu_type_no(trainset.bureau, trainset.emu_type, trainset.emu_no, trainset.emu_double) + schstr + "<br />\n"
 
   }
@@ -2617,7 +2551,7 @@ function getemu() {
   xhr.send()
 }
 
-get_search_train_csv(' ')
+get_search_cr_csv(' ')
 getemu()
 
 
@@ -2730,7 +2664,6 @@ function getemuqrcode(emuSeatCode) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
       var j = JSON.parse(xhr.responseText);
-      console.log(j.data)
       if (j.data) {
         setInnerHTML("emupre", j.data.carCode + " " + j.data.trainCode + " " + j.data.trainNo + " " + j.data.bureauCode + " " + j.data.bureauName.replace(/中国铁路(.*)集团有限公司/g, "$1") + " " + j.data.deptName + " " + j.data.startDay + " " + j.data.trainRepeat + " " + j.data.coachNo + " " + j.data.seatNo + " " + j.data.seatType + "<br />\n" + document.getElementById("emupre").innerHTML);
       } else {
@@ -2750,7 +2683,6 @@ function getemucar(code, date) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status <= 200) {
       var j = JSON.parse(xhr.responseText);
-      console.log(j.data)
       if (j.content && j.content.data) {
         setInnerHTML("emupre", code + " " + j.content.data.carCode + "<br />\n" + document.getElementById("emupre").innerHTML);
       }
