@@ -485,6 +485,59 @@ function is_a_day(s, d) {
 }
 
 
+function getstation() {
+  var url = '/js/station.min.csv'
+
+  var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+      if ([200, 304].indexOf(xhr.status) > -1) {
+        window.s = []
+        if (typeof (xhr.responseText) != "undefined") {
+          var s1 = xhr.responseText.split("\n");
+          for (var i = 0; i < s1.length; i++) {
+            var ss = s1[i];
+            if (ss.length > 0) {
+              ss = ss.split(",");
+              window.s.push(ss);
+            }
+          }
+        }
+        setInnerHTML("result", "")
+      } else {
+        setInnerHTML("result", xhr.status + " " + xhr.statusText);
+      }
+    }
+  }
+
+  xhr.open("GET", url, true);
+  setInnerHTML("result", "loading station");
+  xhr.send()
+}
+
+getstation()
+
+function telecode(name) {
+  for (var ii in s) {
+    if (s[ii][0] === name) {
+      return s[ii][1];
+    }
+  }
+  return "";
+}
+
+function telename(tele) {
+  for (var ii in s) {
+    if (s[ii][1] === tele) {
+      return s[ii][0];
+    }
+  }
+  return tele || "";
+}
+
+
+
 var px_time = 15//4
 var px_line = 56//50
 
@@ -1157,7 +1210,7 @@ function stationHTML(stat, arr) {
       + "\" style=\"position:absolute;top:" + (min * px_time) + "px;left:" + linenum * px_line + "px;z-index:" + (is_a_day(arr[i].date, date) ? 2 : 1) + ";\">"
       + arr[i].code
       + emu_type_no(arr[i].bureau, arr[i].emu_type, arr[i].emu_no, arr[i].emu_double)
-      // + "<br />\n<span id=\""+ (is_a_day(arr[i].date, date)?(stat + "_" + arr[i].code + "_" + arr[i].is_dep) : "") + "\" onclick=\"getzwdcx_id(this.id)\">"+arr[i].time+"</span>" // TODO telename(station)
+      + "<br />\n<span id=\""+ (is_a_day(arr[i].date, date)?(telename(stat) + "_" + arr[i].code + "_" + arr[i].is_dep) : "") + "\" onclick=\"getzwdcx_id(this.id)\">"+arr[i].time+"</span>" // TODO telename(station)
       + (linename ? "<br />\n[" + linename + "]" : "")
       + "</div>")
   }
@@ -1210,7 +1263,8 @@ function zwdcxURL(str, trainNo, cxlx) {
   if (!str) return "";
   if (!trainNo) return "";
   // return "http://www.12306.cn/mapping/kfxt/zwdcx/LCZWD/cx.jsp?cz=" + unicode2gbk(str) + "&cc=" + trainNo + "&cxlx=" + cxlx + "&rq=" + timeStr(0, "yyyy-mm-dd") + "&czEn=" + encodeURI(str).replace(/%/g, "-") + "&tp=" + new Date().getTime();
-  return "https://kyfw.12306.cn/otn/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") // + "&randCode=&&if_check_slide_passcode_token="
+  // return "https://kyfw.12306.cn/otn/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") // + "&randCode=&&if_check_slide_passcode_token="
+  return "https://kyfw.12306.cn/kfzmpt/zwdch/query?cxlx=" + cxlx + "&cz=" + encodeURI(str) + "&cc=" + trainNo + "&czEn=" + encodeURI(str).replace(/%/g, "-") // + "&randCode=&&if_check_slide_passcode_token="
 }
 
 function getzwdcx_id(id) {
@@ -1221,7 +1275,7 @@ function getzwdcx_id(id) {
 }
 
 function getzwdcx(str, trainNo, cxlx) {
-  var namemap = {
+  /*var namemap = {
     "BJP":"北京",
     "BXP":"北京西",
     "VNP":"北京南",
@@ -1229,7 +1283,7 @@ function getzwdcx(str, trainNo, cxlx) {
   }
   if (str) {
     str = namemap[str] // TODO
-  }
+  }*/
   var url = zwdcxURL(str, trainNo, cxlx)
   if (!url) return;
   var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
