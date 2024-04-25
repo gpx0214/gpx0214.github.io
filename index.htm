@@ -2491,8 +2491,8 @@ function search_emu(str) {
     var schstr = ""
     if (window.cr) {
       var key = hash_no(trainset.train_code) - 1
-      for (var i in window.cr[key]) {
-        var sch = window.cr[key][i].time
+      for (var idx in window.cr[key]) {
+        var sch = window.cr[key][idx].time
         if (sch.length) {
           schstr = " " + sch[0].dep_time + " " + sch[sch.length-1].arr_time + " " + telename(sch[0].station) + " " + telename(sch[sch.length-1].station)
           break
