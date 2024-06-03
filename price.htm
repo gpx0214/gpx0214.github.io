@@ -249,9 +249,16 @@ console.log(miles_off_emu(2298)*0.484*.95, 2  ) // 862
 
 G 京广 0.55 高铁递远递减 最后四舍五入
 // 241 151
-console.log(miles_off_emu( 281)*0.55) // 247 155
-console.log(miles_off_emu( 693)*0.55) // 593 371
-console.log(miles_off_emu(1229)*0.55) // 997 623
+console.log(miles_off_emu( 281)*0.55) //  155
+console.log(miles_off_emu( 693)*0.55) //  371
+console.log(miles_off_emu(1229)*0.55) //  623
+console.log((miles_off_emu(1591)-miles_off_emu(1229))*.484*.95, 0.5) // 128.5+623=751.5
+console.log((miles_off_emu(2298)-miles_off_emu(1229))*.484*.95, 1.5) // 341.5+623=964.5
+
+24.06.15
+console.log(miles_off_emu(1591)*0.55) //  778
+console.log(miles_off_emu(2298)*0.55) // 1033
+
 
 
 
@@ -514,7 +521,7 @@ J 公布票价 0.3086 无递远递减 最后四舍五入
         var section = sections[i]
         var row = [section.floor + 1, section.ceil, section.center].concat(unionprice(section.center, up, kd, fast, bxoff))
         rows.push(row)
-        console.log(row)
+        console.log(row.join('\t'))
       }
       return rows
     }
