@@ -442,8 +442,8 @@ fni,富宁,FNM,funing,fn,456,1979,文山,15,uLvE/g==
 fqi,福清,FQS,fuqing,fq,457,1004,福州,18,uKPH5Q==
 fqu,福泉,VMW,fuquan,fq,458,1802,都匀,15:30,uKPIqg==
 frn,芙蓉南,KCQ,furongnan,frn,459,1407,长沙,15,3L3I2MTP
-fs,抚顺,FET,fushun,fs,460,0206,抚顺,15:30,uKfLsw==
-fsh,富顺,FSE,fushun,fs,461,1713,自贡,,uLvLsw==
+fsh,富顺,FSE,fushun,fs,460,1713,自贡,,uLvLsw==
+fsh,抚顺,FET,fushun,fs,461,0206,抚顺,15:30,uKfLsw==
 fsh,佛山,FSQ,foshan,fs,462,1506,佛山,14,t/DJvQ==
 fsu,扶绥,FSZ,fusui,fs,463,1615,崇左,17:30,t/bL5w==
 fsx,佛山西,FOQ,foshanxi,fsx,465,1506,佛山,14,t/DJvc73
@@ -2339,7 +2339,7 @@ ljz,厉家寨,UPK,lijiazhai,ljz,2366,0622,临沂,16,wPe80tWv
 lkn,林口南,LRB,linkounan,lkn,2367,0030,林口,09,wda/2sTP
 lkp,路口铺,LKQ,lukoupu,lkp,2368,1404,岳阳,17:30,wre/2sbM
 lla,老莱,LAX,laolai,ll,2369,0007,齐齐哈尔,16:30,wM/Asw==
-llb,龙里北,KFW,longlibei,llb,2370,1802,都匀,,wfrA77Gx
+llb,龙里北,KFW,longlibei,llb,2370,1802,都匀,15:30,wfrA77Gx
 llb,沥林北,KBQ,lilinbei,llb,2371,1512,惠州,14,waTB1rGx
 llb,兰陵北,COK,lanlingbei,llb,2372,0622,临沂,18,wLzB6rGx
 lld,醴陵东,UKQ,lilingdong,lld,2373,1408,株洲,17:30,9bfB6rar
@@ -3109,7 +3109,7 @@ ych,砚川,YYY,yanchuan,yc,3136,2016,商洛,18,0eK0qA==
 ych,盐池,YKJ,yanchi,yc,3137,2313,吴忠,11:30,0c6z2A==
 ych,阳岔,YAL,yangcha,yc,3138,0135,通化,16:30,0fSy7Q==
 ych,应城,YHN,yingcheng,yc,3139,1313,孝感,18,06azxw==
-ych,宜城,YIN,yicheng,yc,3140,1304,襄阳,18,0suzxw==
+ycn,宜城南,YIN,yichengnan,ycn,3140,1304,襄阳,18,0suzx8TP
 ych,郓城,YPK,yuncheng,yc,3141,0621,菏泽,18,26mzxw==
 ych,晏城,YEK,yancheng,yc,3142,0601,德州,18,6syzxw==
 ych,禹城,YCK,yucheng,yc,3143,0601,德州,18,0+2zxw==
