@@ -143,7 +143,7 @@ xsh,小哨,XAM,xiaoshao,xs,154,1902,昆明,,0KHJ2g==
 xye,雪野,XYK,xueye,xy,155,0602,济南,14,0anSsA==
 ych,银川,YIJ,yinchuan,yc,156,2302,银川,10:30,0vi0qA==
 yfy,永丰营,YYM,yongfengying,yfy,157,1902,昆明,,08C34dOq
-yjp,一间堡,YJT,yijianpu,yjp,158,0110,长春,16:30,0ru85LGk
+yjp,一间堡,YJT,yijianpu,yjp,158,0110,长春,,0ru85LGk
 yna,宜耐,YVM,yinai,yn,159,1902,昆明,,0svEzQ==
 ypu,羊堡,ABM,yangpu,yp,160,1902,昆明,,0fKxpA==
 yst,榆树台,YUT,yushutai,yst,161,0205,沈阳,16:30,09zK98yo
@@ -174,7 +174,7 @@ alk,阿拉山口,AKR,alashankou,alsk,185,2407,博乐,09,sKLArcm9v9o=
 alt,阿勒泰,AUR,aletai,alt,186,2424,阿勒泰,09,sKLA1cyp
 alu,安陆,ALN,anlu,al,187,1313,孝感,18,sLLCvQ==
 alx,安陆西,AXN,anluxi,alx,188,1313,孝感,18,sLLCvc73
-api,安平,APT,anping,ap,189,0212,辽阳,16:30,sLLGvQ==
+api,安平,APT,anping,ap,189,0212,辽阳,,sLLGvQ==
 aqi,安庆,AQH,anqing,aq,190,0816,安庆,12:30,sLLH7A==
 aqx,安庆西,AIU,anqingxi,aqx,191,0816,安庆,12:30,sLLH7M73
 ash,安顺,ASW,anshun,as,192,1805,安顺,15:30,sLLLsw==
@@ -202,7 +202,7 @@ bdo,巴东,BBN,badong,bd,213,1361,恩施,18,sM22qw==
 bfs,八方山,FGQ,bafangshan,bfs,214,1407,长沙,17:30,sMu3vcm9
 bgu,柏果,BGM,baiguo,bg,215,1806,六盘水,15,sNi5+w==
 bha,北海,BHZ,beihai,bh,216,1611,北海,17:30,sbG6ow==
-bha,布海,BUT,buhai,bh,217,0110,长春,16:30,sry6ow==
+bha,布海,BUT,buhai,bh,217,0110,长春,,sry6ow==
 bha,滨海,YKP,binhai,bh,218,0359,天津,16,sfW6ow==
 bhb,滨海北,FCP,binhaibei,bhb,219,0359,天津,16,sfW6o7Gx
 bhe,白河,BEL,baihe,bh,220,9097,延边,16:30,sNe60w==
@@ -308,7 +308,7 @@ cxi,城西,CIA,chengxi,cx,321,2501,海口,13:30,s8fO9w==
 cxn,长兴南,CFH,changxingnan,cxn,322,0901,湖州,09:30,s6TQy8TP
 cxt,陈相屯,CXT,chenxiangtun,cxt,323,0205,沈阳,16:30,s8LP4M3N
 cya,潮阳,CNQ,chaoyang,cy,324,1516,汕头,14,s7HR9A==
-cyc,朝阳川,CYL,chaoyangchuan,cyc,325,9097,延边,16:30,s6/R9LSo
+cyc,朝阳川,CYL,chaoyangchuan,cyc,325,9097,延边,,s6/R9LSo
 cyh,朝阳湖,CYE,chaoyanghu,cyh,326,1707,成都,15:30,s6/R9Lr+
 czb,滁州北,CUH,chuzhoubei,czb,327,0808,滁州,18,s/zW3bGx
 czb,常州北,ESH,changzhoubei,czb,328,0708,常州,08:45,s6PW3bGx
@@ -350,7 +350,7 @@ dhu,敦煌,DHJ,dunhuang,dh,364,2107,酒泉,10:30,tti7zQ==
 dhu,德惠,DHT,dehui,dh,365,0110,长春,16:30,tcK73Q==
 dhx,德惠西,DXT,dehuixi,dhx,366,0110,长春,16:30,tcK73c73
 djc,东京城,DJB,dongjingcheng,djc,367,0044,牡丹江,16:30,tqu+qbPH
-djg,达家沟,DJT,dajiagou,djg,368,0110,长春,16:30,tO+80rm1
+djg,达家沟,DJT,dajiagou,djg,368,0110,长春,,tO+80rm1
 dji,垫江,DJE,dianjiang,dj,369,3131,垫江,15:30,tea9rQ==
 dji,道滘,RRQ,daojiao,dj,370,1504,东莞,14,tcCc8g==
 dji,大涧,DFP,dajian,dj,371,0401,大同,,tPO9pw==
@@ -380,7 +380,7 @@ dsq,大石桥,DQT,dashiqiao,dsq,394,0216,营口,16:30,tPPKr8fF
 dsx,东胜西,DYC,dongshengxi,dsx,395,0517,鄂尔多斯,15,tqvKpM73
 dtn,大同南,DMV,datongnan,dtn,396,0401,大同,13:30,tPPNrMTP
 dto,大同,DTV,datong,dt,397,0401,大同,13:30,tPPNrA==
-dtu,大屯,DNT,datun,dt,398,0110,长春,16:30,tPPNzQ==
+dtu,大屯,DNT,datun,dt,398,0110,长春,,tPPNzQ==
 dtx,大通西,DTO,datongxi,dtx,399,2201,西宁,15,tPPNqM73
 dwk,大武口,DFJ,dawukou,dwk,400,2301,石嘴山,11:30,tPPO5L/a
 dwu,党武,DWE,dangwu,dw,401,1803,贵阳,15:30,tbPO5A==
@@ -429,7 +429,7 @@ fhc,凤凰城,FHT,fenghuangcheng,fhc,443,0210,丹东,16:30,t++7y7PH
 fhe,汾河,FEV,fenhe,fh,444,0405,太原,15,t9q60w==
 fhu,奉化,FHH,fenghua,fh,445,0910,宁波,09:30,t+67rw==
 fji,富锦,FIB,fujin,fj,446,0052,佳木斯,16:30,uLu99Q==
-fjt,范家屯,FTT,fanjiatun,fjt,447,0110,长春,16:30,t7a80s3N
+fjt,范家屯,FTT,fanjiatun,fjt,447,0110,长春,,t7a80s3N
 flb,涪陵北,FEW,fulingbei,flb,448,3107,涪陵,15:30,uKLB6rGx
 fld,风陵渡,FLV,fenglingdu,fld,449,0413,运城,15,t+fB6rbJ
 fld,浮梁东,FVG,fuliangdong,fld,450,1107,景德镇,17:30,uKHBurar
@@ -900,7 +900,7 @@ msh,名山,MSE,mingshan,ms,922,6740,雅安,15:30,w/vJvQ==
 msh,密山,MSB,mishan,ms,923,0026,鸡西,16:30,w9zJvQ==
 msh,庙山,MSN,miaoshan,ms,924,1314,武汉,18,w+3JvQ==
 msj,马三家,MJT,masanjia,msj,925,0205,沈阳,16:30,wu3I/bzS
-msz,米沙子,MST,mishazi,msz,926,0110,长春,16:30,w9fJs9fT
+msz,米沙子,MST,mishazi,msz,926,0110,长春,,w9fJs9fT
 mwe,麻尾,VAW,mawei,mw,927,1802,都匀,15:30,wunOsg==
 mxi,岷县,MXJ,minxian,mx,928,2124,定西,11:30,4brP2A==
 mxi,勉县,MVY,mianxian,mx,929,2007,汉中,18,w+PP2A==
@@ -1213,7 +1213,7 @@ tht,天河潭,TTE,tianhetan,tht,1239,1803,贵阳,15:30,zOy608y2
 thu,通化,THL,tonghua,th,1240,0135,通化,15:30,zai7rw==
 thu,太湖,TKH,taihu,th,1241,0816,安庆,12:30,zKu6/g==
 tji,同江,TJB,tongjiang,tj,1242,0052,佳木斯,16:30,zay9rQ==
-tjt,陶家屯,TOT,taojiatun,tjt,1243,0110,长春,16:30,zNW80s3N
+tjt,陶家屯,TOT,taojiatun,tjt,1243,0110,长春,,zNW80s3N
 tkd,托克托东,TVC,tuoketuodong,tktd,1244,0511,呼和浩特,15,zdC/y83Qtqs=
 tla,泰来,TLX,tailai,tl,1245,0007,齐齐哈尔,16:30,zKnAtA==
 tlb,吐鲁番北,TAR,tulufanbei,tlfb,1246,2402,吐鲁番,09,zcLCs7essbE=
@@ -1285,7 +1285,7 @@ wna,渭南,WNY,weinan,wn,1311,2002,渭南,18,zrzEzw==
 wnb,渭南北,WBY,weinanbei,wnb,1312,2002,渭南,18,zrzEz7Gx
 wns,五女山,WET,wunvshan,wns,1313,0208,本溪,16:30,zuXFrsm9
 wnx,渭南西,WXY,weinanxi,wnx,1314,2002,渭南,18,zrzEz873
-wpi,沃皮,WPT,wopi,wp,1315,0110,长春,16:30,ztbGpA==
+wpi,沃皮,WPT,wopi,wp,1315,0110,长春,,ztbGpA==
 wqi,汪清,WQL,wangqing,wq,1316,9097,延边,16:30,zfTH5Q==
 wqi,武清,WWP,wuqing,wq,1317,0359,天津,16,zuTH5Q==
 wsh,武胜,WSE,wusheng,ws,1318,1759,广安,15:30,zuTKpA==
@@ -1354,14 +1354,14 @@ xji,徐家,XJB,xujia,xj,1380,0034,哈尔滨,16:30,0Oy80g==
 xjk,小金口,NKQ,xiaojinkou,xjk,1381,1512,惠州,14,0KG98L/a
 xjn,新津南,ITW,xinjinnan,xjn,1382,1707,成都,,0MK98sTP
 xjn,辛集南,IJP,xinjinan,xjn,1383,0365,石家庄,16,0MG8r8TP
-xjz,谢家镇,XMT,xiejiazhen,xjz,1384,0110,长春,16:30,0Lu80tXy
+xjz,谢家镇,XMT,xiejiazhen,xjz,1384,0110,长春,,0Lu80tXy
 xla,西来,XLE,xilai,xl,1385,1707,成都,15:30,zvfAtA==
 xle,新乐,ELP,xinle,xl,1386,0365,石家庄,16,0MLA1g==
 xli,仙林,XPH,xianlin,xl,1387,0705,南京,17,z8nB1g==
 xli,小岭,XLB,xiaoling,xl,1388,0034,哈尔滨,16:30,0KHB6w==
 xlt,锡林浩特,XTC,xilinhaote,xlht,1389,9098,锡林郭勒,15,zv3B1rrGzNg=
 xlx,兴隆县,EXP,xinglongxian,xlx,1390,0309,承德,16,0MvCoc/Y
-xlz,新立镇,XGT,xinlizhen,xlz,1391,0110,长春,16:30,0MLBotXy
+xlz,新立镇,XGT,xinlizhen,xlz,1391,0110,长春,,0MLBotXy
 xlz,兴隆镇,XZB,xinglongzhen,xlz,1392,0034,哈尔滨,16:30,0MvCodXy
 xmb,厦门北,XKS,xiamenbei,xmb,1393,1010,厦门,16:45,z8PDxbGx
 xmb,新民北,XOT,xinminbei,xmb,1395,0205,沈阳,16:30,0MLD8bGx
@@ -1456,7 +1456,7 @@ yji,延吉,YJL,yanji,yj,1484,9097,延边,15:30,0dO8qg==
 yji,阳江,WRQ,yangjiang,yj,1485,1529,阳江,14,0fS9rQ==
 yji,永济,YIV,yongji,yj,1486,0413,运城,15,08C8ww==
 yji,燕郊,AJP,yanjiao,yj,1487,0358,廊坊,16,0eC9vA==
-yji,姚家,YAT,yaojia,yj,1488,0110,长春,16:30,0qa80g==
+yji,姚家,YAT,yaojia,yj,1488,0110,长春,,0qa80g==
 yjs,英吉沙,YIR,yingjisha,yjs,1489,2410,喀什,09,06K8qsmz
 yjx,延吉西,YXL,yanjixi,yjx,1490,9097,延边,15:30,0dO8qs73
 ykd,营口东,YGT,yingkoudong,ykd,1491,0216,营口,16:30,06q/2rar
@@ -1627,7 +1627,7 @@ ahe,艾河,AHP,aihe,ah,1656,0326,保定,,sKy60w==
 ahu,安化,PKQ,anhua,ah,1657,1423,益阳,17:30,sLK7rw==
 ajc,艾家村,AJJ,aijiacun,ajc,1658,2313,吴忠,,sKy80rTl
 ajd,安江东,ADA,anjiangdong,ajd,1659,1403,怀化,17,sLK9rbar
-aji,阿金,AJD,ajin,aj,1660,0226,阜新,16:30,sKK98A==
+aji,阿金,AJD,ajin,aj,1660,0226,阜新,,sKK98A==
 aji,安匠,MJP,anjiang,aj,1661,0309,承德,16,sLK9sw==
 aks,阿克塞,AKJ,akesai,aks,1662,2107,酒泉,11:30,sKK/y8j7
 aky,安口窑,AYY,ankouyao,aky,1663,2005,宝鸡,18,sLK/2tKk
@@ -1839,14 +1839,14 @@ dsh,东升,DRQ,dongsheng,ds,1869,1581,中山,14,tqvJ/Q==
 dsh,登沙河,DWT,dengshahe,dsh,1870,0220,大连,16:30,tcfJs7rT
 dsh,砀山,DKH,dangshan,ds,1871,0806,宿州,17:30,7bjJvQ==
 dsn,大石头南,DAL,dashitounan,dstn,1872,9097,延边,16:30,tPPKr823xM8=
-dst,大石头,DSL,dashitou,dst,1873,9097,延边,16:30,tPPKr823
+dst,大石头,DSL,dashitou,dst,1873,9097,延边,,tPPKr823
 dsz,大石寨,RZT,dashizhai,dsz,1874,1646,兴安,16:30,tPPKr9Wv
 dta,灯塔,DGT,dengta,dt,1875,0212,辽阳,16:30,tcbL/g==
 dta,定陶,DQK,dingtao,dt,1876,0621,菏泽,18,tqjM1Q==
 dta,东台,DBH,dongtai,dt,1877,0739,盐城,17,tqvMqA==
 dtb,大田边,DBM,datianbian,dtb,1878,1901,曲靖,,tPPM77Hf
 dtd,当涂东,OWH,dangtudong,dtd,1879,0810,马鞍山,10,tbHNv7ar
-dth,东通化,DTL,dongtonghua,dth,1880,0135,通化,16:30,tqvNqLuv
+dth,东通化,DTL,dongtonghua,dth,1880,0135,通化,,tqvNqLuv
 dtu,丹徒,RUH,dantu,dt,1881,0706,镇江,08:30,taTNvQ==
 dwa,东湾,DRJ,dongwan,dw,1882,2103,白银,,tqvN5Q==
 dwa,大旺,WWQ,dawang,dw,1883,1507,肇庆,14,tPPN+g==
@@ -1858,7 +1858,7 @@ dxi,代县,DKV,daixian,dx,1888,0403,忻州,15,tPrP2A==
 dxi,甸心,DXM,dianxin,dx,1889,1905,楚雄,15,tenQxA==
 dxs,丹霞山,IRQ,danxiashan,dxs,1890,1501,韶关,14,taTPvMm9
 dxu,东戌,RXP,dongxu,dx,1891,0349,邯郸,,tqvQ5w==
-dxz,东辛庄,DXD,dongxinzhuang,dxz,1892,0237,葫芦岛,16:30,tqvQwdev
+dxz,东辛庄,DXD,dongxinzhuang,dxz,1892,0237,葫芦岛,,tqvQwdev
 dya,大雁,DYX,dayan,dy,1893,9096,呼伦贝尔,16:30,tPPR4w==
 dya,大阳,RET,dayang,dy,1894,0208,本溪,,tPPR9A==
 dyb,丹阳北,EXH,danyangbei,dyb,1895,0706,镇江,08:30,taTR9LGx
@@ -1964,7 +1964,7 @@ ggm,葛根庙,GGT,gegenmiao,ggm,1994,1646,兴安,16:30,uPC4+cPt
 ggz,高各庄,GGP,gaogezhuang,ggz,1995,0357,北京,,uN+499ev
 ghb,广汉北,GVW,guanghanbei,ghb,1996,1704,德阳,15:30,ueO6urGx
 ghe,甘河,GAX,ganhe,gh,1997,9096,呼伦贝尔,16:30,uMq60w==
-gjd,郭家店,GDT,guojiadian,gjd,1998,0112,四平,16:30,ufm80rXq
+gjd,郭家店,GDT,guojiadian,gjd,1998,0112,四平,,ufm80rXq
 gji,个旧,JJM,gejiu,gj,1999,1949,个旧,15,uPa+yQ==
 gla,古浪,GLJ,gulang,gl,2000,2104,武威,11:30,ucXAyw==
 glb,橄榄坝,GVM,ganlanba,glb,2001,1909,景洪,15,6c/prbDT
@@ -2267,7 +2267,7 @@ kyu,昆玉,ESR,kunyu,ky,2298,2419,和田,09,wKXT8Q==
 lba,冷坝,LBE,lengba,lb,2299,1806,六盘水,15:30,wOSw0w==
 lbb,琅勃拉邦,VJM,langbolabang,lblb,2300,9207,琅勃拉邦,,wMWyqsCtsO4=,lao,老挝,Luang Prabang
 lbi,来宾,UBZ,laibin,lb,2301,1628,来宾,17:30,wLSx9g==
-lbi,老边,LLT,laobian,lb,2302,0216,营口,16:30,wM+x3w==
+lbi,老边,LLT,laobian,lb,2302,0216,营口,,wM+x3w==
 lbi,灵璧,GMH,lingbi,lb,2303,0806,宿州,18,wenotQ==
 lbu,寮步,LTQ,liaobu,lb,2304,1504,东莞,14,5byyvQ==
 lcb,洛川北,LRY,luochuanbei,lcb,2305,2010,延安,18,wuW0qLGx
@@ -2587,7 +2587,7 @@ qls,青龙山,QGH,qinglongshan,qls,2618,0801,淮北,18,x+DB+sm9
 qme,祁门,QIH,qimen,qm,2619,0815,黄山,10,xu7DxQ==
 qmn,祁门南,QNU,qimennan,qmn,2620,0815,黄山,10,xu7DxcTP
 qmo,且末,QMR,qiemo,qm,2621,0164,巴音郭楞蒙古自治州,09,x9LEqQ==
-qmt,前磨头,QMP,qianmotou,qmt,2622,0339,衡水,16,x7DEpc23
+qmt,前磨头,QMP,qianmotou,qmt,2622,0339,衡水,,x7DEpc23
 qsb,清水北,QEJ,qingshuibei,qsb,2623,2107,酒泉,11:30,x+XLrrGx
 qsh,青神,QVW,qingshen,qs,2624,6711,眉山,15:30,x+DJ8Q==
 qsh,岐山,QAY,qishan,qs,2625,2005,宝鸡,18,4arJvQ==
@@ -2689,7 +2689,7 @@ sle,疏勒,SUR,shule,sl,2720,2410,喀什,09,yujA1Q==
 slh,舍力虎,VLD,shelihu,slh,2721,0507,通辽,16:30,yeHBprui
 slh,疏勒河,SHJ,shulehe,slh,2722,2107,酒泉,11:30,yujA1brT
 sli,双辽,ZJD,shuangliao,sl,2723,0112,四平,16:30,y6vByQ==
-sli,石岭,SOL,shiling,sl,2724,0112,四平,16:30,yq/B6w==
+sli,石岭,SOL,shiling,sl,2724,0112,四平,,yq/B6w==
 sli,石磷,SPB,shilin,sl,2725,0026,鸡西,16:30,yq/B1w==
 slo,石龙,SLQ,shilong,sl,2726,1504,东莞,,yq/B+g==
 slq,萨拉齐,SLC,salaqi,slq,2727,0512,包头,15,yPjArcbr
@@ -2715,7 +2715,7 @@ ssb,三水北,ARQ,sanshuibei,ssb,2746,1506,佛山,14,yP3LrrGx
 ssb,松山湖北,KUQ,songshanhubei,sshb,2747,1504,东莞,14,y8nJvbr+sbE=
 ssh,鄯善,SSR,shanshan,ss,2748,2402,吐鲁番,09,27fJxg==
 ssh,狮山,KSQ,shishan,ss,2749,1506,佛山,14,yqjJvQ==
-ssh,松树,SFT,songshu,ss,2750,0220,大连,16:30,y8nK9w==
+ssh,松树,SFT,songshu,ss,2750,0220,大连,,y8nK9w==
 ssh,三水,SJQ,sanshui,ss,2751,1506,佛山,14,yP3Lrg==
 ssh,泗水,OSK,sishui,ss,2752,0620,济宁,18,4/TLrg==
 ssh,山市,SQB,shanshi,ss,2753,0044,牡丹江,16:30,yb3K0A==
@@ -2799,7 +2799,7 @@ tcs,铁刹山,PST,tiechashan,tcs,2830,0208,本溪,,zPrJssm9
 tcu,桃村,TCK,taocun,tc,2831,0611,烟台,10:30,zNK05Q==
 tdb,田东北,TBZ,tiandongbei,tdb,2832,1610,百色,17:30,zO+2q7Gx
 tdo,田东,TDZ,tiandong,td,2833,1610,百色,17:30,zO+2qw==
-tga,天岗,TGL,tiangang,tg,2834,0117,吉林,16:30,zOy42g==
+tga,天岗,TGL,tiangang,tg,2834,0117,吉林,,zOy42g==
 tgd,太谷东,TEV,taigudong,tgd,2835,5409,晋中,15,zKu5yLar
 tgk,铁干里克,VAR,tieganlike,tglk,2836,2408,库尔勒,09,zPq4ycDvv8s=
 tgl,土贵乌拉,TGC,tuguiwula,tgwl,2837,9011,乌兰察布,15,zcG5887awK0=
@@ -2989,7 +2989,7 @@ xjd,徐家店,HYK,xujiadian,xjd,3020,0611,烟台,10:30,0Oy80rXq
 xji,峡江,EJG,xiajiang,xj,3021,1114,吉安,17:30,z7+9rQ==
 xji,新绛,XJV,xinjiang,xj,3022,0413,运城,15,0MLnrQ==
 xjn,仙居南,XNU,xianjunan,xjn,3023,0946,台州,09:30,z8m+08TP
-xjt,许家屯,XJT,xujiatun,xjt,3024,0220,大连,16:30,0O280s3N
+xjt,许家屯,XJT,xujiatun,xjt,3024,0220,大连,,0O280s3N
 xju,仙居,XJU,xianju,xj,3025,0946,台州,09:30,z8m+0w==
 xka,兴凯,EKB,xingkai,xk,3026,0026,鸡西,16:30,0Mu/rQ==
 xko,溪口,XKU,xikou,xk,3027,0910,宁波,09:30,z6q/2g==
