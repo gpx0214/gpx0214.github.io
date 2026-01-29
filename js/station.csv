@@ -336,7 +336,7 @@ dgd,东莞东,DMQ,dongguandong,dgd,349,1504,东莞,08:30,tqvduLar
 dgn,东莞南,DNA,dongguannan,dgn,350,1504,东莞,14,tqvduMTP
 dgs,大孤山,RMT,dagushan,dgs,351,0210,丹东,16:30,tPO5wsm9
 dgu,东莞,RTQ,dongguan,dg,352,1504,东莞,08:30,tqvduA==
-dgx,东莞西,WGQ,dongguanxi,dgx,354,1504,东莞,14,tqvduM73
+dgx,东莞西,WGQ,dongguanxi,dgx,353,1504,东莞,14,tqvduM73
 dhs,大虎山,DHD,dahushan,dhs,355,0228,锦州,16:30,tPO7osm9
 dhu,敦化,DHL,dunhua,dh,356,9097,延边,16:30,tti7rw==
 dhu,敦煌,DHJ,dunhuang,dh,357,2107,酒泉,10:30,tti7zQ==
@@ -1706,8 +1706,8 @@ bzh,霸州,RMP,bazhou,bz,1738,0358,廊坊,16,sNTW3Q==
 bzh,北宅,BVP,beizhai,bz,1739,0357,北京,,sbHVrA==
 bzx,巴中西,BZE,bazhongxi,bzx,1740,9014,巴中,15:30,sM3W0M73
 bzx,霸州西,FOP,bazhouxi,bzx,1741,0358,廊坊,16,sNTW3c73
-can,潮安,CMQ,chaoan,ca,1743,1515,潮州,14,s7Gwsg==
-can,长安,CAA,changan,ca,1744,1504,东莞,14,s6Swsg==
+can,长安,CAA,changan,ca,1742,1504,东莞,14,s6Swsg==
+can,潮安,CMQ,chaoan,ca,1744,1515,潮州,14,s7Gwsg==
 cax,长安西,CXA,changanxi,cax,1745,1504,东莞,14,s6Swss73
 cbb,赤壁北,CIN,chibibei,cbb,1746,1317,咸宁,18,s+Cx2rGx
 cch,澄城,CUY,chengcheng,cc,1747,2002,渭南,18,s86zxw==
@@ -2079,8 +2079,8 @@ hlt,呼鲁斯太,VTJ,hulusitai,hlst,2113,9099,阿拉善,,uvTCs8u5zKs=
 hmb,虎门北,HBA,humenbei,hmb,2114,1504,东莞,14,u6LDxbGx
 hmd,虎门东,HDA,humendong,hmd,2115,1504,东莞,14,u6LDxbar
 hme,黄梅,VEH,huangmei,hm,2116,9026,黄冈,12:30,u8bDtw==
-hme,虎门,IUQ,humen,hm,2117,1504,东莞,14,u6LDxQ==
-hme,洪梅,HMA,hongmei,hm,2118,1504,东莞,14,uunDtw==
+hme,洪梅,HMA,hongmei,hm,2117,1504,东莞,14,uunDtw==
+hme,虎门,IUQ,humen,hm,2118,1504,东莞,14,u6LDxQ==
 hmy,韩麻营,HYP,hanmaying,hmy,2119,0309,承德,,uqvC6dOq
 hna,衡南,HNG,hengnan,hn,2120,1416,衡阳,17:30,uuLEzw==
 hnd,桦南东,KNB,huanandong,hnd,2121,0028,桦南,09,6OvEz7ar
@@ -3261,7 +3261,7 @@ zxi,钟祥,ZTN,zhongxiang,zx,3297,1305,荆门,18,1tPP6Q==
 zxi,张辛,ZIP,zhangxin,zx,3298,0357,北京,,1cXQwQ==
 zxn,钟祥南,VKN,zhongxiangnan,zxn,3299,1375,钟祥,18,1tPP6cTP
 zxq,正镶白旗,ZXC,zhengxiangbaiqi,zxbq,3300,9098,锡林郭勒,15,1f3P4rDXxuw=
-zyn,遵义南,ZNE,zunyinan,zyn,3301,1807,遵义,15:30,1/HS5cTP
+zyn,乌江寨,ZNE,wujiangzhai,wjz,3301,1807,遵义,,ztq9rdWv
 zyu,竹园,ZUM,zhuyuan,zy,3302,1955,蒙自,15,1vHUsA==
 zyu,招远,VDK,zhaoyuan,zy,3303,0611,烟台,10:30,1dDUtg==
 zzd,枣庄东,ZNK,zaozhuangdong,zzd,3304,0628,枣庄,18,1ObXr7ar
