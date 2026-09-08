@@ -132,13 +132,16 @@ form {
   color: #ffffff;
 }
 
-.type400AFZ {
+.type400AFZ,
+.type400AFS,
+.type400AFAE {
   background-color: #d4d4d4;
   color: #d06301;
 }
 
-.type400BFZ {
-  background-color: #bf9540;
+.type400BFZ,
+.type400BFS {
+    background-color: #bf9540;
   color: #fdfc9a;
 }
 
@@ -643,16 +646,46 @@ function traintype(code, service) {
   return code[0]
 }
 
-
-var default_line = "ZTK_Z_ZTK_1|GD_G_GD_1|CS_C_CS_1"
+// 车次等级_颜色_线路名_上下行0/1
+var default_line = "ZTK_Z_ZTK_1|ZTK_Z_ZTK_0|GDC_G_GD_1|GDC_G_GD_0" // "ZTK_Z_ZTK_1|GD_G_GD_1|CS_C_CS_1"
 var linemap = {
   "BJP": "ZTK_Z_京沪_1|GDC_D_京哈_1|_Z_北京西_0",
   "BXP": "ZTK_Z_京广_1|GD_G_京广_1|CS_Z_京九_1",
   "VNP": "GD_G_京沪_1|C_C_京津_1|ZTK_Z_京沪_1",
   "VAP": "GDS_G_京张_1|ZTK_K_京张_1",
+  "FTP": "ZTK_Z_京广_1|GD_G_京广_1|ZTK_Z_京沪_1|ZTK_Z_京沪_0",
   "IFP": "GDC_G_京沈_1|S_S_东北环_1|_G_北京_0",
   "QIP": "GDS_G_京张_1|_G_北京北_0",
-  "IZQ": "G_G_京广_1|D_D_南广贵广_1|CS_C_广珠_1|_G_京广_0"
+  "IZQ": "G_G_京广_1|D_D_南广贵广_1|CS_C_广珠_1|_G_京广_0",
+  "TJP": "ZTK_Z_京山_1|C_C_京津_0|GD_G_京沪_0|ZTK_Z_京山_0|C_C_京津_1|GD_G_津秦_1",
+  "TXP": "ZTK_Z_京沪_1|G_G_京沪_1|D_D_津保_1|ZTK_Z_京沪_0|C_C_京津_0|GD_G_津秦_0",
+  "SJP": "ZTKC_Z_京广_1|GD_G_京广_1|ZTKC_Z_京广_0|GD_G_京广_0",
+
+  "ZZF": "ZTKGDC_Z_京广_1|ZTKGDC_Z_京广_0",
+  "ZAF": "GD_G_京广_1|GD_G_京广_0|C_C_郑机_1|C_C_郑开_0|GD_G_徐兰_1|GD_G_徐兰_0|GD_G_郑万_1|GD_G_郑济_0",
+
+  "WHN": "G_G_京广_1|G_G_京广_0|D_D_沪汉蓉_1|D_D_沪汉蓉_0|C_C_C_1|C_C_C_0",
+  "CWQ": "GDC_G_京广_1|GDC_G_京广_0|GDC_G_沪昆_1|GDC_G_沪昆_0",
+
+  "ICW": "DZTK_D_沪汉蓉_0|G_G_西成_0|G_G_成渝_1|D_D_D_1|ZTK_Z_成昆_1",
+
+  "CUW": "DZ_D_沪汉蓉_0|GDCZ_D_沪汉蓉_1|TK_K_TK_0|TK_K_TK_1|G_G_G_0",
+
+  "GZQ": "ZTK_Z_广深3-4_1|GDC_C_广深1-2_1|ZTK_Z_广深3-4_0|GDC_C_广深1-2_0",
+  "IZQ": "G_G_京广_0|CD_D_贵广南广_0|GD_G_京广_1|C_C_广珠_1",
+
+  "SZQ": "ZTK_Z_广深3-4_0|GDC_C_广深1-2_0",
+
+  "SHH":"ZTK_Z_京沪_0|GDC_D_沪宁_0",
+  "AOH":"G_G_京沪_0|DCZ_D_沪宁_0|GDCZ_G_沪杭_1",
+
+  "DUT": "TK_K_沈丹_0|GDCZ_D_沈丹_0",
+
+  "GLZ": "ZTKGDC_D_衡柳_1|ZTKGDC_D_衡柳_0|ZTK_K_湘桂_1|ZTK_K_湘桂_0",
+  "GBZ": "ZTKGDC_D_衡柳_1|ZTKGDC_D_衡柳_0|ZTK_K_湘桂_1|ZTK_K_湘桂_0",
+
+  "LZZ": "GDC_D_柳南客专_1|ZTKGDC_D_衡柳_0|ZTK_K_湘桂_1", // 黔桂 焦柳
+
 }
 
 function lineHTML(stat) {
@@ -713,6 +746,8 @@ BJPHBB = [
   "Z4062",
   "Z4063",
   "Z4064",
+  "Z4203",
+  "Z4204",
   "T17",
   "T18",
   "T39",
@@ -721,10 +756,18 @@ BJPHBB = [
   "T48",
   "T297",
   "T298",
+  "T3015",
+  "T3017",
   "T4115",
   "T4116",
   "T4117",
   "T4118",
+  "T4161",
+  "T4162",
+  "T5601",
+  "T5602",
+  "T5603",
+  "T5604",
   "T5685",
   "T5686",
   "T5687",
@@ -771,10 +814,26 @@ BJPHBB = [
   'K1304',
   'K2549',
   'K2550',
+  'K4011',
+  'K4012',
+  'K4019',
+  'K4020',
+  'K4023',
+  'K4024',
+  'K4041',
+  'K4042',
+  'K4043',
+  'K4044',
+  'K4115',
+  'K4116',
+  'K4409',
+  'K4410',
   'K4675',
   'K4676',
   'K5209',
   'K5210',
+  "K5243",
+  "K5244",
   "K5251",
   'K5253',
   'K5284',
@@ -867,6 +926,8 @@ VAPTLD = [
   "K1190",
   "K2559",
   "K2560",
+  "K4021",
+  "K4022",
   "S501",
   "S502",
   "S503",
@@ -894,10 +955,23 @@ BJPCDP = [
   "K7754",
 ]
 BJPSHH = [
-  "D725",
-  "D726",
+  "G3",
+  "G5",
+  "G28",
+  "G55",
+  "G71",
+  "G882",
+  "G984",
+  "G1527",
+  "G7808",
+  "G8901",
+  "G8902",
 ]
 BXPGZQ = [
+  "D51",
+  "D52",
+  "D53",
+  "D54",
   "Z205",
   "Z206",
   "Z207",
@@ -986,6 +1060,17 @@ BXPJQO = [
   "C128",
   "C129",
   "C130",
+
+  "G8851",
+  "G8852",
+  "G8853",
+  "G8854",
+  "G8855",
+  "G8856",
+  "G8857",
+  "G8858",
+  "G8859",
+  "G8860",
 ]
 BXPYPV = [
   "6437",
@@ -1005,8 +1090,8 @@ BXPBTC = [
   "2602",
   "2604",
   "2604",
-  "Z179",
-  "Z180",
+  // "Z179",
+  // "Z180",
   "Z184",
   "Z282",
   "Z284",
@@ -1060,6 +1145,33 @@ VNPTJP = [
   "G8932",
 ]
 
+GIWLZZ = [
+  "5538",
+  "5540",
+  "T542",
+  "T544",
+  "T872",
+  "T874",
+  "T8728",
+  "T8729",
+  "K9316",
+  "K9320",
+]
+
+LZZNNZ = [
+  "Z5",
+  "Z6",
+  "Z285",
+  "Z286",
+  "T289",
+  "T290",
+  "D195",
+  "D196",
+  "D197",
+  "D198",
+]
+
+
 function stationHTML(stat, arr) {
   linearr = (linemap[stat] || default_line).split("|")
 
@@ -1088,8 +1200,14 @@ function stationHTML(stat, arr) {
       row = linearr[lineidx].split("_")
       if (row[0].indexOf(t) > -1) {
         linenum = lineidx * 2
+        if (row[3].indexOf(Number(Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep))) > -1) {
+          break
+        }
       }
     }
+    // if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+    //   linenum += linearr.length*2
+    // }
 
     if (stat == 'BJP') {
       if ('C'.indexOf(arr[i].code[0]) > -1) {
@@ -1125,19 +1243,19 @@ function stationHTML(stat, arr) {
         linenum = 1 * 2
         linename = "京承"
       }
-      if ('S'.indexOf(arr[i].code[0]) > -1 || ['K7753','K7754','G7812','G7816','K548','G935','G3694'].indexOf(arr[i].code) > -1) {
+      if ('S'.indexOf(arr[i].code[0]) > -1 || ['K411','K412','K7753','K7754','K548','Z61','Z62','G107','G108','G7812','G7816'].indexOf(arr[i].code) > -1) {
         if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
-          linenum = 1 * 2
+          // linenum = 1 * 2
         } else {
           linenum = 2 * 2
         }
 
       }
-      if (['G7814','G7818','K546','G65','G526','G421','G422','G485','G486'].indexOf(arr[i].code) > -1) {
+      if (['K546','G301','G306','G339','G526','G3837','G3838','G7814','G7818'].indexOf(arr[i].code) > -1) {
         if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
           linenum = 2 * 2
         } else {
-          linenum = 1 * 2
+          // linenum = 1 * 2
         }
 
       }
@@ -1170,14 +1288,14 @@ function stationHTML(stat, arr) {
         linenum = 2 * 2
         linename = "京原"
       }
-      if ('S'.indexOf(arr[i].code[0]) > -1 || ['K7753','K7754','K548','Z61','Z62','G935','G3694'].indexOf(arr[i].code) > -1) {
+      if ('S'.indexOf(arr[i].code[0]) > -1 || ['K411','K412','K7753','K7754','K548','Z61','Z62','G107','G108','G7812','G7816'].indexOf(arr[i].code) > -1) {
         if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
           linenum = 2 * 2
         } else {
           // linenum = 0 * 2
         }
       }
-      if (['K546','G65','G526','G421','G422','G485','G486'].indexOf(arr[i].code) > -1) { // BJP 切换上下行
+      if (['K546','G301','G306','G339','G526','G3837','G3838','G7814','G7818'].indexOf(arr[i].code) > -1) { // BJP 切换上下行
         if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
           // linenum = 0 * 2
         } else {
@@ -1202,6 +1320,20 @@ function stationHTML(stat, arr) {
           linenum += 1 * 2
         }
 
+      }
+    }
+    if (stat == 'LZZ') {
+      if (GIWLZZ.indexOf(arr[i].code) > -1) {
+        linename = "黔桂"
+        linenum += 2 * 2
+      }
+      if (LZZNNZ.indexOf(arr[i].code) > -1) {
+        // linename = "柳南客专"
+          if (Number(arr[i].code.slice(-1)) % 2 == Number(arr[i].is_dep)) {
+          linenum = 0 * 2
+        } else {
+          linenum = 1 * 2
+        }
       }
     }
     linenum += (arr[i].is_dep == "1" ? 2 : 1) //TODO
@@ -1326,7 +1458,8 @@ var bureau_arr = [
   "西宁,青,O",
   "太原,太,V",
   "武汉,武,N",
-  "西安,西,Y"
+  "西安,西,Y",
+  "港铁,港,X"
 ]
 
 var bureau_map = {}
@@ -1377,6 +1510,21 @@ function css_emu(t) {
     }
   }
 
+  if (t.indexOf("S") > -1) {
+    if (t.indexOf("AF") > -1) {
+      return "type400AFS"
+    }
+    if (t.indexOf("BF") > -1) {
+      return "type400BFS"
+    }
+  }
+
+  if (t.indexOf("AE") > -1) {
+    if (t.indexOf("AF") > -1) {
+      return "type400AFAE"
+    }
+  }
+
   if ((t.indexOf("200J-D") > -1) || (t.indexOf("200J1-D") > -1) || (t.indexOf("200J3-C") > -1) || (t.indexOf("200J1-C") > -1) ) {
     return "type200J3C"
   }
@@ -1411,13 +1559,13 @@ function emu_type_no(bureau, emu_type, emu_no, emu_double) {
   if (emu_double || /2\*|重/.test(emu_type)) {
     c += "double"
   }
-  if (emu_type.indexOf("~") > -1) {
+  if (emu_type.indexOf("~") > -1 || emu_type.indexOf("AC380V") > -1) {
     c += " " + "AC380V"
   }
-  if (/-$/g.test(emu_type)) {
+  if (/-$/g.test(emu_type) || emu_type.indexOf("DC600V") > -1) {
     c += " " + "DC600V"
   }
-  emu_type = emu_type.replace(/[-~]$/g, '')
+  emu_type = emu_type.replace(/[-~]$/g, '').replace(/AC380V|DC600V$/g, '')
   c += " " + css_emu(emu_type)
   if (emu_type == 'BF-C' && emu_no == '5162') {
     c += " " + "type400BFC5162"
@@ -1425,7 +1573,7 @@ function emu_type_no(bureau, emu_type, emu_no, emu_double) {
   if (emu_type == 'BF-Z' && emu_no == '0524') {
     c += " " + "type400BFZ0524"
   }
-  return "<br />" + (bureau_map[bureau] || bureau || "") + "<span class=\"" + c + "\">" + emu_type.replace("-", "").replace("200", "") + (emu_no?"<br />":"")
+  return "<br />" + (bureau_map[bureau] || bureau || "") + "<span class=\"" + c + "\">" + emu_type.replace("-", "").replace("CRH", "").replace("CR", "").replace("200", "").replace(/(AF|BF)(?=[ABG]*[ZS]$)/, '') + (emu_no?"<br />":"")
     + emu_no.split("_").join("<br />") + "</span>"
 }
 

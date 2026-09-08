@@ -191,16 +191,6 @@ CB4=ROUNDUP($L4/5,1)*5
 </pre>
 
 <pre>
-/*
-清河-张家口
-0.80 72
-0.85 77
-0.88 79
-0.92 83
-0.95 86
-1.00 90 公布
-*/
-
 0.05861=0.135*1.3*2.2+0.2
 
 0.05861*2.65*1.5=0.23297475=0.2330
@@ -247,6 +237,18 @@ console.log(miles_off_emu(1229)*0.484*.95, 1.5) // 520.5
 console.log(miles_off_emu(1591)*0.484*.95, 1.5) // 649
 console.log(miles_off_emu(2298)*0.484*.95, 2  ) // 862
 
+
+/*
+清河-张家口
+0.80 72
+0.85 77
+0.88 79
+0.92 83
+0.95 86
+1.00 90 公布
+*/
+
+
 G 京广 0.55 高铁递远递减 最后四舍五入
 // 241 151
 console.log(miles_off_emu( 281)*0.55) //  155
@@ -259,11 +261,18 @@ console.log((miles_off_emu(2298)-miles_off_emu(1229))*.484*.95, 1.5) // 341.5+62
 console.log(miles_off_emu(1591)*0.55) //  778
 console.log(miles_off_emu(2298)*0.55) // 1033
 
+24.06.15 京沪 AF-BS BF-BS 1.0二等 1.6一等 2.2优选一等D 3.5商务座9
 
 
 
 
+坪石-广州白云 303km
 坪石-广州 308km
+301-350km 软席 客68 加快8/16 空调9 卧59/66
+301-350km 高包 客126 加快12/24 空调17 卧110/122
+301-350km 联合 93 152/159 277/289 不含客运杂费
+Z100 广州白云 1781-1840km 206 353/365/377 640/668(303km广铁补充规定) 1029/1077(无补充规定 新空调上浮1.5改成2.8)
+
 
 J 公布票价 0.3086 无递远递减 最后四舍五入
            1.6/1.0 2.15/1.90 1.75/1.6/1.5
@@ -279,12 +288,11 @@ J 公布票价 0.3086 无递远递减 最后四舍五入
 2081?重庆西     642 1381/1220 1124/1028/963
 2302 广州 1137? 710 1527/1350 1243/1137/1066
 
-8 广州-广州东
-
-
 707+8 长沙-广州 221 474/419 386/353/331
 521+8 广州-衡阳 163 351/310 286/261/245
 374+8 郴州-广州 118 265/235 216/198/185
+8 广州-广州东
+
 
 </pre>
 
@@ -465,7 +473,6 @@ J 公布票价 0.3086 无递远递减 最后四舍五入
         rz + fast * jk + kd * kt + gr1,
         rz + fast * jk + kd * kt + gr3
       )
-
       return ret
   }
 
@@ -482,6 +489,18 @@ J 公布票价 0.3086 无递远递减 最后四舍五入
         str += (""
           + "<td class=\"right\">" + ("    " + col[0]).slice(-4) + "-" + ("    " + col[1]).slice(-4) + "</td>\n"
           + "<td class=\"right typeC\">" + col[2] + "</td>\n"
+
+          + "<td class=\"right typeD seat_match\">" + pricefont(col[15].toFixed(1)) + "</td>\n"
+          + "<td class=\"right typeG seat_match\">" + pricefont(col[16].toFixed(1)) + "</td>\n"
+
+          + "<td class=\"right typeD\">" + pricefont(col[17].toFixed(1)) + "</td>\n"
+          + "<td class=\"right typeD\">" + pricefont(col[18].toFixed(1)) + "</td>\n"
+          + "<td class=\"right typeD seat_match\">" + pricefont(col[19].toFixed(1)) + "</td>\n"
+          + "<td class=\"right typeG\">" + pricefont(col[20].toFixed(1)) + "</td>\n"
+          + "<td class=\"right typeG seat_match\">" + pricefont(col[21].toFixed(1)) + "</td>\n"
+          + "<td class=\"right typeC\">" + pricefont(col[22].toFixed(1)) + "</td>\n"
+          + "<td class=\"right typeC seat_match\">" + pricefont(col[23].toFixed(1)) + "</td>\n"
+
           + "<td class=\"right typeD\">" + pricefont(col[3].toFixed(1)) + "</td>\n"
           + "<td class=\"right typeG\">" + pricefont(col[4].toFixed(1)) + "</td>\n"
 
@@ -496,16 +515,6 @@ J 公布票价 0.3086 无递远递减 最后四舍五入
           + "<td class=\"right typeC\">" + col[13] + "</td>\n"
           + "<td class=\"right typeC\">" + col[14] + "</td>\n"
 
-          + "<td class=\"right typeD seat_match\">" + pricefont(col[15].toFixed(1)) + "</td>\n"
-          + "<td class=\"right typeG seat_match\">" + pricefont(col[16].toFixed(1)) + "</td>\n"
-
-          + "<td class=\"right typeD\">" + pricefont(col[17].toFixed(1)) + "</td>\n"
-          + "<td class=\"right typeD\">" + pricefont(col[18].toFixed(1)) + "</td>\n"
-          + "<td class=\"right typeD seat_match\">" + pricefont(col[19].toFixed(1)) + "</td>\n"
-          + "<td class=\"right typeG\">" + pricefont(col[20].toFixed(1)) + "</td>\n"
-          + "<td class=\"right typeG seat_match\">" + pricefont(col[21].toFixed(1)) + "</td>\n"
-          + "<td class=\"right typeC\">" + pricefont(col[22].toFixed(1)) + "</td>\n"
-          + "<td class=\"right typeC seat_match\">" + pricefont(col[23].toFixed(1)) + "</td>\n"
         )
         str += "</tr>\n"
       }
